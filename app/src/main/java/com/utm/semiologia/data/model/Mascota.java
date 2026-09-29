@@ -66,7 +66,7 @@ public class Mascota {
         long ahora = System.currentTimeMillis();
         Mascota m = new Mascota();
         m.usuarioId = usuarioId;
-        m.nombre = "Michi";
+        m.nombre = "Mateo";
         m.especie = "gato";
         m.hambre = 100;
         m.felicidad = 80;

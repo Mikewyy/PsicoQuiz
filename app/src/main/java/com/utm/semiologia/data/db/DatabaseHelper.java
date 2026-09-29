@@ -180,7 +180,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id                      INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "usuario_id              INTEGER NOT NULL UNIQUE REFERENCES " +
                         T_USUARIOS + "(id) ON DELETE CASCADE," +
-                "nombre                  TEXT    NOT NULL DEFAULT 'Michi'," +
+                "nombre                  TEXT    NOT NULL DEFAULT 'Mateo'," +
                 "especie                 TEXT    NOT NULL DEFAULT 'gato'," +
                 // Barras 0..100. 'hambre' es INVERSA: 100 = alimentado, 0 = hambriento.
                 "hambre                  INTEGER NOT NULL DEFAULT 100," +

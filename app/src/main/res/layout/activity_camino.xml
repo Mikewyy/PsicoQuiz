@@ -2,65 +2,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
 
+    <!-- Encabezado -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/primary"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp">
 
         <TextView
             android:id="@+id/btnVolver"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/camino_volver"
-            android:textColor="@color/on_primary"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackground"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_stat"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:minWidth="44dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/camino_volver"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="12dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/evaluacion_titulo"
-                android:textColor="@color/on_primary"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.85"
                 android:text="@string/evaluacion_subtitulo"
-                android:textColor="@color/on_primary"
-                android:textSize="12sp"/>
+                android:textColor="#FFFFFF"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvPuntos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/puntos"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:background="@drawable/bg_stat"
+            android:paddingStart="14dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="8dp"
+            android:textColor="#FDE68A"
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Lista de tramos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTramos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="32dp" />
 </LinearLayout>

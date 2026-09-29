@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Semiología Psicológica</string>
+    <string name="registro_titulo">Crear cuenta</string>
+    <string name="registro_subtitulo">Regístrate y recibe tu primera mascota</string>
+    <string name="btn_crear_cuenta">Crear cuenta</string>
+    <string name="link_ya_tengo_cuenta">¿Ya tienes cuenta? Inicia sesión</string>
 
     <!-- Autenticación -->
     <string name="login_titulo">Bienvenido</string>

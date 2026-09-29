@@ -5,21 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:fillViewport="true">
+    android:background="#F4F3FF"
+    android:fillViewport="true"
+    android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- ============ CABECERA: saludo + puntos/nivel/racha ============ -->
+        <!-- ============ CABECERA ============ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_header"
+            android:background="@drawable/bg_header_moderno"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingStart="20dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="56dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,19 +33,19 @@
 
                 <TextView
                     android:id="@+id/tvAvatar"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_avatar_circle"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_circle"
                     android:gravity="center"
-                    android:textColor="@color/on_primary"
-                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="19sp"
                     android:textStyle="bold"
                     tools:text="AL" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="14dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -49,8 +53,8 @@
                         android:id="@+id/tvSaludo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/on_primary"
-                        android:textSize="20sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         tools:text="Hola, Ana" />
 
@@ -60,58 +64,79 @@
                         android:layout_height="wrap_content"
                         android:alpha="0.85"
                         android:text="@string/saludo_sub"
-                        android:textColor="@color/on_primary"
+                        android:textColor="#FFFFFF"
                         android:textSize="13sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/btnSalir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_circle"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
                     android:text="⋯"
-                    android:textColor="@color/on_primary"
-                    android:textSize="22sp" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
             </LinearLayout>
 
-            <!-- Fila de 3 métricas -->
+            <!-- Métricas -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="22dp"
                 android:orientation="horizontal">
 
-                <LinearLayout style="@style/CardStat">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp">
 
                     <TextView
                         android:id="@+id/tvPuntos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/puntos"
-                        android:textSize="20sp"
+                        android:textColor="#FDE68A"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         tools:text="1 250 pts" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:alpha="0.8"
+                        android:layout_marginTop="2dp"
+                        android:alpha="0.85"
                         android:text="Puntos"
-                        android:textColor="@color/on_primary"
+                        android:textColor="#FFFFFF"
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <LinearLayout style="@style/CardStat">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp">
 
                     <TextView
                         android:id="@+id/tvNivel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/on_primary"
-                        android:textSize="20sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         tools:text="Nivel 4" />
 
@@ -119,29 +144,41 @@
                         android:id="@+id/tvNivelProgreso"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:alpha="0.8"
-                        android:textColor="@color/on_primary"
-                        android:textSize="12sp"
+                        android:layout_marginTop="2dp"
+                        android:alpha="0.85"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
                         tools:text="320 pts al nivel 5" />
                 </LinearLayout>
 
-                <LinearLayout style="@style/CardStat">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp">
 
                     <TextView
                         android:id="@+id/tvRacha"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/racha"
-                        android:textSize="20sp"
+                        android:textColor="#FDBA74"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         tools:text="7 días" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:alpha="0.8"
+                        android:layout_marginTop="2dp"
+                        android:alpha="0.85"
                         android:text="Racha 🔥"
-                        android:textColor="@color/on_primary"
+                        android:textColor="#FFFFFF"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -150,11 +187,12 @@
                 android:id="@+id/tvAvisoRacha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#33FFFFFF"
-                android:padding="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_aviso"
+                android:gravity="center"
+                android:padding="10dp"
                 android:text="⚠ Estudia hoy para no perder tu racha"
-                android:textColor="@color/on_primary"
+                android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:visibility="gone"
                 tools:visibility="visible" />
@@ -164,10 +202,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="14dp"
-            android:background="@drawable/bg_card"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_card_full"
+            android:elevation="6dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -175,17 +216,24 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/ivMascota"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:contentDescription="@string/mascota_seccion"
-                    android:src="@drawable/pet_cat" />
+                <FrameLayout
+                    android:layout_width="112dp"
+                    android:layout_height="112dp"
+                    android:background="@drawable/bg_pet_stage">
+
+                    <ImageView
+                        android:id="@+id/ivMascota"
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/mascota_seccion"
+                        android:src="@drawable/pet_cat_nuevo" />
+                </FrameLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -193,127 +241,177 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mascota_seccion"
-                        android:textColor="@color/on_surface_variant"
+                        android:textColor="#6B7280"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tvMascotaNombre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/on_surface"
-                        android:textSize="18sp"
+                        android:layout_marginTop="2dp"
+                        android:textColor="#1E1B4B"
+                        android:textSize="22sp"
                         android:textStyle="bold"
-                        tools:text="Michi · Gato" />
+                        tools:text="Mateo · Gato" />
 
                     <TextView
                         android:id="@+id/tvMascotaEstado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/primary"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_pill"
+                        android:paddingStart="14dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="#4F46E5"
                         android:textSize="13sp"
+                        android:textStyle="bold"
                         tools:text="feliz" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Barra de hambre -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Hambre -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/etiqueta_hambre"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="12sp" />
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/etiqueta_hambre"
+                    android:textColor="#374151"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHambreValor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    tools:text="100/100" />
+            </LinearLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/barHambre"
-                style="@style/BarraEstado"
-                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 app:indicatorColor="@color/hambre_alto"
+                app:trackColor="#EEF0F8"
+                app:trackCornerRadius="6dp"
+                app:trackThickness="12dp"
                 tools:progress="100" />
 
-            <TextView
-                android:id="@+id/tvHambreValor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="11sp"
-                tools:text="100/100" />
-
-            <!-- Barra de felicidad -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/etiqueta_felicidad"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="12sp" />
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/barFelicidad"
-                style="@style/BarraEstado"
-                android:layout_marginTop="4dp"
-                app:indicatorColor="@color/bar_felicidad"
-                tools:progress="80" />
-
-            <TextView
-                android:id="@+id/tvFelicidadValor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="11sp"
-                tools:text="80/100" />
-
-            <!-- Barra de energía -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/etiqueta_energia"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="12sp" />
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/barEnergia"
-                style="@style/BarraEstado"
-                android:layout_marginTop="4dp"
-                app:indicatorColor="@color/bar_energia"
-                tools:progress="100" />
-
-            <TextView
-                android:id="@+id/tvEnergiaValor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/on_surface_variant"
-                android:textSize="11sp"
-                tools:text="100/100" />
-
+            <!-- Felicidad -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/etiqueta_felicidad"
+                    android:textColor="#374151"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFelicidadValor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    tools:text="80/100" />
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/barFelicidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:indicatorColor="@color/bar_felicidad"
+                app:trackColor="#EEF0F8"
+                app:trackCornerRadius="6dp"
+                app:trackThickness="12dp"
+                tools:progress="80" />
+
+            <!-- Energía -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/etiqueta_energia"
+                    android:textColor="#374151"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvEnergiaValor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    tools:text="100/100" />
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/barEnergia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:indicatorColor="@color/bar_energia"
+                app:trackColor="#EEF0F8"
+                app:trackCornerRadius="6dp"
+                app:trackThickness="12dp"
+                tools:progress="100" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnAlimentar"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_button"
+                    android:stateListAnimator="@null"
                     android:text="@string/mascota_alimentar"
-                    android:textSize="13sp" />
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnJugar"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_button_outline"
+                    android:stateListAnimator="@null"
                     android:text="@string/mascota_jugar"
-                    android:textSize="13sp" />
+                    android:textAllCaps="false"
+                    android:textColor="#4F46E5"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -321,11 +419,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:background="@drawable/bg_card"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_card_full"
+            android:elevation="3dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -337,33 +437,42 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Progreso de la guía"
-                    android:textColor="@color/on_surface"
-                    android:textSize="14sp"
+                    android:textColor="#1E1B4B"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvProgresoLectura"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary"
-                    android:textSize="14sp"
+                    android:background="@drawable/bg_pill"
+                    android:paddingStart="12dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="#4F46E5"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     tools:text="2/8" />
             </LinearLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/barProgreso"
-                style="@style/BarraEstado"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
                 app:indicatorColor="@color/secondary"
+                app:trackColor="#EEF0F8"
+                app:trackCornerRadius="6dp"
+                app:trackThickness="12dp"
                 tools:progress="25" />
 
             <TextView
                 android:id="@+id/tvPomodoroResumen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/on_surface_variant"
+                android:layout_marginTop="12dp"
+                android:textColor="#6B7280"
                 android:textSize="12sp"
                 tools:text="340 min esta semana · 17 ciclos" />
         </LinearLayout>
@@ -372,110 +481,160 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="4dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/accesos_rapidos"
-            android:textColor="@color/on_surface"
-            android:textSize="15sp"
+            android:textColor="#1E1B4B"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/modGuia"
-                style="@style/ModuloBoton">
+                android:layout_width="0dp"
+                android:layout_height="118dp"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_module"
+                android:clickable="true"
+                android:elevation="3dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_emoji_circle"
+                    android:gravity="center"
                     android:text="📖"
-                    android:textSize="26sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@string/modulo_guia"
-                    android:textColor="@color/on_surface"
-                    android:textSize="12sp" />
+                    android:textColor="#1E1B4B"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/modGrupos"
-                style="@style/ModuloBoton">
+                android:layout_width="0dp"
+                android:layout_height="118dp"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_module"
+                android:clickable="true"
+                android:elevation="3dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_emoji_circle"
+                    android:gravity="center"
                     android:text="👥"
-                    android:textSize="26sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@string/modulo_grupos"
-                    android:textColor="@color/on_surface"
-                    android:textSize="12sp" />
+                    android:textColor="#1E1B4B"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="24dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/modEvaluacion"
-                style="@style/ModuloBoton">
+                android:layout_width="0dp"
+                android:layout_height="118dp"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_module"
+                android:clickable="true"
+                android:elevation="3dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_emoji_circle"
+                    android:gravity="center"
                     android:text="🧠"
-                    android:textSize="26sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@string/modulo_evaluacion"
-                    android:textColor="@color/on_surface"
-                    android:textSize="12sp" />
+                    android:textColor="#1E1B4B"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/modPomodoro"
-                style="@style/ModuloBoton">
+                android:layout_width="0dp"
+                android:layout_height="118dp"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_module"
+                android:clickable="true"
+                android:elevation="3dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_emoji_circle"
+                    android:gravity="center"
                     android:text="⏱"
-                    android:textSize="26sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@string/modulo_pomodoro"
-                    android:textColor="@color/on_surface"
-                    android:textSize="12sp" />
+                    android:textColor="#1E1B4B"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

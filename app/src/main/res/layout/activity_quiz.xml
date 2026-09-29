@@ -3,135 +3,183 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
 
+    <!-- Encabezado -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/primary"
-        android:padding="12dp">
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="24dp">
 
         <TextView
             android:id="@+id/btnCerrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/quiz_cerrar"
-            android:textColor="@color/on_primary"
-            android:textSize="20sp"
-            android:padding="6dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_stat"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground"/>
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/quiz_cerrar"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/barra"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            app:indicatorColor="@color/on_primary"
-            app:trackColor="#55FFFFFF"
-            app:trackThickness="8dp"
-            app:trackCornerRadius="4dp"/>
+            app:indicatorColor="#FDE68A"
+            app:trackColor="#40FFFFFF"
+            app:trackCornerRadius="6dp"
+            app:trackThickness="12dp" />
 
         <TextView
             android:id="@+id/tvProgreso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_primary"
-            android:textStyle="bold"/>
+            android:background="@drawable/bg_stat"
+            android:paddingStart="14dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <ScrollView
+    <!-- Tarjeta con la pregunta -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:background="@drawable/bg_card"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/tvTema"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/on_surface_variant"/>
-
-            <TextView
-                android:id="@+id/tvEnunciado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="19sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"/>
-
-            <TextView
-                android:id="@+id/tvPista"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="14sp"
-                android:textStyle="italic"
-                android:textColor="@color/on_surface_variant"
-                android:visibility="gone"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:overScrollMode="never">
 
             <LinearLayout
-                android:id="@+id/opcionesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"/>
-
-            <EditText
-                android:id="@+id/etRespuesta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/quiz_respuesta_hint"
-                android:inputType="text"
-                android:maxLines="1"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/feedbackContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:paddingStart="24dp"
+                android:paddingTop="28dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="16dp">
 
                 <TextView
-                    android:id="@+id/tvFeedback"
+                    android:id="@+id/tvTema"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:background="@drawable/bg_pill"
+                    android:paddingStart="14dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#4F46E5"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvJustificacion"
+                    android:id="@+id/tvEnunciado"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/on_surface_variant"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#1E1B4B"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAccion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"/>
+                <TextView
+                    android:id="@+id/tvPista"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#6B7280"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/opcionesContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical" />
+
+                <EditText
+                    android:id="@+id/etRespuesta"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="@string/quiz_respuesta_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:textColor="#1E1B4B"
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/feedbackContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_pill"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvFeedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvJustificacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#374151"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAccion"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:backgroundTint="#4F46E5"
+            app:cornerRadius="29dp" />
+    </LinearLayout>
 </LinearLayout>

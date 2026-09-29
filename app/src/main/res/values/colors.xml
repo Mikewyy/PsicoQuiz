@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#5B4B8A</color>
-    <color name="primary_dark">#3E3261</color>
-    <color name="primary_light">#8E7FC0</color>
+    <!-- Marca (morado-azul del degradado) -->
+    <color name="brand_start">#7C3AED</color>
+    <color name="brand_mid">#4F46E5</color>
+    <color name="brand_end">#0EA5E9</color>
+
+    <color name="primary">#4F46E5</color>
+    <color name="primary_dark">#3730A3</color>
+    <color name="primary_light">#A78BFA</color>
     <color name="on_primary">#FFFFFF</color>
 
-    <color name="secondary">#00A896</color>
+    <color name="secondary">#0EA5E9</color>
     <color name="on_secondary">#FFFFFF</color>
 
-    <color name="background">#F6F4FB</color>
+    <!-- Fondos y textos -->
+    <color name="background">#F4F3FF</color>
     <color name="surface">#FFFFFF</color>
-    <color name="on_surface">#1C1B1F</color>
-    <color name="on_surface_variant">#5A5666</color>
-    <color name="outline">#D8D4E4</color>
+    <color name="on_surface">#1E1B4B</color>
+    <color name="on_surface_variant">#6B7280</color>
+    <color name="outline">#E2E4F0</color>
 
+    <color name="ink">#1E1B4B</color>
+    <color name="ink_soft">#6B7280</color>
+    <color name="lila">#EDE9FE</color>
+
+    <!-- Barras de la mascota -->
     <color name="bar_hambre">#FF7043</color>
     <color name="bar_felicidad">#EC407A</color>
     <color name="bar_energia">#FFB300</color>
 
-    <color name="hambre_alto">#43A047</color>
-    <color name="hambre_medio">#FFA726</color>
-    <color name="hambre_bajo">#E53935</color>
+    <color name="hambre_alto">#22C55E</color>
+    <color name="hambre_medio">#F59E0B</color>
+    <color name="hambre_bajo">#EF4444</color>
 
-    <color name="puntos">#F9A825</color>
-    <color name="racha">#FF5722</color>
+    <!-- Puntos y racha -->
+    <color name="puntos">#F59E0B</color>
+    <color name="racha">#F97316</color>
 
-    <color name="card_radius">#20D8D4E4</color>
-    <color name="pet_body">#B39DDB</color>
-    <color name="pet_dark">#7E57C2</color>
+    <!-- Otros -->
+    <color name="card_radius">#20E2E4F0</color>
+    <color name="pet_body">#FBBF24</color>
+    <color name="pet_dark">#F59E0B</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 </resources>
