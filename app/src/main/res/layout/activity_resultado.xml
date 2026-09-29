@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/background"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvIcono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="64sp"
+        tools:text="🎉"/>
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/on_surface"
+        tools:text="¡Tramo superado!"/>
+
+    <TextView
+        android:id="@+id/tvPorcentaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        tools:text="87%"/>
+
+    <TextView
+        android:id="@+id/tvAciertos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/on_surface_variant"
+        tools:text="13 de 15 correctas"/>
+
+    <TextView
+        android:id="@+id/tvBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/puntos"
+        android:visibility="gone"
+        tools:text="+50 puntos de bonus"/>
+
+    <TextView
+        android:id="@+id/tvComida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="16sp"
+        android:textColor="@color/secondary"
+        android:visibility="gone"
+        tools:text="+2 de comida para tu mascota"/>
+
+    <TextView
+        android:id="@+id/tvSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:visibility="gone"
+        tools:text="¡Tramo 2 desbloqueado!"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnReintentar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVolver"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/resultado_volver"/>
+</LinearLayout>

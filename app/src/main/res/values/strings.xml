@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Semiología Psicológica</string>
+
+    <!-- Autenticación -->
+    <string name="login_titulo">Bienvenido</string>
+    <string name="login_subtitulo">Estudia semiología y cuida a tu mascota</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_nombre">Nombre completo</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="btn_registro">Crear cuenta</string>
+    <string name="link_registro">¿No tienes cuenta? Regístrate</string>
+    <string name="link_login">¿Ya tienes cuenta? Ingresa</string>
+    <string name="titulo_registro">Crear cuenta</string>
+
+    <!-- Errores -->
+    <string name="error_campos_vacios">Completa todos los campos</string>
+    <string name="error_email_invalido">Correo electrónico inválido</string>
+    <string name="error_password_corta">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_email_duplicado">Ese correo ya está registrado</string>
+    <string name="error_credenciales">Correo o contraseña incorrectos</string>
+
+    <!-- Dashboard -->
+    <string name="saludo">Hola, %1$s</string>
+    <string name="saludo_sub">Sigue así, vas muy bien</string>
+    <string name="etiqueta_nivel">Nivel %1$d</string>
+    <string name="etiqueta_puntos">%1$d pts</string>
+    <string name="etiqueta_racha">%1$d días</string>
+    <string name="mascota_seccion">Tu mascota</string>
+    <string name="etiqueta_hambre">Hambre</string>
+    <string name="etiqueta_felicidad">Felicidad</string>
+    <string name="etiqueta_energia">Energía</string>
+    <string name="mascota_alimentar">Alimentar</string>
+    <string name="mascota_jugar">Jugar</string>
+    <string name="mascota_inventario">Inventario</string>
+    <string name="accesos_rapidos">Accesos rápidos</string>
+    <string name="modulo_guia">Guía de estudio</string>
+    <string name="modulo_grupos">Estudio colaborativo</string>
+    <string name="modulo_evaluacion">Casos clínicos</string>
+    <string name="modulo_pomodoro">Modo Pomodoro</string>
+
+    <string name="salir">Cerrar sesión</string>
+    <string name="confirmar_salir">¿Seguro que quieres cerrar sesión?</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="en_desarrollo">Módulo en construcción: %1$s</string>
+
+    <!-- Evaluación: camino de tramos -->
+    <string name="evaluacion_titulo">Camino de aprendizaje</string>
+    <string name="evaluacion_subtitulo">Aprueba cada tramo con 80%% para desbloquear el siguiente</string>
+    <string name="camino_puntos">Puntos: %1$d</string>
+    <string name="camino_volver">Volver</string>
+    <string name="tramo_empezar">Empezar</string>
+    <string name="tramo_practicar">Practicar</string>
+    <string name="tramo_repetir">Repetir</string>
+    <string name="tramo_bloqueado">Bloqueado</string>
+    <string name="tramo_aprobado">Aprobado · %1$d%%</string>
+    <string name="tramo_mejor">Mejor: %1$d%% · %2$d intento(s)</string>
+    <string name="tramo_nuevo">Sin intentos todavía</string>
+    <string name="tramo_contenido">%1$d preguntas</string>
+    <string name="tramo_desbloqueado_msg">Completa el tramo anterior para desbloquear este</string>
+    <string name="emoji_tramo_preview">⭐</string>
+
+    <!-- Evaluación: quiz -->
+    <string name="quiz_progreso">%1$d / %2$d</string>
+    <string name="quiz_comprobar">Comprobar</string>
+    <string name="quiz_continuar">Continuar</string>
+    <string name="quiz_terminar">Ver resultado</string>
+    <string name="quiz_correcto">¡Correcto!</string>
+    <string name="quiz_incorrecto">Incorrecto</string>
+    <string name="quiz_respuesta_hint">Escribe tu respuesta…</string>
+    <string name="quiz_pista">Pista: %1$s</string>
+    <string name="quiz_sin_preguntas">Este tramo todavía no tiene preguntas</string>
+    <string name="quiz_elige_opcion">Elige una opción</string>
+    <string name="quiz_cerrar">✕</string>
+    <string name="quiz_salir">¿Abandonar el intento? No se guardará el progreso.</string>
+
+    <!-- Evaluación: resultado -->
+    <string name="resultado_aprobado">¡Tramo superado!</string>
+    <string name="resultado_fallado">Casi lo tienes</string>
+    <string name="resultado_aciertos">%1$d de %2$d correctas</string>
+    <string name="resultado_porcentaje">%1$d%%</string>
+    <string name="resultado_bonus_puntos">+%1$d puntos de bonus</string>
+    <string name="resultado_comida">+%1$d de comida para tu mascota</string>
+    <string name="resultado_umbral">Necesitas al menos %1$d%% para aprobar</string>
+    <string name="resultado_siguiente">¡Tramo %1$d desbloqueado!</string>
+    <string name="resultado_volver">Volver al camino</string>
+    <string name="resultado_reintentar">Reintentar</string>
+</resources>

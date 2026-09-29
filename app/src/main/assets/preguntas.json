@@ -1,0 +1,1068 @@
+{
+  "version": 1,
+  "niveles": [
+    {
+      "numero": 1,
+      "nombre": "Fundamentos",
+      "tema": "Fundamentos",
+      "emoji": "🧩",
+      "descripcion": "Signos, síntomas y la Semiología",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Signo vs síntoma",
+          "enunciado": "¿Cuál es la diferencia fundamental entre un signo y un síntoma?",
+          "opciones": [
+            {
+              "texto": "El signo es subjetivo y el síntoma es objetivo",
+              "correcta": false
+            },
+            {
+              "texto": "El signo es objetivo y verificable; el síntoma es la percepción subjetiva del paciente",
+              "correcta": true
+            },
+            {
+              "texto": "El síntoma se detecta con pruebas de laboratorio",
+              "correcta": false
+            },
+            {
+              "texto": "No hay diferencia: son sinónimos",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El signo es toda manifestación perceptible objetivamente por el examinador, que puede verificar sin entrevista (p. ej. la palidez, la taquicardia). El síntoma es la experiencia subjetiva que el paciente refiere y que no puede observarse directamente (p. ej. el dolor, la Náusea). Un mismo fenómeno puede ser signo para el médico y síntoma para el paciente.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Semiología",
+          "enunciado": "¿Cómo se llama la rama de la medicina que estudia los signos y síntomas producidos por la enfermedad?",
+          "respuestas_validas": "semiología|semiologia",
+          "pista": "Empieza por 'semi...' y significa 'estudio de signos'.",
+          "justificacion": "La semiología (del griego semeiología, 'estudio de los signos') es la disciplina que estudia los signos y síntomas en relación con las enfermedades. La semiopatología es la rama que estudia las causas y mecanismos de los signos y síntomas; la propedéutica o diagnóstico semiológico, el procedimiento para recogerlos.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Signo vs síntoma",
+          "enunciado": "Un paciente refiere dolor abdominal intenso. ¿Qué categoría semiológica es?",
+          "opciones": [
+            {
+              "texto": "Signo, porque se puede palpar",
+              "correcta": false
+            },
+            {
+              "texto": "Síntoma, porque es una experiencia subjetiva referida por el paciente",
+              "correcta": true
+            },
+            {
+              "texto": "Signo, porque el paciente lo describe con detalle",
+              "correcta": false
+            },
+            {
+              "texto": "Ni signo ni síntoma: es un síndrome",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El dolor es el síntoma subjetivo por excelencia: sólo el paciente puede experimentarlo y describirlo. Aunque el examinador pueda explorarlo, sigue siendo un síntoma. Un síndrome, en cambio, es el conjunto de signos y síntomas que caracteriza a una enfermedad concreta.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Semiología",
+          "enunciado": "¿Cuál es el nombre del conjunto de signos y síntomas que identifican a una enfermedad concreta?",
+          "respuestas_validas": "síndrome|sindrome",
+          "pista": "Es una palabra que empieza por 's' y lleva tilde.",
+          "justificacion": "El síndrome es la agrupación de signos y síntomas que se presentan juntos y que, en conjunto, sugieren una misma entidad clínica. El diagnóstico syndiqués es el proceso de reconocer ese síndrome: es el primer paso del razonamiento clínico, anterior al diagnóstico etiológico.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Signo vs síntoma",
+          "enunciado": "¿Cuál de los siguientes es un SIGNO y no un síntoma?",
+          "opciones": [
+            {
+              "texto": "Mareo",
+              "correcta": false
+            },
+            {
+              "texto": "Ansiedad",
+              "correcta": false
+            },
+            {
+              "texto": "Taquicardia",
+              "correcta": true
+            },
+            {
+              "texto": "Miedo a morir",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La taquicardia es un signo: es objetiva, medible y verificable por el examinador sin necesidad de entrevista. Mareo, ansiedad y miedo a morir son síntomas porque dependen de la experiencia subjetiva del paciente.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Semiología",
+          "enunciado": "La semiología se ocupa de conocer los signos y síntomas. ¿De qué se ocupa principalmente la semiopatología?",
+          "opciones": [
+            {
+              "texto": "Del estudio de las causas y mecanismos que producen los signos",
+              "correcta": true
+            },
+            {
+              "texto": "De la cirugía general",
+              "correcta": false
+            },
+            {
+              "texto": "Del pronóstico de la enfermedad",
+              "correcta": false
+            },
+            {
+              "texto": "De la anatomía patológica",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La semiología describe y reconoce los signos y síntomas; la semiopatología estudia sus causas y los mecanismos fisiopatológicos que los originan. Son caras complementarias de una misma moneda: la semiología es descriptiva, la semiopatología es etiológica.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Semiología",
+          "enunciado": "¿Qué rama de la semiología se ocupa de la obtención ordenada de los datos clínicos mediante la entrevista y la exploración?",
+          "respuestas_validas": "propedéutica|propedeutica|diagnóstico semiológico|diagnostico semiológico",
+          "pista": "La palabra significa 'educar para adelante'.",
+          "justificacion": "La propedéutica o diagnóstico semiológico es la parte de la semiología que enseña a recoger de forma ordenada los datos: la entrevista clínica y la exploración física. Su objetivo es llegar al síndrome mediante un interrogatorio estructurado.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Signo vs síntoma",
+          "enunciado": "Un paciente presenta edema periférico bilateral. ¿Cómo se clasifica inicialmente?",
+          "opciones": [
+            {
+              "texto": "Síntoma, porque molesta",
+              "correcta": false
+            },
+            {
+              "texto": "Signo, porque es objetivable por inspección y palpación",
+              "correcta": true
+            },
+            {
+              "texto": "Síndrome, porque incluye varios síntomas",
+              "correcta": false
+            },
+            {
+              "texto": "Enfermedad, porque ya tiene un diagnóstico",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El edema es un signo objetivo: se ve y se palpa. Que el paciente también refiera que le molesta lo convierte en un dato mixto, pero su naturaleza semiológica sigue siendo la de un signo. La enfermedad (el diagnóstico) sólo se establece tras el síndrome y los estudios correspondientes.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Semiología",
+          "enunciado": "¿Cuál es el orden correcto del razonamiento clínico semiológico?",
+          "opciones": [
+            {
+              "texto": "Diagnóstico etiológico → signos → síndrome",
+              "correcta": false
+            },
+            {
+              "texto": "Signos y síntomas → síndrome → diagnóstico",
+              "correcta": true
+            },
+            {
+              "texto": "Tratamiento → diagnóstico → signos",
+              "correcta": false
+            },
+            {
+              "texto": "Solo se parte del síndrome, nunca de los signos",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El razonamiento semiológico sigue tres escalones: primero se recogen los signos y síntomas, luego se agrupan en un síndrome, y sólo después se busca el diagnóstico etiológico. Invertir el orden es un error frecuente que lleva a diagnosticar sin haber explorado al paciente.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Semiología",
+          "enunciado": "¿Cómo se llama el proceso de reconocer, a partir de los signos y síntomas, la enfermedad concreta que sufre el paciente?",
+          "respuestas_validas": "diagnóstico|diagnostico|diagnóstico semiológico|diagnostico semiológico",
+          "pista": "Es la palabra que empieza con 'diag'.",
+          "justificacion": "El diagnóstico es la conclusión del razonamiento semiológico. Cuando se establece sólo a partir de signos y síntomas se denomina diagnóstico semiológico o clínico; si además se identifica la causa, es un diagnóstico etiológico.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Signo vs síntoma",
+          "enunciado": "Un paciente dice 'siento que el corazón me late muy rápido'. En la exploración el médico objetiva 110 latidos por minuto. ¿Qué estamos viendo?",
+          "opciones": [
+            {
+              "texto": "Sólo un síntoma",
+              "correcta": false
+            },
+            {
+              "texto": "Sólo un signo",
+              "correcta": false
+            },
+            {
+              "texto": "Un síntoma y un signo distintos que corresponden al mismo fenómeno",
+              "correcta": true
+            },
+            {
+              "texto": "Un error, porque deberían ser lo mismo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Es el ejemplo clásico de la correspondencia entre síntoma y signo: el mismo fenómeno (taquicardia) es vivida como síntoma por el paciente y medida como signo por el examinador. No son lo mismo, pero se corresponden en un mismo fenómeno.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Semiología",
+          "enunciado": "¿Cuál de estas prácticas pertenece a la semiología y no a la anatomía patológica?",
+          "opciones": [
+            {
+              "texto": "Describir y reconocer los signos y síntomas del paciente vivo",
+              "correcta": true
+            },
+            {
+              "texto": "Estudiar la biopsia de un órgano",
+              "correcta": false
+            },
+            {
+              "texto": "Examinar un cadáver",
+              "correcta": false
+            },
+            {
+              "texto": "Determinar el pH de un tejido",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La semiología es la disciplina 'de la cabecera', estudia al paciente vivo mediante la entrevista y la exploración. La anatomía patológica estudia la lesión en el tejido, ya sea mediante autopsia o biopsia. Ambas se complementan: el clínico propone el diagnóstico, el patólogo lo confirma o lo descarta.",
+          "puntos": 15
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "nombre": "Percepción y pensamiento",
+      "tema": "Percepción y pensamiento",
+      "emoji": "👁️",
+      "descripcion": "Alucinaciones, delirios y desorganización",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones",
+          "enunciado": "¿Cuál es la definición correcta de una alucinación?",
+          "opciones": [
+            {
+              "texto": "Una percepción sin estímulo externo correspondiente",
+              "correcta": true
+            },
+            {
+              "texto": "Una percepción de un estímulo real pero mal interpretado",
+              "correcta": false
+            },
+            {
+              "texto": "Una idea falsa que el paciente defiende con convicción",
+              "correcta": false
+            },
+            {
+              "texto": "Una reacción de miedo ante un estímulo amenazante",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La alucinación es la percepción de un estímulo que NO existe en el ambiente externo, sin estímulo correspondiente. La ilusión, en cambio, es la percepción distorsionada de un estímulo REAL y existente; la idea delirante es un contenido del pensamiento, no una percepción; y el miedo es un afecto, no una alteración perceptiva.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Alucinaciones",
+          "enunciado": "¿Cómo se llama la percepción distorsionada de un estímulo que SÍ existe en el ambiente?",
+          "respuestas_validas": "ilusión|ilusiones|ilusion|ilusiones",
+          "pista": "Empieza por 'i' y es un término de 7 letras.",
+          "justificacion": "La ilusión es la percepción alterada de un estímulo real: el paciente ve o escucha algo que está ahí, pero lo deforma. Un ejemplo clásico es el del rulero de Hampton en el síndrome de Charles Bonnet, o ver a alguien detrás de una cortina. La diferencia clave es que en la ilusión hay estímulo; en la alucinación, no lo hay.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones",
+          "enunciado": "Un paciente afirma escuchar voces que le insultan cuando nadie está presente. ¿Qué alteración presenta?",
+          "opciones": [
+            {
+              "texto": "Alucinación auditiva",
+              "correcta": true
+            },
+            {
+              "texto": "Alucinación visual",
+              "correcta": false
+            },
+            {
+              "texto": "Idea delirante",
+              "correcta": false
+            },
+            {
+              "texto": "Falsa percepción con estímulo presente",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Oir voces sin fuente sonora real es una alucinación AUDITIVA, la más frecuente en la semiología psicopatológica. Suele asociarse a esquizofrenia y trastornos del espectro, aunque también aparece en episodios maníacos, intoxicaciones y demencias. La ausencia de estímulo descarta la ilusión.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Delirios",
+          "enunciado": "¿Cómo se llama la convicción firme y mantenida, no susceptible de discusión, en un contenido del pensamiento que es falso para la realidad?",
+          "respuestas_validas": "idea delirante|delirio|delirante|idea delirante fija",
+          "pista": "La palabra empieza con 'deli'.",
+          "justificacion": "El delirio (o idea delirante) es la convicción firme, persistente e inmodificable de una idea falsa. Su carácter patológico está en la convicción, no en el contenido: creer que una persona causa desastres naturales puede ser un delirio en un contexto psicopatológico, pero la misma idea en un niño que juega es normal. El delirante no rectifica ante la evidencia.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Delirios",
+          "enunciado": "Un paciente cree que su vecino le está envenenando la comida y lleva seis meses comprando comida nueva cada día, sin aceptar las pruebas que desmienten su idea. ¿Qué característica define este cuadro?",
+          "opciones": [
+            {
+              "texto": "Es una alucinación olfativa, porque percibe un olor",
+              "correcta": false
+            },
+            {
+              "texto": "Es un delirio, porque la convicción es firme, sostenida e inmodificable ante la evidencia",
+              "correcta": true
+            },
+            {
+              "texto": "Es una fobia, porque teme algo externo",
+              "correcta": false
+            },
+            {
+              "texto": "Es un trastorno obsesivo, porque la conducta se repite",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los tres elementos que definen un delirio son: convicción firme, sostenida en el tiempo e inmodificable por la evidencia. Aquí se cumplen los tres. La conducta repetitiva (comprar comida nueva) es una consecuencia de la idea, no un trastorno obsesivo, porque no hay obsesión reconocida: la conducta se sostiene por el delirio, no por un ritual.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones",
+          "enunciado": "¿Cuál de estas es una alucinación PSICÓTICA?",
+          "opciones": [
+            {
+              "texto": "Oír la propia voz dentro de la cabeza, como si los pensamientos se escucharan desde dentro",
+              "correcta": false
+            },
+            {
+              "texto": "Oír una voz que insulta cuando no hay nadie presente",
+              "correcta": true
+            },
+            {
+              "texto": "Ver luces de color al cerrar los párpados",
+              "correcta": false
+            },
+            {
+              "texto": "Sentir que el cuerpo flota al despertar (hipnagogo)",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las alucinaciones psicóticas son las que EL PACIENTE ATRIBUYE A UNA FUENTE EXTERNA (una voz que habla, un ser que le habla). Las alucinaciones no psicóticas, en cambio, las atribuye a sí mismo: las más frecuentes son intracranianas o hipnagógicas (al dormirse o despertarse). La clave está en a quién se atribuye la percepción, no en su contenido.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Delirios",
+          "enunciado": "¿Cómo se llama la distorsión del pensamiento caracterizada por que las ideas pierden su relación lógica y no llegan a formar un discurso comprensible?",
+          "respuestas_validas": "desorganización|desorganizacion|trastorno del pensamiento",
+          "pista": "Empieza por 'des' y significa que el pensamiento pierde su orden.",
+          "justificacion": "La desorganización del pensamiento (trastorno formal del pensamiento) es la alteración de la lógica y el curso del pensamiento: las ideas no se conectan de forma coherente. Se manifiesta como pensamiento ilógico, tangencial, circunloquio o fuga de ideas. Es uno de los criterios diagnósticos centrales de la esquizofrenia y del trastorno bipolar en fase maníaca.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones",
+          "enunciado": "¿Cuál es la diferencia entre una alucinación y una ilusión?",
+          "opciones": [
+            {
+              "texto": "La alucinación tiene estímulo externo; la ilusión no",
+              "correcta": false
+            },
+            {
+              "texto": "La alucinación NO tiene estímulo externo; la ilusión sí, pero distorsionado",
+              "correcta": true
+            },
+            {
+              "texto": "Son exactamente lo mismo",
+              "correcta": false
+            },
+            {
+              "texto": "La ilusión es visual; la alucinación, auditiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La diferencia está en el estímulo, no en el canal sensorial. En la ALUCINACIÓN no hay estímulo externo (la voz no existe); en la ILUSIÓN hay estímulo externo real pero se percibe distorsionado. Esta distinción es esencial y la pregunta más clásica de los exámenes de semiología.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Delirios",
+          "enunciado": "¿Qué término se usa para la convicción firme de que una idea es cierta, sin que pueda modificarse con la evidencia?",
+          "respuestas_validas": "convicción|conviccion|creencia patológica|certidumbre",
+          "pista": "Empieza por 'con' y termina en 'ción'.",
+          "justificacion": "El término es convicción. En un delirante, la convicción es patológica porque es inmodificable por la evidencia y no comparte la realidad con el resto de las personas. Una creencia normal puede revisarse; uno delirante, no.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones",
+          "enunciado": "Un paciente afirma ver un insecto sobre su hombro pero, al mirarlo con atención, resulta ser un botón. ¿Qué se observa?",
+          "opciones": [
+            {
+              "texto": "Alucinación visual",
+              "correcta": false
+            },
+            {
+              "texto": "Ilusión visual",
+              "correcta": true
+            },
+            {
+              "texto": "Delirio visual",
+              "correcta": false
+            },
+            {
+              "texto": "Fobia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Es una ilusión visual: el estímulo EXISTE (el botón) y se percibe como algo distinto (un insecto). En una alucinación no habría estímulo real. Que el estímulo se descubra al fijar la atención apoya aún más el diagnóstico de ilusión.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Delirios",
+          "enunciado": "Un paciente dice: 'Tengo dilemitas porque el mar me mira desde debajo de la cama y me envía señales'. ¿Qué contenido del pensamiento está alterado?",
+          "opciones": [
+            {
+              "texto": "El contenido del pensamiento está alterado: idea delirante",
+              "correcta": true
+            },
+            {
+              "texto": "Sólo está alterada la forma del pensamiento",
+              "correcta": false
+            },
+            {
+              "texto": "Es una alucinación, no un delirio",
+              "correcta": false
+            },
+            {
+              "texto": "Es un trastorno del lenguaje",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La pregunta clave para distinguir un delirio de una alteración formal es: ¿está alterado el CONTENIDO o la FORMA? Aquí las ideas son extrañas (el mar vigila, envía señales) pero mantienen su estructura lógica y gramatical. Son ideas delirantes, no desorganización. La desorganización, en cambio, conservaría el significado pero perdería la lógica.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Delirios",
+          "enunciado": "¿Cómo se llama la idea de que una persona desconocida intenta hacer daño al paciente?",
+          "respuestas_validas": "delirante de persecución|idea de persecución|persecución|idea persecutoria",
+          "pista": "Contiene 'persecución'.",
+          "justificacion": "Es un DELIRANTE DE PERSECUCIÓN o idea persecutoria: la convicción de que alguien persigue oPretende dañar al paciente. Es uno de los delirantes más frecuentes en esquizofrenia y en trastornos paranoicos. Se distingue de la fobia (temor sin hgital de daño real) porque aquí hay convicción firme, no miedo.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "nombre": "Lenguaje y comunicación",
+      "tema": "Lenguaje y comunicación",
+      "emoji": "🗣️",
+      "descripcion": "Pensamiento formal, lenguaje y sus alteraciones",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Lenguaje",
+          "enunciado": "¿Qué es una neologismo?",
+          "opciones": [
+            {
+              "texto": "Una palabra nueva creada por el paciente con significado propio",
+              "correcta": true
+            },
+            {
+              "texto": "Una palabra del diccionario que el paciente no recuerda",
+              "correcta": false
+            },
+            {
+              "texto": "Un término médico incomprensible",
+              "correcta": false
+            },
+            {
+              "texto": "Una palabra repetida compulsivamente",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El neologismo es una palabra que el paciente crea o deforma y a la que atribuye un significado propio, a menudoprivado. En la esquizofrenia es característico de los trastornos formales del lenguaje. No es un lapsus (un lapsus es un error en la construcción de una palabra ya existente), sino una creación genuina.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Lenguaje",
+          "enunciado": "¿Cómo se llama la alteración del lenguaje en la que el paciente sustituye una palabra por otra por similitud sonora?",
+          "respuestas_validas": "parafasia|parafasias|paraphasia",
+          "pista": "Empieza con 'para' y significa 'hablar al lado'.",
+          "justificacion": "La parafasia es la sustitución de una palabra por otra de sonido semejante. Cuando la palabra sustituida está bien construida pero es incorrecta, se denomina parafasia phonémica; cuando se sustituye por otra sin relación sonora, parafasia semántica. Es característica de las afasias y de algunos trastornos del lenguaje en psicosis.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Lenguaje",
+          "enunciado": "Un paciente responde a la pregunta '¿Cómo te llamas?' con una respuesta larga sobre el clima de su ciudad, sin llegar nunca a mencionar su nombre. ¿Qué alteración del lenguaje presenta?",
+          "opciones": [
+            {
+              "texto": "Circunloquio: la respuesta es tangencial y no llega al punto",
+              "correcta": true
+            },
+            {
+              "texto": "Neologismo",
+              "correcta": false
+            },
+            {
+              "texto": "Parafasia",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Es un CIRCUNLOQUIO o verborrea circunloquial: el paciente rodea el punto sin llegar a él, sustituyendo la respuesta directa por un discurso periférico. Se observa en demencias, en la afasia de conducción y en el trastorno del pensamiento de la esquizofrenia. El mutismo sería no responder en absoluto, que no es lo que ocurre aquí.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Lenguaje",
+          "enunciado": "¿Cómo se llama la alteración del curso del pensamiento en la que las ideas pierden el hilo y se desvían hacia asuntos sin relación con el tema?",
+          "respuestas_validas": "pensamiento tangencial|tangencialidad|tangencial",
+          "pista": "Contiene la palabra 'tangencial'.",
+          "justificacion": "La TANGENCIALIDAD o pensamiento tangencial es aquella en la que el discurso se desvía de forma abrupta hacia temas sin relación, sin un puente lógico, y el hilo de la conversación se pierde. Es más grave que la circunstancialidad o el pensamiento por paralaje, en los que el paciente también se desvía del tema pero el examinador todavía puede seguir el hilo y reconducirlo. La tangencialidad es característica de la esquizofrenia.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Lenguaje",
+          "enunciado": "¿Cómo se llama la repetición automática e involuntaria de las palabras que dice la persona que se tiene delante?",
+          "respuestas_validas": "ecolalia|ecolalias",
+          "pista": "Empieza con 'eco'.",
+          "justificacion": "La ECOLALIA es la repetición de palabras o frases del interlocutor, de forma automática e involuntaria. Aparece en el retraso del desarrollo, en el trastorno de Rett y en la esquizofrenia.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Lenguaje",
+          "enunciado": "En un paciente esquizofrénico, ¿qué alteración del lenguaje se asocia típicamente con el alucinatorio auditivo?",
+          "opciones": [
+            {
+              "texto": "Neologismos y paraxios",
+              "correcta": true
+            },
+            {
+              "texto": " siempre la ausencia total de lenguaje (mutismo)",
+              "correcta": false
+            },
+            {
+              "texto": "Sólo parafasia",
+              "correcta": false
+            },
+            {
+              "texto": "Ecolalia obligatorixamente",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los pacientes esquizofrénicos pueden crear neologismos y paraxios (palabras alteradas a las que atribuyen un significado privado) para describir lo que oyen, especialmente cuando hay alucinaciones auditivas verbales. La ecolalia y el mutismo son más propios de otras condiciones (retraso del desarrollo, Rett, y el mutismo catatónico respectivamente).",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Lenguaje",
+          "enunciado": "¿Cómo se llama el uso de palabras nuevas, no existentes, creadas por el paciente con un significado propio?",
+          "respuestas_validas": "neologismo|neologismos",
+          "pista": "Empieza con 'neo' (nuevo).",
+          "justificacion": "El NEOLOGISMO es una palabra nueva, generalmente creada por el paciente, a la que se atribuye un significado privado. Se diferencia de la parafasia (una palabra real deformada en su estructura) y de la metáfora (uso figurado de una palabra existente con sentido compartido).",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Lenguaje",
+          "enunciado": "¿Qué alteración se observa cuando el paciente, al contar algo, se desvía del tema de forma constante pero el examinador aún puede inferir el mensaje?",
+          "opciones": [
+            {
+              "texto": "Pensamiento circunscrito",
+              "correcta": true
+            },
+            {
+              "texto": "Pensamiento tangencial",
+              "correcta": false
+            },
+            {
+              "texto": "Ecolalia",
+              "correcta": false
+            },
+            {
+              "texto": "Neologismo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El pensamiento CIRCUNSCITO o porgomor muestra desvíos del tema pero el examinador puede seguir el hilo y reconstruir la idea. En el pensamiento TANGENCIAL, en cambio, el desvío es tan brusco que el examinador NO puede inferir el mensaje. La diferencia es el grado de comprensibilidad del discurso.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Lenguaje",
+          "enunciado": "¿Cuál es el término para la alteración del lenguaje en la que se sustituye la palabra correcta por otra sin relación con su significado?",
+          "respuestas_validas": "parafasia semántica|parafasia semantica|sustitución semántica",
+          "pista": "Contiene 'parafasia' y 'semántica'.",
+          "justificacion": "La PARAFASIA SEMÁNTICA es la sustitución de una palabra por otra sin relación con su significado (p. ej. decir 'mesa' cuando quiso decir 'silla'). En la parafasia FONÉMICA la sustitución es por un sonido semejante. Ambas son características de las afasias (lesiones del lenguaje por daño cerebral).",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Lenguaje",
+          "enunciado": "El paciente A dice 'Tengo hambre'. El paciente B responde 'Tengo sed' cuando el A le dice 'Tengo hambre'. ¿Qué observación es correcta sobre el lenguaje del paciente B?",
+          "opciones": [
+            {
+              "texto": "Presenta una alteración del lenguaje con sustitución de términos",
+              "correcta": true
+            },
+            {
+              "texto": "Presenta un pensamiento delirante",
+              "correcta": false
+            },
+            {
+              "texto": "Presenta una alucinación gustativa",
+              "correcta": false
+            },
+            {
+              "texto": "Su lenguaje es normal",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El paciente B muestra una ALTERACIÓN DEL LENGUAJE con sustitución de términos ('sed' por 'hambre'), una parafasia semántica. No es un delirio porque no hay convicción falsa sobre la realidad, sino un error en la construcción del discurso. Tampoco es una alucinación, porque no hay percepción anómala.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Lenguaje",
+          "enunciado": "¿Cómo se llama el uso del lenguaje en el que el paciente pierde de forma brusca el hilo de la conversación y las respuestas ya no se relacionan entre sí?",
+          "respuestas_validas": "verborrea|verborrea incoherente|verborreica|habla incoherente",
+          "pista": "Empieza por 'ver'.",
+          "justificacion": "La VERBORREA (o lenguaje verborreico) se caracteriza por un aumento del flujo del habla, con pérdida del hilo, respuestas incongruentes y, a menudo, tautologías y neologismos. En la esquizofrenia se denomina verborrea alucinatoria cuando el paciente neologiza mientras transmite sus alucinaciones. En el trastorno bipolar maníaco, la verborrea es más rápida y se acompaña de fuga de ideas.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 4,
+      "nombre": "Afectividad y conducta",
+      "tema": "Afectividad y conducta",
+      "emoji": "💭",
+      "descripcion": "Humor, ánimo y alteraciones conductuales",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Afectividad",
+          "enunciado": "¿Qué es el aplanamiento afectivo (blunting)?",
+          "opciones": [
+            {
+              "texto": "La disminución de la expresividad emocional del paciente",
+              "correcta": true
+            },
+            {
+              "texto": "La incapacidad de reconocer las emociones ajenas",
+              "correcta": false
+            },
+            {
+              "texto": "La labilidad emocional exagerada",
+              "correcta": false
+            },
+            {
+              "texto": "La expresión de emociones intensas en contextos inadecuados",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El aplanamiento afectivo es la disminución o ausencia de la expresividad emocional. El paciente parece frío, indiferente, con un rango afectivo restringido. Es característico de la esquizofrenia y de la depresión profunda. La labilidad es lo contrario (cambios bruscos de ánimo).",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Afectividad",
+          "enunciado": "¿Cómo se llama la emoción que el paciente experimenta de forma involuntaria durante una situación que normalmente no la produciría?",
+          "respuestas_validas": "labilidad afectiva|labilidad|labilidad emocional",
+          "pista": "La palabra significa 'volátil'.",
+          "justificacion": "La LABILIDAD AFECTIVA es la incapacidad de mantener un tono emocional estable: el paciente ríe, llora o se irrita de forma brusca e inmotivada ante estímulos que no justifican esa emoción. Se observa en trastornos del eje con componente maníaco, como el trastorno bipolar en episodios maníacos y el trastorno límite de la personalidad, y también en enfermedades cerebrovasculares y demencias.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Humor",
+          "enunciado": "Un paciente lleva tres semanas constantemente triste, sin interés ni energía, con insomnio y pérdida de peso, pero mantiene el habla y la organización. ¿Cuál es el síndrome más probable?",
+          "opciones": [
+            {
+              "texto": "Síndrome depresivo",
+              "correcta": true
+            },
+            {
+              "texto": "Síndrome ansioso",
+              "correcta": false
+            },
+            {
+              "texto": "Síndrome maníaco",
+              "correcta": false
+            },
+            {
+              "texto": "Síndrome esquizofrénico",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El conjunto de tristeza, anhedonia, insomnio y pérdida de peso configura un SÍNDROME DEPRESIVO. La clave del diagnóstico diferencial con la manía es la ausencia de ánimo elevado, de la verborrea y de las grandiosidades: el paciente depresivo está lento y desanimado, el maníaco es rápido y eufórico.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Humor",
+          "enunciado": "¿Cómo se llama el estado de ánimo anormalmente elevado y eufórico, con aumento de energía, que puede acompañar a la manía?",
+          "respuestas_validas": "euforia|elevación del ánimo|ánimo elevado|elación",
+          "pista": "Empieza por 'eu' (bien, bueno).",
+          "justificacion": "La EUFORIA es el estado de ánimo anormalmente elevado, con sensación de bienestar y grandiosidad. Se distingue de la manía en que la euforia es sólo el componente afectivo (ánimo elevado) sin la agitación psicomotora, la verborrea ni el aumento de la ideación. En la manía el ánimo puede estar irritable en lugar de eufórico (manía irritable).",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Conducta",
+          "enunciado": "Un paciente no para de hablar durante 40 minutos, con fuga de ideas y grandiosidad. ¿Qué alteración de la conducta se observa?",
+          "opciones": [
+            {
+              "texto": "Agitación psicomotora con fuga de ideas",
+              "correcta": true
+            },
+            {
+              "texto": "Retraso psicomotor",
+              "correcta": false
+            },
+            {
+              "texto": "Catalepsia",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo acinético",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El paciente presenta AGITACIÓN PSICOMOTORA (aumento de la actividad motora) y FUGA DE IDEAS (aceleración y salto constante de un tema a otro), dos síntomas del episodio maníaco. El retraso psicomotor es lo contrario; la catalepsia es el mantenimiento pasivo de una postura; el mutismo acinético es la ausencia total de movimiento.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Conducta",
+          "enunciado": "¿Cómo se llama el aumento de la actividad motora, con agitación e inestabilidad, típico de los episodios maníacos?",
+          "respuestas_validas": "agitación psicomotora|agitación|agitación motora|hiperactividad",
+          "pista": "La palabra significa 'movimiento'.",
+          "justificacion": "La AGITACIÓN PSICOMOTORA es el aumento patológico de la actividad motora. En la manía se manifiesta como inquietud, incapacidad para estar quieto, habla constante y movimientos estereotipados. Se diferencia de la hiperactividad del TDAH en que aquí hay un episodio delimitado y otros síntomas maníacos asociados.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Afectividad",
+          "enunciado": "¿Cuál es la diferencia entre el afecto inapropiado y la disforia?",
+          "opciones": [
+            {
+              "texto": "La disforia es un estado de ánimo depresivo; la inapropiación es la expresión de emociones en contextos no adecuados",
+              "correcta": true
+            },
+            {
+              "texto": "Son sinónimos",
+              "correcta": false
+            },
+            {
+              "texto": "La inapropiación es más intensa",
+              "correcta": false
+            },
+            {
+              "texto": "La disforia afecta al lenguaje",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La DISFORIA es un estado de ánimo (tristeza, decaimiento) que puede ser secundario a un trastorno o formar parte de un episodio depresivo. La INAPROPIACIÓN AFECTIVA (o labilidad) es la expresión de emociones de manera inadecuada respecto al contexto: reír ante una noticia grave. Son dimensiones diferentes: una es del ánimo, la otra de la expresión.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Conducta",
+          "enunciado": "¿Cómo se llama la pérdida de la capacidad de sentir compasión o preocupación por los demás?",
+          "respuestas_validas": "apatía|apatía emocional|apatía afectiva|falta de empatía",
+          "pista": "Empieza por 'a'.",
+          "justificacion": "La APATÍA es la pérdida de interés, motivación y afecto, tanto hacia el mundo como hacia los demás. Es el síntoma negativo más característico de la esquizofrenia y se asocia al aislamiento social. Se diferencia de la depresión en que en la apatía no hay tristeza reactiva asociada.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Humor",
+          "enunciado": "Un paciente con catalepsia permanece inmóvil, con los brazos en posición obligatoria, resistente a cualquier cambio de postura durante horas. ¿Qué cuadro presenta?",
+          "opciones": [
+            {
+              "texto": "Catalepsia",
+              "correcta": true
+            },
+            {
+              "texto": "Rigidez muscular",
+              "correcta": false
+            },
+            {
+              "texto": "Apatía",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La CATALEPSIA es la conservación pasiva e involuntaria de una postura impuesta por el examinador, con resistencia a moverla. Es un signo motor de catatonía y se asocia a la esquizofrenia y al trastorno esquizoafectivo. La rigidez es un aumento del tono muscular, no la mantención de una postura concreta.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Humor",
+          "enunciado": "¿Cuál es el término para la pérdida del interés o diversión por actividades que antes disfrutaba?",
+          "respuestas_validas": "anhedonia|incapacidad para sentir placer|pérdida de placer",
+          "pista": "Significa 'sin placer'.",
+          "justificacion": "La ANHEDONIA es la incapacidad para experimentar placer o interés por actividades habitualmente gratificantes. Es uno de los síntomas nucleares del trastorno depresivo mayor y de la esquizofrenia (síntoma negativo). A diferencia de la apatía, la anhedonia se refiere específicamente a la dimensión del placer.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Conducta",
+          "enunciado": "¿Qué describe mejor la desinhibición en el contexto de los trastornos psicopatológicos?",
+          "opciones": [
+            {
+              "texto": "Conducta impulsiva que vulnera las normas sociales, sin conciencia de la magnitud del problema",
+              "correcta": true
+            },
+            {
+              "texto": "Conducta ordenada y planificada con fines delimitados",
+              "correcta": false
+            },
+            {
+              "texto": "Ausencia de conducta observable",
+              "correcta": false
+            },
+            {
+              "texto": "Conducta estereotipada repetitiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La desinhibición es la pérdida del control sobre los impulsos, con liberación de conductas que antes estaban contenidas. Es típica de las lesiones del lóbulo frontal (como en la demencia frontotemporal) y de la manía. Se caracteriza por una conciencia limitada del paciente sobre la magnitud de su conducta inapropiada.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Afectividad",
+          "enunciado": "¿Cómo se llama la expresión de una emoción en un momento o contexto completamente inapropiado?",
+          "respuestas_validas": "inapropiación afectiva|inapropiación|inapropiacion afectiva|labilidad afectiva",
+          "pista": "Contiene 'inapropiación'.",
+          "justificacion": "La INAPROPIACIÓN AFECTIVA es la expresión de emociones en contextos no adecuados: reír ante una tragedia, llorar sin motivo aparente. Es una alteración de la EXPRESIÓN (no del ánimo) y se asocia a trastornos como el trastorno bipolar, la demencia frontotemporal o el trastorno límite de la personalidad.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 5,
+      "nombre": "Cognición e insight",
+      "tema": "Cognición e insight",
+      "emoji": "🧠",
+      "descripcion": "Deterioro cognitivo, insight y juicio",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Insight",
+          "enunciado": "¿Qué es el insight (conciencia de enfermedad)?",
+          "opciones": [
+            {
+              "texto": "La conciencia que tiene el paciente de que está enfermo",
+              "correcta": true
+            },
+            {
+              "texto": "La inteligencia del paciente medida por un test",
+              "correcta": false
+            },
+            {
+              "texto": "La capacidad de reconocer a los familiares",
+              "correcta": false
+            },
+            {
+              "texto": "La lucidez de la conciencia durante la entrevista",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El INSIGHT o conciencia de enfermedad es el grado en que el paciente reconoce que está enfermo y que su experiencia es anómala. Su ausencia es característica de los trastornos psicóticos, mientras que suele estar preservado (aunque sea parcial) en los trastornos neuróticos. Un insight parcial existe cuando el paciente admite estar enfermo pero atribuye su enfermedad a una causa externa.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Cognición",
+          "enunciado": "¿Cómo se llama el deterioro progresivo de las funciones cognitivas, como la memoria y el razonamiento, en las demencias?",
+          "respuestas_validas": "deterioro cognitivo|deterioro|declive cognitivo|declive",
+          "pista": "La palabra empieza por 'dete'.",
+          "justificacion": "El DETERIORO COGNITIVO (o declive cognitivo) es la pérdida progresiva de funciones como la memoria, la atención, el razonamiento y la capacidad ejecutiva. Cuando interfiere con la autonomía del paciente se denomina demencia. En las fases leves se llama deterioro cognitivo leve (DCL), y no siempre progresa a demencia.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Insight",
+          "enunciado": "Un paciente que oye voces cree que sus vecinos lo han envenenado, pero admite 'algo no anda bien' y busca ayuda médica voluntariamente. ¿Qué tipo de insight presenta?",
+          "opciones": [
+            {
+              "texto": "Insight completo: reconoce la enfermedad y busca ayuda",
+              "correcta": false
+            },
+            {
+              "texto": "Insight parcial: reconoce que algo falla pero mantiene el delirante",
+              "correcta": true
+            },
+            {
+              "texto": "Sin insight: no reconoce nada",
+              "correcta": false
+            },
+            {
+              "texto": "Insight parcial porque no admite la causa",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Presenta INSIGHT PARCIAL: reconoce que hay un problema (búsqueda de ayuda) pero mantiene la convicción delirante sobre la causa (los vecinos). El insight completo, en cambio, supone reconocer tanto la enfermedad como su naturaleza real y aceptar la ayuda. La ausencia total sería no reconocer ningún problema.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Cognición",
+          "enunciado": "¿Cómo se llama la alteración de la capacidad de tomar decisiones, evaluar situaciones y comportarse de forma adecuada según el contexto?",
+          "respuestas_validas": "juicio|juicio clínico|capacidad de juicio",
+          "pista": "Es una palabra de seis letras que empieza por 'j'.",
+          "justificacion": "El JUICIO (o capacidad de juicio) es la función cognitiva que permite evaluar una situación, sopesar opciones y tomar decisiones razonables. Su deterioro es característico de los trastornos frontotemporales y de la demencia. El juicio está relacionado con las funciones ejecutivas, pero se evalúa de forma distinta.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Cognición",
+          "enunciado": "¿Cuál es la diferencia entre memoria de trabajo y memoria a largo plazo?",
+          "opciones": [
+            {
+              "texto": "La de trabajo sostiene información unos segundos; la a largo plazo la almacena de forma permanente",
+              "correcta": true
+            },
+            {
+              "texto": "La de trabajo es visual y la de largo plazo, verbal",
+              "correcta": false
+            },
+            {
+              "texto": "No hay diferencia real",
+              "correcta": false
+            },
+            {
+              "texto": "La de trabajo es de lectura y escritura",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La MEMORIA DE TRABAJO mantiene la información activa durante unos segundos (bucle fonológico y visuoespacial) y permite razonar sobre ella. La MEMORIA A LARGO PLAZO almacena la información de forma más permanente, con dos componentes: la declarativa (hechos) y la no declarativa (habilidades). En el deterioro cognitivo se pierde primero la memoria de trabajo y la reciente (declarativa explícita).",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Cognición",
+          "enunciado": "¿Cómo se llama la incapacidad de mantener la atención y concentrarse en una tarea?",
+          "respuestas_validas": "desatención|desatencion|falta de atención|déficit de atención|inatención",
+          "pista": "Empieza por 'des' y se refiere a la atención.",
+          "justificacion": "La DESATENCIÓN o déficit de atención es la incapacidad de mantener el foco atencional o de filtrar los estímulos relevantes. Es un síntoma transversal: aparece en el trastorno depresivo, en la manía, en la esquizofrenia, en las demencias y en el TDAH. Se evalúa con tests de atención sostenida (dígitos, trail-making).",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Insight",
+          "enunciado": "¿En qué trastornos se observa típicamente el insight AUSENTE?",
+          "opciones": [
+            {
+              "texto": "En los trastornos psicóticos como la esquizofrenia y los trastornos delirantes",
+              "correcta": true
+            },
+            {
+              "texto": "En los trastornos de ansiedad",
+              "correcta": false
+            },
+            {
+              "texto": "En los trastornos de ajuste",
+              "correcta": false
+            },
+            {
+              "texto": "En los trastornos fóbicos",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El insight ausente es característico de los trastornos psicóticos (esquizofrenia, trastorno delirante, trastorno bipolar en fase psicótica) porque el paciente no reconoce la naturaleza patológica de sus síntomas. En los trastornos neuróticos (ansiedad, fobias, obsesiones) el insight suele estar presente: el paciente sabe que le ocurre algo, aunque le cueste aceptar su condición.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Cognición",
+          "enunciado": "¿Cómo se llama la alteración de la capacidad de entender el lenguaje hablado o escrito?",
+          "respuestas_validas": "afasia|afasia receptiva|alexia",
+          "pista": "Empieza por 'a'.",
+          "justificacion": "La AFASIA es la alteración (o pérdida) de la capacidad de comprender y/o producir el lenguaje tras una lesión cerebral, con el lenguaje conservado en el resto de sus aspectos. Se clasifica según se afecte la comprensión, la producción o ambas. La MEMORIA para el lenguaje (olvidar palabras) no es afasia sino una alteración mnésica. En Semiología psicopatológica, la afasia se estudia como síntoma del deterioro cognitivo.",
+          "puntos": 20
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Cognición",
+          "enunciado": "¿Qué función cognitiva se asocia al lóbulo frontal y su deterioro explica la desinhibición, la apatía y la incapacidad para planificar?",
+          "opciones": [
+            {
+              "texto": "Las funciones ejecutivas",
+              "correcta": true
+            },
+            {
+              "texto": "La memoria procedimental",
+              "correcta": false
+            },
+            {
+              "texto": "El lenguaje expresivo",
+              "correcta": false
+            },
+            {
+              "texto": "La atención selectiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las FUNCIONES EJECUTIVAS (planificación, organización, inhibición de impulsos, monitorización del comportamiento y flexibilidad cognitiva) dependen del lóbulo frontal. Su deterioro explica la tríada de los trastornos frontotemporales: desinhibición social, apatía y pérdida de la capacidad de planificación. También aparece en las demencias de cualquier tipo como síntoma precoz.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Cognición",
+          "enunciado": "¿Cómo se llama la cualidad de un recuerdo que puede ser recordado voluntariamente, a diferencia del que se presenta de forma involuntaria?",
+          "respuestas_validas": "recuerdo explícito|recuerdo explícita|memoria explícita",
+          "pista": "Se opone a 'recuerdo implícito'.",
+          "justificacion": "El recuerdo EXPLÍCITO (o declarativo) es el que puede ser recuperado conscientemente mediante un esfuerzo deliberado. El IMPLÍCITO (o no declarativo) se manifiesta sin conciencia, a través del hábito o la conducta (p. ej. montar en bici). El deterioro del explícito es característico del Alzheimer temprano, mientras que el implícito se conserva hasta fases avanzadas.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Cognición",
+          "enunciado": "¿Cómo se llama el déficit en la capacidad de mantener o completar una tarea, observable en la falta de constancia mental?",
+          "respuestas_validas": "falta de constancia mental|constancia mental|baja tolerancia a la frustración",
+          "pista": "Contiene 'constancia'.",
+          "justificacion": "La FALTA DE CONSTANCIA MENTAL se observa cuando el paciente no puede mantener o completar una tarea por falta de perseverancia mental. Es característica de la demencia y de ciertos trastornos del neurodesarrollo, y se diferencia de la distraibilidad (que es la incapacidad de Prest atencion) porque aquí el paciente SÍ atiende pero no persiste.",
+          "puntos": 20
+        }
+      ]
+    }
+  ]
+}
