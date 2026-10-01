@@ -162,6 +162,15 @@ public class Mascota {
         return true;
     }
 
+    /** Gasta energía (p. ej. al empezar un intento). False si no alcanza. */
+    public boolean consumirEnergia(int costo) {
+        if (costo <= 0) return true;
+        if (energia < costo) return false;
+        energia = limitar(energia - costo, 0, 100);
+        recalcularEstado();
+        return true;
+    }
+
     /** Minijuego rápido: sube felicidad, gasta energía. */
     public boolean jugar(int puntosFelicidad, int costoEnergia) {
         if (energia < costoEnergia) return false;

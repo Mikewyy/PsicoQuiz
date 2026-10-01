@@ -79,6 +79,7 @@
     <string name="quiz_elige_opcion">Elige una opción</string>
     <string name="quiz_cerrar">✕</string>
     <string name="quiz_salir">¿Abandonar el intento? No se guardará el progreso.</string>
+    <string name="quiz_sin_energia">Sin energía. Descansa o alimenta a tu mascota para seguir jugando.</string>
 
     <!-- Evaluación: resultado -->
     <string name="resultado_aprobado">¡Tramo superado!</string>

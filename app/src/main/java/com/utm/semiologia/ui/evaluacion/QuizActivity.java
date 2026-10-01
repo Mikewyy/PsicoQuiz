@@ -83,7 +83,11 @@ public class QuizActivity extends AppCompatActivity {
         btnAccion = findViewById(R.id.btnAccion);
 
         vm = new ViewModelProvider(this).get(QuizViewModel.class);
-        vm.iniciar(nivelId, numero, nombre, modo);
+        if (!vm.iniciar(nivelId, numero, nombre, modo)) {
+            Toast.makeText(this, R.string.quiz_sin_energia, Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
         findViewById(R.id.btnCerrar).setOnClickListener(v -> confirmarSalida());
         btnAccion.setOnClickListener(v -> onAccion());

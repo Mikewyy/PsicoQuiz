@@ -93,20 +93,4 @@ public class DashboardViewModel extends AndroidViewModel {
         cargar();
         return ok;
     }
-
-    /** Minijuego rápido: cuesta energía, sube la felicidad. */
-    public boolean jugar() {
-        long usuarioId = sesion.getUsuarioId();
-        Mascota m = repo.mascotas().obtener(usuarioId);
-        if (m == null) return false;
-        if (!m.jugar(8, 15)) {
-            mensajePendiente = "Tu mascota está muy cansada para jugar";
-            cargar();
-            return false;
-        }
-        repo.mascotas().actualizarEstado(m);
-        mensajePendiente = "¡Hora de jugar!";
-        cargar();
-        return true;
-    }
 }

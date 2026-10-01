@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void configurarListeners() {
         btnAlimentar.setOnClickListener(v -> viewModel.alimentar());
-        btnJugar.setOnClickListener(v -> viewModel.jugar());
+        btnJugar.setOnClickListener(v -> startActivity(new Intent(this, CaminoActivity.class)));
 
         findViewById(R.id.btnSalir).setOnClickListener(v -> confirmarSalir());
 
@@ -114,8 +114,7 @@ public class MainActivity extends AppCompatActivity {
         // de momento se confirma que el acceso rápido está cableado.
         moduloEnConstruccion(R.id.modGuia, getString(R.string.modulo_guia));
         moduloEnConstruccion(R.id.modGrupos, getString(R.string.modulo_grupos));
-        findViewById(R.id.modEvaluacion).setOnClickListener(
-                v -> startActivity(new Intent(this, CaminoActivity.class)));
+        moduloEnConstruccion(R.id.modEvaluacion, getString(R.string.modulo_evaluacion));
         moduloEnConstruccion(R.id.modPomodoro, getString(R.string.modulo_pomodoro));
     }
 

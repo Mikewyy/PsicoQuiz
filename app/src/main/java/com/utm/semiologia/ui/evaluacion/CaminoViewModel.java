@@ -11,7 +11,7 @@ import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.util.SesionManager;
 
-/** Carga el progreso de los 5 tramos para el usuario en sesión. */
+/** Carga el progreso de los tramos para el usuario en sesión. */
 public class CaminoViewModel extends AndroidViewModel {
 
     private final Repositorio repo;

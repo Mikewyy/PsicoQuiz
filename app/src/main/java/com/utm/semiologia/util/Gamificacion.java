@@ -25,6 +25,8 @@ public final class Gamificacion {
     public static final int COMIDA_POR_TRAMO_APROBADO   = 2;
     /** Fila 'Galleta' de la tabla alimentos, la comida por defecto. */
     public static final long ALIMENTO_GALLETA_ID        = 1L;
+    /** Energía de la mascota que cuesta empezar un intento de preguntas. */
+    public static final int ENERGIA_POR_INTENTO         = 5;
 
     private Gamificacion() {
     }

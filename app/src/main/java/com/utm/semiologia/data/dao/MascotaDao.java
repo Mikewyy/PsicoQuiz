@@ -66,6 +66,14 @@ public class MascotaDao {
                 new String[]{String.valueOf(m.getUsuarioId())});
     }
 
+    /** Gasta energía de la mascota si alcanza. Devuelve false si no alcanza. */
+    public boolean consumirEnergia(long usuarioId, int costo) {
+        Mascota m = obtener(usuarioId);
+        if (m == null || !m.consumirEnergia(costo)) return false;
+        actualizarEstado(m);
+        return true;
+    }
+
     public void renombrar(long usuarioId, String nombre) {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();

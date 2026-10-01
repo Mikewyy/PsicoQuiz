@@ -71,11 +71,19 @@ public class QuizViewModel extends AndroidViewModel {
         return estado;
     }
 
-    /** Idempotente: en una rotación no reinicia el intento ya empezado. */
-    public void iniciar(long nivelId, int nivelNumero, String nivelNombre, String modo) {
+    /**
+     * Idempotente: en una rotación no reinicia el intento ya empezado.
+     * Cobra {@link Gamificacion#ENERGIA_POR_INTENTO} al empezar; devuelve false
+     * si la mascota no tiene energía suficiente.
+     */
+    public boolean iniciar(long nivelId, int nivelNumero, String nivelNombre, String modo) {
         if (iniciado) {
             emitir();
-            return;
+            return true;
+        }
+        long usuarioId = sesion.getUsuarioId();
+        if (!repo.mascotas().consumirEnergia(usuarioId, Gamificacion.ENERGIA_POR_INTENTO)) {
+            return false;
         }
         this.nivelId = nivelId;
         this.nivelNumero = nivelNumero;
@@ -87,6 +95,7 @@ public class QuizViewModel extends AndroidViewModel {
         preguntas.addAll(cargadas);
         iniciado = true;
         cargarActual();
+        return true;
     }
 
     private boolean esExamen() {
