@@ -61,13 +61,18 @@ if (!ES || !EN) console.log('AVISO: faltan diccionarios; se omite la deteccion d
 // anglicismos aceptados a proposito o nombres propios. Sin esta lista habria
 // falsos positivos ('dice', 'bipolar', 'insight'...).
 const PERMITIDAS = new Set([
-  // castellanas que colisionan con el ingles
+  // castellanas que colisionan con el ingles o que faltan en el dicc. base
   'describe', 'dice', 'late', 'usa', 'cree', 'define', 'ideas', 'idea',
   'bipolar', 'irritable', 'llamas', 'brazos', 'bilateral',
-  // anglicismos usados a proposito (van glosados en el texto)
-  'insight', 'blunting', 'tests', 'test', 'trail', 'making',
+  'amigos', 'cambia', 'confusion', 'detestable', 'divide', 'genera',
+  'graves', 'negros', 'padres', 'produce', 'reales', 'rodeos', 'sale',
+  'tales', 'traduce', 'verse', 'tics',
+  // anglicismos/tecnicismos usados a proposito (van glosados en el texto)
+  'insight', 'blunting', 'tests', 'test', 'trail', 'making', 'delirium', 'rem',
   // nombres propios
-  'hampton', 'charles', 'bonnet',
+  'hampton', 'charles', 'bonnet', 'emil', 'bonaparte',
+  // numeracion romana de estadios (p. ej. sueno REM III/IV)
+  'iii', 'iv',
 ]);
 
 // ---------------------------------------------------------------------------
@@ -223,7 +228,7 @@ console.log(`Total: ${total} preguntas (${totalMcq} mcq, ${totalEscrita} escrita
 console.log(`Niveles: ${niveles.length}`);
 
 if (total < 50) err(`se requieren al menos 50 preguntas, hay ${total}`);
-if (niveles.length !== 5) warn(`se esperaban 5 niveles, hay ${niveles.length}`);
+if (niveles.length !== 11) warn(`se esperaban 11 niveles, hay ${niveles.length}`);
 
 niveles.forEach(n => {
   const esc = (n.preguntas || []).filter(p => p.tipo === 'escrita').length;

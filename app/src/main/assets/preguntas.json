@@ -1,1065 +1,2499 @@
 {
-  "version": 1,
+  "version": 2,
   "niveles": [
     {
       "numero": 1,
-      "nombre": "Fundamentos",
-      "tema": "Fundamentos",
-      "emoji": "🧩",
-      "descripcion": "Signos, síntomas y la Semiología",
+      "nombre": "Psicopatología de la conciencia",
+      "tema": "Psicopatología de la conciencia",
+      "emoji": "🧠",
+      "descripcion": "Alteraciones cuantitativas y cualitativas de la conciencia como obnubilación, estupor y delirium.",
       "preguntas": [
         {
           "tipo": "mcq",
-          "tema": "Signo vs síntoma",
-          "enunciado": "¿Cuál es la diferencia fundamental entre un signo y un síntoma?",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "Un paciente llega a urgencias. Se encuentra lento para actuar, con dificultades para hablar y parece que se quedará dormido si no se le estimula constantemente. Intenta evitar los estímulos dolorosos y sus reflejos están reducidos. ¿Qué estado de alteración de la conciencia presenta?",
           "opciones": [
             {
-              "texto": "El signo es subjetivo y el síntoma es objetivo",
+              "texto": "Obnubilación",
               "correcta": false
             },
             {
-              "texto": "El signo es objetivo y verificable; el síntoma es la percepción subjetiva del paciente",
+              "texto": "Somnolencia, letargia o sopor",
               "correcta": true
             },
             {
-              "texto": "El síntoma se detecta con pruebas de laboratorio",
+              "texto": "Estupor",
               "correcta": false
             },
             {
-              "texto": "No hay diferencia: son sinónimos",
+              "texto": "Coma",
               "correcta": false
             }
           ],
-          "justificacion": "El signo es toda manifestación perceptible objetivamente por el examinador, que puede verificar sin entrevista (p. ej. la palidez, la taquicardia). El síntoma es la experiencia subjetiva que el paciente refiere y que no puede observarse directamente (p. ej. el dolor, la Náusea). Un mismo fenómeno puede ser signo para el médico y síntoma para el paciente.",
+          "justificacion": "Según el documento, la somnolencia, letargia o sopor es un deterioro progresivo donde el paciente 'se quedará dormido si se queda sin estimulación sensorial', muestra lentitud, reflejos reducidos e intenta evitar estímulos dolorosos.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "¿Cuál es la característica clínica fundamental que distingue al estupor del coma?",
+          "opciones": [
+            {
+              "texto": "En el estupor es imposible explorar el contenido del pensamiento, mientras que en el coma sí es posible.",
+              "correcta": false
+            },
+            {
+              "texto": "En el estupor se puede alcanzar un ligero estado de alerta mediante estímulos muy potentes, en el coma es imposible despertar al paciente.",
+              "correcta": true
+            },
+            {
+              "texto": "En el estupor desaparece el funcionamiento reflejo vegetativo, y en el coma se conservan.",
+              "correcta": false
+            },
+            {
+              "texto": "El estupor siempre tiene origen neurológico, mientras que el coma siempre es metabólico o tóxico.",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El texto define que en el estupor 'es posible alcanzar un ligero estado de alerta mediante estímulos muy potentes', mientras que el coma es una suspensión global en la que 'resulta imposible despertar al paciente a pesar de una estimulación intensa'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cualitativas",
+          "enunciado": "¿Qué alteración de la conciencia se caracteriza por ser transitoria, de inicio y fin súbitos, a menudo acompañada de conductas automáticas y amnesia lacunar, y está estrechamente asociada a la epilepsia del lóbulo temporal?",
+          "opciones": [
+            {
+              "texto": "Delirium",
+              "correcta": false
+            },
+            {
+              "texto": "Estado confusional",
+              "correcta": false
+            },
+            {
+              "texto": "Estado crepuscular",
+              "correcta": true
+            },
+            {
+              "texto": "Estado oniroide",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento señala explícitamente que los estados crepusculares son 'estados transitorios de inicio y fin súbitos' con conductas automáticas y que este término 'se restringe a alteraciones producidas por la epilepsia (fundamentalmente del lóbulo temporal)'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cualitativas",
+          "enunciado": "Un paciente con historial prolongado de alcoholismo es internado. Al segundo día presenta agitación, deterioro cognitivo global y se sacude frenéticamente diciendo que tiene 'bichos caminándole por encima'. Este cuadro agudo es característico de:",
+          "opciones": [
+            {
+              "texto": "Delirium (Delirium Tremens)",
+              "correcta": true
+            },
+            {
+              "texto": "Estados oniroides",
+              "correcta": false
+            },
+            {
+              "texto": "Estupor psiquiátrico",
+              "correcta": false
+            },
+            {
+              "texto": "Obnubilación",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El texto menciona que el Delirium implica un deterioro cognitivo global de curso agudo, con alteraciones sensoperceptuales (ilusiones/alucinaciones) y es común verlo en el 'Delirium Tremens del alcoholismo', donde el paciente se sacude creyendo tener bichos.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cualitativas",
+          "enunciado": "En la evaluación de un paciente se observa que realiza acciones repetitivas complejas, como abotonarse la camisa, pero al preguntarle luego, no tiene recuerdo de haberlo hecho. Carecía de control voluntario durante el acto. A esto se le conoce como:",
+          "opciones": [
+            {
+              "texto": "Estados oniroides",
+              "correcta": false
+            },
+            {
+              "texto": "Automatismos",
+              "correcta": true
+            },
+            {
+              "texto": "Hiperfrenia",
+              "correcta": false
+            },
+            {
+              "texto": "Confusión mental",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento indica que un automatismo 'implica una acción que tiene lugar en ausencia de conciencia', es involuntario, no dirigido con juicio, y posteriormente el individuo 'puede no tener ningún recuerdo'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "La obnubilación es el primer estadio de disminución del nivel de conciencia. ¿Cuál de las siguientes acciones es CAPAZ de realizar un paciente obnubilado?",
+          "opciones": [
+            {
+              "texto": "Realizar cálculos matemáticos complejos con rapidez.",
+              "correcta": false
+            },
+            {
+              "texto": "Mantener diálogos extensos y profundos sin perder el hilo.",
+              "correcta": false
+            },
+            {
+              "texto": "Entender y ejecutar lentamente órdenes sencillas como sacar la lengua.",
+              "correcta": true
+            },
+            {
+              "texto": "Despertar espontáneamente y recuperar la conciencia plena inmediatamente.",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El texto establece que en la obnubilación, aunque la conciencia está limitada, 'no se pierde por completo la capacidad de reconocimiento', de tal modo que el paciente 'puede entender y ejecutar lentamente órdenes sencillas'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cualitativas",
+          "enunciado": "Un paciente reporta estar viviendo experiencias muy vívidas, similares a una película que transcurre ante sus ojos, experimentando emociones extremas y alucinaciones escénicas que mezclan la realidad y la fantasía. Este estado se define como:",
+          "opciones": [
+            {
+              "texto": "Estado oniroide",
+              "correcta": true
+            },
+            {
+              "texto": "Delirium",
+              "correcta": false
+            },
+            {
+              "texto": "Estado confusional",
+              "correcta": false
+            },
+            {
+              "texto": "Automatismo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los estados oniroides, según el documento, son alteraciones donde se experimentan alucinaciones escénicas 'como si estuviera viviendo una película', mezclando realidad y fantasía, y tienen gran relación con vivencias oníricas (sueños).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "Estado de máxima conciencia exagerada, donde el sujeto se encuentra en un estado de alerta extremo. A este estado se le denomina:",
+          "opciones": [
+            {
+              "texto": "Hiperfrenia",
+              "correcta": true
+            },
+            {
+              "texto": "Obnubilación",
+              "correcta": false
+            },
+            {
+              "texto": "Confusión mental",
+              "correcta": false
+            },
+            {
+              "texto": "Estupor",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento define literalmente la hiperfrenia como un 'Estado de hipervigilancia máxima; consciencia exagerada', dentro de las alteraciones por elevación del nivel de conciencia.",
           "puntos": 15
         },
         {
           "tipo": "escrita",
-          "tema": "Semiología",
-          "enunciado": "¿Cómo se llama la rama de la medicina que estudia los signos y síntomas producidos por la enfermedad?",
-          "respuestas_validas": "semiología|semiologia",
-          "pista": "Empieza por 'semi...' y significa 'estudio de signos'.",
-          "justificacion": "La semiología (del griego semeiología, 'estudio de los signos') es la disciplina que estudia los signos y síntomas en relación con las enfermedades. La semiopatología es la rama que estudia las causas y mecanismos de los signos y síntomas; la propedéutica o diagnóstico semiológico, el procedimiento para recogerlos.",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "¿Cuál es el término que hace referencia a una búsqueda constante de amenazas en el entorno, sensibilidad sensorial aumentada y se da por exceso del estado de conciencia?",
+          "respuestas_validas": "hipervigilancia|hipervigilante",
+          "pista": "Empieza con 'hiper' y termina con 'vigilancia'.",
+          "justificacion": "La hipervigilancia es la alteración por elevación del nivel de conciencia donde el individuo está en 'búsqueda constante de posibles amenazas', volviéndose irritable y agotado.",
           "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Signo vs síntoma",
-          "enunciado": "Un paciente refiere dolor abdominal intenso. ¿Qué categoría semiológica es?",
-          "opciones": [
-            {
-              "texto": "Signo, porque se puede palpar",
-              "correcta": false
-            },
-            {
-              "texto": "Síntoma, porque es una experiencia subjetiva referida por el paciente",
-              "correcta": true
-            },
-            {
-              "texto": "Signo, porque el paciente lo describe con detalle",
-              "correcta": false
-            },
-            {
-              "texto": "Ni signo ni síntoma: es un síndrome",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El dolor es el síntoma subjetivo por excelencia: sólo el paciente puede experimentarlo y describirlo. Aunque el examinador pueda explorarlo, sigue siendo un síntoma. Un síndrome, en cambio, es el conjunto de signos y síntomas que caracteriza a una enfermedad concreta.",
-          "puntos": 15
         },
         {
           "tipo": "escrita",
-          "tema": "Semiología",
-          "enunciado": "¿Cuál es el nombre del conjunto de signos y síntomas que identifican a una enfermedad concreta?",
-          "respuestas_validas": "síndrome|sindrome",
-          "pista": "Es una palabra que empieza por 's' y lleva tilde.",
-          "justificacion": "El síndrome es la agrupación de signos y síntomas que se presentan juntos y que, en conjunto, sugieren una misma entidad clínica. El diagnóstico syndiqués es el proceso de reconocer ese síndrome: es el primer paso del razonamiento clínico, anterior al diagnóstico etiológico.",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "Fase de disminución de conciencia donde existe incapacidad de mantener diálogo, hay facies de extrañeza y una concepción desordenada de la realidad.",
+          "respuestas_validas": "confusión|confusion|confusión mental|estado confusional",
+          "pista": "Estado mental en el que la persona está 'confundida'.",
+          "justificacion": "La confusión mental o estado confusional se caracteriza por 'facies de extrañeza', concepción desordenada de la realidad, y el paciente es 'incapaz de mantener un diálogo comprensible'.",
           "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Signo vs síntoma",
-          "enunciado": "¿Cuál de los siguientes es un SIGNO y no un síntoma?",
-          "opciones": [
-            {
-              "texto": "Mareo",
-              "correcta": false
-            },
-            {
-              "texto": "Ansiedad",
-              "correcta": false
-            },
-            {
-              "texto": "Taquicardia",
-              "correcta": true
-            },
-            {
-              "texto": "Miedo a morir",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La taquicardia es un signo: es objetiva, medible y verificable por el examinador sin necesidad de entrevista. Mareo, ansiedad y miedo a morir son síntomas porque dependen de la experiencia subjetiva del paciente.",
-          "puntos": 15
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Semiología",
-          "enunciado": "La semiología se ocupa de conocer los signos y síntomas. ¿De qué se ocupa principalmente la semiopatología?",
-          "opciones": [
-            {
-              "texto": "Del estudio de las causas y mecanismos que producen los signos",
-              "correcta": true
-            },
-            {
-              "texto": "De la cirugía general",
-              "correcta": false
-            },
-            {
-              "texto": "Del pronóstico de la enfermedad",
-              "correcta": false
-            },
-            {
-              "texto": "De la anatomía patológica",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La semiología describe y reconoce los signos y síntomas; la semiopatología estudia sus causas y los mecanismos fisiopatológicos que los originan. Son caras complementarias de una misma moneda: la semiología es descriptiva, la semiopatología es etiológica.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Semiología",
-          "enunciado": "¿Qué rama de la semiología se ocupa de la obtención ordenada de los datos clínicos mediante la entrevista y la exploración?",
-          "respuestas_validas": "propedéutica|propedeutica|diagnóstico semiológico|diagnostico semiológico",
-          "pista": "La palabra significa 'educar para adelante'.",
-          "justificacion": "La propedéutica o diagnóstico semiológico es la parte de la semiología que enseña a recoger de forma ordenada los datos: la entrevista clínica y la exploración física. Su objetivo es llegar al síndrome mediante un interrogatorio estructurado.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Signo vs síntoma",
-          "enunciado": "Un paciente presenta edema periférico bilateral. ¿Cómo se clasifica inicialmente?",
-          "opciones": [
-            {
-              "texto": "Síntoma, porque molesta",
-              "correcta": false
-            },
-            {
-              "texto": "Signo, porque es objetivable por inspección y palpación",
-              "correcta": true
-            },
-            {
-              "texto": "Síndrome, porque incluye varios síntomas",
-              "correcta": false
-            },
-            {
-              "texto": "Enfermedad, porque ya tiene un diagnóstico",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El edema es un signo objetivo: se ve y se palpa. Que el paciente también refiera que le molesta lo convierte en un dato mixto, pero su naturaleza semiológica sigue siendo la de un signo. La enfermedad (el diagnóstico) sólo se establece tras el síndrome y los estudios correspondientes.",
-          "puntos": 15
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Semiología",
-          "enunciado": "¿Cuál es el orden correcto del razonamiento clínico semiológico?",
-          "opciones": [
-            {
-              "texto": "Diagnóstico etiológico → signos → síndrome",
-              "correcta": false
-            },
-            {
-              "texto": "Signos y síntomas → síndrome → diagnóstico",
-              "correcta": true
-            },
-            {
-              "texto": "Tratamiento → diagnóstico → signos",
-              "correcta": false
-            },
-            {
-              "texto": "Solo se parte del síndrome, nunca de los signos",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El razonamiento semiológico sigue tres escalones: primero se recogen los signos y síntomas, luego se agrupan en un síndrome, y sólo después se busca el diagnóstico etiológico. Invertir el orden es un error frecuente que lleva a diagnosticar sin haber explorado al paciente.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Semiología",
-          "enunciado": "¿Cómo se llama el proceso de reconocer, a partir de los signos y síntomas, la enfermedad concreta que sufre el paciente?",
-          "respuestas_validas": "diagnóstico|diagnostico|diagnóstico semiológico|diagnostico semiológico",
-          "pista": "Es la palabra que empieza con 'diag'.",
-          "justificacion": "El diagnóstico es la conclusión del razonamiento semiológico. Cuando se establece sólo a partir de signos y síntomas se denomina diagnóstico semiológico o clínico; si además se identifica la causa, es un diagnóstico etiológico.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Signo vs síntoma",
-          "enunciado": "Un paciente dice 'siento que el corazón me late muy rápido'. En la exploración el médico objetiva 110 latidos por minuto. ¿Qué estamos viendo?",
-          "opciones": [
-            {
-              "texto": "Sólo un síntoma",
-              "correcta": false
-            },
-            {
-              "texto": "Sólo un signo",
-              "correcta": false
-            },
-            {
-              "texto": "Un síntoma y un signo distintos que corresponden al mismo fenómeno",
-              "correcta": true
-            },
-            {
-              "texto": "Un error, porque deberían ser lo mismo",
-              "correcta": false
-            }
-          ],
-          "justificacion": "Es el ejemplo clásico de la correspondencia entre síntoma y signo: el mismo fenómeno (taquicardia) es vivida como síntoma por el paciente y medida como signo por el examinador. No son lo mismo, pero se corresponden en un mismo fenómeno.",
-          "puntos": 15
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Semiología",
-          "enunciado": "¿Cuál de estas prácticas pertenece a la semiología y no a la anatomía patológica?",
-          "opciones": [
-            {
-              "texto": "Describir y reconocer los signos y síntomas del paciente vivo",
-              "correcta": true
-            },
-            {
-              "texto": "Estudiar la biopsia de un órgano",
-              "correcta": false
-            },
-            {
-              "texto": "Examinar un cadáver",
-              "correcta": false
-            },
-            {
-              "texto": "Determinar el pH de un tejido",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La semiología es la disciplina 'de la cabecera', estudia al paciente vivo mediante la entrevista y la exploración. La anatomía patológica estudia la lesión en el tejido, ya sea mediante autopsia o biopsia. Ambas se complementan: el clínico propone el diagnóstico, el patólogo lo confirma o lo descarta.",
-          "puntos": 15
         }
       ]
     },
     {
       "numero": 2,
-      "nombre": "Percepción y pensamiento",
-      "tema": "Percepción y pensamiento",
-      "emoji": "👁️",
-      "descripcion": "Alucinaciones, delirios y desorganización",
+      "nombre": "Psicopatología de la orientación",
+      "tema": "Psicopatología de la orientación",
+      "emoji": "🧭",
+      "descripcion": "Orientación autopsíquica (persona) y alopsíquica (tiempo y espacio).",
       "preguntas": [
         {
           "tipo": "mcq",
-          "tema": "Alucinaciones",
-          "enunciado": "¿Cuál es la definición correcta de una alucinación?",
+          "tema": "Desorientación alopsíquica",
+          "enunciado": "Si al interrogar a un paciente en consulta, este insiste en que estamos en el año 1995 a pesar de estar en la actualidad, y no sabe distinguir si es de día o de noche, presenta:",
           "opciones": [
             {
-              "texto": "Una percepción sin estímulo externo correspondiente",
+              "texto": "Desorientación alopsíquica en espacio",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación autopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación alopsíquica en tiempo",
               "correcta": true
             },
             {
-              "texto": "Una percepción de un estímulo real pero mal interpretado",
-              "correcta": false
-            },
-            {
-              "texto": "Una idea falsa que el paciente defiende con convicción",
-              "correcta": false
-            },
-            {
-              "texto": "Una reacción de miedo ante un estímulo amenazante",
+              "texto": "Desorientación situacional",
               "correcta": false
             }
           ],
-          "justificacion": "La alucinación es la percepción de un estímulo que NO existe en el ambiente externo, sin estímulo correspondiente. La ilusión, en cambio, es la percepción distorsionada de un estímulo REAL y existente; la idea delirante es un contenido del pensamiento, no una percepción; y el miedo es un afecto, no una alteración perceptiva.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Alucinaciones",
-          "enunciado": "¿Cómo se llama la percepción distorsionada de un estímulo que SÍ existe en el ambiente?",
-          "respuestas_validas": "ilusión|ilusiones|ilusion|ilusiones",
-          "pista": "Empieza por 'i' y es un término de 7 letras.",
-          "justificacion": "La ilusión es la percepción alterada de un estímulo real: el paciente ve o escucha algo que está ahí, pero lo deforma. Un ejemplo clásico es el del rulero de Hampton en el síndrome de Charles Bonnet, o ver a alguien detrás de una cortina. La diferencia clave es que en la ilusión hay estímulo; en la alucinación, no lo hay.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Alucinaciones",
-          "enunciado": "Un paciente afirma escuchar voces que le insultan cuando nadie está presente. ¿Qué alteración presenta?",
-          "opciones": [
-            {
-              "texto": "Alucinación auditiva",
-              "correcta": true
-            },
-            {
-              "texto": "Alucinación visual",
-              "correcta": false
-            },
-            {
-              "texto": "Idea delirante",
-              "correcta": false
-            },
-            {
-              "texto": "Falsa percepción con estímulo presente",
-              "correcta": false
-            }
-          ],
-          "justificacion": "Oir voces sin fuente sonora real es una alucinación AUDITIVA, la más frecuente en la semiología psicopatológica. Suele asociarse a esquizofrenia y trastornos del espectro, aunque también aparece en episodios maníacos, intoxicaciones y demencias. La ausencia de estímulo descarta la ilusión.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Delirios",
-          "enunciado": "¿Cómo se llama la convicción firme y mantenida, no susceptible de discusión, en un contenido del pensamiento que es falso para la realidad?",
-          "respuestas_validas": "idea delirante|delirio|delirante|idea delirante fija",
-          "pista": "La palabra empieza con 'deli'.",
-          "justificacion": "El delirio (o idea delirante) es la convicción firme, persistente e inmodificable de una idea falsa. Su carácter patológico está en la convicción, no en el contenido: creer que una persona causa desastres naturales puede ser un delirio en un contexto psicopatológico, pero la misma idea en un niño que juega es normal. El delirante no rectifica ante la evidencia.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Delirios",
-          "enunciado": "Un paciente cree que su vecino le está envenenando la comida y lleva seis meses comprando comida nueva cada día, sin aceptar las pruebas que desmienten su idea. ¿Qué característica define este cuadro?",
-          "opciones": [
-            {
-              "texto": "Es una alucinación olfativa, porque percibe un olor",
-              "correcta": false
-            },
-            {
-              "texto": "Es un delirio, porque la convicción es firme, sostenida e inmodificable ante la evidencia",
-              "correcta": true
-            },
-            {
-              "texto": "Es una fobia, porque teme algo externo",
-              "correcta": false
-            },
-            {
-              "texto": "Es un trastorno obsesivo, porque la conducta se repite",
-              "correcta": false
-            }
-          ],
-          "justificacion": "Los tres elementos que definen un delirio son: convicción firme, sostenida en el tiempo e inmodificable por la evidencia. Aquí se cumplen los tres. La conducta repetitiva (comprar comida nueva) es una consecuencia de la idea, no un trastorno obsesivo, porque no hay obsesión reconocida: la conducta se sostiene por el delirio, no por un ritual.",
+          "justificacion": "La desorientación alopsíquica en tiempo ocurre cuando el sujeto 'no es capaz de reconocer la hora, el día, el mes o el año en que estamos', según el documento base.",
           "puntos": 15
         },
         {
           "tipo": "mcq",
-          "tema": "Alucinaciones",
-          "enunciado": "¿Cuál de estas es una alucinación PSICÓTICA?",
+          "tema": "Desorientación autopsíquica",
+          "enunciado": "Una persona ingresada tras un traumatismo severo desconoce quién es, no puede recordar su nombre, y mira a su esposa e hijos sin lograr identificarlos. Esta alteración se denomina:",
           "opciones": [
             {
-              "texto": "Oír la propia voz dentro de la cabeza, como si los pensamientos se escucharan desde dentro",
+              "texto": "Desorientación alopsíquica en tiempo",
               "correcta": false
             },
             {
-              "texto": "Oír una voz que insulta cuando no hay nadie presente",
+              "texto": "Desorientación autopsíquica o en persona",
               "correcta": true
             },
             {
-              "texto": "Ver luces de color al cerrar los párpados",
+              "texto": "Amnesia retrógrada selectiva",
               "correcta": false
             },
             {
-              "texto": "Sentir que el cuerpo flota al despertar (hipnagogo)",
+              "texto": "Desorientación alopsíquica en espacio",
               "correcta": false
             }
           ],
-          "justificacion": "Las alucinaciones psicóticas son las que EL PACIENTE ATRIBUYE A UNA FUENTE EXTERNA (una voz que habla, un ser que le habla). Las alucinaciones no psicóticas, en cambio, las atribuye a sí mismo: las más frecuentes son intracranianas o hipnagógicas (al dormirse o despertarse). La clave está en a quién se atribuye la percepción, no en su contenido.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Delirios",
-          "enunciado": "¿Cómo se llama la distorsión del pensamiento caracterizada por que las ideas pierden su relación lógica y no llegan a formar un discurso comprensible?",
-          "respuestas_validas": "desorganización|desorganizacion|trastorno del pensamiento",
-          "pista": "Empieza por 'des' y significa que el pensamiento pierde su orden.",
-          "justificacion": "La desorganización del pensamiento (trastorno formal del pensamiento) es la alteración de la lógica y el curso del pensamiento: las ideas no se conectan de forma coherente. Se manifiesta como pensamiento ilógico, tangencial, circunloquio o fuga de ideas. Es uno de los criterios diagnósticos centrales de la esquizofrenia y del trastorno bipolar en fase maníaca.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Alucinaciones",
-          "enunciado": "¿Cuál es la diferencia entre una alucinación y una ilusión?",
-          "opciones": [
-            {
-              "texto": "La alucinación tiene estímulo externo; la ilusión no",
-              "correcta": false
-            },
-            {
-              "texto": "La alucinación NO tiene estímulo externo; la ilusión sí, pero distorsionado",
-              "correcta": true
-            },
-            {
-              "texto": "Son exactamente lo mismo",
-              "correcta": false
-            },
-            {
-              "texto": "La ilusión es visual; la alucinación, auditiva",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La diferencia está en el estímulo, no en el canal sensorial. En la ALUCINACIÓN no hay estímulo externo (la voz no existe); en la ILUSIÓN hay estímulo externo real pero se percibe distorsionado. Esta distinción es esencial y la pregunta más clásica de los exámenes de semiología.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Delirios",
-          "enunciado": "¿Qué término se usa para la convicción firme de que una idea es cierta, sin que pueda modificarse con la evidencia?",
-          "respuestas_validas": "convicción|conviccion|creencia patológica|certidumbre",
-          "pista": "Empieza por 'con' y termina en 'ción'.",
-          "justificacion": "El término es convicción. En un delirante, la convicción es patológica porque es inmodificable por la evidencia y no comparte la realidad con el resto de las personas. Una creencia normal puede revisarse; uno delirante, no.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Alucinaciones",
-          "enunciado": "Un paciente afirma ver un insecto sobre su hombro pero, al mirarlo con atención, resulta ser un botón. ¿Qué se observa?",
-          "opciones": [
-            {
-              "texto": "Alucinación visual",
-              "correcta": false
-            },
-            {
-              "texto": "Ilusión visual",
-              "correcta": true
-            },
-            {
-              "texto": "Delirio visual",
-              "correcta": false
-            },
-            {
-              "texto": "Fobia",
-              "correcta": false
-            }
-          ],
-          "justificacion": "Es una ilusión visual: el estímulo EXISTE (el botón) y se percibe como algo distinto (un insecto). En una alucinación no habría estímulo real. Que el estímulo se descubra al fijar la atención apoya aún más el diagnóstico de ilusión.",
+          "justificacion": "La desorientación autopsíquica implica no poder 'identificar quién es... desconoce a las demás personas que le rodean habitualmente' (familiares, amigos).",
           "puntos": 15
         },
         {
           "tipo": "mcq",
-          "tema": "Delirios",
-          "enunciado": "Un paciente dice: 'Tengo dilemitas porque el mar me mira desde debajo de la cama y me envía señales'. ¿Qué contenido del pensamiento está alterado?",
+          "tema": "Desorientación alopsíquica",
+          "enunciado": "Se le pregunta a una mujer que se encuentra en un hospital en Madrid sobre su ubicación. Ella afirma firmemente que se encuentra en su casa de verano en Valencia. Este signo corresponde a:",
           "opciones": [
             {
-              "texto": "El contenido del pensamiento está alterado: idea delirante",
+              "texto": "Desorientación autopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación alopsíquica en tiempo",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación alopsíquica en espacio",
               "correcta": true
             },
             {
-              "texto": "Sólo está alterada la forma del pensamiento",
-              "correcta": false
-            },
-            {
-              "texto": "Es una alucinación, no un delirio",
-              "correcta": false
-            },
-            {
-              "texto": "Es un trastorno del lenguaje",
+              "texto": "Delirium Tremens",
               "correcta": false
             }
           ],
-          "justificacion": "La pregunta clave para distinguir un delirio de una alteración formal es: ¿está alterado el CONTENIDO o la FORMA? Aquí las ideas son extrañas (el mar vigila, envía señales) pero mantienen su estructura lógica y gramatical. Son ideas delirantes, no desorganización. La desorganización, en cambio, conservaría el significado pero perdería la lógica.",
+          "justificacion": "La desorientación alopsíquica en espacio se define como no poder 'reconocer el lugar en que está situado, la ciudad o localidad donde vive o donde se encuentra'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Conceptos Generales",
+          "enunciado": "¿Qué tres referencias contextuales y personales fundamentales nos permite situar la función psicológica de la orientación?",
+          "opciones": [
+            {
+              "texto": "Memoria, identidad y lenguaje",
+              "correcta": false
+            },
+            {
+              "texto": "Tiempo, lugar y persona",
+              "correcta": true
+            },
+            {
+              "texto": "Conciencia, atención y afecto",
+              "correcta": false
+            },
+            {
+              "texto": "Espacio, gravedad y temperatura",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento especifica en su introducción que la orientación 'permite situarnos a nosotros mismos en relación con determinadas referencias del contexto y personales (tiempo, lugar, y persona).'",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Desorientación autopsíquica",
+          "enunciado": "El paciente Juan no reconoce a su vecino de toda la vida y afirma no saber de dónde viene él mismo. El médico anota en la historia clínica 'Desorientación autopsíquica'. ¿Es correcta esta valoración?",
+          "opciones": [
+            {
+              "texto": "No, es alopsíquica en espacio porque no sabe de dónde viene.",
+              "correcta": false
+            },
+            {
+              "texto": "Sí, porque abarca tanto el desconocimiento de sí mismo como de las personas habituales que lo rodean.",
+              "correcta": true
+            },
+            {
+              "texto": "No, pertenece a la desorientación temporal.",
+              "correcta": false
+            },
+            {
+              "texto": "Sí, pero sólo si ocurre de noche.",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La desorientación autopsíquica ocurre cuando el individuo 'desconoce a las demás personas que le rodean habitualmente' y cuando 'está imposibilitado de saber quién es él mismo'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Diferenciación",
+          "enunciado": "Si un paciente afirma ser Napoleón Bonaparte, y estar en el campo de batalla en 1815, presenta una alteración en la orientación de tipo:",
+          "opciones": [
+            {
+              "texto": "Solo autopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Solo alopsíquica en tiempo",
+              "correcta": false
+            },
+            {
+              "texto": "Global (Autopsíquica y alopsíquica en tiempo y espacio)",
+              "correcta": true
+            },
+            {
+              "texto": "No hay problema de orientación, es de memoria",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Al fallar en la identidad propia (autopsíquica) y en el lugar y época histórica (alopsíquica espacial y temporal), la desorientación abarca todos los dominios descritos en el manual.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Desorientación alopsíquica",
+          "enunciado": "Identificar el mes actual como un requerimiento básico en las evaluaciones neurológicas evalúa primariamente:",
+          "opciones": [
+            {
+              "texto": "La memoria semántica",
+              "correcta": false
+            },
+            {
+              "texto": "La orientación alopsíquica en espacio",
+              "correcta": false
+            },
+            {
+              "texto": "La orientación autopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "La orientación alopsíquica en tiempo",
+              "correcta": true
+            }
+          ],
+          "justificacion": "Preguntar el mes es la forma de evaluar la orientación alopsíquica en tiempo ('no es capaz de reconocer la hora, el día, el mes o el año').",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Desorientación alopsíquica",
+          "enunciado": "La incapacidad de reconocer el país en el que uno se encuentra forma parte de:",
+          "opciones": [
+            {
+              "texto": "Desorientación autopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación alopsíquica en espacio",
+              "correcta": true
+            },
+            {
+              "texto": "Desorientación alopsíquica en tiempo",
+              "correcta": false
+            },
+            {
+              "texto": "Desrealización",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La orientación espacial ('alopsíquica en espacio') incluye reconocer 'el lugar en que está situado... la provincia o el país'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Desorientación",
+          "enunciado": "¿Qué prefijo (palabra) se antepone a 'psíquica' para referirse a la orientación relacionada con el entorno, el tiempo y el espacio?",
+          "respuestas_validas": "alo|alopsíquica|alopsiquica",
+          "pista": "Empieza por 'a', tiene 3 letras como prefijo (ej. ___psíquica).",
+          "justificacion": "La orientación 'alo'psíquica es la que corresponde al reconocimiento de referentes del contexto (tiempo y espacio), diferenciándose de la 'auto'psíquica (yo/persona).",
           "puntos": 20
         },
         {
           "tipo": "escrita",
-          "tema": "Delirios",
-          "enunciado": "¿Cómo se llama la idea de que una persona desconocida intenta hacer daño al paciente?",
-          "respuestas_validas": "delirante de persecución|idea de persecución|persecución|idea persecutoria",
-          "pista": "Contiene 'persecución'.",
-          "justificacion": "Es un DELIRANTE DE PERSECUCIÓN o idea persecutoria: la convicción de que alguien persigue oPretende dañar al paciente. Es uno de los delirantes más frecuentes en esquizofrenia y en trastornos paranoicos. Se distingue de la fobia (temor sin hgital de daño real) porque aquí hay convicción firme, no miedo.",
+          "tema": "Desorientación autopsíquica",
+          "enunciado": "¿Cómo se llama la desorientación en la que el paciente desconoce su propia identidad y a las personas que le rodean (orientación en persona)?",
+          "respuestas_validas": "autopsíquica|autopsiquica",
+          "pista": "Hace referencia a sí mismo, prefijo 'auto'.",
+          "justificacion": "La desorientación autopsíquica (o en persona) ocurre cuando el paciente no puede identificar quién es o desconoce a los suyos.",
           "puntos": 20
         }
       ]
     },
     {
       "numero": 3,
-      "nombre": "Lenguaje y comunicación",
-      "tema": "Lenguaje y comunicación",
-      "emoji": "🗣️",
-      "descripcion": "Pensamiento formal, lenguaje y sus alteraciones",
+      "nombre": "Psicopatología de la atención y concentración",
+      "tema": "Psicopatología de la atención y concentración",
+      "emoji": "🎯",
+      "descripcion": "Anomalías en la focalización de la conciencia: aprosexia, hipoprosexia, distraibilidad, hipervigilancia.",
       "preguntas": [
         {
           "tipo": "mcq",
-          "tema": "Lenguaje",
-          "enunciado": "¿Qué es una neologismo?",
+          "tema": "Alteraciones Cuantitativas de la Atención",
+          "enunciado": "Un estudiante parece estar sumamente concentrado leyendo un libro en medio de una fiesta ruidosa. No responde cuando lo llaman y parece excluir cualquier otro estímulo. Este fenómeno se denomina:",
           "opciones": [
             {
-              "texto": "Una palabra nueva creada por el paciente con significado propio",
+              "texto": "Aprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Hiperprosexia",
               "correcta": true
             },
             {
-              "texto": "Una palabra del diccionario que el paciente no recuerda",
+              "texto": "Hipoprosexia",
               "correcta": false
             },
             {
-              "texto": "Un término médico incomprensible",
-              "correcta": false
-            },
-            {
-              "texto": "Una palabra repetida compulsivamente",
+              "texto": "Distractibilidad",
               "correcta": false
             }
           ],
-          "justificacion": "El neologismo es una palabra que el paciente crea o deforma y a la que atribuye un significado propio, a menudoprivado. En la esquizofrenia es característico de los trastornos formales del lenguaje. No es un lapsus (un lapsus es un error en la construcción de una palabra ya existente), sino una creación genuina.",
+          "justificacion": "La hiperprosexia (o hiperconcentración) se caracteriza por 'una concentración excesiva, tenaz y constante sobre un estímulo... con exclusión de otros que suceden alrededor'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Atencionales",
+          "enunciado": "El paciente entra en la consulta y su pensamiento parece flotar. Es incapaz de mantener el diálogo porque cualquier estímulo irrelevante desvía su atención. Esto es un claro ejemplo de:",
+          "opciones": [
+            {
+              "texto": "Distraibilidad",
+              "correcta": true
+            },
+            {
+              "texto": "Aprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Apatía de la atención",
+              "correcta": false
+            },
+            {
+              "texto": "Sesgo atencional",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La distraibilidad o distractibilidad se manifiesta cuando la persona 'tiene disminuida su atención activa' y su pensamiento 'vaga' siendo incapaz de mantener un diálogo por inestabilidad.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Atencionales",
+          "enunciado": "La paciente María parece no prestar ninguna atención a su entorno (parece tener aprosexia), sin embargo, un examen profundo demuestra que su atención se encuentra rígidamente focalizada en el medio externo del individuo pero sin reaccionar a él. A esta alteración de 'falsa aprosexia' se le llama:",
+          "opciones": [
+            {
+              "texto": "Paraprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Pseudoaprosexia",
+              "correcta": true
+            },
+            {
+              "texto": "Hipoprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Perplejidad",
+              "correcta": false
+            }
+          ],
+          "justificacion": "En las pseudoaprosexias, 'impresiona una aprosexia' (falta de atención hacia el entorno) pero la atención real está conservada y rígidamente focalizada, dando la apariencia errónea de falta de atención.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Atencionales",
+          "enunciado": "En la esquizofrenia paranoide es común observar un paciente que escudriña el ambiente en estado de alerta extrema buscando señales ocultas y fijándose en detalles insignificantes. ¿Qué alteración de la atención es esta?",
+          "opciones": [
+            {
+              "texto": "Hipervigilancia",
+              "correcta": true
+            },
+            {
+              "texto": "Apatía de la atención",
+              "correcta": false
+            },
+            {
+              "texto": "Aprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Fatigabilidad de la atención",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La hipervigilancia atencional es el 'escudriñamiento continuo en búsqueda de determinadas señales' con una atención pasiva aumentada (estado de alerta constante captando detalles insignificantes).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Atencionales",
+          "enunciado": "¿Qué síntoma atencional ocurre cuando la dirección atencional es anómala; la atención voluntaria decrece y la atención espontánea se exacerba notablemente?",
+          "opciones": [
+            {
+              "texto": "Paraprosexia",
+              "correcta": true
+            },
+            {
+              "texto": "Pseudoaprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Hipoprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Aprosexia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La paraprosexia indica una dirección anómala, donde a 'causa del detrimento de la atención voluntaria, la atención espontánea se exacerba'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Cualidades Atencionales",
+          "enunciado": "Una persona padece fobia a las arañas. Al entrar a una habitación, su atención se dirige automática y selectivamente a buscar puntos negros en las paredes, procesando esa información más rápido que cualquier otra. ¿Qué fenómeno presenta?",
+          "opciones": [
+            {
+              "texto": "Sesgo atencional",
+              "correcta": true
+            },
+            {
+              "texto": "Apatía atencional",
+              "correcta": false
+            },
+            {
+              "texto": "Perplejidad de la atención",
+              "correcta": false
+            },
+            {
+              "texto": "Hipoprosexia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los sesgos atencionales son la tendencia a 'dirigir la atención, selectiva y prioritariamente, hacia el procesamiento de la información... congruente con sus miedos, preocupaciones'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "La incapacidad total o ausencia absoluta de disposición atencional, que ocurre frecuentemente en estados de coma, se denomina:",
+          "opciones": [
+            {
+              "texto": "Aprosexia",
+              "correcta": true
+            },
+            {
+              "texto": "Hipoprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Pseudoaprosexia",
+              "correcta": false
+            },
+            {
+              "texto": "Distraibilidad",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La aprosexia implica una 'reducción máxima de la disposición atencional, es decir, una ausencia total de atención', típica del coma.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Atencionales",
+          "enunciado": "Un individuo experimenta una incapacidad notoria para sintetizar el significado de lo que atiende, viéndose incapaz de comprender sus propias acciones y circunstancias. Esto se denomina:",
+          "opciones": [
+            {
+              "texto": "Perplejidad de la atención",
+              "correcta": true
+            },
+            {
+              "texto": "Fatigabilidad de la atención",
+              "correcta": false
+            },
+            {
+              "texto": "Indiferencia atencional",
+              "correcta": false
+            },
+            {
+              "texto": "Paraprosexia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La perplejidad de la atención es una alteración cualitativa donde el sujeto es 'incapaz de sintetizar el contenido de lo atendido' y no comprende sus circunstancias.",
           "puntos": 15
         },
         {
           "tipo": "escrita",
-          "tema": "Lenguaje",
-          "enunciado": "¿Cómo se llama la alteración del lenguaje en la que el paciente sustituye una palabra por otra por similitud sonora?",
-          "respuestas_validas": "parafasia|parafasias|paraphasia",
-          "pista": "Empieza con 'para' y significa 'hablar al lado'.",
-          "justificacion": "La parafasia es la sustitución de una palabra por otra de sonido semejante. Cuando la palabra sustituida está bien construida pero es incorrecta, se denomina parafasia phonémica; cuando se sustituye por otra sin relación sonora, parafasia semántica. Es característica de las afasias y de algunos trastornos del lenguaje en psicosis.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Lenguaje",
-          "enunciado": "Un paciente responde a la pregunta '¿Cómo te llamas?' con una respuesta larga sobre el clima de su ciudad, sin llegar nunca a mencionar su nombre. ¿Qué alteración del lenguaje presenta?",
-          "opciones": [
-            {
-              "texto": "Circunloquio: la respuesta es tangencial y no llega al punto",
-              "correcta": true
-            },
-            {
-              "texto": "Neologismo",
-              "correcta": false
-            },
-            {
-              "texto": "Parafasia",
-              "correcta": false
-            },
-            {
-              "texto": "Mutismo",
-              "correcta": false
-            }
-          ],
-          "justificacion": "Es un CIRCUNLOQUIO o verborrea circunloquial: el paciente rodea el punto sin llegar a él, sustituyendo la respuesta directa por un discurso periférico. Se observa en demencias, en la afasia de conducción y en el trastorno del pensamiento de la esquizofrenia. El mutismo sería no responder en absoluto, que no es lo que ocurre aquí.",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "¿Qué término médico se emplea para describir la disminución de la capacidad atencional, en la que la persona lucha por enfocar u orientarse hacia un objeto?",
+          "respuestas_validas": "hipoprosexia",
+          "pista": "Empieza por 'hipo' y termina en 'prosexia'.",
+          "justificacion": "La hipoprosexia es la 'disminución de la capacidad atencional' impidiendo mantener persistentemente la atención en una actividad.",
           "puntos": 20
         },
         {
           "tipo": "escrita",
-          "tema": "Lenguaje",
-          "enunciado": "¿Cómo se llama la alteración del curso del pensamiento en la que las ideas pierden el hilo y se desvían hacia asuntos sin relación con el tema?",
-          "respuestas_validas": "pensamiento tangencial|tangencialidad|tangencial",
-          "pista": "Contiene la palabra 'tangencial'.",
-          "justificacion": "La TANGENCIALIDAD o pensamiento tangencial es aquella en la que el discurso se desvía de forma abrupta hacia temas sin relación, sin un puente lógico, y el hilo de la conversación se pierde. Es más grave que la circunstancialidad o el pensamiento por paralaje, en los que el paciente también se desvía del tema pero el examinador todavía puede seguir el hilo y reconducirlo. La tangencialidad es característica de la esquizofrenia.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Lenguaje",
-          "enunciado": "¿Cómo se llama la repetición automática e involuntaria de las palabras que dice la persona que se tiene delante?",
-          "respuestas_validas": "ecolalia|ecolalias",
-          "pista": "Empieza con 'eco'.",
-          "justificacion": "La ECOLALIA es la repetición de palabras o frases del interlocutor, de forma automática e involuntaria. Aparece en el retraso del desarrollo, en el trastorno de Rett y en la esquizofrenia.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Lenguaje",
-          "enunciado": "En un paciente esquizofrénico, ¿qué alteración del lenguaje se asocia típicamente con el alucinatorio auditivo?",
-          "opciones": [
-            {
-              "texto": "Neologismos y paraxios",
-              "correcta": true
-            },
-            {
-              "texto": " siempre la ausencia total de lenguaje (mutismo)",
-              "correcta": false
-            },
-            {
-              "texto": "Sólo parafasia",
-              "correcta": false
-            },
-            {
-              "texto": "Ecolalia obligatorixamente",
-              "correcta": false
-            }
-          ],
-          "justificacion": "Los pacientes esquizofrénicos pueden crear neologismos y paraxios (palabras alteradas a las que atribuyen un significado privado) para describir lo que oyen, especialmente cuando hay alucinaciones auditivas verbales. La ecolalia y el mutismo son más propios de otras condiciones (retraso del desarrollo, Rett, y el mutismo catatónico respectivamente).",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Lenguaje",
-          "enunciado": "¿Cómo se llama el uso de palabras nuevas, no existentes, creadas por el paciente con un significado propio?",
-          "respuestas_validas": "neologismo|neologismos",
-          "pista": "Empieza con 'neo' (nuevo).",
-          "justificacion": "El NEOLOGISMO es una palabra nueva, generalmente creada por el paciente, a la que se atribuye un significado privado. Se diferencia de la parafasia (una palabra real deformada en su estructura) y de la metáfora (uso figurado de una palabra existente con sentido compartido).",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Lenguaje",
-          "enunciado": "¿Qué alteración se observa cuando el paciente, al contar algo, se desvía del tema de forma constante pero el examinador aún puede inferir el mensaje?",
-          "opciones": [
-            {
-              "texto": "Pensamiento circunscrito",
-              "correcta": true
-            },
-            {
-              "texto": "Pensamiento tangencial",
-              "correcta": false
-            },
-            {
-              "texto": "Ecolalia",
-              "correcta": false
-            },
-            {
-              "texto": "Neologismo",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El pensamiento CIRCUNSCITO o porgomor muestra desvíos del tema pero el examinador puede seguir el hilo y reconstruir la idea. En el pensamiento TANGENCIAL, en cambio, el desvío es tan brusco que el examinador NO puede inferir el mensaje. La diferencia es el grado de comprensibilidad del discurso.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Lenguaje",
-          "enunciado": "¿Cuál es el término para la alteración del lenguaje en la que se sustituye la palabra correcta por otra sin relación con su significado?",
-          "respuestas_validas": "parafasia semántica|parafasia semantica|sustitución semántica",
-          "pista": "Contiene 'parafasia' y 'semántica'.",
-          "justificacion": "La PARAFASIA SEMÁNTICA es la sustitución de una palabra por otra sin relación con su significado (p. ej. decir 'mesa' cuando quiso decir 'silla'). En la parafasia FONÉMICA la sustitución es por un sonido semejante. Ambas son características de las afasias (lesiones del lenguaje por daño cerebral).",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Lenguaje",
-          "enunciado": "El paciente A dice 'Tengo hambre'. El paciente B responde 'Tengo sed' cuando el A le dice 'Tengo hambre'. ¿Qué observación es correcta sobre el lenguaje del paciente B?",
-          "opciones": [
-            {
-              "texto": "Presenta una alteración del lenguaje con sustitución de términos",
-              "correcta": true
-            },
-            {
-              "texto": "Presenta un pensamiento delirante",
-              "correcta": false
-            },
-            {
-              "texto": "Presenta una alucinación gustativa",
-              "correcta": false
-            },
-            {
-              "texto": "Su lenguaje es normal",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El paciente B muestra una ALTERACIÓN DEL LENGUAJE con sustitución de términos ('sed' por 'hambre'), una parafasia semántica. No es un delirio porque no hay convicción falsa sobre la realidad, sino un error en la construcción del discurso. Tampoco es una alucinación, porque no hay percepción anómala.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Lenguaje",
-          "enunciado": "¿Cómo se llama el uso del lenguaje en el que el paciente pierde de forma brusca el hilo de la conversación y las respuestas ya no se relacionan entre sí?",
-          "respuestas_validas": "verborrea|verborrea incoherente|verborreica|habla incoherente",
-          "pista": "Empieza por 'ver'.",
-          "justificacion": "La VERBORREA (o lenguaje verborreico) se caracteriza por un aumento del flujo del habla, con pérdida del hilo, respuestas incongruentes y, a menudo, tautologías y neologismos. En la esquizofrenia se denomina verborrea alucinatoria cuando el paciente neologiza mientras transmite sus alucinaciones. En el trastorno bipolar maníaco, la verborrea es más rápida y se acompaña de fuga de ideas.",
+          "tema": "Alteraciones Atencionales",
+          "enunciado": "¿Cómo se le llama al agotamiento atencional en el cual, por mantener la atención un tiempo, el rendimiento cae severamente y aumentan los errores?",
+          "respuestas_validas": "fatigabilidad|fatigabilidad de la atención|fatigabilidad de la atencion",
+          "pista": "Tiene que ver con la 'fatiga' o cansancio cognitivo.",
+          "justificacion": "La fatigabilidad de la atención es el 'agotamiento de la atención' acompañado de escasos rendimientos tras el efecto de intentar mantener la atención.",
           "puntos": 20
         }
       ]
     },
     {
       "numero": 4,
-      "nombre": "Afectividad y conducta",
-      "tema": "Afectividad y conducta",
-      "emoji": "💭",
-      "descripcion": "Humor, ánimo y alteraciones conductuales",
+      "nombre": "Psicopatología de la memoria",
+      "tema": "Psicopatología de la memoria",
+      "emoji": "💾",
+      "descripcion": "Alteraciones mnésicas: amnesias, confabulaciones, deja vu, ecmnesia.",
       "preguntas": [
         {
           "tipo": "mcq",
-          "tema": "Afectividad",
-          "enunciado": "¿Qué es el aplanamiento afectivo (blunting)?",
+          "tema": "Tipos de Amnesia",
+          "enunciado": "Un paciente que sufrió un daño neurológico tras un accidente es incapaz de consolidar nuevos recuerdos. 'Vive en el presente' absoluto porque olvida lo que acaba de suceder. Este trastorno se denomina:",
           "opciones": [
             {
-              "texto": "La disminución de la expresividad emocional del paciente",
+              "texto": "Amnesia de evocación",
+              "correcta": false
+            },
+            {
+              "texto": "Amnesia de fijación o anterógrada",
               "correcta": true
             },
             {
-              "texto": "La incapacidad de reconocer las emociones ajenas",
+              "texto": "Amnesia de conservación",
               "correcta": false
             },
             {
-              "texto": "La labilidad emocional exagerada",
-              "correcta": false
-            },
-            {
-              "texto": "La expresión de emociones intensas en contextos inadecuados",
+              "texto": "Paramnesia reduplicativa",
               "correcta": false
             }
           ],
-          "justificacion": "El aplanamiento afectivo es la disminución o ausencia de la expresividad emocional. El paciente parece frío, indiferente, con un rango afectivo restringido. Es característico de la esquizofrenia y de la depresión profunda. La labilidad es lo contrario (cambios bruscos de ánimo).",
+          "justificacion": "La amnesia de fijación (anterógrada) es la 'incapacidad para consolidar nuevos recuerdos... vive en el presente... no recordará nada después del suceso'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Conceptos y Leyes",
+          "enunciado": "¿Qué principio establece que los recuerdos más recientes, menos automatizados y menos organizados son los más vulnerables a perderse ante una amnesia de conservación?",
+          "opciones": [
+            {
+              "texto": "Ley de Korsakoff",
+              "correcta": false
+            },
+            {
+              "texto": "Efecto Zeigarnik",
+              "correcta": false
+            },
+            {
+              "texto": "Ley de Ribot",
+              "correcta": true
+            },
+            {
+              "texto": "Hipótesis del Dejá Vu",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento menciona explícitamente: 'La «Ley de Ribot» dice que aquellos recuerdos más recientes, menos organizados y automatizados, son más vulnerables a que se pierdan'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos de Memoria",
+          "enunciado": "Una mujer adulta entra en un estado emocional intenso y pierde la orientación temporal actual, creyendo y viviendo fehacientemente como si fuera el año de su boda (en el pasado). Esto es una:",
+          "opciones": [
+            {
+              "texto": "Ecmnesia",
+              "correcta": true
+            },
+            {
+              "texto": "Hipermnesia",
+              "correcta": false
+            },
+            {
+              "texto": "Paramnesia",
+              "correcta": false
+            },
+            {
+              "texto": "Jamais vu",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La ecmnesia se produce cuando 'el sujeto cree estar en el pasado, lo que supone revivir con gran implicación emocional vivencias del pasado... pérdida de orientación en el presente'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos del Reconocimiento",
+          "enunciado": "Un hombre entra a un restaurante al que va todas las semanas, sin embargo, lo observa perplejo e indica que jamás ha estado ahí y no le resulta familiar en absoluto. Este fenómeno es un:",
+          "opciones": [
+            {
+              "texto": "Dejá vu",
+              "correcta": false
+            },
+            {
+              "texto": "Jamais vu (falso reconocimiento negativo)",
+              "correcta": true
+            },
+            {
+              "texto": "Pseudopresentimiento",
+              "correcta": false
+            },
+            {
+              "texto": "Paramnesia reduplicativa",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El jamais vu ocurre cuando 'el individuo reconoce y recuerda una situación, pero no experimenta sensación de familiaridad alguna' (falso reconocimiento negativo).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos del Contenido",
+          "enunciado": "En el síndrome de Korsakoff es común que los pacientes relaten sucesos detallados que nunca sucedieron, intentando compensar o rellenar las lagunas de su memoria. A esta invención sin intención real de engañar se le conoce como:",
+          "opciones": [
+            {
+              "texto": "Paramnesia",
+              "correcta": false
+            },
+            {
+              "texto": "Pseudología fantástica",
+              "correcta": false
+            },
+            {
+              "texto": "Confabulación",
+              "correcta": true
+            },
+            {
+              "texto": "Parapraxia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las confabulaciones son la 'mezcla de recuerdos falsos y verdaderos. La persona relata cosas que no han sucedido intentando compensar la pérdida de la memoria'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Errores Comunes",
+          "enunciado": "El fenómeno de tener una palabra 'en la punta de la lengua' o el olvido simple de nombres y fechas de manera cotidiana, forma parte de las:",
+          "opciones": [
+            {
+              "texto": "Amnesias episódicas",
+              "correcta": false
+            },
+            {
+              "texto": "Paramnesias",
+              "correcta": false
+            },
+            {
+              "texto": "Parapraxias",
+              "correcta": true
+            },
+            {
+              "texto": "Amnesias de evocación orgánicas",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las parapraxias son 'errores de memoria simples, como el olvido de nombres, fechas, el fenómeno de en la punta de la lengua'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos del Reconocimiento",
+          "enunciado": "Afirmar contundentemente que se estuvo en un lugar en el que realmente es la primera vez que se visita (y argumentar que es un lugar duplicado) se denomina:",
+          "opciones": [
+            {
+              "texto": "Dejá vu tradicional",
+              "correcta": false
+            },
+            {
+              "texto": "Paramnesia reduplicativa",
+              "correcta": true
+            },
+            {
+              "texto": "Ecmnesia",
+              "correcta": false
+            },
+            {
+              "texto": "Pseudohipermnesia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La paramnesia reduplicativa es un falso reconocimiento consistente en 'afirmar, por ejemplo, que se estuvo en el mismo lugar anteriormente siendo la primera vez que está', frecuente en demencias.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos del Contenido",
+          "enunciado": "La paciente distorsiona y deforma un recuerdo auténtico. Cree recordar hechos reales pero totalmente deformados y modificados respecto a lo que de verdad sucedió. A este fenómeno global se le llama:",
+          "opciones": [
+            {
+              "texto": "Paramnesia",
+              "correcta": true
+            },
+            {
+              "texto": "Ecmnesia",
+              "correcta": false
+            },
+            {
+              "texto": "Confabulación",
+              "correcta": false
+            },
+            {
+              "texto": "Jamais vu",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las paramnesias son la 'deformidad de los recuerdos. Creen recordar hechos reales pero deformados'.",
           "puntos": 15
         },
         {
           "tipo": "escrita",
-          "tema": "Afectividad",
-          "enunciado": "¿Cómo se llama la emoción que el paciente experimenta de forma involuntaria durante una situación que normalmente no la produciría?",
-          "respuestas_validas": "labilidad afectiva|labilidad|labilidad emocional",
-          "pista": "La palabra significa 'volátil'.",
-          "justificacion": "La LABILIDAD AFECTIVA es la incapacidad de mantener un tono emocional estable: el paciente ríe, llora o se irrita de forma brusca e inmotivada ante estímulos que no justifican esa emoción. Se observa en trastornos del eje con componente maníaco, como el trastorno bipolar en episodios maníacos y el trastorno límite de la personalidad, y también en enfermedades cerebrovasculares y demencias.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Humor",
-          "enunciado": "Un paciente lleva tres semanas constantemente triste, sin interés ni energía, con insomnio y pérdida de peso, pero mantiene el habla y la organización. ¿Cuál es el síndrome más probable?",
-          "opciones": [
-            {
-              "texto": "Síndrome depresivo",
-              "correcta": true
-            },
-            {
-              "texto": "Síndrome ansioso",
-              "correcta": false
-            },
-            {
-              "texto": "Síndrome maníaco",
-              "correcta": false
-            },
-            {
-              "texto": "Síndrome esquizofrénico",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El conjunto de tristeza, anhedonia, insomnio y pérdida de peso configura un SÍNDROME DEPRESIVO. La clave del diagnóstico diferencial con la manía es la ausencia de ánimo elevado, de la verborrea y de las grandiosidades: el paciente depresivo está lento y desanimado, el maníaco es rápido y eufórico.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Humor",
-          "enunciado": "¿Cómo se llama el estado de ánimo anormalmente elevado y eufórico, con aumento de energía, que puede acompañar a la manía?",
-          "respuestas_validas": "euforia|elevación del ánimo|ánimo elevado|elación",
-          "pista": "Empieza por 'eu' (bien, bueno).",
-          "justificacion": "La EUFORIA es el estado de ánimo anormalmente elevado, con sensación de bienestar y grandiosidad. Se distingue de la manía en que la euforia es sólo el componente afectivo (ánimo elevado) sin la agitación psicomotora, la verborrea ni el aumento de la ideación. En la manía el ánimo puede estar irritable en lugar de eufórico (manía irritable).",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Conducta",
-          "enunciado": "Un paciente no para de hablar durante 40 minutos, con fuga de ideas y grandiosidad. ¿Qué alteración de la conducta se observa?",
-          "opciones": [
-            {
-              "texto": "Agitación psicomotora con fuga de ideas",
-              "correcta": true
-            },
-            {
-              "texto": "Retraso psicomotor",
-              "correcta": false
-            },
-            {
-              "texto": "Catalepsia",
-              "correcta": false
-            },
-            {
-              "texto": "Mutismo acinético",
-              "correcta": false
-            }
-          ],
-          "justificacion": "El paciente presenta AGITACIÓN PSICOMOTORA (aumento de la actividad motora) y FUGA DE IDEAS (aceleración y salto constante de un tema a otro), dos síntomas del episodio maníaco. El retraso psicomotor es lo contrario; la catalepsia es el mantenimiento pasivo de una postura; el mutismo acinético es la ausencia total de movimiento.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Conducta",
-          "enunciado": "¿Cómo se llama el aumento de la actividad motora, con agitación e inestabilidad, típico de los episodios maníacos?",
-          "respuestas_validas": "agitación psicomotora|agitación|agitación motora|hiperactividad",
-          "pista": "La palabra significa 'movimiento'.",
-          "justificacion": "La AGITACIÓN PSICOMOTORA es el aumento patológico de la actividad motora. En la manía se manifiesta como inquietud, incapacidad para estar quieto, habla constante y movimientos estereotipados. Se diferencia de la hiperactividad del TDAH en que aquí hay un episodio delimitado y otros síntomas maníacos asociados.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Afectividad",
-          "enunciado": "¿Cuál es la diferencia entre el afecto inapropiado y la disforia?",
-          "opciones": [
-            {
-              "texto": "La disforia es un estado de ánimo depresivo; la inapropiación es la expresión de emociones en contextos no adecuados",
-              "correcta": true
-            },
-            {
-              "texto": "Son sinónimos",
-              "correcta": false
-            },
-            {
-              "texto": "La inapropiación es más intensa",
-              "correcta": false
-            },
-            {
-              "texto": "La disforia afecta al lenguaje",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La DISFORIA es un estado de ánimo (tristeza, decaimiento) que puede ser secundario a un trastorno o formar parte de un episodio depresivo. La INAPROPIACIÓN AFECTIVA (o labilidad) es la expresión de emociones de manera inadecuada respecto al contexto: reír ante una noticia grave. Son dimensiones diferentes: una es del ánimo, la otra de la expresión.",
+          "tema": "Aumento de memoria",
+          "enunciado": "¿Qué término designa el aumento exagerado en la capacidad de recordar, en el que el paciente puede reproducir hasta los mínimos detalles de sucesos pasados irrelevantes?",
+          "respuestas_validas": "hipermnesia",
+          "pista": "Empieza por 'hiper' y se asocia a la memoria.",
+          "justificacion": "La hipermnesia es el 'aumento exagerado de los recuerdos', siendo capaces de reproducir todos los detalles pasados.",
           "puntos": 20
         },
         {
           "tipo": "escrita",
-          "tema": "Conducta",
-          "enunciado": "¿Cómo se llama la pérdida de la capacidad de sentir compasión o preocupación por los demás?",
-          "respuestas_validas": "apatía|apatía emocional|apatía afectiva|falta de empatía",
-          "pista": "Empieza por 'a'.",
-          "justificacion": "La APATÍA es la pérdida de interés, motivación y afecto, tanto hacia el mundo como hacia los demás. Es el síntoma negativo más característico de la esquizofrenia y se asocia al aislamiento social. Se diferencia de la depresión en que en la apatía no hay tristeza reactiva asociada.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Humor",
-          "enunciado": "Un paciente con catalepsia permanece inmóvil, con los brazos en posición obligatoria, resistente a cualquier cambio de postura durante horas. ¿Qué cuadro presenta?",
-          "opciones": [
-            {
-              "texto": "Catalepsia",
-              "correcta": true
-            },
-            {
-              "texto": "Rigidez muscular",
-              "correcta": false
-            },
-            {
-              "texto": "Apatía",
-              "correcta": false
-            },
-            {
-              "texto": "Mutismo",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La CATALEPSIA es la conservación pasiva e involuntaria de una postura impuesta por el examinador, con resistencia a moverla. Es un signo motor de catatonía y se asocia a la esquizofrenia y al trastorno esquizoafectivo. La rigidez es un aumento del tono muscular, no la mantención de una postura concreta.",
-          "puntos": 15
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Humor",
-          "enunciado": "¿Cuál es el término para la pérdida del interés o diversión por actividades que antes disfrutaba?",
-          "respuestas_validas": "anhedonia|incapacidad para sentir placer|pérdida de placer",
-          "pista": "Significa 'sin placer'.",
-          "justificacion": "La ANHEDONIA es la incapacidad para experimentar placer o interés por actividades habitualmente gratificantes. Es uno de los síntomas nucleares del trastorno depresivo mayor y de la esquizofrenia (síntoma negativo). A diferencia de la apatía, la anhedonia se refiere específicamente a la dimensión del placer.",
-          "puntos": 20
-        },
-        {
-          "tipo": "mcq",
-          "tema": "Conducta",
-          "enunciado": "¿Qué describe mejor la desinhibición en el contexto de los trastornos psicopatológicos?",
-          "opciones": [
-            {
-              "texto": "Conducta impulsiva que vulnera las normas sociales, sin conciencia de la magnitud del problema",
-              "correcta": true
-            },
-            {
-              "texto": "Conducta ordenada y planificada con fines delimitados",
-              "correcta": false
-            },
-            {
-              "texto": "Ausencia de conducta observable",
-              "correcta": false
-            },
-            {
-              "texto": "Conducta estereotipada repetitiva",
-              "correcta": false
-            }
-          ],
-          "justificacion": "La desinhibición es la pérdida del control sobre los impulsos, con liberación de conductas que antes estaban contenidas. Es típica de las lesiones del lóbulo frontal (como en la demencia frontotemporal) y de la manía. Se caracteriza por una conciencia limitada del paciente sobre la magnitud de su conducta inapropiada.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Afectividad",
-          "enunciado": "¿Cómo se llama la expresión de una emoción en un momento o contexto completamente inapropiado?",
-          "respuestas_validas": "inapropiación afectiva|inapropiación|inapropiacion afectiva|labilidad afectiva",
-          "pista": "Contiene 'inapropiación'.",
-          "justificacion": "La INAPROPIACIÓN AFECTIVA es la expresión de emociones en contextos no adecuados: reír ante una tragedia, llorar sin motivo aparente. Es una alteración de la EXPRESIÓN (no del ánimo) y se asocia a trastornos como el trastorno bipolar, la demencia frontotemporal o el trastorno límite de la personalidad.",
+          "tema": "Tipos de Amnesia",
+          "enunciado": "¿Cómo se llama la amnesia en la cual el recuerdo NO se ha perdido, sino que existe una dificultad tremenda para traerlo a la conciencia en ese momento (ej. por mucha ansiedad)?",
+          "respuestas_validas": "amnesia de evocación|evocación|evocacion|amnesia de evocacion",
+          "pista": "Tiene que ver con 'evocar' la información.",
+          "justificacion": "La amnesia de evocación ocurre 'cuando el recuerdo no se pierde, pero es muy difícil traerlo a la memoria... por estado emocional, astenia...'.",
           "puntos": 20
         }
       ]
     },
     {
       "numero": 5,
-      "nombre": "Cognición e insight",
-      "tema": "Cognición e insight",
-      "emoji": "🧠",
-      "descripcion": "Deterioro cognitivo, insight y juicio",
+      "nombre": "Psicopatología de la percepción, imaginación y sensaciones",
+      "tema": "Psicopatología de la percepción, imaginación y sensaciones",
+      "emoji": "👁️",
+      "descripcion": "Ilusiones, alucinaciones, pareidolias y desórdenes sensoriales.",
       "preguntas": [
         {
           "tipo": "mcq",
-          "tema": "Insight",
-          "enunciado": "¿Qué es el insight (conciencia de enfermedad)?",
+          "tema": "Distorsiones Sensoriales",
+          "enunciado": "Un paciente depresivo percibe que el sonido del reloj de pared (estímulo real) es desproporcionadamente intenso e insoportable, aunque el volumen sea normal. Este aumento exagerado de las sensaciones se denomina:",
           "opciones": [
             {
-              "texto": "La conciencia que tiene el paciente de que está enfermo",
+              "texto": "Parestesia",
+              "correcta": false
+            },
+            {
+              "texto": "Hiperestesia",
               "correcta": true
             },
             {
-              "texto": "La inteligencia del paciente medida por un test",
+              "texto": "Hipoestesia",
               "correcta": false
             },
             {
-              "texto": "La capacidad de reconocer a los familiares",
-              "correcta": false
-            },
-            {
-              "texto": "La lucidez de la conciencia durante la entrevista",
+              "texto": "Cenestopatía",
               "correcta": false
             }
           ],
-          "justificacion": "El INSIGHT o conciencia de enfermedad es el grado en que el paciente reconoce que está enfermo y que su experiencia es anómala. Su ausencia es característica de los trastornos psicóticos, mientras que suele estar preservado (aunque sea parcial) en los trastornos neuróticos. Un insight parcial existe cuando el paciente admite estar enfermo pero atribuye su enfermedad a una causa externa.",
+          "justificacion": "La hiperestesia es el 'aumento exagerado de las sensaciones frente a estímulos... siente desproporcionadamente intenso un estímulo que para otra persona normal no lo es'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Metamorfopsias",
+          "enunciado": "El Síndrome de Alicia en el País de las Maravillas cursa frecuentemente con distorsiones perceptivas donde el paciente ve los objetos de un tamaño mucho menor al real. Esto corresponde a:",
+          "opciones": [
+            {
+              "texto": "Micropsias (Metamorfopsias)",
+              "correcta": true
+            },
+            {
+              "texto": "Alucinaciones liliputienses",
+              "correcta": false
+            },
+            {
+              "texto": "Macropsias",
+              "correcta": false
+            },
+            {
+              "texto": "Aglutinación perceptiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las micropsias (un tipo de metamorfopsia) ocurren cuando el sujeto ve el tamaño del objeto real alterado 'a pequeña escala', viéndolo menor a su tamaño real.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Perceptivas Complejas",
+          "enunciado": "Al mirar la televisión, un paciente esquizofrénico experimenta que lo que oye no tiene relación con lo que ve, percibiéndolos como dos eventos fragmentados en conflicto que compiten. Esta desintegración perceptiva es una:",
+          "opciones": [
+            {
+              "texto": "Aglutinación perceptiva",
+              "correcta": false
+            },
+            {
+              "texto": "Parestesia",
+              "correcta": false
+            },
+            {
+              "texto": "Escisión perceptiva",
+              "correcta": true
+            },
+            {
+              "texto": "Desrealización",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La escisión perceptiva se da cuando 'el objeto percibido se desintegra... conexiones entre modalidades (auditiva/visual) fracasan... luchan entre sí por atraer atención'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Ilusiones vs Alucinaciones",
+          "enunciado": "Caminar por la calle de noche, ver un buzón a lo lejos y creer por un momento que es una persona acechando, es un ejemplo claro de:",
+          "opciones": [
+            {
+              "texto": "Alucinación visual",
+              "correcta": false
+            },
+            {
+              "texto": "Ilusión",
+              "correcta": true
+            },
+            {
+              "texto": "Pseudoalucinación",
+              "correcta": false
+            },
+            {
+              "texto": "Imagen hipnagógica",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La ilusión es la 'mala interpretación de una percepción real'. El objeto (buzón) está en el campo sensorial pero se distorsiona e interpreta mal por factores emocionales (miedo).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones e Imágenes anómalas",
+          "enunciado": "Las alucinaciones fisiológicas que aparecen exactamente en el estado de transición al estar saliendo del sueño (despertando) se llaman:",
+          "opciones": [
+            {
+              "texto": "Imágenes hipnagógicas",
+              "correcta": false
+            },
+            {
+              "texto": "Imágenes hipnapómpicas",
+              "correcta": true
+            },
+            {
+              "texto": "Imágenes alucinoides",
+              "correcta": false
+            },
+            {
+              "texto": "Imágenes parásitas",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento detalla: 'las imágenes hipnapómpicas se originan cuando la persona sale del sueño', mientras que las hipnagógicas ocurren al entrar al sueño.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alucinaciones Visuales",
+          "enunciado": "Un paciente afirma ver su propio estómago y vísceras funcionando por dentro, como si su piel fuera transparente. ¿Qué tipo de alucinación experimenta?",
+          "opciones": [
+            {
+              "texto": "Autoscopia externa",
+              "correcta": false
+            },
+            {
+              "texto": "Alucinación cinestésica",
+              "correcta": false
+            },
+            {
+              "texto": "Autoscopia interna",
+              "correcta": true
+            },
+            {
+              "texto": "Zoopsia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La autoscopia interna 'se da cuando una persona ve el interior de su cuerpo. Ej. Venas, huesos, vísceras...', diferenciándose de la externa (verse frente a sí mismo).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Pseudoalucinaciones vs Alucinosis",
+          "enunciado": "Si un paciente alcohólico que ha ingerido toxinas ve escarabajos inexistentes caminando por el suelo, pero ÉL SABE perfectamente que son irreales y causados por su condición médica, presenta:",
+          "opciones": [
+            {
+              "texto": "Alucinación verdadera",
+              "correcta": false
+            },
+            {
+              "texto": "Pseudoalucinación",
+              "correcta": false
+            },
+            {
+              "texto": "Alucinosis",
+              "correcta": true
+            },
+            {
+              "texto": "Ilusión pareidólica",
+              "correcta": false
+            }
+          ],
+          "justificacion": "En la alucinosis 'la persona es consciente de que lo que percibe no existe', a diferencia de la alucinación verdadera donde el paciente tiene convicción plena de la realidad del estímulo.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Otras alteraciones de la percepción",
+          "enunciado": "La experiencia abrumadora de sentirse desconectado del mundo, de percibir que las cosas alrededor son 'raras, como si no existieran o fueran una fantasía', aunque se sepa que son reales, es:",
+          "opciones": [
+            {
+              "texto": "Desrealización",
+              "correcta": true
+            },
+            {
+              "texto": "Despersonalización",
+              "correcta": false
+            },
+            {
+              "texto": "Transformación",
+              "correcta": false
+            },
+            {
+              "texto": "Autometamorfopsia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La desrealización es percibir los objetos con nitidez, 'pero le parece que no existen... dice notar las cosas raras... como si todo a su alrededor fuera una fantasía'.",
           "puntos": 15
         },
         {
           "tipo": "escrita",
-          "tema": "Cognición",
-          "enunciado": "¿Cómo se llama el deterioro progresivo de las funciones cognitivas, como la memoria y el razonamiento, en las demencias?",
-          "respuestas_validas": "deterioro cognitivo|deterioro|declive cognitivo|declive",
-          "pista": "La palabra empieza por 'dete'.",
-          "justificacion": "El DETERIORO COGNITIVO (o declive cognitivo) es la pérdida progresiva de funciones como la memoria, la atención, el razonamiento y la capacidad ejecutiva. Cuando interfiere con la autonomía del paciente se denomina demencia. En las fases leves se llama deterioro cognitivo leve (DCL), y no siempre progresa a demencia.",
+          "tema": "Distorsiones Perceptivas",
+          "enunciado": "¿Cómo se llama la alteración en la que el individuo da un significado concreto a un estímulo visual ambiguo (por ejemplo, ver caras humanas en el perfil de las nubes o montañas)?",
+          "respuestas_validas": "pareidolia|pareidolias",
+          "pista": "Es una modalidad especial de ilusión, su nombre empieza por 'pare'.",
+          "justificacion": "Las pareidolias ocurren cuando 'el individuo proporciona una organización o estructura física a un estímulo ambiguo', como ver caras en las nubes.",
           "puntos": 20
         },
         {
+          "tipo": "escrita",
+          "tema": "Otras alteraciones",
+          "enunciado": "¿Qué término describe el sentimiento de extrañeza respecto a uno mismo, sintiendo como si uno fuera un autómata, otra persona, o si pudiera salir del cuerpo y verse desde afuera?",
+          "respuestas_validas": "despersonalización|despersonalizacion",
+          "pista": "Implica la pérdida del sentimiento de la propia 'persona'.",
+          "justificacion": "La despersonalización es la vivencia de extrañeza del Yo, 'sensación de pensar y percibir como si fuera otra persona y de que puede salir del cuerpo'.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 6,
+      "nombre": "Psicopatología del pensamiento",
+      "tema": "Psicopatología del pensamiento",
+      "emoji": "💭",
+      "descripcion": "Alteraciones en curso, forma y contenido: delirios, bradipsiquia, obsesiones.",
+      "preguntas": [
+        {
           "tipo": "mcq",
-          "tema": "Insight",
-          "enunciado": "Un paciente que oye voces cree que sus vecinos lo han envenenado, pero admite 'algo no anda bien' y busca ayuda médica voluntariamente. ¿Qué tipo de insight presenta?",
+          "tema": "Forma y Curso del Pensamiento",
+          "enunciado": "Una persona en estado maniaco presenta un desarrollo rapidísimo de las ideas, respondiendo a extrema velocidad con rica expresión. Esta aceleración del pensamiento se conoce como:",
           "opciones": [
             {
-              "texto": "Insight completo: reconoce la enfermedad y busca ayuda",
+              "texto": "Bradipsiquia",
               "correcta": false
             },
             {
-              "texto": "Insight parcial: reconoce que algo falla pero mantiene el delirante",
+              "texto": "Taquipsiquia",
               "correcta": true
             },
             {
-              "texto": "Sin insight: no reconoce nada",
+              "texto": "Prolijidad",
               "correcta": false
             },
             {
-              "texto": "Insight parcial porque no admite la causa",
+              "texto": "Disgregación",
               "correcta": false
             }
           ],
-          "justificacion": "Presenta INSIGHT PARCIAL: reconoce que hay un problema (búsqueda de ayuda) pero mantiene la convicción delirante sobre la causa (los vecinos). El insight completo, en cambio, supone reconocer tanto la enfermedad como su naturaleza real y aceptar la ayuda. La ausencia total sería no reconocer ningún problema.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Cognición",
-          "enunciado": "¿Cómo se llama la alteración de la capacidad de tomar decisiones, evaluar situaciones y comportarse de forma adecuada según el contexto?",
-          "respuestas_validas": "juicio|juicio clínico|capacidad de juicio",
-          "pista": "Es una palabra de seis letras que empieza por 'j'.",
-          "justificacion": "El JUICIO (o capacidad de juicio) es la función cognitiva que permite evaluar una situación, sopesar opciones y tomar decisiones razonables. Su deterioro es característico de los trastornos frontotemporales y de la demencia. El juicio está relacionado con las funciones ejecutivas, pero se evalúa de forma distinta.",
-          "puntos": 20
+          "justificacion": "La taquipsiquia es la 'aceleración del pensamiento... desarrollo rápido de las ideas. Los pacientes responden muy rápido... síntoma característico de los cuadros de manía'.",
+          "puntos": 15
         },
         {
           "tipo": "mcq",
-          "tema": "Cognición",
-          "enunciado": "¿Cuál es la diferencia entre memoria de trabajo y memoria a largo plazo?",
+          "tema": "Forma y Curso del Pensamiento",
+          "enunciado": "Durante la entrevista, el paciente da detalles exhaustivos e innecesarios (detallismo), dando enormes rodeos pero logrando, al final, llegar a la idea central. Esto se define como:",
           "opciones": [
             {
-              "texto": "La de trabajo sostiene información unos segundos; la a largo plazo la almacena de forma permanente",
+              "texto": "Tangencialidad",
+              "correcta": false
+            },
+            {
+              "texto": "Prolijidad",
               "correcta": true
             },
             {
-              "texto": "La de trabajo es visual y la de largo plazo, verbal",
+              "texto": "Pérdida de meta",
               "correcta": false
             },
             {
-              "texto": "No hay diferencia real",
-              "correcta": false
-            },
-            {
-              "texto": "La de trabajo es de lectura y escritura",
+              "texto": "Fuga de ideas",
               "correcta": false
             }
           ],
-          "justificacion": "La MEMORIA DE TRABAJO mantiene la información activa durante unos segundos (bucle fonológico y visuoespacial) y permite razonar sobre ella. La MEMORIA A LARGO PLAZO almacena la información de forma más permanente, con dos componentes: la declarativa (hechos) y la no declarativa (habilidades). En el deterioro cognitivo se pierde primero la memoria de trabajo y la reciente (declarativa explícita).",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Cognición",
-          "enunciado": "¿Cómo se llama la incapacidad de mantener la atención y concentrarse en una tarea?",
-          "respuestas_validas": "desatención|desatencion|falta de atención|déficit de atención|inatención",
-          "pista": "Empieza por 'des' y se refiere a la atención.",
-          "justificacion": "La DESATENCIÓN o déficit de atención es la incapacidad de mantener el foco atencional o de filtrar los estímulos relevantes. Es un síntoma transversal: aparece en el trastorno depresivo, en la manía, en la esquizofrenia, en las demencias y en el TDAH. Se evalúa con tests de atención sostenida (dígitos, trail-making).",
-          "puntos": 20
+          "justificacion": "La prolijidad es el detallismo en la conversación, dando 'muchos rodeos innecesarios, haciendo alusión a hechos que no tienen tanta importancia pero se relacionan con la idea central'.",
+          "puntos": 15
         },
         {
           "tipo": "mcq",
-          "tema": "Insight",
-          "enunciado": "¿En qué trastornos se observa típicamente el insight AUSENTE?",
+          "tema": "Forma y Curso del Pensamiento",
+          "enunciado": "El 'robo de pensamiento', donde el paciente se detiene bruscamente en medio de una frase y manifiesta que 'se le fue la idea de lo que estaba diciendo', recibe el nombre clínico de:",
           "opciones": [
             {
-              "texto": "En los trastornos psicóticos como la esquizofrenia y los trastornos delirantes",
+              "texto": "Disgregación",
+              "correcta": false
+            },
+            {
+              "texto": "Bloqueo o interrupción del pensamiento",
               "correcta": true
             },
             {
-              "texto": "En los trastornos de ansiedad",
+              "texto": "Vacío mental",
               "correcta": false
             },
             {
-              "texto": "En los trastornos de ajuste",
-              "correcta": false
-            },
-            {
-              "texto": "En los trastornos fóbicos",
+              "texto": "Alogia",
               "correcta": false
             }
           ],
-          "justificacion": "El insight ausente es característico de los trastornos psicóticos (esquizofrenia, trastorno delirante, trastorno bipolar en fase psicótica) porque el paciente no reconoce la naturaleza patológica de sus síntomas. En los trastornos neuróticos (ansiedad, fobias, obsesiones) el insight suele estar presente: el paciente sabe que le ocurre algo, aunque le cueste aceptar su condición.",
-          "puntos": 20
-        },
-        {
-          "tipo": "escrita",
-          "tema": "Cognición",
-          "enunciado": "¿Cómo se llama la alteración de la capacidad de entender el lenguaje hablado o escrito?",
-          "respuestas_validas": "afasia|afasia receptiva|alexia",
-          "pista": "Empieza por 'a'.",
-          "justificacion": "La AFASIA es la alteración (o pérdida) de la capacidad de comprender y/o producir el lenguaje tras una lesión cerebral, con el lenguaje conservado en el resto de sus aspectos. Se clasifica según se afecte la comprensión, la producción o ambas. La MEMORIA para el lenguaje (olvidar palabras) no es afasia sino una alteración mnésica. En Semiología psicopatológica, la afasia se estudia como síntoma del deterioro cognitivo.",
-          "puntos": 20
+          "justificacion": "El Bloqueo (o robo de pensamiento) se caracteriza porque el paciente 'de pronto se detiene sin haber terminado la idea central... se le fue la idea'.",
+          "puntos": 15
         },
         {
           "tipo": "mcq",
-          "tema": "Cognición",
-          "enunciado": "¿Qué función cognitiva se asocia al lóbulo frontal y su deterioro explica la desinhibición, la apatía y la incapacidad para planificar?",
+          "tema": "Trastornos del Lenguaje/Pensamiento",
+          "enunciado": "Si un paciente afirma tajantemente: 'Me persiguen las aspirides voladoras, ellas rutean el mal', utilizando palabras inventadas e incomprensibles, está utilizando:",
           "opciones": [
             {
-              "texto": "Las funciones ejecutivas",
+              "texto": "Neologismos",
               "correcta": true
             },
             {
-              "texto": "La memoria procedimental",
+              "texto": "Respuestas aproximadas",
               "correcta": false
             },
             {
-              "texto": "El lenguaje expresivo",
+              "texto": "Aliteración",
               "correcta": false
             },
             {
-              "texto": "La atención selectiva",
+              "texto": "Pensamiento concreto",
               "correcta": false
             }
           ],
-          "justificacion": "Las FUNCIONES EJECUTIVAS (planificación, organización, inhibición de impulsos, monitorización del comportamiento y flexibilidad cognitiva) dependen del lóbulo frontal. Su deterioro explica la tríada de los trastornos frontotemporales: desinhibición social, apatía y pérdida de la capacidad de planificación. También aparece en las demencias de cualquier tipo como síntoma precoz.",
+          "justificacion": "Los neologismos ocurren cuando 'la persona inventa palabras o bien otorga un significado diferente... el oyente no comprende lo que está diciendo'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Contenido del Pensamiento",
+          "enunciado": "Las obsesiones tienen varias características que las diferencian de un delirio. ¿Cuál de las siguientes es una característica fundamental de la idea obsesiva?",
+          "opciones": [
+            {
+              "texto": "El sujeto está plenamente convencido de su veracidad lógica y la defiende acérrimamente.",
+              "correcta": false
+            },
+            {
+              "texto": "Es egosintónica (agradable para el yo).",
+              "correcta": false
+            },
+            {
+              "texto": "El paciente reconoce su irracionalidad, es intrusa y genera resistencia activa para controlarla.",
+              "correcta": true
+            },
+            {
+              "texto": "Desaparece si se le explica lógicamente al paciente que no es real.",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las obsesiones se caracterizan por su cualidad intrusa, egodistonía (desagradables para el yo), resistencia activa (intento de suprimirla) e irracionalidad (el paciente reconoce que es absurda).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Contenido del Pensamiento",
+          "enunciado": "¿Qué es la rumiación según el texto?",
+          "opciones": [
+            {
+              "texto": "Cadena de pensamientos sobre un problema con alta probabilidad futura de fallar (preocupación).",
+              "correcta": false
+            },
+            {
+              "texto": "Pensar repetitiva y perseverantemente sobre emociones negativas, problemas, causas y consecuencias presentes o pasadas.",
+              "correcta": true
+            },
+            {
+              "texto": "Ideas delirantes místicas referidas a la religión.",
+              "correcta": false
+            },
+            {
+              "texto": "Breves auto-afirmaciones negativas que aparecen repentinamente (soy un inútil).",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La rumiación es el proceso de pensar perseverantemente en emociones negativas y síntomas, más orientada hacia el presente o el pasado, diferente de la preocupación (orientada al futuro).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Contenido del Pensamiento - Delirios",
+          "enunciado": "Un paciente esquizofrénico está convencido de que los locutores de la televisión le hablan a través de códigos secretos y que las personas en la calle se ríen de él. Este es un delirio:",
+          "opciones": [
+            {
+              "texto": "De influencia",
+              "correcta": false
+            },
+            {
+              "texto": "Celotípico",
+              "correcta": false
+            },
+            {
+              "texto": "Nihilista",
+              "correcta": false
+            },
+            {
+              "texto": "De referencia",
+              "correcta": true
+            }
+          ],
+          "justificacion": "El delirio de referencia ocurre cuando el sujeto cree que las demás personas, la radio o la TV hablan de él, o que gestos neutros ('se ríen o burlan') van referidos hacia él.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Contenido del Pensamiento - Delirios",
+          "enunciado": "¿Cómo se le llama al tipo de delirio (frecuente en depresión grave) donde el paciente manifiesta que siente su propio cuerpo muerto, o que todo a su alrededor ha dejado de existir?",
+          "opciones": [
+            {
+              "texto": "Delirio de ruina",
+              "correcta": false
+            },
+            {
+              "texto": "Delirio de nihilismo o nihilistas",
+              "correcta": true
+            },
+            {
+              "texto": "Delirio místico",
+              "correcta": false
+            },
+            {
+              "texto": "Ideación autolítica",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El delirio de nihilismo se da cuando el paciente 'manifiesta que siente su propio cuerpo muerto, como si hubiera dejado de existir' o que todo a su alrededor está vacío.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Forma y Curso del Pensamiento",
+          "enunciado": "¿Qué término describe el retardo o lentificación anormal en la producción de ideas, típico en cuadros depresivos graves (el paciente demora mucho en contestar)?",
+          "respuestas_validas": "bradipsiquia",
+          "pista": "Su prefijo (bradi) significa lentitud, y su sufijo hace alusión a la psique.",
+          "justificacion": "La bradipsiquia es el 'retardo o la lentificación en la producción de las ideas... el diálogo se torna tedioso... frecuente en depresiones graves'.",
           "puntos": 20
         },
         {
           "tipo": "escrita",
-          "tema": "Cognición",
-          "enunciado": "¿Cómo se llama la cualidad de un recuerdo que puede ser recordado voluntariamente, a diferencia del que se presenta de forma involuntaria?",
-          "respuestas_validas": "recuerdo explícito|recuerdo explícita|memoria explícita",
-          "pista": "Se opone a 'recuerdo implícito'.",
-          "justificacion": "El recuerdo EXPLÍCITO (o declarativo) es el que puede ser recuperado conscientemente mediante un esfuerzo deliberado. El IMPLÍCITO (o no declarativo) se manifiesta sin conciencia, a través del hábito o la conducta (p. ej. montar en bici). El deterioro del explícito es característico del Alzheimer temprano, mientras que el implícito se conserva hasta fases avanzadas.",
+          "tema": "Forma y Curso del Pensamiento",
+          "enunciado": "¿Cómo se llama la disminución extrema de la cantidad de lenguaje espontáneo o 'pobreza del habla', donde el paciente responde con monosílabos sin elaborar?",
+          "respuestas_validas": "alogia|pobreza del habla",
+          "pista": "Empieza por 'a' y contiene 'logia'.",
+          "justificacion": "La pobreza del habla o alogia 'consiste en una disminución de la cantidad de lenguaje espontáneo. La persona responde de forma breve, concreta y poco elaborada'.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 7,
+      "nombre": "Psicopatología del lenguaje y habla",
+      "tema": "Psicopatología del lenguaje y habla",
+      "emoji": "🗣️",
+      "descripcion": "Afasias, dislalias, tartamudez, ecolalia y trastornos de voz.",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos Neurológicos",
+          "enunciado": "La pérdida de la capacidad de producir o comprender el lenguaje debido estrictamente a una lesión o traumatismo de los centros cerebrales implicados, se denomina:",
+          "opciones": [
+            {
+              "texto": "Dislalia",
+              "correcta": false
+            },
+            {
+              "texto": "Afasia",
+              "correcta": true
+            },
+            {
+              "texto": "Agramatismo",
+              "correcta": false
+            },
+            {
+              "texto": "Disartria",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La afasia es el 'trastorno del lenguaje que sobreviene como consecuencia de una lesión cerebral', implicando pérdida de producción/comprensión.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos del Habla",
+          "enunciado": "Un niño acude al logopeda por tener dificultad permanente para articular ciertos fonemas, por ejemplo, pronuncia 'pego' en lugar de 'perro', sin tener ninguna lesión neurológica. A esta dificultad articulatoria funcional se le llama:",
+          "opciones": [
+            {
+              "texto": "Disfonía",
+              "correcta": false
+            },
+            {
+              "texto": "Dislalia",
+              "correcta": true
+            },
+            {
+              "texto": "Tartamudez",
+              "correcta": false
+            },
+            {
+              "texto": "Aprosodia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La dislalia fonética es la 'dificultad para articular fonemas, sílabas o palabras', pudiendo ser de origen funcional (muy frecuentes en la niñez).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos Motores del Habla",
+          "enunciado": "A diferencia de la dislalia funcional, ¿cómo se llama el trastorno de la articulación causado por un daño en los órganos periféricos (ej. labio leporino, malformación de la lengua o paladar)?",
+          "opciones": [
+            {
+              "texto": "Disartria",
+              "correcta": false
+            },
+            {
+              "texto": "Disglosia",
+              "correcta": true
+            },
+            {
+              "texto": "Parafasia",
+              "correcta": false
+            },
+            {
+              "texto": "Anomia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La disglosia se define como el 'Trastorno en la articulación de fonemas por alteración o daño de los órganos periféricos del habla... También se conoce como Dislalia orgánica'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Fluidez del Habla",
+          "enunciado": "La tartamudez o disfemia es una alteración que afecta primariamente a:",
+          "opciones": [
+            {
+              "texto": "La fluidez y el patrón temporal del habla (disritmias)",
+              "correcta": true
+            },
+            {
+              "texto": "El tono muscular de las cuerdas vocales por lesiones nerviosas",
+              "correcta": false
+            },
+            {
+              "texto": "El reconocimiento visual de las palabras",
+              "correcta": false
+            },
+            {
+              "texto": "La selección del fonema correcto en el cerebro",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La tartamudez es la 'alteración en la fluidez y en el patrón del habla', caracterizada por interrupciones (disritmias o disfluencias).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Emisiones Involuntarias",
+          "enunciado": "Durante la entrevista, un paciente emite de manera súbita, repetitiva e involuntaria palabras groseras e insultos sin intención de agredir a su oyente. Esto se conoce como:",
+          "opciones": [
+            {
+              "texto": "Ecolalia",
+              "correcta": false
+            },
+            {
+              "texto": "Palilalia",
+              "correcta": false
+            },
+            {
+              "texto": "Coprolalia",
+              "correcta": true
+            },
+            {
+              "texto": "Parafasia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La coprolalia se trata de 'la emisión involuntaria de palabras obscenas o insultantes, que no se dirigen a un oyente concreto con intención'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos de la comunicación infantil",
+          "enunciado": "Un niño de 5 años habla perfectamente con sus padres en casa, pero al llegar a la escuela se niega completamente a hablar con cualquier persona durante años. Este cuadro clínico se denomina:",
+          "opciones": [
+            {
+              "texto": "Mutismo orgánico",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo selectivo",
+              "correcta": true
+            },
+            {
+              "texto": "Disfasia evolutiva",
+              "correcta": false
+            },
+            {
+              "texto": "Alexia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El mutismo selectivo 'se caracteriza porque el sujeto se niega a hablar ante determinadas personas o situaciones. Aparece entre los 3 y 7 años, coincidiendo a veces con la vida escolar'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Eco-síntomas verbales",
+          "enunciado": "Si el psiquiatra dice: '¿Cómo estás hoy?' y el paciente inmediatamente repite '...cómo estás hoy, cómo estás hoy', está presentando:",
+          "opciones": [
+            {
+              "texto": "Ecolalia",
+              "correcta": true
+            },
+            {
+              "texto": "Palilalia",
+              "correcta": false
+            },
+            {
+              "texto": "Ecomimia",
+              "correcta": false
+            },
+            {
+              "texto": "Agramatismo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La ecolalia consiste 'en la repetición en eco de las últimas sílabas, palabras o frases breves que acaba de pronunciar un interlocutor'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos Afásicos",
+          "enunciado": "Cuando un paciente intenta decir la palabra 'zapato' pero por un error de procesamiento lingüístico afásico articula la palabra 'guante' en su lugar de forma no intencional, ha producido una:",
+          "opciones": [
+            {
+              "texto": "Parafasia fonémica",
+              "correcta": false
+            },
+            {
+              "texto": "Parafasia verbal",
+              "correcta": true
+            },
+            {
+              "texto": "Aprosodia",
+              "correcta": false
+            },
+            {
+              "texto": "Anomia pura",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El texto explica que en las parafasias, 'Si el paciente cambia una palabra por otra (por ejemplo, «guante» por «zapato») nos hallamos ante una parafasia verbal'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Alteraciones Lectoescritura",
+          "enunciado": "¿Qué término médico designa la incapacidad para encontrar palabras que designen objetos o personas (una falta de nombres o sustantivos)?",
+          "respuestas_validas": "anomia",
+          "pista": "Empieza por 'a' y contiene 'nomia' (de nombre).",
+          "justificacion": "La anomia es textualmente la 'Dificultad para encontrar palabras que designen objetos o personas', asociada a cuadros afásicos.",
           "puntos": 20
         },
         {
           "tipo": "escrita",
-          "tema": "Cognición",
-          "enunciado": "¿Cómo se llama el déficit en la capacidad de mantener o completar una tarea, observable en la falta de constancia mental?",
-          "respuestas_validas": "falta de constancia mental|constancia mental|baja tolerancia a la frustración",
-          "pista": "Contiene 'constancia'.",
-          "justificacion": "La FALTA DE CONSTANCIA MENTAL se observa cuando el paciente no puede mantener o completar una tarea por falta de perseverancia mental. Es característica de la demencia y de ciertos trastornos del neurodesarrollo, y se diferencia de la distraibilidad (que es la incapacidad de Prest atencion) porque aquí el paciente SÍ atiende pero no persiste.",
+          "tema": "Trastornos del Habla (Eco)",
+          "enunciado": "Mientras la ecolalia es repetir al OTRO, ¿cómo se llama el trastorno donde el individuo repite compulsivamente sus PROPIAS palabras o sílabas al final de su discurso, aumentando la frecuencia?",
+          "respuestas_validas": "palilalia",
+          "pista": "Termina en 'lalia' y es exclusiva de las palabras propias (Pal...).",
+          "justificacion": "La palilalia es la 'Repetición de una palabra que va incrementándose en su frecuencia... El individuo repite las palabras o sílabas' propias, asociadas a su estado de ánimo.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 8,
+      "nombre": "Psicopatología de la afectividad",
+      "tema": "Psicopatología de la afectividad",
+      "emoji": "❤️",
+      "descripcion": "Eutimia, depresión, hipertimia, alexitimia y ansiedades afectivas.",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones Cuantitativas",
+          "enunciado": "Un individuo presenta un estado afectivo normal, descrito como un estado de ánimo equilibrado, caracterizado por bienestar y tranquilidad. ¿A qué concepto corresponde?",
+          "opciones": [
+            {
+              "texto": "Euforia",
+              "correcta": false
+            },
+            {
+              "texto": "Eutimia",
+              "correcta": true
+            },
+            {
+              "texto": "Hipertimia placentera",
+              "correcta": false
+            },
+            {
+              "texto": "Hipotimia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La eutimia se define textualmente en la psicopatología de la afectividad como el 'Estado de ánimo equilibrado, caracterizado por una sensación de bienestar y tranquilidad'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Hipertimias Placenteras",
+          "enunciado": "¿Qué tipo de alegría morbosa se caracteriza por ser insulsa, carente de sentido, descrita a menudo como 'alegría estúpida', que suele observarse en pacientes con tumores frontales o retrasos profundos?",
+          "opciones": [
+            {
+              "texto": "Manía",
+              "correcta": false
+            },
+            {
+              "texto": "Euforia",
+              "correcta": false
+            },
+            {
+              "texto": "Moria",
+              "correcta": true
+            },
+            {
+              "texto": "Hipomanía",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El documento define la moria como 'un estado de alegría insulsa, sosa... una alegría estúpida, tonta... en pacientes con tumoraciones cerebrales o retrasos'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Déficit Afectivo",
+          "enunciado": "Un paciente con esquizofrenia profunda es informado de una noticia muy trágica (fallecimiento de su madre). No altera ni un solo músculo facial, no llora ni muestra sorpresa alguna. Este grado máximo de atimia recibe el nombre de:",
+          "opciones": [
+            {
+              "texto": "Anhedonia",
+              "correcta": false
+            },
+            {
+              "texto": "Indiferencia afectiva moderada",
+              "correcta": false
+            },
+            {
+              "texto": "Aplanamiento afectivo",
+              "correcta": true
+            },
+            {
+              "texto": "Alexitimia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El aplanamiento afectivo 'es el grado máximo de indiferencia afectiva. Es la ausencia de respuesta afectiva... pacientes amímicos... no muestran tristeza ante noticias trágicas'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Ansiedad",
+          "enunciado": "La sudoración de manos, los escalofríos, el enrojecimiento facial y el temblor que se producen en un cuadro de pánico son, de acuerdo con el texto:",
+          "opciones": [
+            {
+              "texto": "Manifestaciones subjetivas de la ansiedad",
+              "correcta": false
+            },
+            {
+              "texto": "Manifestaciones objetivas de la ansiedad",
+              "correcta": true
+            },
+            {
+              "texto": "Reacciones de somatización autoinmune",
+              "correcta": false
+            },
+            {
+              "texto": "Alucinaciones hápticas",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El manual divide la ansiedad: las manifestaciones OBJETIVAS 'están dadas por todas las alteraciones del sistema neurovegetativo que podemos observar' (temblor, sudoración, palidez).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Reacciones afectivas cualitativas",
+          "enunciado": "La paciente 'M' explica con una risa nerviosa y genuina que ha sido desahuciada y su casa ardió ayer. Su afecto alegre o risueño frente a un suceso claramente devastador es un ejemplo de:",
+          "opciones": [
+            {
+              "texto": "Ambivalencia afectiva",
+              "correcta": false
+            },
+            {
+              "texto": "Catatimia",
+              "correcta": false
+            },
+            {
+              "texto": "Disociación o incongruencia ideoafectiva",
+              "correcta": true
+            },
+            {
+              "texto": "Perplejidad afectiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La disociación o incongruencia ideoafectiva (afecto discordante) es la 'Reacción emocional contrapuesta a la que habitualmente debe producirle a un sujeto una situación dada'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Distorsiones de reconocimiento emocional",
+          "enunciado": "¿Cómo se le llama a la incapacidad cognitiva de un individuo para identificar, reconocer, poner palabras y expresar sus propias emociones?",
+          "opciones": [
+            {
+              "texto": "Alexitimia",
+              "correcta": true
+            },
+            {
+              "texto": "Anhedonia",
+              "correcta": false
+            },
+            {
+              "texto": "Incontinencia afectiva",
+              "correcta": false
+            },
+            {
+              "texto": "Ambitendencia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La alexitimia significa literalmente 'falta de palabras para los afectos' e implica la incapacidad para identificar y comunicar las propias emociones.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Déficit de placer",
+          "enunciado": "Un paciente con depresión severa relata que cosas que antes amaba con pasión (jugar al fútbol, comer helado) ya no le producen el más mínimo interés, alegría o placer. Esto es la definición exacta de:",
+          "opciones": [
+            {
+              "texto": "Aplanamiento",
+              "correcta": false
+            },
+            {
+              "texto": "Anhedonia",
+              "correcta": true
+            },
+            {
+              "texto": "Disforia",
+              "correcta": false
+            },
+            {
+              "texto": "Abulia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La anhedonia hace referencia a la 'pérdida de la capacidad para experimentar alegría y placer... incapacidad total de disfrutar de la vida'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Deformaciones por Afecto",
+          "enunciado": "Una madre está ciegamente convencida de que su hijo es un modelo de rectitud intachable, a pesar de las múltiples evidencias irrefutables de que es un delincuente, porque su profundo amor nubla su juicio. Esto se ilustra clínicamente como:",
+          "opciones": [
+            {
+              "texto": "Catatimia",
+              "correcta": true
+            },
+            {
+              "texto": "Delirio de grandeza",
+              "correcta": false
+            },
+            {
+              "texto": "Ambivalencia afectiva",
+              "correcta": false
+            },
+            {
+              "texto": "Tenacidad afectiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La catatimia es un 'estado afectivo intenso hacia alguna persona que es capaz de interferir en la percepción real... el afecto inmenso que una madre siente por un hijo le impide aceptar que el mismo es un ladrón'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Hipertimias Displacenteras",
+          "enunciado": "El paciente se encuentra en un estado afectivo crónico de mal humor, lo cual se traduce en una extrema irritabilidad, reaccionando agresivamente ante estímulos minúsculos. ¿Qué nombre recibe este estado?",
+          "respuestas_validas": "disforia",
+          "pista": "Empieza por 'dis' (sufijo común de malestar o dificultad).",
+          "justificacion": "La disforia es el estado de hipertimia displacentera que se define como el 'estado de mal humor que se traduce por gran irritabilidad' llevando a conductas agresivas.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Conflictos Afectivos",
+          "enunciado": "¿Qué alteración ocurre cuando un paciente experimenta simultáneamente amor y odio intensos hacia la misma persona, evidenciando una reacción emocional doble y contrapuesta?",
+          "respuestas_validas": "ambivalencia|ambivalencia afectiva",
+          "pista": "El prefijo es 'ambi' (dos) y 'valencia' (valor/fuerza).",
+          "justificacion": "La ambivalencia afectiva es la 'reacción emocional doble de un sujeto frente a una situación dada, con un sentido contrapuesto'.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 9,
+      "nombre": "Psicopatología del comportamiento y conducta motora",
+      "tema": "Psicopatología del comportamiento y conducta motora",
+      "emoji": "🏃",
+      "descripcion": "Acinesia, catatonía, manierismos, tics, hiperactividad motora.",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Actividad motora ausente",
+          "enunciado": "¿Cómo se le llama a la pérdida total del movimiento o la profunda dificultad del paciente para INICIAR un movimiento voluntario (fallo en el inicio), típicamente visto en el Parkinson o esquizofrenia?",
+          "opciones": [
+            {
+              "texto": "Cataplejía",
+              "correcta": false
+            },
+            {
+              "texto": "Acinesia o aquinesia",
+              "correcta": true
+            },
+            {
+              "texto": "Parálisis funcional",
+              "correcta": false
+            },
+            {
+              "texto": "Obstrucción",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La acinesia se define 'por la pérdida de movimiento o la dificultad para iniciarlo... un fallo en el inicio de los movimientos' comúnmente asociado al Parkinson.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Movimientos Anómalos",
+          "enunciado": "Un paciente psiquiátrico ríe efusivamente y de pronto cae al piso por una pérdida súbita y reversible del tono muscular, sin embargo, su estado de conciencia no se ha alterado y sigue despierto. Esto describe:",
+          "opciones": [
+            {
+              "texto": "Catatonía",
+              "correcta": false
+            },
+            {
+              "texto": "Cataplejía",
+              "correcta": true
+            },
+            {
+              "texto": "Convulsión focal",
+              "correcta": false
+            },
+            {
+              "texto": "Mioclonía",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La cataplejía 'hace referencia a la pérdida súbita y reversible del tono muscular durante la vigilia (sin alteración de conciencia)... desencadenada por emociones intensas como la risa'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Respuestas Involuntarias (Inducidas)",
+          "enunciado": "Al examinar a un paciente catatónico, el médico levanta el brazo del paciente para revisarlo. Al soltarlo, el brazo permanece en el aire en la misma extraña posición, cual si fuera una escultura de cera, por varios minutos sin cansarse. Esto es síntoma de:",
+          "opciones": [
+            {
+              "texto": "Obediencia automática",
+              "correcta": false
+            },
+            {
+              "texto": "Perseveración iterativa",
+              "correcta": false
+            },
+            {
+              "texto": "Flexibilidad cérea",
+              "correcta": true
+            },
+            {
+              "texto": "Negativismo pasivo",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La flexibilidad cérea consiste en que, tras movimiento inducido pasivo, 'se conserva la postura final... aunque resulte incómoda para el paciente'. Siente resistencia plástica.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Alteraciones de los movimientos inducidos",
+          "enunciado": "Kraepelin les pedía a sus pacientes esquizofrénicos que sacaran la lengua y se las pinchaba con una aguja. Aun sintiendo el dolor, los pacientes lo seguían haciendo religiosamente cada vez que se les ordenaba. Esto es un ejemplo de:",
+          "opciones": [
+            {
+              "texto": "Flexibilidad cérea",
+              "correcta": false
+            },
+            {
+              "texto": "Obediencia automática",
+              "correcta": true
+            },
+            {
+              "texto": "Negativismo activo",
+              "correcta": false
+            },
+            {
+              "texto": "Ambitendencia",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La obediencia automática ocurre cuando 'el paciente lleva a cabo una instrucción sin importar las consecuencias', como el famoso experimento de Emil Kraepelin con el alfiler.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos de movimiento repetitivos",
+          "enunciado": "Diferencia clínica principal: un Tic frente a una Estereotipia se caracteriza primordialmente porque...",
+          "opciones": [
+            {
+              "texto": "El tic siempre está precedido de una sensación de tensión que se alivia al hacerlo, la estereotipia no busca alivio (carece de objetivo).",
+              "correcta": true
+            },
+            {
+              "texto": "La estereotipia afecta solo al rostro, el tic afecta solo al cuerpo.",
+              "correcta": false
+            },
+            {
+              "texto": "El tic aparece en demencias y la estereotipia aparece en fobias sociales.",
+              "correcta": false
+            },
+            {
+              "texto": "El tic nunca incluye voces (fónicos), las estereotipias sí.",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los tics 'normalmente están precedidos por una sensación de tensión previa', mientras que las estereotipias se realizan sin que la persona se dé cuenta muchas veces y carecen del objetivo de aliviar la tensión.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Voluntad (Fase Conativa)",
+          "enunciado": "Un paciente con esquizofrenia de larga evolución pasa 12 horas al día sentado mirando la pared; no tiene energía ni deseo voluntario para iniciar, sostener o completar metas simples como vestirse. Esto refleja un cuadro severo de:",
+          "opciones": [
+            {
+              "texto": "Abulia",
+              "correcta": true
+            },
+            {
+              "texto": "Manierismos",
+              "correcta": false
+            },
+            {
+              "texto": "Agitación motora",
+              "correcta": false
+            },
+            {
+              "texto": "Interceptación cinética",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La abulia implica una 'disminución de la voluntad para iniciar (o completar) una conducta dirigida a objetivo... la persona disminuye sus actividades'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Extravagancias",
+          "enunciado": "Un paciente entra a la entrevista y, en lugar de caminar fluidamente, da siempre tres pasos en puntillas y uno con el talón de forma rítmica, modificando voluntariamente la acción normal de andar, haciéndola inusual. Esto clasifica como:",
+          "opciones": [
+            {
+              "texto": "Catalepsia",
+              "correcta": false
+            },
+            {
+              "texto": "Apraxia",
+              "correcta": false
+            },
+            {
+              "texto": "Manierismo",
+              "correcta": true
+            },
+            {
+              "texto": "Bloqueo motor",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los manierismos son 'conductas dirigidas a un objetivo que se realiza de forma inusual... variaciones propias o extrañas de conductas normales' (ej. caminar extraño de talón-puntillas).",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Conductas Repetitivas (Compulsiones)",
+          "enunciado": "Una persona dedica cinco horas diarias a asegurarse de que sus camisas están acomodadas con separaciones de milímetros exactos, y sus libros van ordenados por color y tamaño milimétrico (necesidad de que todo esté perfecto). Es una compulsión de:",
+          "opciones": [
+            {
+              "texto": "Comprobación pura",
+              "correcta": false
+            },
+            {
+              "texto": "Orden y simetría",
+              "correcta": true
+            },
+            {
+              "texto": "Limpieza extrema",
+              "correcta": false
+            },
+            {
+              "texto": "Acumulación",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las compulsiones de orden y simetría ocurren cuando las personas intentan activamente que las cosas a su alrededor 'estén de acuerdo con un orden o distribución determinada o simétrica'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Trastornos Inducidos (Oposición)",
+          "enunciado": "Se le solicita a un paciente que se ponga de pie para pesarlo. El paciente, desafiante y sin razón aparente, hace exactamente lo contrario: se tira al suelo. ¿Cómo se llama a esta conducta motora de resistencia opuesta a lo demandado?",
+          "respuestas_validas": "negativismo activo",
+          "pista": "La palabra principal empieza por 'Nega' y la secundaria con 'Acti'.",
+          "justificacion": "En el negativismo activo, el paciente 'realiza la acción contraria a la demandada' (ej. se le pide levantarse y se sienta o tira al piso).",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Trastornos Orgánicos (Pérdida motora aprendida)",
+          "enunciado": "Alteración neurológica donde el individuo no puede llevar a cabo una actividad motora voluntaria compleja YA APRENDIDA (ej. abotonarse, peinarse) a pesar de tener la fuerza y de comprender lo que debe hacer.",
+          "respuestas_validas": "apraxia",
+          "pista": "Empieza por 'a' y contiene 'praxia' (práctica/movimiento).",
+          "justificacion": "La apraxia es 'la dificultad para llevar a cabo de forma exitosa una actividad psicomotora propositiva (voluntaria)... previamente aprendida' (ej. no poder abotonarse la camisa).",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 10,
+      "nombre": "Psicopatología de las funciones fisiológicas: sueño, apetito e ingesta y sexualidad",
+      "tema": "Psicopatología de las funciones fisiológicas: sueño, apetito e ingesta y sexualidad",
+      "emoji": "🛌",
+      "descripcion": "Insomnio, parasomnias, apneas, trastornos de alimentación y disfunciones sexuales.",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos del Sueño (Insomnio)",
+          "enunciado": "Un paciente con depresión severa reporta que logra quedarse dormido temprano sin problema, pero a las 3:00 de la madrugada se despierta súbitamente con angustia y le resulta absolutamente imposible volver a conciliar el sueño. Esto corresponde a:",
+          "opciones": [
+            {
+              "texto": "Insomnio inicial o vespertino",
+              "correcta": false
+            },
+            {
+              "texto": "Insomnio medio o intermitente",
+              "correcta": false
+            },
+            {
+              "texto": "Insomnio tardío o matinal",
+              "correcta": true
+            },
+            {
+              "texto": "Apnea del sueño central",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El insomnio tardío o matinal ocurre cuando 'el paciente duerme la prima-noche y despierta de madrugada y no puede continuar durmiendo. Este tipo de insomnio es característico de los cuadros depresivos'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Narcolepsia",
+          "enunciado": "Dentro del cuadro de narcolepsia, los pacientes sienten en ocasiones que, justo al despertar o quedarse dormidos, sus músculos están incapacitados para moverse y no pueden hablar ni respirar libremente (sin un estímulo emocional previo). Esto se conoce como:",
+          "opciones": [
+            {
+              "texto": "Cataplexia",
+              "correcta": false
+            },
+            {
+              "texto": "Alucinación hipnagógica",
+              "correcta": false
+            },
+            {
+              "texto": "Parálisis del sueño",
+              "correcta": true
+            },
+            {
+              "texto": "Terror nocturno",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La parálisis del sueño en la narcolepsia es un 'estado que mantiene similitud con la cataplexia puesto que el paciente siente que no puede moverse, hablar o respirar... la diferencia está en que no tiene desencadenantes emocionales'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Parasomnias",
+          "enunciado": "Un niño se incorpora de su cama en fase NO REM (Fase III o IV), pegando un grito desgarrador, sudoroso. Sus padres lo intentan calmar, pero él sigue durmiendo profundamente y al día siguiente no recuerda nada del evento angustiante. Esto describe:",
+          "opciones": [
+            {
+              "texto": "Pesadilla severa",
+              "correcta": false
+            },
+            {
+              "texto": "Terror nocturno",
+              "correcta": true
+            },
+            {
+              "texto": "Sonambulismo agresivo",
+              "correcta": false
+            },
+            {
+              "texto": "Apnea obstructiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Los terrores nocturnos se producen 'en las fases III o IV... Inician con un grito... la persona se levantará con sensación difusa sin saber qué ha ocurrido ni recordar nada'. Las pesadillas sí se recuerdan.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos Alimentarios",
+          "enunciado": "Un paciente con esquizofrenia severa desarrolla el hábito peligroso de consumir objetos inorgánicos y no alimenticios como tierra, hojas secas de los árboles y en ocasiones plastilina. Este desorden alimenticio se llama:",
+          "opciones": [
+            {
+              "texto": "Rumiación alimentaria",
+              "correcta": false
+            },
+            {
+              "texto": "Malacia",
+              "correcta": false
+            },
+            {
+              "texto": "Bulimia purgativa",
+              "correcta": false
+            },
+            {
+              "texto": "Pica",
+              "correcta": true
+            }
+          ],
+          "justificacion": "La pica 'es el hábito de comer sustancias inorgánicas no apropiadas para la ingestión, tales como cal, tierra, arena, plastilina...'",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastornos Alimenticios y Purga",
+          "enunciado": "A diferencia de la restricción calórica absoluta, ¿qué caracteriza a la bulimia (o componentes bulímicos)?",
+          "opciones": [
+            {
+              "texto": "Pérdida paulatina y controlada del hambre",
+              "correcta": false
+            },
+            {
+              "texto": "Comer combinaciones bizarras como pescado crudo con mermelada (Malacia)",
+              "correcta": false
+            },
+            {
+              "texto": "Episodios recurrentes de excesiva ingesta rápida seguidos de conductas compensatorias, sintiendo hambre constante",
+              "correcta": true
+            },
+            {
+              "texto": "Consumo exclusivo de heces (Coprofagia)",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La bulimia se caracteriza 'por episodios recurrentes de excesiva ingesta de alimentos seguidos de conductas compensatorias. En estos casos, el paciente se siente hambriento en todo momento'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Disfunciones Sexuales",
+          "enunciado": "La paciente 'M' indica que experimenta un dolor intenso e insoportable en la zona genital cada vez que intenta tener la respuesta de penetración durante el coito. Descartado problema médico o infecciones, este trastorno se clasifica como:",
+          "opciones": [
+            {
+              "texto": "Anafrodisia",
+              "correcta": false
+            },
+            {
+              "texto": "Aversión al sexo focalizada",
+              "correcta": false
+            },
+            {
+              "texto": "Vaginismo",
+              "correcta": false
+            },
+            {
+              "texto": "Dispareunia",
+              "correcta": true
+            }
+          ],
+          "justificacion": "La dispareunia ocurre cuando 'La persona tiene dolor (en la zona genital o en otro sitio) en el momento de la respuesta sexual'. El vaginismo es estrictamente un espasmo muscular del tercio externo.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Sexualidad y Parafilias",
+          "enunciado": "El fetichismo se considera una parafilia en la que la excitación sexual de la persona radica en:",
+          "opciones": [
+            {
+              "texto": "El sufrimiento o humillación ajena",
+              "correcta": false
+            },
+            {
+              "texto": "El uso de objetos inanimados (ej. zapatos, ropa interior) o partes exclusivas del cuerpo (parcialismos)",
+              "correcta": true
+            },
+            {
+              "texto": "Mirar a escondidas a personas desvistiéndose",
+              "correcta": false
+            },
+            {
+              "texto": "Mostrar su propio cuerpo en público a extraños",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El fetichismo pertenece al uso de objetos inanimados ('Cualquier objeto puede ser fetiche... zapatos... o parte del cuerpo / parcialismos') para la excitación sexual.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Trastorno de Respuesta Sexual",
+          "enunciado": "La aneyaculación o la presencia de eyaculación demorada hasta por 45 minutos (usualmente inducida por consumo de fármacos inhibidores como antidepresivos), se denomina:",
+          "opciones": [
+            {
+              "texto": "Trastorno eréctil orgánico",
+              "correcta": false
+            },
+            {
+              "texto": "Eyaculación prematura grave",
+              "correcta": false
+            },
+            {
+              "texto": "Eyaculación retardada",
+              "correcta": true
+            },
+            {
+              "texto": "Hipersexualidad latente",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La eyaculación retardada es la 'Ausencia de eyaculación o la presencia de esta de forma retardada (30-45 minutos)... provocado por el consumo de fármacos especialmente los antidepresivos'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Trastornos del Sueño Respiratorios",
+          "enunciado": "Un paciente obeso duerme roncando de manera sumamente estruendosa hasta que, de repente, hay un cese total de su respiración (flujo aéreo bloqueado) durante 15 segundos porque la garganta colapsa. ¿Cómo se llama esta patología?",
+          "respuestas_validas": "apnea obstructiva|apnea del sueño obstructiva",
+          "pista": "La palabra indica que el flujo está 'obstruido'.",
+          "justificacion": "La Apnea del sueño obstructiva 'consiste en el cese del flujo aéreo... las paredes de la garganta colapsan', siendo su signo más característico el ronquido, despertándolo brevemente.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Conductas de Sueño Involuntarias",
+          "enunciado": "Durante la fase del sueño de ondas lentas, un joven se levanta de la cama profundamente dormido, camina hacia el refrigerador, abre la puerta, murmura algo ininteligible y regresa a dormir. Al otro día no recuerda nada. ¿Qué padece?",
+          "respuestas_validas": "sonambulismo",
+          "pista": "Se compone de 'somnus' (sueño) y 'ambulare' (caminar).",
+          "justificacion": "El sonambulismo 'se caracteriza por una secuencia de movimientos corporales... la persona puede llegar a levantarse y realizar diversas actividades como caminar por la casa'.",
+          "puntos": 20
+        }
+      ]
+    },
+    {
+      "numero": 11,
+      "nombre": "Psicopatología de las funciones de relación",
+      "tema": "Psicopatología de las funciones de relación",
+      "emoji": "🤝",
+      "descripcion": "Relaciones intra/interpersonales y con el entorno general del individuo.",
+      "preguntas": [
+        {
+          "tipo": "mcq",
+          "tema": "Clasificación General",
+          "enunciado": "Las funciones de relación en la psicopatología general se dividen clásicamente en tres esferas de evaluación. ¿Cuáles son?",
+          "opciones": [
+            {
+              "texto": "Relación con el yo interno, con el subconsciente y con la naturaleza.",
+              "correcta": false
+            },
+            {
+              "texto": "Relación temporal, relación espacial y relación histórica.",
+              "correcta": false
+            },
+            {
+              "texto": "Relaciones consigo mismo, relaciones con las demás personas y relaciones con las cosas.",
+              "correcta": true
+            },
+            {
+              "texto": "Relaciones psicomotrices, afectivas y cognoscitivas.",
+              "correcta": false
+            }
+          ],
+          "justificacion": "De acuerdo con el documento, la exploración se divide textualmente en tres parámetros: 'Relaciones consigo mismo', 'Relaciones con las demás personas' y 'Relaciones con las cosas'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Relación Consigo Mismo",
+          "enunciado": "En la exploración clínica, se le pregunta a un paciente: '¿Le gusta ser como es o prefiere ser como otra persona?'. Esta pregunta busca indagar específicamente sobre la esfera de:",
+          "opciones": [
+            {
+              "texto": "Relaciones con las cosas",
+              "correcta": false
+            },
+            {
+              "texto": "Relaciones consigo mismo",
+              "correcta": true
+            },
+            {
+              "texto": "Relaciones con las demás personas",
+              "correcta": false
+            },
+            {
+              "texto": "Evaluación autopsíquica",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El apartado 'Relaciones consigo mismo' incluye las preguntas para valorar la autoapreciación, entre ellas literalmente: '¿Le gusta ser como es o prefiere ser como otra persona?'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Relaciones con las cosas",
+          "enunciado": "Para determinar cómo se encuentra la esfera relacional objetual y existencial del sujeto, el psicólogo averigua qué tipo de lectura, política o arte le estimula actualmente. Esto evalúa:",
+          "opciones": [
+            {
+              "texto": "Relaciones con las cosas",
+              "correcta": true
+            },
+            {
+              "texto": "Relaciones con los demás",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación alopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Intereses interpersonales",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las 'Relaciones con las cosas' buscan saber 'cuáles son los intereses que tiene el paciente en la vida. Hay personas que tienen intereses científicos, artísticos, literarios, políticos...'",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Relaciones Interpersonales",
+          "enunciado": "Un individuo afirma: 'Todas las personas son un fastidio para mí, prefiero no relacionarme con nadie porque no hay empatía en este mundo'. Este síntoma relacional se encasilla en la evaluación de:",
+          "opciones": [
+            {
+              "texto": "Ideación delirante de persecución",
+              "correcta": false
+            },
+            {
+              "texto": "Relaciones con las demás personas",
+              "correcta": true
+            },
+            {
+              "texto": "Relaciones consigo mismo",
+              "correcta": false
+            },
+            {
+              "texto": "Alogia relacional",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las 'Relaciones con las demás personas' evalúan la actitud del paciente hacia el prójimo: '¿Cómo eres tú en tus relaciones... ¿Qué piensas tú de las demás personas?'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Dimensiones prácticas",
+          "enunciado": "¿Qué dimensión de las funciones de relación puede detectar un severo descenso anhedónico de la actividad al preguntar por 'lo que menos le interesa hacer y sus actividades en su tiempo libre'?",
+          "opciones": [
+            {
+              "texto": "Relaciones consigo mismo",
+              "correcta": false
+            },
+            {
+              "texto": "Evaluación del estado de vigilia",
+              "correcta": false
+            },
+            {
+              "texto": "Relaciones con las cosas",
+              "correcta": true
+            },
+            {
+              "texto": "Relaciones interpersonales",
+              "correcta": false
+            }
+          ],
+          "justificacion": "La pregunta sobre el tiempo libre y la motivación forma parte íntegra de la valoración de las 'Relaciones con las cosas' ('¿A qué dedica su tiempo libre? ¿Qué es lo que más le motiva hacer?').",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Intersección",
+          "enunciado": "Si un paciente revela un complejo de inferioridad enorme y refiere sentirse detestable respecto a los estándares de su sociedad, el daño en sus funciones relacionales recae principalmente en:",
+          "opciones": [
+            {
+              "texto": "Afectividad motora e intrapersonal",
+              "correcta": false
+            },
+            {
+              "texto": "Relación consigo mismo (autoapreciación)",
+              "correcta": true
+            },
+            {
+              "texto": "La desorientación del yo",
+              "correcta": false
+            },
+            {
+              "texto": "La pérdida de las relaciones con las cosas",
+              "correcta": false
+            }
+          ],
+          "justificacion": "El mal autoconcepto, la depreciación interna y los complejos recaen directamente sobre la 'autoapreciación de cualidades positivas y negativas', competencia de 'Relaciones consigo mismo'.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Aspectos intrapersonales vs interpersonales",
+          "enunciado": "La interrogante que hace el psiquiatra: '¿Qué piensan los demás sobre usted?' se cataloga, según el manual, como una forma de evaluar las relaciones:",
+          "opciones": [
+            {
+              "texto": "Con los demás",
+              "correcta": false
+            },
+            {
+              "texto": "Consigo mismo (proyección de autoconcepto)",
+              "correcta": true
+            },
+            {
+              "texto": "Ideación paranoide obligatoriamente",
+              "correcta": false
+            },
+            {
+              "texto": "Alopsíquicas",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Sorprendentemente (y según el manual), '¿Qué piensan los demás de él?' está listado como una exploración de la sección 'Relaciones consigo mismo' porque refleja cómo se proyecta el propio autoconcepto ante el mundo.",
+          "puntos": 15
+        },
+        {
+          "tipo": "mcq",
+          "tema": "Identificación de trastornos",
+          "enunciado": "La ausencia crónica de ideales, pasatiempos e intereses ('No tengo motivación por nada') afectará de manera directa al apartado clínico de:",
+          "opciones": [
+            {
+              "texto": "Relaciones con las cosas",
+              "correcta": true
+            },
+            {
+              "texto": "Relaciones consigo mismo",
+              "correcta": false
+            },
+            {
+              "texto": "Bradipsiquia ideativa",
+              "correcta": false
+            },
+            {
+              "texto": "Disfonía evolutiva",
+              "correcta": false
+            }
+          ],
+          "justificacion": "Las 'Relaciones con las cosas' exploran explícitamente los intereses artísticos, científicos y pasatiempos. Su ausencia señala patología en esta área.",
+          "puntos": 15
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Conceptos de Relación",
+          "enunciado": "Durante la entrevista, el psicólogo evalúa cómo el paciente establece relaciones intrapersonales con la gente a su alrededor preguntándole cómo es él con ellos. ¿A qué parámetro de la función de relación se refiere?",
+          "respuestas_validas": "relaciones con las demás personas|relaciones con las demas personas|demás personas",
+          "pista": "Involucra a terceros o prójimos (Relaciones con las _____ ______)",
+          "justificacion": "Las 'Relaciones con las demás personas' se enfocan directamente al tipo de interacciones que el sujeto suele establecer con su entorno humano.",
+          "puntos": 20
+        },
+        {
+          "tipo": "escrita",
+          "tema": "Conceptos de Relación",
+          "enunciado": "En la historia clínica, se anota que la paciente presenta una baja valoración de sus propias cualidades y rechaza su propia forma de ser. ¿Qué apartado de las Funciones de Relación abarca la autoapreciación?",
+          "respuestas_validas": "relaciones consigo mismo|consigo mismo",
+          "pista": "Habla de la relación interna (Relación _______ _______)",
+          "justificacion": "El apartado 'Relaciones consigo mismo' es el lugar donde se valora la autoapreciación de cualidades positivas y negativas, el autoconcepto y la autovalía del individuo.",
           "puntos": 20
         }
       ]

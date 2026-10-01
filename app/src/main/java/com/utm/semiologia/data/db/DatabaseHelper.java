@@ -26,7 +26,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 3;
 
     // ------------------------------------------------------------------
     // Nombres de tablas
@@ -92,10 +92,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Migraciones INCREMENTALES: nunca se hace DROP. Un usuario que ya
-        // tenga la app instalada conserva su usuario, mascota, notas y progreso.
+        // Migraciones INCREMENTALES: nunca se hace DROP de las tablas de
+        // usuario. Un usuario que ya tenga la app instalada conserva su
+        // usuario, mascota, notas y pomodoro.
         if (oldVersion < 2) {
             migrarAV2(db);
+        }
+        if (oldVersion < 3) {
+            migrarAV3(db);
         }
     }
 
@@ -107,6 +111,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         crearTablasEvaluacion(db);
         // La semilla de niveles/preguntas va aparte (assets/preguntas.json)
         // para que el contenido se pueda editar sin tocar el esquema.
+        NivelesDao.sembrarNiveles(appContext, db);
+    }
+
+    /**
+     * v2 -> v3: reemplazo completo del banco de preguntas.
+     * El contenido pasó de 5 tramos a 11 y los IDs cambiaron, así que se vacía
+     * el contenido de evaluación (no el usuario) y se vuelve a sembrar desde
+     * assets/preguntas.json. Se pierden intentos/progreso de evaluación, que
+     * ya no son válidos con el nuevo banco.
+     */
+    private void migrarAV3(SQLiteDatabase db) {
+        crearTablasEvaluacion(db);
+        db.beginTransaction();
+        try {
+            // Orden seguro de borrado (independiente de las cascadas).
+            db.execSQL("DELETE FROM " + T_RESPUESTAS_DADAS);
+            db.execSQL("DELETE FROM " + T_INTENTOS);
+            db.execSQL("DELETE FROM " + T_PROGRESO_NIVELES);
+            db.execSQL("DELETE FROM " + T_OPCIONES);
+            db.execSQL("DELETE FROM " + T_PREGUNTAS);
+            db.execSQL("DELETE FROM " + T_NIVELES);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        // Con las tablas vacías, la semilla vuelve a insertar los 11 tramos.
         NivelesDao.sembrarNiveles(appContext, db);
     }
 
