@@ -42,7 +42,6 @@
     <string name="modulo_guia">Guía de estudio</string>
     <string name="modulo_grupos">Estudio colaborativo</string>
     <string name="modulo_evaluacion">Casos clínicos</string>
-    <string name="modulo_pomodoro">Modo Pomodoro</string>
 
     <string name="salir">Cerrar sesión</string>
     <string name="confirmar_salir">¿Seguro que quieres cerrar sesión?</string>
@@ -92,4 +91,28 @@
     <string name="resultado_siguiente">¡Tramo %1$d desbloqueado!</string>
     <string name="resultado_volver">Volver al camino</string>
     <string name="resultado_reintentar">Reintentar</string>
+
+    <!-- Pomodoro -->
+    <string name="pomodoro_titulo">Pomodoro</string>
+    <string name="pomodoro_estudio_label">Tiempo de estudio</string>
+    <string name="pomodoro_minutos">%1$d min</string>
+    <string name="pomodoro_descanso">Descanso: %1$d min (un cuarto del estudio)</string>
+    <string name="pomodoro_recompensa">Al completar ganarás croquetas de concentración que llenarán la energía de tu mascota al máximo, y un %1$d%% de probabilidad de conseguir una barita mágica.</string>
+    <string name="pomodoro_iniciar">Iniciar pomodoro</string>
+    <string name="pomodoro_en_curso">Pomodoro en curso</string>
+    <string name="pomodoro_restante">Te quedan %1$s</string>
+    <string name="pomodoro_cancelar">Cancelar pomodoro</string>
+    <string name="pomodoro_cancelar_confirm">¿Seguro que quieres cancelar el pomodoro en curso?</string>
+    <string name="pomodoro_minimizar">Minimizar</string>
+    <string name="pomodoro_expandir">Mostrar pomodoro</string>
+    <string name="pomodoro_recompensa_titulo">¡Recompensa!</string>
+    <string name="pomodoro_recompensa_energia">Croquetas de concentración: energía de tu mascota al máximo</string>
+    <string name="pomodoro_recompensa_barita">¡Conseguiste una barita mágica!</string>
+    <string name="pomodoro_recompensa_sin_barita">Esta vez no cayó barita mágica</string>
+    <string name="pomodoro_recompensa_puntos">+%1$d puntos</string>
+    <string name="pomodoro_reclamar">Reclamar</string>
+    <string name="pomodoro_descanso_msg">Entrando en modo descanso</string>
+    <string name="pomodoro_descanso_salir">Salir del modo descanso</string>
+    <string name="pomodoro_descanso_restante">Descanso: %1$s</string>
+    <string name="pomodoro_dato_titulo">¿Sabías que…?</string>
 </resources>

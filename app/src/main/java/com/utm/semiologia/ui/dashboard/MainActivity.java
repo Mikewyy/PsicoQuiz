@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import com.utm.semiologia.ui.common.BaseActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -20,6 +20,7 @@ import com.utm.semiologia.data.model.Mascota;
 import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.ui.auth.LoginActivity;
 import com.utm.semiologia.ui.evaluacion.CaminoActivity;
+import com.utm.semiologia.ui.pomodoro.PomodoroManager;
 
 /**
  * Dashboard: pantalla de inicio del estudiante.
@@ -34,7 +35,7 @@ import com.utm.semiologia.ui.evaluacion.CaminoActivity;
  * cuántos puntos de hambre se perdieron por el tiempo transcurrido. La
  * Activity no lleva ningún temporizador.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     // ---- Vistas ----
     private TextView tvAvatar, tvSaludo, tvPuntos, tvNivel, tvNivelProgreso, tvRacha;
@@ -115,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         moduloEnConstruccion(R.id.modGuia, getString(R.string.modulo_guia));
         moduloEnConstruccion(R.id.modGrupos, getString(R.string.modulo_grupos));
         moduloEnConstruccion(R.id.modEvaluacion, getString(R.string.modulo_evaluacion));
-        moduloEnConstruccion(R.id.modPomodoro, getString(R.string.modulo_pomodoro));
     }
 
     private void moduloEnConstruccion(int id, String nombreModulo) {
@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setMessage(R.string.confirmar_salir)
                 .setPositiveButton(R.string.aceptar, (d, w) -> {
+                    PomodoroManager.get().cancelar();
                     SemiologiaApp.getSesion().cerrarSesion();
                     irAlLogin();
                 })

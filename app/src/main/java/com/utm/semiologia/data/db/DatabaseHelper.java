@@ -26,7 +26,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 4;
 
     // ------------------------------------------------------------------
     // Nombres de tablas
@@ -54,6 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String T_INTENTOS = "intentos";
     public static final String T_RESPUESTAS_DADAS = "respuestas_dadas";
     public static final String T_PROGRESO_NIVELES = "progreso_niveles";
+    // Objetos/poderes (v4): baritas magicas, etc.
+    public static final String T_INV_OBJETOS = "inventario_objetos";
 
     private static volatile DatabaseHelper instance;
 
@@ -101,6 +103,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 3) {
             migrarAV3(db);
         }
+        if (oldVersion < 4) {
+            migrarAV4(db);
+        }
     }
 
     /**
@@ -138,6 +143,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         // Con las tablas vacías, la semilla vuelve a insertar los 11 tramos.
         NivelesDao.sembrarNiveles(appContext, db);
+    }
+
+    /**
+     * v3 -> v4: sistema Pomodoro. Sólo se crea una tabla nueva
+     * (inventario_objetos) para guardar baritas mágicas y futuros poderes.
+     */
+    private void migrarAV4(SQLiteDatabase db) {
+        crearTablaObjetos(db);
     }
 
     // ==================================================================
@@ -365,6 +378,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "creada_en               INTEGER NOT NULL" +
                 ")");
         db.execSQL("CREATE INDEX idx_comentarios_nota ON " + T_COMENTARIOS + "(nota_compartida_id)");
+
+        // --------------------------------------------------------------
+        // 16. INVENTARIO_OBJETOS  (poderes: barita mágica, etc.)
+        // --------------------------------------------------------------
+        crearTablaObjetos(db);
+    }
+
+    /** Tabla de objetos/poderes del inventario. Idempotente. */
+    private void crearTablaObjetos(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + T_INV_OBJETOS + " (" +
+                "id              INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "usuario_id      INTEGER NOT NULL REFERENCES " + T_USUARIOS + "(id) ON DELETE CASCADE," +
+                "tipo            TEXT    NOT NULL," +   // 'barita_magica', etc.
+                "cantidad        INTEGER NOT NULL DEFAULT 0," +
+                "obtenido_en     INTEGER NOT NULL," +
+                "UNIQUE(usuario_id, tipo)" +
+                ")");
     }
 
     // ==================================================================

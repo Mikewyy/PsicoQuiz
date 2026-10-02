@@ -36,4 +36,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.8.7'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-process:2.8.7'
 }

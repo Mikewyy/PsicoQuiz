@@ -74,6 +74,38 @@ public class MascotaDao {
         return true;
     }
 
+    /** Recarga la energía de la mascota al máximo (recompensa de pomodoro). */
+    public void recargarEnergiaAlMaximo(long usuarioId) {
+        Mascota m = obtener(usuarioId);
+        if (m == null) return;
+        m.setEnergia(100);
+        m.recalcularEstado();
+        actualizarEstado(m);
+    }
+
+    // ---- Inventario de objetos/poderes (baritas mágicas, etc.) ----
+
+    /** Otorga objetos al inventario del usuario (upsert por tipo). */
+    public void otorgarObjeto(long usuarioId, String tipo, int cantidad) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.execSQL("INSERT INTO " + DatabaseHelper.T_INV_OBJETOS +
+                        " (usuario_id, tipo, cantidad, obtenido_en) VALUES (?,?,?,?) " +
+                        "ON CONFLICT(usuario_id, tipo) DO UPDATE SET " +
+                        "cantidad = cantidad + excluded.cantidad",
+                new Object[]{usuarioId, tipo, cantidad, System.currentTimeMillis()});
+    }
+
+    /** Cantidad disponible de un objeto. 0 si no tiene. */
+    public int cantidadObjeto(long usuarioId, String tipo) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try (Cursor c = db.query(DatabaseHelper.T_INV_OBJETOS, new String[]{"cantidad"},
+                "usuario_id = ? AND tipo = ?",
+                new String[]{String.valueOf(usuarioId), tipo},
+                null, null, null, "1")) {
+            return c.moveToFirst() ? c.getInt(0) : 0;
+        }
+    }
+
     public void renombrar(long usuarioId, String nombre) {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();

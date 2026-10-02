@@ -603,39 +603,6 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/modPomodoro"
-                android:layout_width="0dp"
-                android:layout_height="118dp"
-                android:layout_margin="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_module"
-                android:clickable="true"
-                android:elevation="3dp"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:background="@drawable/bg_emoji_circle"
-                    android:gravity="center"
-                    android:text="⏱"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="@string/modulo_pomodoro"
-                    android:textColor="#1E1B4B"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

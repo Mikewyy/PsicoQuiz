@@ -7,15 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.utm.semiologia.R;
 import com.utm.semiologia.data.db.DatabaseHelper;
 import com.utm.semiologia.data.model.Intento;
+import com.utm.semiologia.ui.common.BaseActivity;
 
 /** Pantalla de cierre: aciertos, aprobado/suspendido y recompensas ganadas. */
-public class ResultadoActivity extends AppCompatActivity {
+public class ResultadoActivity extends BaseActivity {
 
     private static final String EXTRA_NIVEL_ID     = "nivel_id";
     private static final String EXTRA_NIVEL_NUMERO = "nivel_numero";

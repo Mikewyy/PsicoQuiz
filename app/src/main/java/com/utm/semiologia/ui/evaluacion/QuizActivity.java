@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import com.utm.semiologia.ui.common.BaseActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
@@ -24,7 +24,7 @@ import com.utm.semiologia.data.model.Opcion;
 import com.utm.semiologia.data.model.ProgresoNivel;
 
 /** Pantalla de un intento: muestra preguntas MCQ o escritas y da feedback. */
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends BaseActivity {
 
     private static final String EXTRA_NIVEL_ID     = "nivel_id";
     private static final String EXTRA_NIVEL_NUMERO = "nivel_numero";

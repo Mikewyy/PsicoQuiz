@@ -28,6 +28,14 @@ public final class Gamificacion {
     /** Energía de la mascota que cuesta empezar un intento de preguntas. */
     public static final int ENERGIA_POR_INTENTO         = 5;
 
+    // ---- Recompensas del sistema Pomodoro ----
+    /** Probabilidad (0..1) de ganar una barita mágica al completar un pomodoro. */
+    public static final float PROBABILIDAD_BARITA_MAGICA = 0.50f;
+    /** Unidades de barita que se otorgan cuando toca. */
+    public static final int BARITAS_POR_POMODORO        = 1;
+    /** Tipo de objeto guardado en inventario_objetos. */
+    public static final String OBJETO_BARITA_MAGICA     = "barita_magica";
+
     private Gamificacion() {
     }
 

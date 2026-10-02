@@ -5,16 +5,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utm.semiologia.R;
 import com.utm.semiologia.data.model.ProgresoNivel;
+import com.utm.semiologia.ui.common.BaseActivity;
 
 /** Lista de tramos; cada tarjeta abre el examen o la práctica del tramo. */
-public class CaminoActivity extends AppCompatActivity
+public class CaminoActivity extends BaseActivity
         implements TramoAdapter.OnTramoClick {
 
     private CaminoViewModel vm;
