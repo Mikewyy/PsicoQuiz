@@ -162,13 +162,14 @@ public class Mascota {
         return true;
     }
 
-    /** Gasta energía (p. ej. al empezar un intento). False si no alcanza. */
-    public boolean consumirEnergia(int costo) {
-        if (costo <= 0) return true;
-        if (energia < costo) return false;
-        energia = limitar(energia - costo, 0, 100);
+    /**
+     * Gasta energía (p. ej. al empezar un intento). NUNCA falla: si no alcanza,
+     * la energía baja a 0. Jugar no debe bloquearse nunca por falta de energía.
+     */
+    public void consumirEnergia(int costo) {
+        if (costo <= 0) return;
+        energia = limitar(energia - Math.min(costo, energia), 0, 100);
         recalcularEstado();
-        return true;
     }
 
     /** Minijuego rápido: sube felicidad, gasta energía. */

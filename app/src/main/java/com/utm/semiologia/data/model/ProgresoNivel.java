@@ -9,6 +9,8 @@ public class ProgresoNivel {
     private String  tema;
     private String  descripcion;
     private int     numero;
+    private String  categoria;
+    private int     orden;
     private int     totalPreguntas;
 
     private boolean aprobado;
@@ -40,6 +42,12 @@ public class ProgresoNivel {
 
     public int getNumero() { return numero; }
     public void setNumero(int v) { this.numero = v; }
+
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String v) { this.categoria = v; }
+
+    public int getOrden() { return orden; }
+    public void setOrden(int v) { this.orden = v; }
 
     public int getTotalPreguntas() { return totalPreguntas; }
     public void setTotalPreguntas(int v) { this.totalPreguntas = v; }

@@ -73,18 +73,16 @@ public class QuizViewModel extends AndroidViewModel {
 
     /**
      * Idempotente: en una rotación no reinicia el intento ya empezado.
-     * Cobra {@link Gamificacion#ENERGIA_POR_INTENTO} al empezar; devuelve false
-     * si la mascota no tiene energía suficiente.
+     * Cobra {@link Gamificacion#ENERGIA_POR_INTENTO} al empezar, pero la falta
+     * de energía NUNCA impide jugar (la mascota puede quedar en 0).
      */
-    public boolean iniciar(long nivelId, int nivelNumero, String nivelNombre, String modo) {
+    public void iniciar(long nivelId, int nivelNumero, String nivelNombre, String modo) {
         if (iniciado) {
             emitir();
-            return true;
+            return;
         }
         long usuarioId = sesion.getUsuarioId();
-        if (!repo.mascotas().consumirEnergia(usuarioId, Gamificacion.ENERGIA_POR_INTENTO)) {
-            return false;
-        }
+        repo.mascotas().consumirEnergia(usuarioId, Gamificacion.ENERGIA_POR_INTENTO);
         this.nivelId = nivelId;
         this.nivelNumero = nivelNumero;
         this.nivelNombre = nivelNombre;
@@ -95,7 +93,6 @@ public class QuizViewModel extends AndroidViewModel {
         preguntas.addAll(cargadas);
         iniciado = true;
         cargarActual();
-        return true;
     }
 
     private boolean esExamen() {
@@ -228,7 +225,7 @@ public class QuizViewModel extends AndroidViewModel {
                         usuarioId, Gamificacion.ALIMENTO_GALLETA_ID, out.comida);
             }
             if (out.aprobado) {
-                out.siguienteNumero = desbloqueadoSiguiente(usuarioId, nivelNumero);
+                out.siguienteNumero = desbloqueadoSiguiente(usuarioId, nivelId);
             }
         } else {
             // La práctica no da puntos, pero sí cuenta como actividad del día.
@@ -237,10 +234,17 @@ public class QuizViewModel extends AndroidViewModel {
         return out;
     }
 
-    private int desbloqueadoSiguiente(long usuarioId, int numeroActual) {
-        Nivel siguiente = repo.niveles().obtenerNivelPorNumero(numeroActual + 1);
+    /**
+     * Devuelve el orden del tramo desbloqueado tras aprobar {@code nivelId}
+     * (dentro de su misma categoría), o 0 si no hay siguiente o sigue bloqueado.
+     */
+    private int desbloqueadoSiguiente(long usuarioId, long nivelId) {
+        Nivel actual = repo.niveles().obtenerNivel(nivelId);
+        if (actual == null) return 0;
+        Nivel siguiente = repo.niveles().obtenerNivelSiguiente(
+                actual.getCategoria(), actual.getOrden() + 1);
         if (siguiente == null) return 0;
         return repo.niveles().estaDesbloqueado(usuarioId, siguiente.getId())
-                ? numeroActual + 1 : 0;
+                ? siguiente.getOrden() : 0;
     }
 }

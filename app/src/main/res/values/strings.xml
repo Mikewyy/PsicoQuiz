@@ -51,7 +51,16 @@
 
     <!-- Evaluación: camino de tramos -->
     <string name="evaluacion_titulo">Camino de aprendizaje</string>
-    <string name="evaluacion_subtitulo">Aprueba cada tramo con 80%% para desbloquear el siguiente</string>
+    <string name="evaluacion_subtitulo">Aprueba cada tramo con 80% para desbloquear el siguiente</string>
+    <string name="camino_titulo_sintomas">Camino de síntomas</string>
+    <string name="camino_titulo_sindromes">Camino de síndromes</string>
+    <string name="jugar_titulo">Elige un camino</string>
+    <string name="jugar_subtitulo">Dos bancos de preguntas con la misma mecánica: aprueba cada tramo con 80%% para desbloquear el siguiente.</string>
+    <string name="sintomas_titulo">Síntomas</string>
+    <string name="sintomas_descripcion">Recorre los síntomas y signos psicopatológicos, del tramo más básico al más avanzado.</string>
+    <string name="sindromes_titulo">Síndromes</string>
+    <string name="sindromes_descripcion">Estudia los grandes síndromes: orgánicos, esquizofrénico, delirante, afectivos, discinéticos y más.</string>
+    <string name="camino_explorar">Explorar</string>
     <string name="camino_puntos">Puntos: %1$d</string>
     <string name="camino_volver">Volver</string>
     <string name="tramo_empezar">Empezar</string>
@@ -78,7 +87,7 @@
     <string name="quiz_elige_opcion">Elige una opción</string>
     <string name="quiz_cerrar">✕</string>
     <string name="quiz_salir">¿Abandonar el intento? No se guardará el progreso.</string>
-    <string name="quiz_sin_energia">Sin energía. Descansa o alimenta a tu mascota para seguir jugando.</string>
+    <string name="energia_recuperacion">Se recupera con un Pomodoro o descansando.</string>
 
     <!-- Evaluación: resultado -->
     <string name="resultado_aprobado">¡Tramo superado!</string>

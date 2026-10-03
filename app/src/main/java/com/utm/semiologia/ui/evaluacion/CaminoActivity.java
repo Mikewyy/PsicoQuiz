@@ -1,5 +1,7 @@
 package com.utm.semiologia.ui.evaluacion;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utm.semiologia.R;
+import com.utm.semiologia.data.model.Nivel;
 import com.utm.semiologia.data.model.ProgresoNivel;
 import com.utm.semiologia.ui.common.BaseActivity;
 
@@ -17,14 +20,33 @@ import com.utm.semiologia.ui.common.BaseActivity;
 public class CaminoActivity extends BaseActivity
         implements TramoAdapter.OnTramoClick {
 
+    private static final String EXTRA_CATEGORIA = "categoria";
+
     private CaminoViewModel vm;
     private TramoAdapter adapter;
     private TextView tvPuntos;
+    private String categoria = Nivel.CAT_SINTOMAS;
+
+    public static Intent nuevoIntent(Context ctx, String categoria) {
+        Intent i = new Intent(ctx, CaminoActivity.class);
+        i.putExtra(EXTRA_CATEGORIA, categoria);
+        return i;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camino);
+
+        String extra = getIntent().getStringExtra(EXTRA_CATEGORIA);
+        if (Nivel.CAT_SINDROMES.equals(extra)) {
+            categoria = Nivel.CAT_SINDROMES;
+        }
+
+        TextView tvTitulo = findViewById(R.id.tvTituloCamino);
+        tvTitulo.setText(Nivel.CAT_SINDROMES.equals(categoria)
+                ? R.string.camino_titulo_sindromes
+                : R.string.camino_titulo_sintomas);
 
         vm = new ViewModelProvider(this).get(CaminoViewModel.class);
         tvPuntos = findViewById(R.id.tvPuntos);
@@ -45,7 +67,7 @@ public class CaminoActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        vm.cargar();
+        vm.cargar(categoria);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private static final long ALIMENTO_POR_DEFECTO = 1L; // Galleta
     private static final int PUNTOS_HAMBRE_GALLETA  = 10;
     private static final int PUNTOS_FELICIDAD_GALLETA = 3;
-    private static final int PUNTOS_ENERGIA_GALLETA   = 0;
+    private static final int PUNTOS_ENERGIA_GALLETA   = 10;
 
     private final Repositorio  repo;
     private final SesionManager sesion;
@@ -82,8 +82,8 @@ public class DashboardViewModel extends AndroidViewModel {
         long usuarioId = sesion.getUsuarioId();
         Mascota m = repo.mascotas().obtener(usuarioId);
         if (m == null) return false;
-        if (m.getHambre() >= 100) {
-            mensajePendiente = "Tu mascota ya está bien alimentada";
+        if (m.getHambre() >= 100 && m.getEnergia() >= 100) {
+            mensajePendiente = "Tu mascota ya está bien alimentada y descansada";
             cargar();
             return false;
         }

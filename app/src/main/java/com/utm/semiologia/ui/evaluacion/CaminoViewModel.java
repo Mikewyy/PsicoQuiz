@@ -28,13 +28,13 @@ public class CaminoViewModel extends AndroidViewModel {
         return estado;
     }
 
-    public void cargar() {
+    public void cargar(String categoria) {
         long usuarioId = sesion.getUsuarioId();
         if (usuarioId <= 0) return;
         Usuario u = repo.usuarios().buscarPorId(usuarioId);
         if (u == null) return;
         estado.setValue(new EstadoCamino(
                 u.getPuntos(),
-                repo.niveles().listarProgreso(usuarioId)));
+                repo.niveles().listarProgreso(usuarioId, categoria)));
     }
 }

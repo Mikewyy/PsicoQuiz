@@ -42,15 +42,15 @@ public class QuizActivity extends BaseActivity {
     private Long opcionSeleccionada;
 
     public static Intent nuevoIntent(Context ctx, ProgresoNivel tramo) {
-        return nuevoIntent(ctx, tramo.getNivelId(), tramo.getNumero(), tramo.getNombre(),
+        return nuevoIntent(ctx, tramo.getNivelId(), tramo.getOrden(), tramo.getNombre(),
                 tramo.isAprobado() ? Intento.MODO_PRACTICA : Intento.MODO_EXAMEN);
     }
 
-    public static Intent nuevoIntent(Context ctx, long nivelId, int numero,
+    public static Intent nuevoIntent(Context ctx, long nivelId, int orden,
                                      String nombre, String modo) {
         Intent i = new Intent(ctx, QuizActivity.class);
         i.putExtra(EXTRA_NIVEL_ID, nivelId);
-        i.putExtra(EXTRA_NIVEL_NUMERO, numero);
+        i.putExtra(EXTRA_NIVEL_NUMERO, orden);
         i.putExtra(EXTRA_NIVEL_NOMBRE, nombre);
         i.putExtra(EXTRA_MODO, modo);
         return i;
@@ -83,11 +83,7 @@ public class QuizActivity extends BaseActivity {
         btnAccion = findViewById(R.id.btnAccion);
 
         vm = new ViewModelProvider(this).get(QuizViewModel.class);
-        if (!vm.iniciar(nivelId, numero, nombre, modo)) {
-            Toast.makeText(this, R.string.quiz_sin_energia, Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
+        vm.iniciar(nivelId, numero, nombre, modo);
 
         findViewById(R.id.btnCerrar).setOnClickListener(v -> confirmarSalida());
         btnAccion.setOnClickListener(v -> onAccion());

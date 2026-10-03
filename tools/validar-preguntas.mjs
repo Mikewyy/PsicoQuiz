@@ -22,7 +22,12 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
-const ruta = join(raiz, 'app/src/main/assets/preguntas.json');
+
+// Bancos a validar: ruta dentro del repo + numero de niveles esperado.
+const BANCOS = [
+  { etiqueta: 'preguntas', archivo: 'app/src/main/assets/preguntas.json', minNiveles: 11 },
+  { etiqueta: 'sindromes', archivo: 'app/src/main/assets/sindromes.json', minNiveles: 9 },
+];
 
 let errores = 0, avisos = 0;
 const err = (m) => { console.log('  FALLO ' + m); errores++; };
@@ -67,6 +72,8 @@ const PERMITIDAS = new Set([
   'amigos', 'cambia', 'confusion', 'detestable', 'divide', 'genera',
   'graves', 'negros', 'padres', 'produce', 'reales', 'rodeos', 'sale',
   'tales', 'traduce', 'verse', 'tics',
+  'luce', 'omegas', 'omega', 'dolores', 'belle', 'introduce', 'imperturbable',
+  'irreversible',
   // anglicismos/tecnicismos usados a proposito (van glosados en el texto)
   'insight', 'blunting', 'tests', 'test', 'trail', 'making', 'delirium', 'rem',
   // nombres propios
@@ -134,123 +141,132 @@ function recorta(s, n = 70) {
 }
 
 // ---------------------------------------------------------------------------
-// Validacion estructural
+// Validacion estructural (parametrizable por banco)
 // ---------------------------------------------------------------------------
-let raw;
-try {
-  raw = JSON.parse(readFileSync(ruta, 'utf8'));
-} catch (e) {
-  console.log('JSON INVALIDO: ' + e.message);
-  process.exit(1);
-}
-console.log('JSON valido. version=' + raw.version);
+function validarBanco(etiqueta, ruta, minNiveles) {
+  console.log('\n#########################################');
+  console.log(`# BANCO: ${etiqueta}  ->  ${ruta}`);
+  console.log('#########################################');
 
-const niveles = raw.niveles;
-if (!Array.isArray(niveles) || niveles.length === 0) err('no hay niveles');
-
-let total = 0, totalMcq = 0, totalEscrita = 0;
-
-niveles.forEach((niv, iN) => {
-  console.log(`\n[Tramo ${iN + 1}] ${niv.nombre}`);
-
-  ['numero', 'nombre', 'tema'].forEach(k => {
-    if (niv[k] === undefined || niv[k] === '') err(`nivel ${iN + 1}: falta '${k}'`);
-  });
-  if (niv.numero !== iN + 1) warn(`nivel ${iN + 1}: numero=${niv.numero} (deberia ser ${iN + 1})`);
-  if (!Array.isArray(niv.preguntas) || niv.preguntas.length === 0) {
-    err(`nivel ${iN + 1}: sin preguntas`);
+  let raw;
+  try {
+    raw = JSON.parse(readFileSync(ruta, 'utf8'));
+  } catch (e) {
+    err(`${etiqueta}: JSON INVALIDO: ${e.message}`);
     return;
   }
+  console.log('JSON valido. version=' + raw.version);
 
-  for (const campo of ['nombre', 'tema', 'descripcion']) {
-    higieneTexto(`nivel ${niv.numero}`, `nivel.${campo}`, niv[campo]);
-  }
+  const niveles = raw.niveles;
+  if (!Array.isArray(niveles) || niveles.length === 0) { err(`${etiqueta}: no hay niveles`); return; }
 
-  let mcq = 0, escrita = 0;
+  let total = 0, totalMcq = 0, totalEscrita = 0;
 
-  niv.preguntas.forEach((p, iP) => {
-    const donde = `nivel ${niv.numero} pregunta ${iP + 1}`;
-    total++;
+  niveles.forEach((niv, iN) => {
+    console.log(`\n[Tramo ${iN + 1}] ${niv.nombre}`);
 
-    if (p.tipo !== 'mcq' && p.tipo !== 'escrita')
-      err(`${donde}: tipo invalido '${p.tipo}' (debe ser 'mcq' o 'escrita')`);
-
-    if (!p.enunciado || p.enunciado.length < 10)
-      err(`${donde}: enunciado vacio o demasiado corto`);
-
-    if (!p.justificacion || p.justificacion.length < 30)
-      err(`${donde}: justificacion vacia o demasiado corta (obligatoria)`);
-
-    if (p.tipo === 'mcq') {
-      mcq++;
-      if (!Array.isArray(p.opciones) || p.opciones.length < 2)
-        err(`${donde}: necesita al menos 2 opciones`);
-      else {
-        const correctas = p.opciones.filter(o => o.correcta === true).length;
-        if (correctas !== 1)
-          err(`${donde}: debe haber EXACTAMENTE 1 opcion correcta, hay ${correctas}`);
-
-        const textos = p.opciones.map(o => (o.texto || '').trim().toLowerCase());
-        if (new Set(textos).size !== textos.length)
-          err(`${donde}: hay opciones con texto duplicado`);
-
-        p.opciones.forEach((o, iO) => {
-          if (typeof o.texto !== 'string' || o.texto.trim() === '')
-            err(`${donde} opcion ${iO + 1}: texto vacio`);
-          if (typeof o.correcta !== 'boolean')
-            err(`${donde} opcion ${iO + 1}: 'correcta' debe ser true/false, no ${JSON.stringify(o.correcta)}`);
-        });
-      }
-      if (p.respuestas_validas)
-        warn(`${donde}: tipo mcq no deberia tener respuestas_validas`);
-    } else {
-      escrita++;
-      if (!p.respuestas_validas || !p.respuestas_validas.trim())
-        err(`${donde}: tipo escrita SIN lista de respuestas_validas (obligatoria)`);
-      else {
-        const alt = p.respuestas_validas.split('|').map(s => s.trim()).filter(Boolean);
-        if (alt.length === 0) err(`${donde}: respuestas_validas vacia`);
-        if (alt.some(s => s.length < 2))
-          err(`${donde}: hay alternativas demasiado cortas`);
-        if (alt.length === 1)
-          warn(`${donde}: una sola alternativa '${alt[0]}'; anade sinonimos o plural`);
-      }
-      if (p.opciones) warn(`${donde}: tipo escrita no deberia tener opciones`);
+    ['numero', 'nombre', 'tema'].forEach(k => {
+      if (niv[k] === undefined || niv[k] === '') err(`nivel ${iN + 1}: falta '${k}'`);
+    });
+    if (niv.numero !== iN + 1) warn(`nivel ${iN + 1}: numero=${niv.numero} (deberia ser ${iN + 1})`);
+    if (!Array.isArray(niv.preguntas) || niv.preguntas.length === 0) {
+      err(`nivel ${iN + 1}: sin preguntas`);
+      return;
     }
+
+    for (const campo of ['nombre', 'tema', 'descripcion']) {
+      higieneTexto(`nivel ${niv.numero}`, `nivel.${campo}`, niv[campo]);
+    }
+
+    let mcq = 0, escrita = 0;
+
+    niv.preguntas.forEach((p, iP) => {
+      const donde = `nivel ${niv.numero} pregunta ${iP + 1}`;
+      total++;
+
+      if (p.tipo !== 'mcq' && p.tipo !== 'escrita')
+        err(`${donde}: tipo invalido '${p.tipo}' (debe ser 'mcq' o 'escrita')`);
+
+      if (!p.enunciado || p.enunciado.length < 10)
+        err(`${donde}: enunciado vacio o demasiado corto`);
+
+      if (!p.justificacion || p.justificacion.length < 30)
+        err(`${donde}: justificacion vacia o demasiado corta (obligatoria)`);
+
+      if (p.tipo === 'mcq') {
+        mcq++;
+        if (!Array.isArray(p.opciones) || p.opciones.length < 2)
+          err(`${donde}: necesita al menos 2 opciones`);
+        else {
+          const correctas = p.opciones.filter(o => o.correcta === true).length;
+          if (correctas !== 1)
+            err(`${donde}: debe haber EXACTAMENTE 1 opcion correcta, hay ${correctas}`);
+
+          const textos = p.opciones.map(o => (o.texto || '').trim().toLowerCase());
+          if (new Set(textos).size !== textos.length)
+            err(`${donde}: hay opciones con texto duplicado`);
+
+          p.opciones.forEach((o, iO) => {
+            if (typeof o.texto !== 'string' || o.texto.trim() === '')
+              err(`${donde} opcion ${iO + 1}: texto vacio`);
+            if (typeof o.correcta !== 'boolean')
+              err(`${donde} opcion ${iO + 1}: 'correcta' debe ser true/false, no ${JSON.stringify(o.correcta)}`);
+          });
+        }
+        if (p.respuestas_validas)
+          warn(`${donde}: tipo mcq no deberia tener respuestas_validas`);
+      } else {
+        escrita++;
+        if (!p.respuestas_validas || !p.respuestas_validas.trim())
+          err(`${donde}: tipo escrita SIN lista de respuestas_validas (obligatoria)`);
+        else {
+          const alt = p.respuestas_validas.split('|').map(s => s.trim()).filter(Boolean);
+          if (alt.length === 0) err(`${donde}: respuestas_validas vacia`);
+          if (alt.some(s => s.length < 2))
+            err(`${donde}: hay alternativas demasiado cortas`);
+          if (alt.length === 1)
+            warn(`${donde}: una sola alternativa '${alt[0]}'; anade sinonimos o plural`);
+        }
+        if (p.opciones) warn(`${donde}: tipo escrita no deberia tener opciones`);
+      }
+    });
+
+    totalMcq += mcq; totalEscrita += escrita;
+    console.log(`  ${niv.preguntas.length} preguntas (${mcq} mcq, ${escrita} escritas)`);
   });
 
-  totalMcq += mcq; totalEscrita += escrita;
-  console.log(`  ${niv.preguntas.length} preguntas (${mcq} mcq, ${escrita} escritas)`);
-});
+  console.log('\n=========================================');
+  console.log(`Total: ${total} preguntas (${totalMcq} mcq, ${totalEscrita} escritas)`);
+  console.log(`Niveles: ${niveles.length}`);
+
+  if (total < 50) err(`${etiqueta}: se requieren al menos 50 preguntas, hay ${total}`);
+  if (niveles.length !== minNiveles) warn(`${etiqueta}: se esperaban ${minNiveles} niveles, hay ${niveles.length}`);
+
+  niveles.forEach(n => {
+    const esc = (n.preguntas || []).filter(p => p.tipo === 'escrita').length;
+    if (esc < 2) warn(`${etiqueta}: nivel ${n.numero}: solo ${esc} pregunta(s) escrita(s)`);
+  });
+
+  // -------------------------------------------------------------------------
+  // Higiene de contenido
+  // -------------------------------------------------------------------------
+  console.log('\n--- higiene de contenido ---');
+
+  niveles.forEach(n => {
+    n.preguntas.forEach((p, iP) => {
+      const donde = `nivel ${n.numero} pregunta ${iP + 1}`;
+      higieneTexto(donde, 'enunciado', p.enunciado);
+      higieneTexto(donde, 'justificacion', p.justificacion);
+      higieneTexto(donde, 'respuestas_validas', p.respuestas_validas);
+      (p.opciones || []).forEach((o, iO) =>
+        higieneTexto(donde, `opcion ${iO + 1}`, o.texto));
+    });
+  });
+}
+
+for (const b of BANCOS) validarBanco(b.etiqueta, join(raiz, b.archivo), b.minNiveles);
 
 console.log('\n=========================================');
-console.log(`Total: ${total} preguntas (${totalMcq} mcq, ${totalEscrita} escritas)`);
-console.log(`Niveles: ${niveles.length}`);
-
-if (total < 50) err(`se requieren al menos 50 preguntas, hay ${total}`);
-if (niveles.length !== 11) warn(`se esperaban 11 niveles, hay ${niveles.length}`);
-
-niveles.forEach(n => {
-  const esc = (n.preguntas || []).filter(p => p.tipo === 'escrita').length;
-  if (esc < 2) warn(`nivel ${n.numero}: solo ${esc} pregunta(s) escrita(s)`);
-});
-
-// ---------------------------------------------------------------------------
-// Higiene de contenido
-// ---------------------------------------------------------------------------
-console.log('\n--- higiene de contenido ---');
-
-niveles.forEach(n => {
-  n.preguntas.forEach((p, iP) => {
-    const donde = `nivel ${n.numero} pregunta ${iP + 1}`;
-    higieneTexto(donde, 'enunciado', p.enunciado);
-    higieneTexto(donde, 'justificacion', p.justificacion);
-    higieneTexto(donde, 'respuestas_validas', p.respuestas_validas);
-    (p.opciones || []).forEach((o, iO) =>
-      higieneTexto(donde, `opcion ${iO + 1}`, o.texto));
-  });
-});
-
-console.log(`\n${errores} errores, ${avisos} avisos`);
+console.log(`${errores} errores, ${avisos} avisos`);
 if (errores > 0) { console.log('VALIDACION FALLIDA'); process.exit(1); }
 console.log('VALIDACION OK');

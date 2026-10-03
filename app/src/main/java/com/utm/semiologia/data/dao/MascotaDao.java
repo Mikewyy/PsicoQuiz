@@ -66,12 +66,12 @@ public class MascotaDao {
                 new String[]{String.valueOf(m.getUsuarioId())});
     }
 
-    /** Gasta energía de la mascota si alcanza. Devuelve false si no alcanza. */
-    public boolean consumirEnergia(long usuarioId, int costo) {
+    /** Gasta energía de la mascota (nunca falla; baja a 0 si no alcanza). */
+    public void consumirEnergia(long usuarioId, int costo) {
         Mascota m = obtener(usuarioId);
-        if (m == null || !m.consumirEnergia(costo)) return false;
+        if (m == null) return;
+        m.consumirEnergia(costo);
         actualizarEstado(m);
-        return true;
     }
 
     /** Recarga la energía de la mascota al máximo (recompensa de pomodoro). */

@@ -19,7 +19,7 @@ import com.utm.semiologia.SemiologiaApp;
 import com.utm.semiologia.data.model.Mascota;
 import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.ui.auth.LoginActivity;
-import com.utm.semiologia.ui.evaluacion.CaminoActivity;
+import com.utm.semiologia.ui.evaluacion.JugarActivity;
 import com.utm.semiologia.ui.pomodoro.PomodoroManager;
 
 /**
@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity {
 
     private void configurarListeners() {
         btnAlimentar.setOnClickListener(v -> viewModel.alimentar());
-        btnJugar.setOnClickListener(v -> startActivity(new Intent(this, CaminoActivity.class)));
+        btnJugar.setOnClickListener(v -> startActivity(new Intent(this, JugarActivity.class)));
 
         findViewById(R.id.btnSalir).setOnClickListener(v -> confirmarSalir());
 

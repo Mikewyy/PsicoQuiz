@@ -1,6 +1,7 @@
 package com.utm.semiologia.data.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -26,7 +27,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 5;
 
     // ------------------------------------------------------------------
     // Nombres de tablas
@@ -97,6 +98,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Migraciones INCREMENTALES: nunca se hace DROP de las tablas de
         // usuario. Un usuario que ya tenga la app instalada conserva su
         // usuario, mascota, notas y pomodoro.
+        //
+        // Las columnas categoria/orden se aseguran ANTES de cualquier semilla
+        // para que el sembrado funcione venga de la version que venga.
+        if (oldVersion < 5) {
+            asegurarColumnasCategoria(db);
+        }
         if (oldVersion < 2) {
             migrarAV2(db);
         }
@@ -105,6 +112,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         if (oldVersion < 4) {
             migrarAV4(db);
+        }
+        if (oldVersion < 5) {
+            migrarAV5(db);
         }
     }
 
@@ -151,6 +161,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private void migrarAV4(SQLiteDatabase db) {
         crearTablaObjetos(db);
+    }
+
+    /**
+     * v4 -> v5: segundo banco de preguntas (síndromes).
+     *
+     * Se agregan categoria/orden a niveles (ya aseguradas antes de llamar a
+     * este método), se marca el banco existente como 'sintomas' con
+     * orden = numero, y se siembran los síndromes desde assets/sindromes.json.
+     * NO se borra ningún intento ni progreso: los IDs de los tramos de síntomas
+     * se conservan.
+     */
+    private void migrarAV5(SQLiteDatabase db) {
+        db.execSQL("UPDATE " + T_NIVELES + " SET categoria = 'sintomas' "
+                + "WHERE categoria IS NULL OR categoria = ''");
+        db.execSQL("UPDATE " + T_NIVELES + " SET orden = numero "
+                + "WHERE (orden IS NULL OR orden = 0) AND categoria = 'sintomas'");
+        NivelesDao.sembrarSindromes(appContext, db);
+    }
+
+    /**
+     * Añade las columnas categoria/orden a la tabla niveles si no existen.
+     * Debe ser tolerante: en migraciones desde v1 la tabla aún no existe.
+     */
+    private void asegurarColumnasCategoria(SQLiteDatabase db) {
+        if (!existeTabla(db, T_NIVELES)) return;
+        if (!existeColumna(db, T_NIVELES, "categoria")) {
+            db.execSQL("ALTER TABLE " + T_NIVELES
+                    + " ADD COLUMN categoria TEXT NOT NULL DEFAULT 'sintomas'");
+        }
+        if (!existeColumna(db, T_NIVELES, "orden")) {
+            db.execSQL("ALTER TABLE " + T_NIVELES
+                    + " ADD COLUMN orden INTEGER NOT NULL DEFAULT 0");
+        }
+    }
+
+    private boolean existeTabla(SQLiteDatabase db, String tabla) {
+        try (Cursor c = db.rawQuery("SELECT name FROM sqlite_master "
+                + "WHERE type = 'table' AND name = ?", new String[]{tabla})) {
+            return c.moveToFirst();
+        }
+    }
+
+    private boolean existeColumna(SQLiteDatabase db, String tabla, String columna) {
+        try (Cursor c = db.rawQuery("PRAGMA table_info(" + tabla + ")", null)) {
+            int idx = c.getColumnIndexOrThrow("name");
+            while (c.moveToNext()) {
+                if (columna.equals(c.getString(idx))) return true;
+            }
+        }
+        return false;
     }
 
     // ==================================================================
@@ -415,10 +475,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private void crearTablasEvaluacion(SQLiteDatabase db) {
 
-        // --- NIVELES: los "tramos" del camino, de 1 a 5 ---
+        // --- NIVELES: los "tramos" del camino ---
+        // categoria: 'sintomas' | 'sindromes' (dos bancos de preguntas).
+        // orden: posicion dentro de la categoria (1..N).
+        // numero: numero global unico; por convencion sintomas 1..99 y
+        //         sindromes 101..199, de modo que nunca colisionan.
         db.execSQL("CREATE TABLE IF NOT EXISTS " + T_NIVELES + " (" +
                 "id            INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "numero        INTEGER NOT NULL UNIQUE," +   // 1..5, orden del camino
+                "numero        INTEGER NOT NULL UNIQUE," +
+                "categoria     TEXT    NOT NULL DEFAULT 'sintomas'," +
+                "orden         INTEGER NOT NULL DEFAULT 0," +
                 "nombre        TEXT    NOT NULL," +
                 "descripcion   TEXT," +
                 "tema          TEXT    NOT NULL," +

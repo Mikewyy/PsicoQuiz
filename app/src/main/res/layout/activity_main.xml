@@ -379,6 +379,15 @@
                 app:trackThickness="12dp"
                 tools:progress="100" />
 
+            <TextView
+                android:id="@+id/tvEnergiaHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/energia_recuperacion"
+                android:textColor="#6B7280"
+                android:textSize="11sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

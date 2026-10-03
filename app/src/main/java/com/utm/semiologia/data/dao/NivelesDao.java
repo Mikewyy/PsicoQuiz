@@ -41,17 +41,31 @@ public class NivelesDao {
     // ==================================================================
 
     /**
-     * Inserta niveles, preguntas y opciones desde assets/preguntas.json.
+     * Inserta ambos bancos (síntomas + síndromes) desde assets.
      *
-     * Idempotente: si ya hay niveles, no hace nada. Se invoca desde
-     * {@code onCreate} y desde {@code onUpgrade(v1->v2)}.
+     * Idempotente por categoría. Se invoca desde {@code onCreate} y desde las
+     * migraciones.
      */
     public static void sembrarNiveles(Context ctx, SQLiteDatabase db) {
-        if (contarFilas(db, DatabaseHelper.T_NIVELES) > 0) {
+        sembrarBanco(ctx, db, Nivel.CAT_SINTOMAS, "preguntas.json");
+        sembrarBanco(ctx, db, Nivel.CAT_SINDROMES, "sindromes.json");
+    }
+
+    /**
+     * Inserta sólo el banco de síndromes. Lo usa la migración v4->v5 para no
+     * tocar el banco de síntomas que el usuario ya tiene.
+     */
+    public static void sembrarSindromes(Context ctx, SQLiteDatabase db) {
+        sembrarBanco(ctx, db, Nivel.CAT_SINDROMES, "sindromes.json");
+    }
+
+    private static void sembrarBanco(Context ctx, SQLiteDatabase db,
+                                     String categoria, String asset) {
+        if (contarFilasCategoria(db, categoria) > 0) {
             return; // ya sembrado
         }
 
-        String json = leerAsset(ctx, "preguntas.json");
+        String json = leerAsset(ctx, asset);
         if (json == null || json.isEmpty()) {
             return; // sin assets: la evaluacion queda vacia, no rompemos la app
         }
@@ -65,7 +79,7 @@ public class NivelesDao {
             try {
                 for (int i = 0; i < niveles.length(); i++) {
                     JSONObject n = niveles.getJSONObject(i);
-                    long nivelId = insertarNivel(db, n);
+                    long nivelId = insertarNivel(db, n, categoria, i + 1);
                     JSONArray preguntas = n.optJSONArray("preguntas");
                     if (preguntas == null) continue;
                     for (int j = 0; j < preguntas.length(); j++) {
@@ -81,13 +95,16 @@ public class NivelesDao {
         } catch (Exception e) {
             // Un JSON corrupto no debe impedir abrir la app; se reintentara al
             // recrear la base. El validador de tools/ evita que llegue asi.
-            android.util.Log.e("NivelesDao", "No se pudo sembrar preguntas.json", e);
+            android.util.Log.e("NivelesDao", "No se pudo sembrar " + asset, e);
         }
     }
 
-    private static long insertarNivel(SQLiteDatabase db, JSONObject n) {
+    private static long insertarNivel(SQLiteDatabase db, JSONObject n,
+                                      String categoria, int orden) {
         ContentValues cv = new ContentValues();
-        cv.put("numero", n.optInt("numero"));
+        cv.put("numero", numeroGlobal(categoria, orden));
+        cv.put("categoria", categoria);
+        cv.put("orden", orden);
         cv.put("nombre", n.optString("nombre"));
         cv.put("descripcion", n.optString("descripcion", null));
         cv.put("tema", n.optString("tema"));
@@ -95,6 +112,21 @@ public class NivelesDao {
         JSONArray preguntas = n.optJSONArray("preguntas");
         cv.put("total_preguntas", preguntas == null ? 0 : preguntas.length());
         return db.insert(DatabaseHelper.T_NIVELES, null, cv);
+    }
+
+    /**
+     * numero global único por categoría: síntomas 1..99, síndromes 101..199.
+     * El orden dentro de la categoría es el que se ordena, muestra y desbloquea.
+     */
+    private static int numeroGlobal(String categoria, int orden) {
+        return (Nivel.CAT_SINDROMES.equals(categoria) ? 100 : 0) + orden;
+    }
+
+    private static int contarFilasCategoria(SQLiteDatabase db, String categoria) {
+        try (Cursor c = db.rawQuery("SELECT COUNT(*) FROM " + DatabaseHelper.T_NIVELES
+                + " WHERE categoria = ?", new String[]{categoria})) {
+            return c.moveToFirst() ? c.getInt(0) : 0;
+        }
     }
 
     private static long insertarPregunta(SQLiteDatabase db, long nivelId, JSONObject p, int orden) {
@@ -133,10 +165,27 @@ public class NivelesDao {
         SQLiteDatabase db = helper.getReadableDatabase();
         List<Nivel> lista = new ArrayList<>();
         try (Cursor c = db.query(DatabaseHelper.T_NIVELES, null, null, null,
-                null, null, "numero ASC")) {
+                null, null, "categoria ASC, orden ASC")) {
             while (c.moveToNext()) lista.add(mapearNivel(c));
         }
         return lista;
+    }
+
+    public Nivel obtenerNivel(long id) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try (Cursor c = db.query(DatabaseHelper.T_NIVELES, null, "id = ?",
+                new String[]{String.valueOf(id)}, null, null, null)) {
+            return c.moveToFirst() ? mapearNivel(c) : null;
+        }
+    }
+
+    public Nivel obtenerNivelSiguiente(String categoria, int orden) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try (Cursor c = db.query(DatabaseHelper.T_NIVELES, null,
+                "categoria = ? AND orden = ?",
+                new String[]{categoria, String.valueOf(orden)}, null, null, null)) {
+            return c.moveToFirst() ? mapearNivel(c) : null;
+        }
     }
 
     public Nivel obtenerNivelPorNumero(int numero) {
@@ -151,6 +200,8 @@ public class NivelesDao {
         Nivel n = new Nivel();
         n.setId(c.getLong(c.getColumnIndexOrThrow("id")));
         n.setNumero(c.getInt(c.getColumnIndexOrThrow("numero")));
+        n.setCategoria(c.getString(c.getColumnIndexOrThrow("categoria")));
+        n.setOrden(c.getInt(c.getColumnIndexOrThrow("orden")));
         n.setNombre(c.getString(c.getColumnIndexOrThrow("nombre")));
         n.setDescripcion(c.getString(c.getColumnIndexOrThrow("descripcion")));
         n.setTema(c.getString(c.getColumnIndexOrThrow("tema")));
@@ -213,12 +264,12 @@ public class NivelesDao {
     // PROGRESO DEL USUARIO
     // ==================================================================
 
-    /** El camino completo con el estado del usuario, ya calculado el bloqueo. */
-    public List<ProgresoNivel> listarProgreso(long usuarioId) {
+    /** El camino de una categoría, con el estado del usuario y el bloqueo. */
+    public List<ProgresoNivel> listarProgreso(long usuarioId, String categoria) {
         SQLiteDatabase db = helper.getReadableDatabase();
         String sql =
-                "SELECT n.id AS nivel_id, n.numero, n.nombre, n.emoji, n.tema, n.descripcion," +
-                "       n.total_preguntas," +
+                "SELECT n.id AS nivel_id, n.numero, n.categoria, n.orden," +
+                "       n.nombre, n.emoji, n.tema, n.descripcion, n.total_preguntas," +
                 "       COALESCE(p.aprobado, 0)         AS aprobado," +
                 "       COALESCE(p.mejor_porcentaje, 0) AS mejor_porcentaje," +
                 "       COALESCE(p.mejor_puntaje, 0)    AS mejor_puntaje," +
@@ -227,15 +278,19 @@ public class NivelesDao {
                 "FROM " + DatabaseHelper.T_NIVELES + " n " +
                 "LEFT JOIN " + DatabaseHelper.T_PROGRESO_NIVELES + " p " +
                 "  ON p.nivel_id = n.id AND p.usuario_id = ? " +
-                "ORDER BY n.numero ASC";
+                "WHERE n.categoria = ? " +
+                "ORDER BY n.orden ASC";
 
         List<ProgresoNivel> lista = new ArrayList<>();
-        try (Cursor c = db.rawQuery(sql, new String[]{String.valueOf(usuarioId)})) {
+        try (Cursor c = db.rawQuery(sql, new String[]{
+                String.valueOf(usuarioId), categoria})) {
             boolean anteriorAprobado = true; // el tramo 1 siempre esta abierto
             while (c.moveToNext()) {
                 ProgresoNivel pn = new ProgresoNivel();
                 pn.setNivelId(c.getLong(c.getColumnIndexOrThrow("nivel_id")));
                 pn.setNumero(c.getInt(c.getColumnIndexOrThrow("numero")));
+                pn.setCategoria(c.getString(c.getColumnIndexOrThrow("categoria")));
+                pn.setOrden(c.getInt(c.getColumnIndexOrThrow("orden")));
                 pn.setNombre(c.getString(c.getColumnIndexOrThrow("nombre")));
                 pn.setEmoji(c.getString(c.getColumnIndexOrThrow("emoji")));
                 pn.setTema(c.getString(c.getColumnIndexOrThrow("tema")));
@@ -257,7 +312,9 @@ public class NivelesDao {
     }
 
     public ProgresoNivel obtenerProgreso(long usuarioId, long nivelId) {
-        for (ProgresoNivel pn : listarProgreso(usuarioId)) {
+        Nivel n = obtenerNivel(nivelId);
+        if (n == null) return null;
+        for (ProgresoNivel pn : listarProgreso(usuarioId, n.getCategoria())) {
             if (pn.getNivelId() == nivelId) return pn;
         }
         return null;
