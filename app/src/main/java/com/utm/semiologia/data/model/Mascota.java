@@ -55,6 +55,7 @@ public class Mascota {
     private int     energia;       // 0..100
     private String  estado;
     private Long    accesorioEquipadoId;
+    private int     skinId;
     private long    hambreActualizadaEn;  // reloj del decaimiento
     private long    creadoEn;
 
@@ -68,6 +69,7 @@ public class Mascota {
         m.usuarioId = usuarioId;
         m.nombre = "Mateo";
         m.especie = "gato";
+        m.skinId = 0;
         m.hambre = 100;
         m.felicidad = 80;
         m.energia = 100;
@@ -243,6 +245,9 @@ public class Mascota {
 
     public long getHambreActualizadaEn() { return hambreActualizadaEn; }
     public void setHambreActualizadaEn(long t) { this.hambreActualizadaEn = t; }
+
+    public int getSkinId() { return skinId; }
+    public void setSkinId(int id) { this.skinId = id; }
 
     public long getCreadoEn() { return creadoEn; }
     public void setCreadoEn(long t) { this.creadoEn = t; }

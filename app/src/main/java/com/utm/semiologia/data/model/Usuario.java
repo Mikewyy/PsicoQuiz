@@ -24,6 +24,7 @@ public class Usuario {
     private int     rachaMaxima;
     @Nullable private String ultimaActividadFecha;  // 'YYYY-MM-DD'
     @Nullable private Long  grupoId;
+    private String  avatar;
     private long    creadoEn;
 
     public Usuario() {
@@ -128,6 +129,9 @@ public class Usuario {
 
     public long getCreadoEn() { return creadoEn; }
     public void setCreadoEn(long t) { this.creadoEn = t; }
+
+    public String getAvatar() { return avatar != null ? avatar : "👤"; }
+    public void setAvatar(String a) { this.avatar = a; }
 
     /** Iniciales para el avatar del dashboard: "Ana Lucía Pérez" -> "AL" */
     @NonNull

@@ -38,6 +38,26 @@ public class DashboardViewModel extends AndroidViewModel {
     private final MutableLiveData<EstadoDashboard> estado = new MutableLiveData<>();
     private String mensajePendiente;
 
+    // Mapeo de Skins (id -> drawable)
+    private static final java.util.Map<Integer, Integer> SKIN_MAP = new java.util.HashMap<>() {{
+        put(0, com.utm.semiologia.R.drawable.pet_cat_nuevo);
+        put(1, com.utm.semiologia.R.drawable.pet_cat_blue);
+        put(2, com.utm.semiologia.R.drawable.pet_cat_purple);
+        put(3, com.utm.semiologia.R.drawable.pet_cat_student);
+        put(4, com.utm.semiologia.R.drawable.pet_cat_space);
+        put(5, com.utm.semiologia.R.drawable.pet_cat_golden);
+    }};
+
+    // Mapeo de Avatares (id -> drawable)
+    private static final java.util.Map<String, Integer> AVATAR_MAP = new java.util.HashMap<>() {{
+        put("avatar_01", com.utm.semiologia.R.drawable.avatar_01);
+        put("avatar_02", com.utm.semiologia.R.drawable.avatar_02);
+        put("avatar_03", com.utm.semiologia.R.drawable.avatar_03);
+        put("avatar_04", com.utm.semiologia.R.drawable.avatar_04);
+        put("avatar_05", com.utm.semiologia.R.drawable.avatar_05);
+        put("avatar_06", com.utm.semiologia.R.drawable.avatar_06);
+    }};
+
     public DashboardViewModel(@NonNull Application app) {
         super(app);
         this.repo = Repositorio.get(app);
@@ -78,6 +98,35 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     /** Consume una galleta del inventario y alimenta a la mascota. */
+    public void cambiarAvatar(String avatar) {
+        long usuarioId = sesion.getUsuarioId();
+        if (usuarioId <= 0) return;
+        repo.usuarios().actualizarAvatar(usuarioId, avatar);
+        cargar();
+    }
+
+    public void cambiarNombreMascota(String nuevoNombre) {
+        long usuarioId = sesion.getUsuarioId();
+        if (usuarioId <= 0) return;
+        repo.mascotas().actualizarNombre(usuarioId, nuevoNombre);
+        cargar();
+    }
+
+    public void cambiarSkinMascota(int skinId) {
+        long usuarioId = sesion.getUsuarioId();
+        if (usuarioId <= 0) return;
+        repo.mascotas().actualizarSkin(usuarioId, skinId);
+        cargar();
+    }
+
+    public int getDrawableForSkin(int skinId) {
+        return SKIN_MAP.getOrDefault(skinId, com.utm.semiologia.R.drawable.pet_cat_nuevo);
+    }
+
+    public int getDrawableForAvatar(String avatarId) {
+        return AVATAR_MAP.getOrDefault(avatarId, com.utm.semiologia.R.drawable.avatar_01);
+    }
+
     public boolean alimentar() {
         long usuarioId = sesion.getUsuarioId();
         Mascota m = repo.mascotas().obtener(usuarioId);
@@ -92,5 +141,9 @@ public class DashboardViewModel extends AndroidViewModel {
         mensajePendiente = ok ? "¡Tu mascota está feliz!" : "No tienes comida. ¡Estudia para ganarla!";
         cargar();
         return ok;
+    }
+
+    public int getCantidadComida(long usuarioId) {
+        return repo.mascotas().cantidadAlimento(usuarioId, ALIMENTO_POR_DEFECTO);
     }
 }

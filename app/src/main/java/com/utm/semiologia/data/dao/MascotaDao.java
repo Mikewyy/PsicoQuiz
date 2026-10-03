@@ -106,14 +106,31 @@ public class MascotaDao {
         }
     }
 
-    public void renombrar(long usuarioId, String nombre) {
+    public void actualizarNombre(long usuarioId, String nuevoNombre) {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("nombre", nombre);
-        db.update(DatabaseHelper.T_MASCOTA, cv, "usuario_id = ?",
-                new String[]{String.valueOf(usuarioId)});
+        cv.put("nombre", nuevoNombre);
+        db.update(DatabaseHelper.T_MASCOTA, cv, "usuario_id = ?", new String[]{String.valueOf(usuarioId)});
     }
 
+    public void actualizarSkin(long usuarioId, int skinId) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        // Solo permitimos las 6 mascotas disponibles
+        if (skinId < 0 || skinId > 5) {
+            skinId = 0;
+        }
+
+        ContentValues cv = new ContentValues();
+        cv.put("skin_id", skinId);
+
+        db.update(
+                DatabaseHelper.T_MASCOTA,
+                cv,
+                "usuario_id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        );
+    }
     public void equiparAccesorio(long usuarioId, Long accesorioId) {
         SQLiteDatabase db = helper.getWritableDatabase();
         db.beginTransaction();
@@ -225,37 +242,194 @@ public class MascotaDao {
     }
 
     // ---- Mapeo ----
+// ------------------------------------------------------------------
+// MAPEO
+// ------------------------------------------------------------------
+
     private Mascota mapear(Cursor c) {
+
         Mascota m = new Mascota();
-        m.setId(c.getLong(c.getColumnIndexOrThrow("id")));
-        m.setUsuarioId(c.getLong(c.getColumnIndexOrThrow("usuario_id")));
-        m.setNombre(c.getString(c.getColumnIndexOrThrow("nombre")));
-        m.setEspecie(c.getString(c.getColumnIndexOrThrow("especie")));
-        m.setHambre(c.getInt(c.getColumnIndexOrThrow("hambre")));
-        m.setFelicidad(c.getInt(c.getColumnIndexOrThrow("felicidad")));
-        m.setEnergia(c.getInt(c.getColumnIndexOrThrow("energia")));
-        m.setEstado(c.getString(c.getColumnIndexOrThrow("estado")));
-        int ai = c.getColumnIndexOrThrow("accesorio_equipado_id");
-        m.setAccesorioEquipadoId(c.isNull(ai) ? null : c.getLong(ai));
-        m.setHambreActualizadaEn(c.getLong(c.getColumnIndexOrThrow("hambre_actualizada_en")));
-        m.setCreadoEn(c.getLong(c.getColumnIndexOrThrow("creado_en")));
+
+        m.setId(
+                c.getLong(c.getColumnIndexOrThrow("id"))
+        );
+
+        m.setUsuarioId(
+                c.getLong(c.getColumnIndexOrThrow("usuario_id"))
+        );
+
+        m.setNombre(
+                c.getString(c.getColumnIndexOrThrow("nombre"))
+        );
+
+        m.setEspecie(
+                c.getString(c.getColumnIndexOrThrow("especie"))
+        );
+
+        m.setHambre(
+                c.getInt(c.getColumnIndexOrThrow("hambre"))
+        );
+
+        m.setFelicidad(
+                c.getInt(c.getColumnIndexOrThrow("felicidad"))
+        );
+
+        m.setEnergia(
+                c.getInt(c.getColumnIndexOrThrow("energia"))
+        );
+
+        m.setEstado(
+                c.getString(c.getColumnIndexOrThrow("estado"))
+        );
+
+        // --------------------------------------------------------------
+        // SKIN / TIPO DE MASCOTA
+        // --------------------------------------------------------------
+
+        int skinIndex = c.getColumnIndex("skin_id");
+
+        if (skinIndex >= 0 && !c.isNull(skinIndex)) {
+
+            int skinId = c.getInt(skinIndex);
+
+            // Protección por si hubiera un valor inválido en la BD
+            if (skinId < 0 || skinId > 5) {
+                skinId = 0;
+            }
+
+            m.setSkinId(skinId);
+
+        } else {
+
+            // Gato por defecto
+            m.setSkinId(0);
+        }
+
+        // --------------------------------------------------------------
+        // ACCESORIO
+        // --------------------------------------------------------------
+
+        int accesorioIndex =
+                c.getColumnIndexOrThrow("accesorio_equipado_id");
+
+        m.setAccesorioEquipadoId(
+                c.isNull(accesorioIndex)
+                        ? null
+                        : c.getLong(accesorioIndex)
+        );
+
+        // --------------------------------------------------------------
+        // TIEMPOS
+        // --------------------------------------------------------------
+
+        m.setHambreActualizadaEn(
+                c.getLong(
+                        c.getColumnIndexOrThrow("hambre_actualizada_en")
+                )
+        );
+
+        m.setCreadoEn(
+                c.getLong(
+                        c.getColumnIndexOrThrow("creado_en")
+                )
+        );
+
         return m;
     }
 
+
+// ------------------------------------------------------------------
+// MASCOTA -> CONTENT VALUES
+// ------------------------------------------------------------------
+
     private ContentValues toValues(Mascota m) {
+
         ContentValues cv = new ContentValues();
-        cv.put("usuario_id", m.getUsuarioId());
-        cv.put("nombre", m.getNombre());
-        cv.put("especie", m.getEspecie());
-        cv.put("hambre", m.getHambre());
-        cv.put("felicidad", m.getFelicidad());
-        cv.put("energia", m.getEnergia());
-        cv.put("estado", m.getEstado());
-        if (m.getAccesorioEquipadoId() != null) {
-            cv.put("accesorio_equipado_id", m.getAccesorioEquipadoId());
+
+        cv.put(
+                "usuario_id",
+                m.getUsuarioId()
+        );
+
+        cv.put(
+                "nombre",
+                m.getNombre()
+        );
+
+        cv.put(
+                "especie",
+                m.getEspecie()
+        );
+
+        // --------------------------------------------------------------
+        // SKIN
+        // --------------------------------------------------------------
+
+        int skinId = m.getSkinId();
+
+        if (skinId < 0 || skinId > 5) {
+            skinId = 0;
         }
-        cv.put("hambre_actualizada_en", m.getHambreActualizadaEn());
-        cv.put("creado_en", m.getCreadoEn());
+
+        cv.put(
+                "skin_id",
+                skinId
+        );
+
+        // --------------------------------------------------------------
+        // ESTADO
+        // --------------------------------------------------------------
+
+        cv.put(
+                "hambre",
+                m.getHambre()
+        );
+
+        cv.put(
+                "felicidad",
+                m.getFelicidad()
+        );
+
+        cv.put(
+                "energia",
+                m.getEnergia()
+        );
+
+        cv.put(
+                "estado",
+                m.getEstado()
+        );
+
+        // --------------------------------------------------------------
+        // ACCESORIO
+        // --------------------------------------------------------------
+
+        if (m.getAccesorioEquipadoId() != null) {
+
+            cv.put(
+                    "accesorio_equipado_id",
+                    m.getAccesorioEquipadoId()
+            );
+
+        } else {
+
+            cv.putNull("accesorio_equipado_id");
+        }
+
+        // --------------------------------------------------------------
+        // TIEMPOS
+        // --------------------------------------------------------------
+
+        cv.put(
+                "hambre_actualizada_en",
+                m.getHambreActualizadaEn()
+        );
+
+        cv.put(
+                "creado_en",
+                m.getCreadoEn()
+        );
+
         return cv;
     }
 }
