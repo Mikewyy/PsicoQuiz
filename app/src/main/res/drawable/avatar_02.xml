@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <path
+        android:fillColor="#E0F2FE"
+        android:pathData="M48,0A48,48 0,1 0,48 96A48,48 0,1 0,48 0" />
+
+    <!-- Cuerpo -->
+    <path
+        android:fillColor="#0EA5E9"
+        android:pathData="M18,96C20,76 31,67 48,67C65,67 76,76 78,96Z" />
+
+    <!-- Cuello -->
+    <path
+        android:fillColor="#D99570"
+        android:pathData="M40,59L56,59L56,73C52,77 44,77 40,73Z" />
+
+    <!-- Cara -->
+    <path
+        android:fillColor="#E3A47E"
+        android:pathData="M29,29C29,17 37,11 48,11C60,11 67,18 67,30L66,46C65,58 58,65 48,65C38,65 31,58 30,46Z" />
+
+    <!-- Cabello rizado -->
+    <path
+        android:fillColor="#231F2F"
+        android:pathData="M27,34C22,28 25,22 29,20C26,14 33,10 37,12C39,6 46,7 49,10C53,6 59,9 60,13C67,11 71,17 68,22C73,25 71,32 67,35L64,27C58,28 54,24 51,20C45,27 37,29 31,28Z" />
+
+    <!-- Ojos -->
+    <path
+        android:fillColor="#29233B"
+        android:pathData="M37,41A2,2 0,1 0,41 41A2,2 0,1 0,37 41" />
+
+    <path
+        android:fillColor="#29233B"
+        android:pathData="M55,41A2,2 0,1 0,59 41A2,2 0,1 0,55 41" />
+
+    <!-- Sonrisa -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#995B4C"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M42,52Q48,57 54,52" />
+
+</vector>

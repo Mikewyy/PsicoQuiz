@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Semiología Psicológica</string>
+    <string name="app_name">PsicoQuiz</string>
     <string name="registro_titulo">Crear cuenta</string>
     <string name="registro_subtitulo">Regístrate y recibe tu primera mascota</string>
     <string name="btn_crear_cuenta">Crear cuenta</string>

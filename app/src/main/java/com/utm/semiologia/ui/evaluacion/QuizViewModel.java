@@ -218,7 +218,8 @@ public class QuizViewModel extends AndroidViewModel {
                 u.sumarPuntos(ganados);
                 repo.usuarios().actualizar(u);
             }
-            repo.usuarios().registrarActividad(usuarioId, 0, 0, ganados);
+            repo.usuarios().registrarActividad(usuarioId, 0, 0, ganados, repo.mascotas());
+
 
             if (out.comida > 0) {
                 repo.mascotas().otorgarAlimento(
@@ -229,7 +230,7 @@ public class QuizViewModel extends AndroidViewModel {
             }
         } else {
             // La práctica no da puntos, pero sí cuenta como actividad del día.
-            repo.usuarios().registrarActividad(usuarioId, 0, 0, 0);
+            repo.usuarios().registrarActividad(usuarioId, 0, 0, 0, repo.mascotas());
         }
         return out;
     }

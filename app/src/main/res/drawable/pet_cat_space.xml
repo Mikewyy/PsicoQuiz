@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Branquias -->
+    <path android:fillColor="#F472B6"
+        android:pathData="M35,43L17,31L25,48L13,53L34,58Z"/>
+
+    <path android:fillColor="#F472B6"
+        android:pathData="M93,43L111,31L103,48L115,53L94,58Z"/>
+
+    <!-- Traje -->
+    <path android:fillColor="#6366F1"
+        android:pathData="M34,79C37,66 48,62 64,62C80,62 91,66 94,79L98,113H30Z"/>
+
+    <!-- Casco -->
+    <path android:fillColor="#CBD5E1"
+        android:pathData="M29,52C29,28 44,17 64,17C84,17 99,28 99,52C99,75 84,87 64,87C44,87 29,75 29,52Z"/>
+
+    <!-- Visor -->
+    <path android:fillColor="#DBEAFE"
+        android:pathData="M35,51C35,32 47,24 64,24C81,24 93,32 93,51C93,69 81,78 64,78C47,78 35,69 35,51Z"/>
+
+    <!-- Cara -->
+    <path android:fillColor="#FDA4AF"
+        android:pathData="M39,51C39,37 49,31 64,31C79,31 89,37 89,51C89,65 79,72 64,72C49,72 39,65 39,51Z"/>
+
+    <!-- Ojos -->
+    <path android:fillColor="#29233B"
+        android:pathData="M48,49A4,5 0,1 0,56 49A4,5 0,1 0,48 49"/>
+
+    <path android:fillColor="#29233B"
+        android:pathData="M72,49A4,5 0,1 0,80 49A4,5 0,1 0,72 49"/>
+
+    <!-- Sonrisa -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#9F4560"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M56,60Q64,66 72,60"/>
+
+    <!-- Panel espacial -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M47,88L81,88L81,104L47,104Z"/>
+
+    <path android:fillColor="#22C55E"
+        android:pathData="M53,94A3,3 0,1 0,59 94A3,3 0,1 0,53 94"/>
+
+    <path android:fillColor="#F59E0B"
+        android:pathData="M63,94A3,3 0,1 0,69 94A3,3 0,1 0,63 94"/>
+
+    <path android:fillColor="#EF4444"
+        android:pathData="M73,94A3,3 0,1 0,79 94A3,3 0,1 0,73 94"/>
+
+</vector>

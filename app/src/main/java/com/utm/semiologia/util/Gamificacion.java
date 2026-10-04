@@ -11,6 +11,7 @@ public final class Gamificacion {
     // ---- Recompensas ----
     public static final int PUNTOS_POR_SECCION_LEIDA   = 20;
     public static final int COMIDA_POR_SECCION_LEIDA    = 2;   // unidades de comida
+    public static final int COMIDA_BONUS_RACHA_DIARIA     = 1;   // recompensa por mantener racha
     public static final int PUNTOS_POR_MINUTO_POMODORO  = 1;
     public static final int PUNTOS_POR_CICLO_COMPLETO   = 25;
     public static final int PUNTOS_BONUS_RACHA          = 10;  // extra por cada 7 días
@@ -78,6 +79,11 @@ public final class Gamificacion {
     /** Bonus adicional cada 7 días de racha mantenida. */
     public static int bonusRacha(int rachaActual) {
         return (rachaActual / 7) * PUNTOS_BONUS_RACHA;
+    }
+
+    /** Calcula la comida otorgada por mantener o incrementar la racha. */
+    public static int calcularComidaRacha(int rachaActual) {
+        return COMIDA_BONUS_RACHA_DIARIA;
     }
 
     /**

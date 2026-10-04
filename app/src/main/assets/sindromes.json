@@ -1,0 +1,1005 @@
+{
+  "niveles": [
+    {
+      "nombre": "Nivel 1",
+      "descripcion": "Síndromes cerebrales orgánicos agudos",
+      "tema": "Síndromes orgánicos agudos",
+      "emoji": "🧠",
+      "preguntas": [
+        {
+          "tema": "Síndromes orgánicos agudos",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál es el síntoma cardinal de los síndromes cerebrales orgánicos agudos?",
+          "pista": "Se relaciona con el estado de alerta.",
+          "justificacion": "El material señala que la afectación del nivel de vigilia es el síntoma cardinal de estos síndromes.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Alteración del nivel de vigilia",
+              "correcta": true
+            },
+            {
+              "texto": "Aumento permanente de la memoria",
+              "correcta": false
+            },
+            {
+              "texto": "Orientación siempre conservada",
+              "correcta": false
+            },
+            {
+              "texto": "Ausencia de cambios cognitivos",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome de obnubilación",
+          "tipo": "mcq",
+          "enunciado": "¿Qué combinación corresponde mejor al síndrome de obnubilación?",
+          "pista": "Piensa en vigilia, atención y pensamiento.",
+          "justificacion": "En la obnubilación se describen vigilia baja, atención distráctil, memoria disminuida y pensamiento lento.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Vigilia baja, atención distráctil y pensamiento lento",
+              "correcta": true
+            },
+            {
+              "texto": "Vigilia aumentada y fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Vigilia normal y memoria aumentada",
+              "correcta": false
+            },
+            {
+              "texto": "Orientación conservada y pensamiento acelerado",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome de delirium",
+          "tipo": "mcq",
+          "enunciado": "¿Qué característica de la orientación es típica del delirium según el material?",
+          "pista": "No permanece igual durante todo el cuadro.",
+          "justificacion": "El delirium presenta orientación fluctuante: el paciente puede ubicarse por momentos y después mostrarse desorientado.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "Es fluctuante",
+              "correcta": true
+            },
+            {
+              "texto": "Siempre está conservada",
+              "correcta": false
+            },
+            {
+              "texto": "Solo se altera la orientación autopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Nunca se altera",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome oniroide",
+          "tipo": "mcq",
+          "enunciado": "En el síndrome oniroide, ¿qué tipo de orientación suele conservarse?",
+          "pista": "Se refiere al reconocimiento de uno mismo.",
+          "justificacion": "El material indica que la orientación alopsíquica está afectada y la autopsíquica se conserva.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "La orientación autopsíquica",
+              "correcta": true
+            },
+            {
+              "texto": "La orientación alopsíquica",
+              "correcta": false
+            },
+            {
+              "texto": "Ninguna orientación",
+              "correcta": false
+            },
+            {
+              "texto": "Solo la orientación temporal",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Estado crepuscular",
+          "tipo": "mcq",
+          "enunciado": "¿Qué rasgo distingue al estado crepuscular del delirium y del oniroide al concluir el cuadro?",
+          "pista": "Se relaciona con el recuerdo de lo ocurrido.",
+          "justificacion": "En el estado crepuscular se describe amnesia total al concluir el cuadro, a diferencia del delirium y del oniroide, donde puede existir evocación fragmentaria.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Amnesia total del episodio",
+              "correcta": true
+            },
+            {
+              "texto": "Memoria completamente aumentada",
+              "correcta": false
+            },
+            {
+              "texto": "Recuerdo detallado de todo lo ocurrido",
+              "correcta": false
+            },
+            {
+              "texto": "Ausencia de alteraciones de memoria",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Nivel 2",
+      "descripcion": "Síndromes cerebrales orgánicos crónicos",
+      "tema": "Síndromes orgánicos crónicos",
+      "emoji": "🧩",
+      "preguntas": [
+        {
+          "tema": "Síndromes orgánicos crónicos",
+          "tipo": "mcq",
+          "enunciado": "¿Qué funciones se afectan de forma predominante en los síndromes orgánicos crónicos?",
+          "pista": "El material contrasta estos cuadros con los agudos.",
+          "justificacion": "En los síndromes orgánicos crónicos destacan la afectación de las capacidades intelectuales y del carácter.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Capacidades intelectuales y carácter",
+              "correcta": true
+            },
+            {
+              "texto": "Únicamente la visión",
+              "correcta": false
+            },
+            {
+              "texto": "Solo la audición",
+              "correcta": false
+            },
+            {
+              "texto": "Exclusivamente la vigilia",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome oligofrénico",
+          "tipo": "mcq",
+          "enunciado": "¿Qué tipo de pensamiento se describe en el síndrome oligofrénico?",
+          "pista": "No es abstracto.",
+          "justificacion": "El material describe pensamiento concreto en el síndrome oligofrénico.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Pensamiento concreto",
+              "correcta": true
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento delirante único",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento acelerado",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome demencial",
+          "tipo": "mcq",
+          "enunciado": "¿Qué aspecto de la memoria se afecta especialmente al inicio del síndrome demencial descrito?",
+          "pista": "Se relaciona con registrar información nueva.",
+          "justificacion": "En el síndrome demencial la memoria está muy afectada, sobre todo la de fijación; después también puede afectarse la evocación.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "Memoria de fijación",
+              "correcta": true
+            },
+            {
+              "texto": "Memoria mecánica aumentada",
+              "correcta": false
+            },
+            {
+              "texto": "Memoria siempre intacta",
+              "correcta": false
+            },
+            {
+              "texto": "Solo memoria remota",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome amnésico-confabulatorio",
+          "tipo": "mcq",
+          "enunciado": "¿Qué fenómeno acompaña a la alteración de la memoria reciente en el síndrome amnésico-confabulatorio?",
+          "pista": "La persona puede llenar vacíos de memoria con relatos.",
+          "justificacion": "El material describe alteración marcada de la memoria de fijación reciente junto con confabulaciones.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "Confabulaciones",
+              "correcta": true
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Hipervigilancia",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome apatoabúlico",
+          "tipo": "mcq",
+          "enunciado": "¿Qué combinación caracteriza al síndrome apatoabúlico?",
+          "pista": "Piensa en afectividad y voluntad.",
+          "justificacion": "El material destaca indiferencia afectiva, abulia e hipoquinesia.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Indiferencia, abulia e hipoquinesia",
+              "correcta": true
+            },
+            {
+              "texto": "Hipertimia e hiperbulia",
+              "correcta": false
+            },
+            {
+              "texto": "Euforia y fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Hipervigilancia y memoria aumentada",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Nivel 3",
+      "descripcion": "Síndrome esquizofrénico",
+      "tema": "Esquizofrenia",
+      "emoji": "🧠",
+      "preguntas": [
+        {
+          "tema": "Síndrome esquizofrénico",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál es la característica esencial del síndrome esquizofrénico según el material?",
+          "pista": "Se refiere a la organización global de las funciones psíquicas.",
+          "justificacion": "El material señala como característica esencial la desorganización de las funciones psíquicas.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Desorganización de las funciones psíquicas",
+              "correcta": true
+            },
+            {
+              "texto": "Alteración exclusiva de la memoria",
+              "correcta": false
+            },
+            {
+              "texto": "Pérdida total de la vigilia",
+              "correcta": false
+            },
+            {
+              "texto": "Aumento aislado de la atención",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome esquizofrénico",
+          "tipo": "mcq",
+          "enunciado": "¿Qué elemento cardinal se menciona en el síndrome esquizofrénico?",
+          "pista": "Relaciona ideas, afectividad y conducta.",
+          "justificacion": "El documento identifica la disociación ideoafectivoconativa como elemento cardinal.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Disociación ideoafectivoconativa",
+              "correcta": true
+            },
+            {
+              "texto": "Amnesia total",
+              "correcta": false
+            },
+            {
+              "texto": "Hipermnesia mecánica",
+              "correcta": false
+            },
+            {
+              "texto": "Desorientación fluctuante",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome esquizofrénico",
+          "tipo": "mcq",
+          "enunciado": "¿Cómo suelen estar la vigilia y la orientación en el síndrome esquizofrénico descrito?",
+          "pista": "Estas funciones de síntesis suelen conservarse.",
+          "justificacion": "El material describe vigilia normal y orientación conservada.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "Vigilia normal y orientación conservada",
+              "correcta": true
+            },
+            {
+              "texto": "Vigilia abolida y desorientación total",
+              "correcta": false
+            },
+            {
+              "texto": "Vigilia muy baja y orientación fluctuante",
+              "correcta": false
+            },
+            {
+              "texto": "Vigilia aumentada y orientación ausente",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome esquizofrénico",
+          "tipo": "mcq",
+          "enunciado": "¿Qué tipo de alteración perceptiva se destaca en el síndrome esquizofrénico?",
+          "pista": "El material menciona riqueza alucinatoria de una modalidad concreta.",
+          "justificacion": "Se describe riqueza alucinatoria, sobre todo auditiva.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "Alucinaciones principalmente auditivas",
+              "correcta": true
+            },
+            {
+              "texto": "Solo ilusiones visuales",
+              "correcta": false
+            },
+            {
+              "texto": "Ausencia absoluta de alteraciones perceptivas",
+              "correcta": false
+            },
+            {
+              "texto": "Únicamente hiperestesia",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome esquizofrénico",
+          "tipo": "mcq",
+          "enunciado": "¿Qué alteraciones del pensamiento aparecen en el síndrome esquizofrénico del documento?",
+          "pista": "Se mencionan tres fenómenos del pensamiento.",
+          "justificacion": "El material menciona pensamiento autista, bloqueo y disgregación.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Pensamiento autista, bloqueo y disgregación",
+              "correcta": true
+            },
+            {
+              "texto": "Solo pensamiento lento",
+              "correcta": false
+            },
+            {
+              "texto": "Fuga de ideas exclusivamente",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento concreto sin otras alteraciones",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Nivel 4",
+      "descripcion": "Síndrome delirante",
+      "tema": "Delirios",
+      "emoji": "💭",
+      "preguntas": [
+        {
+          "tema": "Síndrome delirante",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál es la característica esencial del síndrome delirante?",
+          "pista": "Se relaciona con el contenido del pensamiento.",
+          "justificacion": "El material identifica como rasgo esencial la presencia de ideas delirantes.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Presencia de ideas delirantes",
+              "correcta": true
+            },
+            {
+              "texto": "Amnesia total",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo permanente",
+              "correcta": false
+            },
+            {
+              "texto": "Pérdida completa de la vigilia",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome paranoico",
+          "tipo": "mcq",
+          "enunciado": "¿Cómo se describe el delirio en el síndrome paranoico?",
+          "pista": "Es un delirio organizado.",
+          "justificacion": "El documento describe un delirio único con argumentación lógica.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Delirio único con argumentación lógica",
+              "correcta": true
+            },
+            {
+              "texto": "Pensamiento incoherente sin tema",
+              "correcta": false
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Ausencia de ideas delirantes",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome paranoide",
+          "tipo": "mcq",
+          "enunciado": "¿Qué actitud general se describe en el síndrome paranoide?",
+          "pista": "Se relaciona con desconfianza.",
+          "justificacion": "El material describe aspecto descuidado y actitud recelosa.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "Actitud recelosa",
+              "correcta": true
+            },
+            {
+              "texto": "Actitud contemplativa",
+              "correcta": false
+            },
+            {
+              "texto": "Indiferencia total sin recelo",
+              "correcta": false
+            },
+            {
+              "texto": "Euforia constante",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome paranoide",
+          "tipo": "mcq",
+          "enunciado": "¿Qué alteraciones perceptivas pueden aparecer en el síndrome paranoide?",
+          "pista": "El documento menciona fenómenos auditivos.",
+          "justificacion": "Se describen alucinaciones e ilusiones auditivas y verbales.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "Alucinaciones e ilusiones auditivas y verbales",
+              "correcta": true
+            },
+            {
+              "texto": "Solo cenestopatías",
+              "correcta": false
+            },
+            {
+              "texto": "No hay ninguna alteración perceptiva",
+              "correcta": false
+            },
+            {
+              "texto": "Únicamente hiperestesia táctil",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Automatismo psíquico",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál de estos fenómenos se menciona en el síndrome de automatismo psíquico?",
+          "pista": "Se relaciona con sentir que el pensamiento es influido desde fuera.",
+          "justificacion": "El material incluye delirio de influencia y delirio de robo del pensamiento.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Delirio de influencia",
+              "correcta": true
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Hipermnesia mecánica",
+              "correcta": false
+            },
+            {
+              "texto": "Orientación fluctuante",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Nivel 5",
+      "descripcion": "Síndromes afectivos",
+      "tema": "Afectividad",
+      "emoji": "🎭",
+      "preguntas": [
+        {
+          "tema": "Síndromes afectivos",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál es la esencia de los síndromes afectivos según el documento?",
+          "pista": "Se relaciona con el estado emocional y las necesidades.",
+          "justificacion": "El material señala que predominan las manifestaciones afectivas y la toma global de las necesidades, sin afectación notable de las sensopercepciones.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Manifestaciones afectivas y alteración global de las necesidades",
+              "correcta": true
+            },
+            {
+              "texto": "Pérdida total de la conciencia",
+              "correcta": false
+            },
+            {
+              "texto": "Alteración exclusiva de la memoria",
+              "correcta": false
+            },
+            {
+              "texto": "Trastornos perceptivos intensos como rasgo principal",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome maníaco",
+          "tipo": "mcq",
+          "enunciado": "¿Qué alteración del pensamiento caracteriza al síndrome maníaco?",
+          "pista": "El curso del pensamiento va más rápido.",
+          "justificacion": "El documento describe pensamiento acelerado y fuga de ideas.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Pensamiento acelerado y fuga de ideas",
+              "correcta": true
+            },
+            {
+              "texto": "Pensamiento lento y bloqueado",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento concreto únicamente",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento incoherente por obnubilación",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome maníaco",
+          "tipo": "mcq",
+          "enunciado": "¿Qué combinación afectiva aparece en el síndrome maníaco?",
+          "pista": "Incluye aumento del tono afectivo.",
+          "justificacion": "El material señala hipertimia, labilidad afectiva y disforia.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "Hipertimia, labilidad afectiva y disforia",
+              "correcta": true
+            },
+            {
+              "texto": "Hipotimia e indiferencia",
+              "correcta": false
+            },
+            {
+              "texto": "Apatía exclusivamente",
+              "correcta": false
+            },
+            {
+              "texto": "Ansiedad sin cambios del ánimo",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome depresivo",
+          "tipo": "mcq",
+          "enunciado": "¿Cómo se describe el curso del pensamiento en el síndrome depresivo?",
+          "pista": "Va más despacio.",
+          "justificacion": "El documento describe pensamiento de curso lento en el síndrome depresivo.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "Pensamiento de curso lento",
+              "correcta": true
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento acelerado",
+              "correcta": false
+            },
+            {
+              "texto": "Pensamiento siempre desorganizado",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome afectivo ansioso",
+          "tipo": "mcq",
+          "enunciado": "¿Qué manifestaciones físicas pueden acompañar al síndrome afectivo ansioso?",
+          "pista": "El documento menciona signos vegetativos.",
+          "justificacion": "Se describen manifestaciones vegetativas como taquicardia, palpitaciones e hiperhidrosis palmar.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Taquicardia, palpitaciones e hiperhidrosis palmar",
+              "correcta": true
+            },
+            {
+              "texto": "Amnesia total y mutismo",
+              "correcta": false
+            },
+            {
+              "texto": "Flexibilidad cérea y sialorrea",
+              "correcta": false
+            },
+            {
+              "texto": "Hipomimia y abulia exclusivamente",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Nivel 6",
+      "descripcion": "Síndromes discinéticos",
+      "tema": "Psicomotricidad",
+      "emoji": "🚶",
+      "preguntas": [
+        {
+          "tema": "Síndromes discinéticos",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál es la manifestación esencial de los síndromes discinéticos?",
+          "pista": "Se relaciona con la actividad motora.",
+          "justificacion": "El documento señala que la alteración de los movimientos, aumentados o disminuidos, es la manifestación esencial.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Alteración de los movimientos",
+              "correcta": true
+            },
+            {
+              "texto": "Alteración exclusiva de la memoria",
+              "correcta": false
+            },
+            {
+              "texto": "Delirio único",
+              "correcta": false
+            },
+            {
+              "texto": "Pérdida permanente de la orientación",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome estuporoso",
+          "tipo": "mcq",
+          "enunciado": "¿Qué dos características fundamentales se destacan en el síndrome estuporoso?",
+          "pista": "Se relacionan con movimiento y habla.",
+          "justificacion": "El material destaca inmovilidad y mutismo como características fundamentales del estupor.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Inmovilidad y mutismo",
+              "correcta": true
+            },
+            {
+              "texto": "Hipertimia y fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Hiperactividad y verborrea",
+              "correcta": false
+            },
+            {
+              "texto": "Alucinaciones auditivas y euforia",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome estuporoso",
+          "tipo": "mcq",
+          "enunciado": "¿Qué diferencia al estupor del coma según el documento?",
+          "pista": "Piensa en la claridad de conciencia.",
+          "justificacion": "En el estupor puede mantenerse un grado variable de claridad de conciencia, mientras que en el coma está abolida.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "En el estupor puede conservarse cierto grado de claridad de conciencia",
+              "correcta": true
+            },
+            {
+              "texto": "En el estupor la conciencia siempre está totalmente abolida",
+              "correcta": false
+            },
+            {
+              "texto": "No existe diferencia entre ambos",
+              "correcta": false
+            },
+            {
+              "texto": "El coma conserva más conciencia que el estupor",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Estupor catatónico",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál de estos signos se menciona en el estupor catatónico?",
+          "pista": "Se relaciona con mantener posturas impuestas.",
+          "justificacion": "El documento menciona flexibilidad cérea, inmovilidad, negativismo y mutismo en el estupor catatónico.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "Flexibilidad cérea",
+              "correcta": true
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Hipermnesia",
+              "correcta": false
+            },
+            {
+              "texto": "Hiperbulia",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome hipercinético",
+          "tipo": "mcq",
+          "enunciado": "¿Qué caracteriza al síndrome hipercinético?",
+          "pista": "La actividad motora está aumentada.",
+          "justificacion": "El material describe aumento de la actividad motora y marcada afectación de la adaptación al medio.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Aumento de la actividad motora",
+              "correcta": true
+            },
+            {
+              "texto": "Inmovilidad persistente",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo como única manifestación",
+              "correcta": false
+            },
+            {
+              "texto": "Pérdida de memoria como rasgo principal",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Nivel 7",
+      "descripcion": "Síndrome hipocondríaco",
+      "tema": "Hipocondría",
+      "emoji": "🩺",
+      "preguntas": [
+        {
+          "tema": "Síndrome hipocondríaco",
+          "tipo": "mcq",
+          "enunciado": "¿Cuál es uno de los elementos esenciales del síndrome hipocondríaco?",
+          "pista": "Se relaciona con la salud.",
+          "justificacion": "El documento señala la excesiva preocupación por la salud como elemento esencial.",
+          "puntos": 15,
+          "orden": 0,
+          "opciones": [
+            {
+              "texto": "Excesiva preocupación por la salud",
+              "correcta": true
+            },
+            {
+              "texto": "Fuga de ideas",
+              "correcta": false
+            },
+            {
+              "texto": "Pérdida total de la vigilia",
+              "correcta": false
+            },
+            {
+              "texto": "Mutismo permanente",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome hipocondríaco",
+          "tipo": "mcq",
+          "enunciado": "¿Hacia dónde se dirige principalmente la atención en el síndrome hipocondríaco?",
+          "pista": "Se centra en el propio cuerpo.",
+          "justificacion": "El material describe atención dirigida hacia las funciones corporales con hiperconcentración.",
+          "puntos": 15,
+          "orden": 1,
+          "opciones": [
+            {
+              "texto": "Hacia las funciones corporales",
+              "correcta": true
+            },
+            {
+              "texto": "Hacia estímulos externos irrelevantes",
+              "correcta": false
+            },
+            {
+              "texto": "Hacia contenidos alucinatorios visuales",
+              "correcta": false
+            },
+            {
+              "texto": "Hacia tareas abstractas exclusivamente",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome hipocondríaco",
+          "tipo": "mcq",
+          "enunciado": "¿Cómo suelen estar la vigilia y la orientación en el síndrome hipocondríaco?",
+          "pista": "Son funciones que permanecen conservadas.",
+          "justificacion": "El documento describe vigilia normal y orientación conservada.",
+          "puntos": 15,
+          "orden": 2,
+          "opciones": [
+            {
+              "texto": "Vigilia normal y orientación conservada",
+              "correcta": true
+            },
+            {
+              "texto": "Vigilia baja y desorientación total",
+              "correcta": false
+            },
+            {
+              "texto": "Vigilia abolida y orientación fluctuante",
+              "correcta": false
+            },
+            {
+              "texto": "Vigilia aumentada y orientación ausente",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome hipocondríaco",
+          "tipo": "mcq",
+          "enunciado": "¿Qué alteración afectiva se menciona en el síndrome hipocondríaco?",
+          "pista": "Se relaciona con preocupación y temor.",
+          "justificacion": "El material menciona ansiedad y también hipotimia.",
+          "puntos": 15,
+          "orden": 3,
+          "opciones": [
+            {
+              "texto": "Ansiedad",
+              "correcta": true
+            },
+            {
+              "texto": "Hipertimia",
+              "correcta": false
+            },
+            {
+              "texto": "Euforia persistente",
+              "correcta": false
+            },
+            {
+              "texto": "Indiferencia completa como rasgo principal",
+              "correcta": false
+            }
+          ]
+        },
+        {
+          "tema": "Síndrome hipocondríaco",
+          "tipo": "mcq",
+          "enunciado": "¿Qué conducta se describe como frecuente en el síndrome hipocondríaco?",
+          "pista": "Se relaciona con búsqueda repetida de atención médica.",
+          "justificacion": "El documento menciona reiteradas visitas al médico sin justificación objetiva.",
+          "puntos": 15,
+          "orden": 4,
+          "opciones": [
+            {
+              "texto": "Visitas reiteradas al médico sin justificación objetiva",
+              "correcta": true
+            },
+            {
+              "texto": "Aislamiento motor completo",
+              "correcta": false
+            },
+            {
+              "texto": "Conducta expansiva con hipersociabilidad",
+              "correcta": false
+            },
+            {
+              "texto": "Agitación psicomotora extrema",
+              "correcta": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

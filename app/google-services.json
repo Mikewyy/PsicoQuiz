@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "961916116579",
+    "project_id": "psicoquiz-c1679",
+    "storage_bucket": "psicoquiz-c1679.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961916116579:android:f1d87e29d9078640962256",
+        "android_client_info": {
+          "package_name": "com.utm.semiologia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_EeNkHziM1KATDvfJvalohl8kfxuA-OM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
