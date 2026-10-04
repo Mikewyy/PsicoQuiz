@@ -13,6 +13,7 @@ import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.dao.EstudioDao;
 import com.utm.semiologia.ui.common.BaseActivity;
 
+
 /**
  * Pantalla principal de la Guía de Estudio.
  *
@@ -20,54 +21,94 @@ import com.utm.semiologia.ui.common.BaseActivity;
  *
  * 1. Síntomas y funciones psicológicas.
  * 2. Síndromes psicopatológicos.
+ * 3. Multijugador.
  */
 public class GuiaActivity extends BaseActivity {
 
+
     private Repositorio repo;
+
     private long usuarioId;
 
-    // ---------------------------------------------------------
-    // Progreso general
-    // ---------------------------------------------------------
+
+    // =========================================================
+    // PROGRESO GENERAL
+    // =========================================================
 
     private LinearProgressIndicator barProgresoGeneral;
+
     private TextView tvProgresoGeneral;
+
     private TextView tvResumenProgreso;
 
-    // ---------------------------------------------------------
-    // Camino de síntomas
-    // ---------------------------------------------------------
+
+    // =========================================================
+    // CAMINO DE SÍNTOMAS
+    // =========================================================
 
     private LinearProgressIndicator barProgresoSintomas;
+
     private TextView tvProgresoSintomas;
+
     private TextView tvResumenSintomas;
 
-    // ---------------------------------------------------------
-    // Camino de síndromes
-    // ---------------------------------------------------------
+
+    // =========================================================
+    // CAMINO DE SÍNDROMES
+    // =========================================================
 
     private LinearProgressIndicator barProgresoSindromes;
+
     private TextView tvProgresoSindromes;
+
     private TextView tvResumenSindromes;
 
 
+    // =========================================================
+    // CREACIÓN
+    // =========================================================
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(
+            @Nullable Bundle savedInstanceState
+    ) {
 
-        setContentView(R.layout.activity_guia);
+        super.onCreate(
+                savedInstanceState
+        );
 
-        repo = SemiologiaApp.getRepositorio();
-        usuarioId = SemiologiaApp.getSesion().getUsuarioId();
+
+        setContentView(
+                R.layout.activity_guia
+        );
+
+
+        repo =
+                SemiologiaApp
+                        .getRepositorio();
+
+
+        usuarioId =
+                SemiologiaApp
+                        .getSesion()
+                        .getUsuarioId();
+
 
         enlazarVistas();
+
         configurarListeners();
     }
 
 
+    // =========================================================
+    // RESUME
+    // =========================================================
+
     @Override
     protected void onResume() {
+
         super.onResume();
+
 
         /*
          * Se vuelve a calcular cada vez que regresamos
@@ -83,40 +124,71 @@ public class GuiaActivity extends BaseActivity {
 
     private void enlazarVistas() {
 
-        // Progreso general
+
+        // -----------------------------------------------------
+        // PROGRESO GENERAL
+        // -----------------------------------------------------
 
         barProgresoGeneral =
-                findViewById(R.id.barProgresoGeneral);
+                findViewById(
+                        R.id.barProgresoGeneral
+                );
+
 
         tvProgresoGeneral =
-                findViewById(R.id.tvProgresoGeneral);
+                findViewById(
+                        R.id.tvProgresoGeneral
+                );
+
 
         tvResumenProgreso =
-                findViewById(R.id.tvResumenProgreso);
+                findViewById(
+                        R.id.tvResumenProgreso
+                );
 
 
-        // Camino síntomas
+        // -----------------------------------------------------
+        // CAMINO SÍNTOMAS
+        // -----------------------------------------------------
 
         barProgresoSintomas =
-                findViewById(R.id.barProgresoSintomas);
+                findViewById(
+                        R.id.barProgresoSintomas
+                );
+
 
         tvProgresoSintomas =
-                findViewById(R.id.tvProgresoSintomas);
+                findViewById(
+                        R.id.tvProgresoSintomas
+                );
+
 
         tvResumenSintomas =
-                findViewById(R.id.tvResumenSintomas);
+                findViewById(
+                        R.id.tvResumenSintomas
+                );
 
 
-        // Camino síndromes
+        // -----------------------------------------------------
+        // CAMINO SÍNDROMES
+        // -----------------------------------------------------
 
         barProgresoSindromes =
-                findViewById(R.id.barProgresoSindromes);
+                findViewById(
+                        R.id.barProgresoSindromes
+                );
+
 
         tvProgresoSindromes =
-                findViewById(R.id.tvProgresoSindromes);
+                findViewById(
+                        R.id.tvProgresoSindromes
+                );
+
 
         tvResumenSindromes =
-                findViewById(R.id.tvResumenSindromes);
+                findViewById(
+                        R.id.tvResumenSindromes
+                );
     }
 
 
@@ -126,36 +198,60 @@ public class GuiaActivity extends BaseActivity {
 
     private void configurarListeners() {
 
-        findViewById(R.id.btnVolver)
-                .setOnClickListener(
-                        v -> finish()
-                );
+
+        // -----------------------------------------------------
+        // VOLVER
+        // -----------------------------------------------------
+
+        findViewById(
+                R.id.btnVolver
+        ).setOnClickListener(
+                v -> finish()
+        );
 
 
-        /*
-         * CAMINO 1
-         *
-         * Síntomas y funciones psicológicas.
-         */
-        findViewById(R.id.cardSintomas)
-                .setOnClickListener(
-                        v -> abrirCamino(
-                                EstudioDao.CAMINO_SINTOMAS
+        // -----------------------------------------------------
+        // CAMINO 1
+        // SÍNTOMAS Y FUNCIONES PSICOLÓGICAS
+        // -----------------------------------------------------
+
+        findViewById(
+                R.id.cardSintomas
+        ).setOnClickListener(
+                v -> abrirCamino(
+                        EstudioDao.CAMINO_SINTOMAS
+                )
+        );
+
+
+        // -----------------------------------------------------
+        // CAMINO 2
+        // SÍNDROMES PSICOPATOLÓGICOS
+        // -----------------------------------------------------
+
+        findViewById(
+                R.id.cardSindromes
+        ).setOnClickListener(
+                v -> abrirCamino(
+                        EstudioDao.CAMINO_SINDROMES
+                )
+        );
+
+
+        // -----------------------------------------------------
+        // MULTIJUGADOR
+        // -----------------------------------------------------
+
+        findViewById(
+                R.id.cardMultijugador
+        ).setOnClickListener(
+                v -> startActivity(
+                        new Intent(
+                                this,
+                                MultijugadorActivity.class
                         )
-                );
-
-
-        /*
-         * CAMINO 2
-         *
-         * Síndromes psicopatológicos.
-         */
-        findViewById(R.id.cardSindromes)
-                .setOnClickListener(
-                        v -> abrirCamino(
-                                EstudioDao.CAMINO_SINDROMES
-                        )
-                );
+                )
+        );
     }
 
 
@@ -166,7 +262,9 @@ public class GuiaActivity extends BaseActivity {
     private void cargarProgreso() {
 
         cargarProgresoSintomas();
+
         cargarProgresoSindromes();
+
         cargarProgresoGeneral();
     }
 
@@ -177,21 +275,27 @@ public class GuiaActivity extends BaseActivity {
      */
     private void cargarProgresoSintomas() {
 
+
         int total =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesTotales(
                                 EstudioDao.CAMINO_SINTOMAS
                         );
 
+
         int completadas =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesCompletadas(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINTOMAS
                         );
 
+
         int progreso =
-                repo.estudio()
+                repo
+                        .estudio()
                         .progresoCamino(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINTOMAS
@@ -202,9 +306,11 @@ public class GuiaActivity extends BaseActivity {
                 progreso
         );
 
+
         tvProgresoSintomas.setText(
                 progreso + "%"
         );
+
 
         tvResumenSintomas.setText(
                 completadas
@@ -221,21 +327,27 @@ public class GuiaActivity extends BaseActivity {
      */
     private void cargarProgresoSindromes() {
 
+
         int total =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesTotales(
                                 EstudioDao.CAMINO_SINDROMES
                         );
 
+
         int completadas =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesCompletadas(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINDROMES
                         );
 
+
         int progreso =
-                repo.estudio()
+                repo
+                        .estudio()
                         .progresoCamino(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINDROMES
@@ -246,9 +358,11 @@ public class GuiaActivity extends BaseActivity {
                 progreso
         );
 
+
         tvProgresoSindromes.setText(
                 progreso + "%"
         );
+
 
         tvResumenSindromes.setText(
                 completadas
@@ -272,41 +386,53 @@ public class GuiaActivity extends BaseActivity {
      */
     private void cargarProgresoGeneral() {
 
+
         int totalSintomas =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesTotales(
                                 EstudioDao.CAMINO_SINTOMAS
                         );
+
 
         int totalSindromes =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesTotales(
                                 EstudioDao.CAMINO_SINDROMES
                         );
 
+
         int completadasSintomas =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesCompletadas(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINTOMAS
                         );
 
+
         int completadasSindromes =
-                repo.estudio()
+                repo
+                        .estudio()
                         .seccionesCompletadas(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINDROMES
                         );
 
+
         int progresoSintomas =
-                repo.estudio()
+                repo
+                        .estudio()
                         .progresoCamino(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINTOMAS
                         );
 
+
         int progresoSindromes =
-                repo.estudio()
+                repo
+                        .estudio()
                         .progresoCamino(
                                 usuarioId,
                                 EstudioDao.CAMINO_SINDROMES
@@ -317,6 +443,7 @@ public class GuiaActivity extends BaseActivity {
                 totalSintomas
                         + totalSindromes;
 
+
         int completadas =
                 completadasSintomas
                         + completadasSindromes;
@@ -324,7 +451,9 @@ public class GuiaActivity extends BaseActivity {
 
         int porcentajeGeneral = 0;
 
+
         if (total > 0) {
+
 
             /*
              * Promedio ponderado.
@@ -350,9 +479,11 @@ public class GuiaActivity extends BaseActivity {
                 porcentajeGeneral
         );
 
+
         tvProgresoGeneral.setText(
                 porcentajeGeneral + "%"
         );
+
 
         tvResumenProgreso.setText(
                 completadas
@@ -375,17 +506,22 @@ public class GuiaActivity extends BaseActivity {
             String camino
     ) {
 
+
         Intent intent =
                 new Intent(
                         this,
                         CaminoEstudioActivity.class
                 );
 
+
         intent.putExtra(
                 CaminoEstudioActivity.EXTRA_CAMINO,
                 camino
         );
 
-        startActivity(intent);
+
+        startActivity(
+                intent
+        );
     }
 }

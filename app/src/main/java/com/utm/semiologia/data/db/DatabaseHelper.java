@@ -1,6 +1,7 @@
 package com.utm.semiologia.data.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -26,8 +27,10 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 4;
-
+    public static final int DB_VERSION = 14;
+    public Context getAppContext() {
+        return appContext;
+    }
     // ------------------------------------------------------------------
     // Nombres de tablas
     // ------------------------------------------------------------------
@@ -94,9 +97,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Migraciones INCREMENTALES: nunca se hace DROP de las tablas de
-        // usuario. Un usuario que ya tenga la app instalada conserva su
-        // usuario, mascota, notas y pomodoro.
+        /*
+         * IMPORTANTE:
+         * Las columnas categoria/orden deben existir antes de ejecutar
+         * migraciones antiguas que intenten sembrar los bancos de evaluación.
+         *
+         * Si la tabla niveles todavía no existe, asegurarColumnasCategoria()
+         * simplemente retorna y migrarAV2() la creará con el esquema actual.
+         */
+        if (oldVersion < 5) {
+            asegurarColumnasCategoria(db);
+        }
+
         if (oldVersion < 2) {
             migrarAV2(db);
         }
@@ -106,51 +118,278 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 4) {
             migrarAV4(db);
         }
+        if (oldVersion < 5) {
+            migrarAV5(db);
+        }
+        if (oldVersion < 6) {
+            migrarAV6(db);
+        }
+        if (oldVersion < 7) {
+            migrarAV7(db);
+        }
+        if (oldVersion < 8) {
+            migrarAV8(db);
+        }
+        if (oldVersion < 9) {
+            migrarAV9(db);
+        }
+        if (oldVersion < 10) {
+            migrarAV10(db);
+        }
+        if (oldVersion < 11) {
+            migrarAV11(db);
+        }
+        if (oldVersion < 12) {
+            migrarAV12(db);
+        }
+        if (oldVersion < 14) {
+            recrearBancoSindromes(db);
+        }
     }
 
-    /**
-     * v1 -> v2: módulo de evaluación.
-     * Sólo se crean tablas nuevas; ninguna existente se toca.
-     */
+    // =========================================================
+    // V2 - MÓDULO DE EVALUACIÓN
+    // =========================================================
+
     private void migrarAV2(SQLiteDatabase db) {
         crearTablasEvaluacion(db);
-        // La semilla de niveles/preguntas va aparte (assets/preguntas.json)
-        // para que el contenido se pueda editar sin tocar el esquema.
-        NivelesDao.sembrarNiveles(appContext, db);
+
+        // Semilla de los bancos desde assets.
+        NivelesDao.sembrarNiveles(
+                appContext,
+                db
+        );
     }
 
-    /**
-     * v2 -> v3: reemplazo completo del banco de preguntas.
-     * El contenido pasó de 5 tramos a 11 y los IDs cambiaron, así que se vacía
-     * el contenido de evaluación (no el usuario) y se vuelve a sembrar desde
-     * assets/preguntas.json. Se pierden intentos/progreso de evaluación, que
-     * ya no son válidos con el nuevo banco.
-     */
+    // =========================================================
+    // V3 - RECREAR BANCO DE EVALUACIÓN
+    // =========================================================
+
     private void migrarAV3(SQLiteDatabase db) {
         crearTablasEvaluacion(db);
+
         db.beginTransaction();
         try {
-            // Orden seguro de borrado (independiente de las cascadas).
+            // Orden seguro de borrado.
             db.execSQL("DELETE FROM " + T_RESPUESTAS_DADAS);
             db.execSQL("DELETE FROM " + T_INTENTOS);
             db.execSQL("DELETE FROM " + T_PROGRESO_NIVELES);
             db.execSQL("DELETE FROM " + T_OPCIONES);
             db.execSQL("DELETE FROM " + T_PREGUNTAS);
             db.execSQL("DELETE FROM " + T_NIVELES);
+
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
-        // Con las tablas vacías, la semilla vuelve a insertar los 11 tramos.
-        NivelesDao.sembrarNiveles(appContext, db);
+
+        NivelesDao.sembrarNiveles(
+                appContext,
+                db
+        );
+    }
+
+    // =========================================================
+    // V4 - INVENTARIO / POMODORO
+    // =========================================================
+
+    private void migrarAV4(SQLiteDatabase db) {
+        crearTablaObjetos(db);
+    }
+
+    // =========================================================
+    // V5 - SEGUNDO CAMINO: SÍNDROMES
+    // =========================================================
+
+    private void migrarAV5(SQLiteDatabase db) {
+        db.execSQL(
+                "UPDATE " + T_NIVELES +
+                        " SET categoria = 'sintomas' " +
+                        "WHERE categoria IS NULL OR categoria = ''"
+        );
+
+        db.execSQL(
+                "UPDATE " + T_NIVELES +
+                        " SET orden = numero " +
+                        "WHERE (orden IS NULL OR orden = 0) " +
+                        "AND categoria = 'sintomas'"
+        );
+
+        NivelesDao.sembrarSindromes(
+                appContext,
+                db
+        );
+    }
+
+    // =========================================================
+    // V6 - AVATAR DEL USUARIO
+    // =========================================================
+
+    private void migrarAV6(SQLiteDatabase db) {
+        if (!existeColumna(db, T_USUARIOS, "avatar")) {
+            db.execSQL(
+                    "ALTER TABLE " + T_USUARIOS +
+                            " ADD COLUMN avatar TEXT DEFAULT 'avatar_01'"
+            );
+        }
+    }
+
+    // =========================================================
+    // V7 - SKIN NUMÉRICA DE LA MASCOTA
+    // =========================================================
+
+    private void migrarAV7(SQLiteDatabase db) {
+        if (!existeColumna(db, T_MASCOTA, "skin_id")) {
+            db.execSQL(
+                    "ALTER TABLE " + T_MASCOTA +
+                            " ADD COLUMN skin_id INTEGER NOT NULL DEFAULT 0"
+            );
+        }
+    }
+
+    // =========================================================
+    // V8 - DOS CAMINOS EN LA GUÍA
+    // =========================================================
+
+    private void migrarAV8(SQLiteDatabase db) {
+        if (!existeColumna(db, T_SECCIONES, "camino")) {
+            db.execSQL(
+                    "ALTER TABLE " + T_SECCIONES +
+                            " ADD COLUMN camino TEXT NOT NULL DEFAULT 'sintomas'"
+            );
+        }
+    }
+
+    // =========================================================
+    // V9 - ACTUALIZAR GUÍA COMPLETA
+    // =========================================================
+
+    private void migrarAV9(SQLiteDatabase db) {
+        db.beginTransaction();
+        try {
+            if (!existeColumna(db, T_SECCIONES, "camino")) {
+                db.execSQL(
+                        "ALTER TABLE " + T_SECCIONES +
+                                " ADD COLUMN camino TEXT NOT NULL DEFAULT 'sintomas'"
+                );
+            }
+
+            actualizarContenidoGuiaCompleta(db);
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    // =========================================================
+    // V10 - PRIMER INTENTO DE SEMBRAR SÍNDROMES
+    // =========================================================
+
+    private void migrarAV10(SQLiteDatabase db) {
+        NivelesDao.sembrarSindromes(
+                appContext,
+                db
+        );
+    }
+
+    // =========================================================
+    // V11 - RECREAR SOLO EL BANCO DE SÍNDROMES
+    // =========================================================
+
+    private void migrarAV11(SQLiteDatabase db) {
+        recrearBancoSindromes(db);
+    }
+
+    // =========================================================
+    // V12 - FORZAR LA CARGA DEL NUEVO sindromes.json
+    // =========================================================
+
+    private void migrarAV12(SQLiteDatabase db) {
+        /*
+         * V11 ya pudo haberse ejecutado antes de que sindromes.json
+         * estuviera completo. V12 fuerza una nueva carga del archivo
+         * sin tocar Síntomas, usuario, mascota, guía, notas ni Pomodoro.
+         */
+        recrearBancoSindromes(db);
     }
 
     /**
-     * v3 -> v4: sistema Pomodoro. Sólo se crea una tabla nueva
-     * (inventario_objetos) para guardar baritas mágicas y futuros poderes.
+     * Elimina únicamente el banco de evaluación de Síndromes y lo vuelve
+     * a sembrar desde assets/sindromes.json.
+     *
+     * Las preguntas, opciones, intentos y progreso vinculados a esos niveles
+     * se eliminan por las claves foráneas ON DELETE CASCADE.
      */
-    private void migrarAV4(SQLiteDatabase db) {
-        crearTablaObjetos(db);
+    private void recrearBancoSindromes(SQLiteDatabase db) {
+        android.util.Log.d(
+                "NivelesDao",
+                "Recreando banco de Síndromes desde assets/sindromes.json"
+        );
+
+        db.beginTransaction();
+        try {
+            db.execSQL(
+                    "DELETE FROM " + T_NIVELES +
+                            " WHERE categoria = 'sindromes'"
+            );
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+
+        NivelesDao.sembrarSindromes(
+                appContext,
+                db
+        );
+
+        // Log de comprobación: debe indicar 7 con el JSON actual.
+        try (Cursor c = db.rawQuery(
+                "SELECT COUNT(*) FROM " + T_NIVELES +
+                        " WHERE categoria = ?",
+                new String[]{"sindromes"}
+        )) {
+            int total = c.moveToFirst() ? c.getInt(0) : 0;
+
+            android.util.Log.d(
+                    "NivelesDao",
+                    "Niveles de Síndromes cargados: " + total
+            );
+        }
+    }
+
+    /**
+     * Añade las columnas categoria/orden a la tabla niveles si no existen.
+     * Debe ser tolerante: en migraciones desde v1 la tabla aún no existe.
+     */
+    private void asegurarColumnasCategoria(SQLiteDatabase db) {
+        if (!existeTabla(db, T_NIVELES)) return;
+        if (!existeColumna(db, T_NIVELES, "categoria")) {
+            db.execSQL("ALTER TABLE " + T_NIVELES
+                    + " ADD COLUMN categoria TEXT NOT NULL DEFAULT 'sintomas'");
+        }
+        if (!existeColumna(db, T_NIVELES, "orden")) {
+            db.execSQL("ALTER TABLE " + T_NIVELES
+                    + " ADD COLUMN orden INTEGER NOT NULL DEFAULT 0");
+        }
+    }
+
+    private boolean existeTabla(SQLiteDatabase db, String tabla) {
+        try (Cursor c = db.rawQuery("SELECT name FROM sqlite_master "
+                + "WHERE type = 'table' AND name = ?", new String[]{tabla})) {
+            return c.moveToFirst();
+        }
+    }
+
+    private boolean existeColumna(SQLiteDatabase db, String tabla, String columna) {
+        try (Cursor c = db.rawQuery("PRAGMA table_info(" + tabla + ")", null)) {
+            int idx = c.getColumnIndexOrThrow("name");
+            while (c.moveToNext()) {
+                if (columna.equals(c.getString(idx))) return true;
+            }
+        }
+        return false;
     }
 
     // ==================================================================
@@ -175,6 +414,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + T_USUARIOS + " (" +
                 "id                     INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nombre                 TEXT    NOT NULL," +
+                "avatar                 TEXT             DEFAULT 'avatar_01'," +
                 "email                  TEXT    NOT NULL UNIQUE COLLATE NOCASE," +
                 "password_hash          TEXT    NOT NULL," +
                 "password_salt          TEXT    NOT NULL," +
@@ -195,6 +435,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // --------------------------------------------------------------
         db.execSQL("CREATE TABLE " + T_SECCIONES + " (" +
                 "id                      INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "camino                  TEXT    NOT NULL DEFAULT 'sintomas'," +
                 "tema                    TEXT    NOT NULL," +
                 "titulo                  TEXT    NOT NULL," +
                 "contenido               TEXT    NOT NULL," +   // HTML para el lector + resaltado
@@ -222,9 +463,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + T_MASCOTA + " (" +
                 "id                      INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "usuario_id              INTEGER NOT NULL UNIQUE REFERENCES " +
-                        T_USUARIOS + "(id) ON DELETE CASCADE," +
+                T_USUARIOS + "(id) ON DELETE CASCADE," +
                 "nombre                  TEXT    NOT NULL DEFAULT 'Mateo'," +
                 "especie                 TEXT    NOT NULL DEFAULT 'gato'," +
+                "skin_id                 INTEGER NOT NULL DEFAULT 0," +
                 // Barras 0..100. 'hambre' es INVERSA: 100 = alimentado, 0 = hambriento.
                 "hambre                  INTEGER NOT NULL DEFAULT 100," +
                 "felicidad               INTEGER NOT NULL DEFAULT 80," +
@@ -372,7 +614,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + T_COMENTARIOS + " (" +
                 "id                      INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nota_compartida_id      INTEGER NOT NULL REFERENCES " +
-                        T_NOTAS_COMPARTIDAS + "(id) ON DELETE CASCADE," +
+                T_NOTAS_COMPARTIDAS + "(id) ON DELETE CASCADE," +
                 "usuario_id              INTEGER NOT NULL REFERENCES " + T_USUARIOS + "(id) ON DELETE CASCADE," +
                 "texto                   TEXT    NOT NULL," +
                 "creada_en               INTEGER NOT NULL" +
@@ -415,10 +657,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private void crearTablasEvaluacion(SQLiteDatabase db) {
 
-        // --- NIVELES: los "tramos" del camino, de 1 a 5 ---
+        // --- NIVELES: los "tramos" del camino ---
+        // categoria: 'sintomas' | 'sindromes' (dos bancos de preguntas).
+        // orden: posicion dentro de la categoria (1..N).
+        // numero: numero global unico; por convencion sintomas 1..99 y
+        //         sindromes 101..199, de modo que nunca colisionan.
         db.execSQL("CREATE TABLE IF NOT EXISTS " + T_NIVELES + " (" +
                 "id            INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "numero        INTEGER NOT NULL UNIQUE," +   // 1..5, orden del camino
+                "numero        INTEGER NOT NULL UNIQUE," +
+                "categoria     TEXT    NOT NULL DEFAULT 'sintomas'," +
+                "orden         INTEGER NOT NULL DEFAULT 0," +
                 "nombre        TEXT    NOT NULL," +
                 "descripcion   TEXT," +
                 "tema          TEXT    NOT NULL," +
@@ -520,38 +768,155 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "('Pescado',  '🐟', 30, 15,  30)," +
                 "('Bowl gourmet','🍲',45, 25,  50)");
 
-        // Contenido semilla de la guía de estudio (3 secciones, alineadas a los
-        // 5 tramos de evaluación). PENDIENTE DE REVISIÓN DOCENTE: el texto es
-        // material de apoyo y debe validarse contra el temario del curso.
-        db.execSQL("INSERT INTO " + T_SECCIONES +
-                " (tema, titulo, orden, duracion_estimada_min, puntos_recompensa, contenido) VALUES " +
-                "('Fundamentos', 'La semiología psicopatológica: signo, síntoma y síndrome', 1, 12, 20, " +
-                "'<p>La <b>semiología psicopatológica</b> estudia las manifestaciones de los " +
-                "trastornos mentales a través de la observación y la entrevista.</p>" +
-                "<p><b>Claves para el examen:</b></p>" +
-                "<ul><li><b>Signo</b>: manifestación objetiva, observable por el examinador " +
-                "(por ejemplo, agitación psicomotora).</li>" +
-                "<li><b>Síntoma</b>: experiencia subjetiva referida por el paciente " +
-                "(por ejemplo, tristeza o una alucinación).</li>" +
-                "<li><b>Síndrome</b>: conjunto de signos y síntomas que se presentan juntos " +
-                "y sugieren una entidad clínica.</li></ul>')," +
-                "('Percepción y pensamiento', 'Alteraciones de la percepción y del pensamiento', 2, 12, 20, " +
-                "'<p><b>Percepción:</b></p>" +
-                "<ul><li><b>Alucinación</b>: percepción sin objeto externo correspondiente.</li>" +
-                "<li><b>Ilusión</b>: percepción distorsionada de un objeto real.</li></ul>" +
-                "<p>Las alucinaciones se clasifican según a quien atribuye el paciente la " +
-                "percepción: es psicótica cuando la atribuye a una fuente externa.</p>" +
-                "<p><b>Pensamiento:</b></p>" +
-                "<ul><li><b>Delirio</b>: convicción falsa, firme e inmodificable ante la evidencia.</li>" +
-                "<li><b>Curso</b>: fuga de ideas, tangencialidad, circunstancialidad.</li>" +
-                "<li><b>Contenido</b>: delirios y obsesiones.</li></ul>" +
-                "<p>Selecciona cualquier fragmento de este texto para crear una nota de estudio.</p>')," +
-                "('Lenguaje, afectividad y cognición', 'Lenguaje, afectividad y cognición', 3, 15, 25, " +
-                "'<p><b>Lenguaje:</b> parafasias, neologismos, verborrea, ecolalia y mutismo.</p>" +
-                "<p><b>Afectividad:</b> aplanamiento afectivo, labilidad emocional y euforia. " +
-                "El aplanamiento es la disminución de la expresividad; la labilidad, su " +
-                "variación brusca e inmotivada.</p>" +
-                "<p><b>Cognición:</b> funciones ejecutivas, memoria, atención, juicio e " +
-                "insight. El insight es el grado en que el paciente reconoce su enfermedad.</p>')");
+        // Guía completa: dos caminos (Síntomas y Síndromes).
+        sembrarGuiaCompleta(db);
+
+    }
+
+    private void sembrarGuiaCompleta(SQLiteDatabase db) {
+        insertarSeccion(db, "sintomas", "Conciencia", "Psicopatología de la conciencia", 1, 15, 20, contenidoGuia("sintomas_1"));
+        insertarSeccion(db, "sintomas", "Orientación", "Psicopatología de la orientación", 2, 12, 20, contenidoGuia("sintomas_2"));
+        insertarSeccion(db, "sintomas", "Atención y concentración", "Psicopatología de la atención y concentración", 3, 15, 20, contenidoGuia("sintomas_3"));
+        insertarSeccion(db, "sintomas", "Memoria", "Psicopatología de la memoria", 4, 18, 25, contenidoGuia("sintomas_4"));
+        insertarSeccion(db, "sintomas", "Percepción", "Percepción, imaginación y sensaciones", 5, 20, 25, contenidoGuia("sintomas_5"));
+        insertarSeccion(db, "sintomas", "Pensamiento", "Psicopatología del pensamiento", 6, 22, 30, contenidoGuia("sintomas_6"));
+        insertarSeccion(db, "sintomas", "Lenguaje", "Psicopatología del lenguaje", 7, 18, 25, contenidoGuia("sintomas_7"));
+        insertarSeccion(db, "sintomas", "Afectividad", "Psicopatología de la afectividad", 8, 20, 25, contenidoGuia("sintomas_8"));
+        insertarSeccion(db, "sintomas", "Psicomotricidad", "Psicopatología de la psicomotricidad", 9, 18, 25, contenidoGuia("sintomas_9"));
+        insertarSeccion(db, "sintomas", "Voluntad y conducta", "Alteraciones de la voluntad y conducta", 10, 16, 25, contenidoGuia("sintomas_10"));
+        insertarSeccion(db, "sintomas", "Funciones fisiológicas", "Alteraciones de las funciones fisiológicas", 11, 15, 20, contenidoGuia("sintomas_11"));
+        insertarSeccion(db, "sintomas", "Sueño", "Psicopatología del sueño", 12, 15, 20, contenidoGuia("sintomas_12"));
+        insertarSeccion(db, "sintomas", "Apetito e ingesta", "Alteraciones del apetito y la ingesta", 13, 12, 20, contenidoGuia("sintomas_13"));
+        insertarSeccion(db, "sintomas", "Sexualidad", "Psicopatología de la sexualidad", 14, 12, 20, contenidoGuia("sintomas_14"));
+        insertarSeccion(db, "sintomas", "Funciones de relación", "Alteraciones de las funciones de relación", 15, 15, 25, contenidoGuia("sintomas_15"));
+        insertarSeccion(db, "sindromes", "Síndromes orgánicos", "Síndromes cerebrales orgánicos agudos", 1, 12, 20, contenidoGuia("sindromes_1"));
+        insertarSeccion(db, "sindromes", "Síndromes orgánicos", "Síndromes cerebrales orgánicos crónicos", 2, 12, 20, contenidoGuia("sindromes_2"));
+        insertarSeccion(db, "sindromes", "Esquizofrenia", "Síndrome esquizofrénico", 3, 15, 25, contenidoGuia("sindromes_3"));
+        insertarSeccion(db, "sindromes", "Delirios", "Síndrome delirante", 4, 15, 25, contenidoGuia("sindromes_4"));
+        insertarSeccion(db, "sindromes", "Afectividad", "Síndromes afectivos", 5, 15, 25, contenidoGuia("sindromes_5"));
+        insertarSeccion(db, "sindromes", "Psicomotricidad", "Síndromes discinéticos", 6, 12, 20, contenidoGuia("sindromes_6"));
+        insertarSeccion(db, "sindromes", "Hipocondría", "Síndrome hipocondríaco", 7, 10, 20, contenidoGuia("sindromes_7"));
+    }
+
+    private void actualizarContenidoGuiaCompleta(SQLiteDatabase db) {
+        actualizarSeccionGuia(db, "sintomas", 1, "Conciencia", "Psicopatología de la conciencia", 15, 20);
+        actualizarSeccionGuia(db, "sintomas", 2, "Orientación", "Psicopatología de la orientación", 12, 20);
+        actualizarSeccionGuia(db, "sintomas", 3, "Atención y concentración", "Psicopatología de la atención y concentración", 15, 20);
+        actualizarSeccionGuia(db, "sintomas", 4, "Memoria", "Psicopatología de la memoria", 18, 25);
+        actualizarSeccionGuia(db, "sintomas", 5, "Percepción", "Percepción, imaginación y sensaciones", 20, 25);
+        actualizarSeccionGuia(db, "sintomas", 6, "Pensamiento", "Psicopatología del pensamiento", 22, 30);
+        actualizarSeccionGuia(db, "sintomas", 7, "Lenguaje", "Psicopatología del lenguaje", 18, 25);
+        actualizarSeccionGuia(db, "sintomas", 8, "Afectividad", "Psicopatología de la afectividad", 20, 25);
+        actualizarSeccionGuia(db, "sintomas", 9, "Psicomotricidad", "Psicopatología de la psicomotricidad", 18, 25);
+        actualizarSeccionGuia(db, "sintomas", 10, "Voluntad y conducta", "Alteraciones de la voluntad y conducta", 16, 25);
+        actualizarSeccionGuia(db, "sintomas", 11, "Funciones fisiológicas", "Alteraciones de las funciones fisiológicas", 15, 20);
+        actualizarSeccionGuia(db, "sintomas", 12, "Sueño", "Psicopatología del sueño", 15, 20);
+        actualizarSeccionGuia(db, "sintomas", 13, "Apetito e ingesta", "Alteraciones del apetito y la ingesta", 12, 20);
+        actualizarSeccionGuia(db, "sintomas", 14, "Sexualidad", "Psicopatología de la sexualidad", 12, 20);
+        actualizarSeccionGuia(db, "sintomas", 15, "Funciones de relación", "Alteraciones de las funciones de relación", 15, 25);
+        actualizarSeccionGuia(db, "sindromes", 1, "Síndromes orgánicos", "Síndromes cerebrales orgánicos agudos", 12, 20);
+        actualizarSeccionGuia(db, "sindromes", 2, "Síndromes orgánicos", "Síndromes cerebrales orgánicos crónicos", 12, 20);
+        actualizarSeccionGuia(db, "sindromes", 3, "Esquizofrenia", "Síndrome esquizofrénico", 15, 25);
+        actualizarSeccionGuia(db, "sindromes", 4, "Delirios", "Síndrome delirante", 15, 25);
+        actualizarSeccionGuia(db, "sindromes", 5, "Afectividad", "Síndromes afectivos", 15, 25);
+        actualizarSeccionGuia(db, "sindromes", 6, "Psicomotricidad", "Síndromes discinéticos", 12, 20);
+        actualizarSeccionGuia(db, "sindromes", 7, "Hipocondría", "Síndrome hipocondríaco", 10, 20);
+    }
+
+    private void actualizarSeccionGuia(SQLiteDatabase db,
+                                       String camino,
+                                       int orden,
+                                       String tema,
+                                       String titulo,
+                                       int duracion,
+                                       int puntos) {
+        android.content.ContentValues values = new android.content.ContentValues();
+        values.put("tema", tema);
+        values.put("titulo", titulo);
+        values.put("contenido", contenidoGuia(camino + "_" + orden));
+        values.put("duracion_estimada_min", duracion);
+        values.put("puntos_recompensa", puntos);
+
+        int filas = db.update(
+                T_SECCIONES,
+                values,
+                "camino = ? AND orden = ?",
+                new String[]{camino, String.valueOf(orden)}
+        );
+
+        if (filas == 0) {
+            insertarSeccion(db, camino, tema, titulo, orden, duracion, puntos,
+                    contenidoGuia(camino + "_" + orden));
+        }
+    }
+
+    private void insertarSeccion(SQLiteDatabase db,
+                                 String camino,
+                                 String tema,
+                                 String titulo,
+                                 int orden,
+                                 int duracion,
+                                 int puntos,
+                                 String contenido) {
+        android.content.ContentValues values = new android.content.ContentValues();
+        values.put("camino", camino);
+        values.put("tema", tema);
+        values.put("titulo", titulo);
+        values.put("contenido", contenido);
+        values.put("orden", orden);
+        values.put("duracion_estimada_min", duracion);
+        values.put("puntos_recompensa", puntos);
+        db.insertOrThrow(T_SECCIONES, null, values);
+    }
+
+    private String contenidoGuia(String clave) {
+        switch (clave) {
+            case "sintomas_1":
+                return "<h2>Psicopatología de la conciencia</h2><p>La conciencia permite mantener la vigilia, integrar la experiencia y responder al entorno. En semiología se distinguen alteraciones cuantitativas, relacionadas con el grado de alerta, y cualitativas, que modifican la organización global de la experiencia.</p><h3>Alteraciones cuantitativas</h3><p>La hipervigilancia implica un aumento del estado de alerta. En sentido contrario pueden aparecer obnubilación, somnolencia o sopor y estupor, con disminución progresiva de la capacidad para responder a estímulos.</p><h3>Alteraciones cualitativas</h3><p>Los estados confusionales afectan atención, comprensión, memoria y orientación. El delirium es un cuadro agudo de origen orgánico con alteración global de conciencia y cognición. El estado crepuscular presenta un estrechamiento transitorio del campo de conciencia.</p><h3>Para recordar</h3><p>La exploración incluye nivel de vigilia, respuesta a estímulos, atención, orientación y coherencia de la conducta.</p>";
+            case "sintomas_2":
+                return "<h2>Psicopatología de la orientación</h2><p>La orientación es la capacidad de situarse respecto de uno mismo y del ambiente. Depende de conciencia, atención y memoria.</p><h3>Autopsíquica</h3><p>Corresponde al reconocimiento de la propia identidad y datos personales básicos.</p><h3>Alopsíquica</h3><p>Incluye orientación temporal, espacial y respecto de las personas y circunstancias del entorno.</p><h3>Desorientación</h3><p>Puede ser parcial, global o fluctuante. En algunos cuadros se conserva la identidad personal mientras se pierde la ubicación respecto al ambiente.</p><h3>Exploración</h3><p>Debe valorarse junto con conciencia, memoria reciente, atención y comprensión.</p>";
+            case "sintomas_3":
+                return "<h2>Psicopatología de la atención y concentración</h2><p>La atención selecciona información relevante y la concentración permite mantener el foco.</p><h3>Distraibilidad</h3><p>Existe dificultad para sostener la atención en un estímulo, tema o tarea; el pensamiento puede desviarse con facilidad.</p><h3>Hipervigilancia</h3><p>La persona permanece pendiente de numerosas señales externas o internas, pero puede tener dificultad para concentrarse de forma estable en una sola.</p><h3>Fatigabilidad y apatía</h3><p>La fatigabilidad produce descenso del rendimiento y más errores al mantener el esfuerzo atencional. La apatía atencional implica escaso interés por estímulos que normalmente captarían la atención.</p><h3>Perplejidad</h3><p>La persona atiende pero tiene dificultad para sintetizar y comprender el contenido de lo observado.</p>";
+            case "sintomas_4":
+                return "<h2>Psicopatología de la memoria</h2><p>La memoria permite almacenar, conservar y recuperar información.</p><h3>Hipomnesia</h3><p>Es una disminución del rendimiento mnésico. Puede afectar especialmente hechos recientes o la evocación de experiencias previas.</p><h3>Amnesia</h3><p>Es una pérdida importante de recuerdos. La amnesia de fijación dificulta consolidar información nueva; la de conservación afecta recuerdos almacenados; y la de evocación dificulta recuperar información disponible.</p><h3>Extensión</h3><p>La pérdida puede ser global, limitarse a un período concreto o afectar contenidos específicos.</p><h3>Evaluación</h3><p>Se comparan memoria inmediata, reciente y remota considerando también atención, conciencia y estado emocional.</p>";
+            case "sintomas_5":
+                return "<h2>Percepción, imaginación y sensaciones</h2><p>La percepción organiza información sensorial y le atribuye significado. Sus alteraciones pueden modificar la intensidad, cualidad o interpretación de la experiencia.</p><h3>Distorsiones</h3><p>La sensibilidad puede aumentar o disminuir y también pueden cambiar cualidades de los estímulos percibidos.</p><h3>Ilusiones y alucinaciones</h3><p>En la ilusión existe un estímulo real interpretado incorrectamente. En la alucinación aparece una experiencia perceptiva sin el estímulo externo correspondiente.</p><h3>Desrealización</h3><p>El entorno se siente extraño o poco real aunque la persona pueda reconocer que sigue perteneciendo a la realidad.</p><h3>Despersonalización</h3><p>La extrañeza se centra en la propia identidad, pensamientos, sentimientos o acciones.</p>";
+            case "sintomas_6":
+                return "<h2>Psicopatología del pensamiento</h2><p>El pensamiento permite elaborar ideas, planificar, evaluar y relacionar información. Se estudian su origen, velocidad, continuidad, estructura y contenido.</p><h3>Origen</h3><p>El material describe el pensamiento autista como un pensamiento fuertemente centrado en vivencias internas y apartado de la realidad compartida.</p><h3>Curso</h3><p>La bradipsiquia corresponde a una producción de ideas enlentecida. También puede existir aceleración, bloqueos, perseveración o cambios frecuentes del hilo asociativo.</p><h3>Organización</h3><p>Se valora si las ideas mantienen relaciones comprensibles, si el discurso llega al objetivo y si conserva continuidad.</p><h3>Contenido</h3><p>Se exploran los temas predominantes, el grado de convicción y la repercusión de las ideas sobre la conducta.</p>";
+            case "sintomas_7":
+                return "<h2>Psicopatología del lenguaje y habla</h2><p>Las alteraciones pueden afectar comprensión, producción, lectura, escritura, articulación o prosodia.</p><h3>Afasia</h3><p>Es una alteración adquirida del lenguaje asociada a lesión cerebral y puede comprometer producción o comprensión oral y escrita.</p><h3>Otros fenómenos</h3><p>El agramatismo dificulta organizar frases; la anomia dificulta encontrar palabras; la alexia afecta la lectura adquirida y la agrafia la escritura adquirida.</p><h3>Habla</h3><p>La disartria afecta la ejecución motora del habla; la dislalia compromete la articulación de sonidos; la aprosodia afecta entonación y musicalidad.</p><h3>Exploración</h3><p>Se observan lenguaje espontáneo, denominación, comprensión, repetición, lectura, escritura, ritmo y articulación.</p>";
+            case "sintomas_8":
+                return "<h2>Psicopatología de la afectividad</h2><p>La afectividad incluye emociones, sentimientos, impulsos motivacionales y estados de ánimo.</p><h3>Tono afectivo</h3><p>La eutimia corresponde a un estado equilibrado. La hipertimia representa aumento del tono afectivo y la hipotimia una disminución.</p><h3>Calidad y estabilidad</h3><p>También se estudian labilidad, ambivalencia, discordancia con el contexto y reducción de la respuesta emocional.</p><h3>Observación</h3><p>Se consideran expresión facial, tono de voz, reactividad, duración del estado emocional y congruencia con el tema tratado.</p><h3>Clave</h3><p>Una emoción aislada no define una alteración; importan intensidad, persistencia, contexto y repercusión funcional.</p>";
+            case "sintomas_9":
+                return "<h2>Psicopatología de la psicomotricidad</h2><p>La psicomotricidad expresa la relación entre actividad mental y movimiento.</p><h3>Cantidad de actividad</h3><p>Puede existir reducción o enlentecimiento del movimiento, o aumento de la actividad hasta grados de inquietud marcada.</p><h3>Estereotipias</h3><p>Son repeticiones persistentes de movimientos o gestos organizados que no resultan necesarios para lograr un objetivo.</p><h3>Automatismos</h3><p>Son secuencias motoras realizadas de manera automática y con escaso control consciente, que pueden aparecer en estados alterados de conciencia.</p><h3>Exploración</h3><p>Se observan postura, gestos, velocidad, finalidad de los movimientos, respuesta a instrucciones y relación con el estado mental.</p>";
+            case "sintomas_10":
+                return "<h2>Alteraciones de la voluntad y conducta</h2><p>La función conativa permite iniciar, mantener y dirigir acciones hacia objetivos.</p><h3>Abulia e hipobulia</h3><p>La abulia implica una reducción muy marcada de iniciativa y voluntad; la hipobulia representa una disminución menos intensa.</p><h3>Hiperbulia</h3><p>Supone un incremento de la actividad volitiva. Mucha actividad no significa necesariamente que la conducta sea organizada o productiva.</p><h3>Conducta</h3><p>Se valora finalidad, organización, control, adaptación al medio, autocuidado, hábitos e interacción social.</p><h3>Exploración</h3><p>Conviene comparar la capacidad para iniciar y terminar actividades con el funcionamiento habitual de la persona.</p>";
+            case "sintomas_11":
+                return "<h2>Funciones fisiológicas</h2><p>La evaluación psicopatológica considera funciones biológicas estrechamente relacionadas con el estado mental, especialmente sueño, apetito e ingesta y sexualidad.</p><h3>Sueño</h3><p>Se exploran horario, continuidad, descanso percibido, despertares y fenómenos que aparecen durante el sueño.</p><h3>Apetito e ingesta</h3><p>Se valoran cambios persistentes en apetito, cantidad o patrón de alimentación y su relación con el bienestar general.</p><h3>Sexualidad</h3><p>Se estudian cambios relevantes en interés y funcionamiento desde una perspectiva clínica, privada y respetuosa.</p><h3>Integración</h3><p>Los cambios deben interpretarse junto con causas médicas, estado afectivo, medicamentos y funcionamiento general.</p>";
+            case "sintomas_12":
+                return "<h2>Psicopatología del sueño</h2><p>La semiología del sueño incluye dificultades para iniciar o mantener el sueño, exceso de somnolencia y fenómenos conductuales durante determinadas fases.</p><h3>Insomnio e hipersomnia</h3><p>El insomnio puede manifestarse al conciliar, mantener o finalizar el sueño. La hipersomnia implica sueño o somnolencia excesivos con repercusión diurna.</p><h3>Parasomnias</h3><p>Incluyen fenómenos como pesadillas, terrores nocturnos y sonambulismo, diferenciables por la fase del sueño, el recuerdo posterior y la conducta observada.</p><h3>Evaluación</h3><p>Se registran horario, duración, frecuencia, factores asociados y consecuencias durante el día.</p>";
+            case "sintomas_13":
+                return "<h2>Alteraciones del apetito y la ingesta</h2><p>Se estudian cambios en el deseo de comer, la cantidad ingerida y el papel psicológico de la alimentación. La valoración clínica no debe basarse únicamente en la apariencia corporal.</p><h3>Disminución del apetito</h3><p>Puede existir una reducción parcial o marcada del deseo de comer y debe diferenciarse de causas médicas, emocionales y otros factores.</p><h3>Aumento o pérdida de control</h3><p>También pueden aparecer aumentos persistentes del apetito o episodios de ingesta percibidos como difíciles de controlar.</p><h3>Evaluación</h3><p>Se exploran regularidad, cambios recientes, emociones asociadas, señales físicas y repercusión en la salud. Los problemas alimentarios requieren valoración profesional.</p>";
+            case "sintomas_14":
+                return "<h2>Psicopatología de la sexualidad</h2><p>En semiología clínica la sexualidad se aborda como una función humana relacionada con bienestar, interés, respuesta y vínculos.</p><h3>Cambios del interés</h3><p>El interés puede aumentar o disminuir por estados emocionales, condiciones médicas, medicamentos u otros factores.</p><h3>Evaluación</h3><p>La entrevista se centra en bienestar, consentimiento, seguridad, funcionamiento y cambios significativos, utilizando lenguaje profesional y respetuoso.</p><h3>Integración</h3><p>Los cambios se interpretan junto con afectividad, voluntad, sueño, salud física y otras funciones fisiológicas.</p>";
+            case "sintomas_15":
+                return "<h2>Alteraciones de las funciones de relación</h2><p>Describen cómo la persona se vincula consigo misma, con otras personas y con sus intereses y actividades.</p><h3>Consigo mismo</h3><p>Se exploran autoconcepto, valoración de cualidades y dificultades y percepción de cómo la valoran los demás.</p><h3>Con otras personas</h3><p>Se estudian patrones de comunicación, confianza, cercanía, conflictos y cambios en las relaciones.</p><h3>Con las cosas e intereses</h3><p>Se investigan intereses, ideales, motivaciones, actividades significativas y uso del tiempo libre.</p><h3>Integración</h3><p>Estas funciones se interpretan junto con personalidad previa, contexto social, afectividad, pensamiento y conducta.</p>";
+            case "sindromes_1":
+                return "<h2>Síndromes cerebrales orgánicos agudos</h2><p>Son cuadros generalmente bruscos en los que se alteran funciones de síntesis y cognitivas. La disminución o fluctuación del nivel de vigilia es un elemento central.</p><h3>Obnubilación</h3><p>Predominan vigilia disminuida, atención distraíble, memoria reducida, orientación limitada y pensamiento lento.</p><h3>Delirium</h3><p>Combina alteración de vigilia, atención inestable, memoria y comprensión disminuidas, orientación fluctuante y posibles cambios sensoperceptivos y conductuales.</p><h3>Oniroide</h3><p>Existe disminución de la vigilia y marcada absorción en vivencias internas; la orientación respecto del ambiente puede afectarse más que la identidad personal.</p><h3>Otros patrones</h3><p>El estado crepuscular estrecha intensamente la conciencia; la confusión mental compromete profundamente atención, memoria, comprensión y orientación.</p>";
+            case "sindromes_2":
+                return "<h2>Síndromes cerebrales orgánicos crónicos</h2><p>En contraste con los agudos, la vigilia suele estar relativamente conservada y destacan alteraciones persistentes de capacidades intelectuales, memoria, carácter y organización de la personalidad.</p><h3>Oligofrénico</h3><p>Se describe con dificultades atencionales, capacidades intelectuales muy disminuidas y pensamiento predominantemente concreto.</p><h3>Demencial</h3><p>Implica deterioro adquirido y persistente de funciones cognitivas con repercusión sobre el funcionamiento cotidiano.</p><h3>Amnésico-confabulatorio</h3><p>Predomina la alteración de memoria reciente y pueden aparecer confabulaciones, con conservación relativa de algunos aspectos de orientación.</p><h3>Apatoabúlico</h3><p>Destacan indiferencia, reducción de iniciativa, menor actividad y deterioro de hábitos.</p>";
+            case "sindromes_3":
+                return "<h2>Síndrome esquizofrénico</h2><p>El documento lo caracteriza por una desorganización importante de las funciones psíquicas y por una pérdida de integración entre pensamiento, afectividad y conducta.</p><h3>Síntesis</h3><p>Vigilia, orientación y algunos aspectos de memoria pueden mantenerse relativamente conservados.</p><h3>Cognición</h3><p>Pueden aparecer experiencias perceptivas anormales, pensamiento centrado en vivencias internas, bloqueos y desorganización asociativa.</p><h3>Afectividad y conducta</h3><p>Puede existir discordancia o ambivalencia afectiva, reducción de la voluntad, aislamiento y conductas difíciles de comprender desde el contexto inmediato.</p><h3>Clave</h3><p>El patrón se reconoce integrando múltiples dominios; ningún síntoma aislado define todo el síndrome.</p>";
+            case "sindromes_4":
+                return "<h2>Síndrome delirante</h2><p>Su rasgo central es la presencia de ideas delirantes con afectación de las funciones de relación y conservación relativa de varias funciones de síntesis.</p><h3>Paranoico</h3><p>La comunicación y orientación suelen conservarse y el pensamiento puede organizarse alrededor de una idea delirante con argumentación aparentemente lógica.</p><h3>Paranoide</h3><p>Puede existir recelo, hipervigilancia, alteraciones perceptivas y afectación más global de las relaciones.</p><h3>Automatismo psíquico</h3><p>Se describen experiencias de extrañeza respecto al pensamiento, al cuerpo o a la realidad y creencias de influencia sobre la propia actividad mental.</p><h3>Exploración</h3><p>Se consideran convicción, estructura, percepción, orientación, afectividad, conducta y repercusión interpersonal.</p>";
+            case "sindromes_5":
+                return "<h2>Síndromes afectivos</h2><p>Predominan alteraciones de la afectividad y cambios globales de actividad y necesidades, con sensopercepción relativamente conservada.</p><h3>Maníaco</h3><p>Puede existir aumento del tono afectivo, labilidad, mayor actividad, pensamiento acelerado y fuga de ideas.</p><h3>Depresivo</h3><p>Predominan disminución del tono afectivo, pensamiento más lento, menor iniciativa y actividad, retraimiento y reducción de intereses. También pueden cambiar sueño, apetito y hábitos. En cuadros graves pueden aparecer síntomas de alto riesgo que requieren evaluación profesional inmediata.</p><h3>Afectivo ansioso</h3><p>Se caracteriza por ansiedad, irritabilidad, vigilancia aumentada, preocupación anticipatoria, activación física y posibles cambios del sueño.</p><h3>Comparación</h3><p>Se integran ánimo, velocidad del pensamiento, nivel de actividad, necesidades fisiológicas y relación con el entorno.</p>";
+            case "sindromes_6":
+                return "<h2>Síndromes discinéticos</h2><p>Se reconocen principalmente por alteraciones marcadas de la actividad psicomotora.</p><h3>Estuporoso</h3><p>Predominan inmovilidad, reducción extrema de actividad y disminución o ausencia de respuesta verbal. El contexto clínico permite diferenciar variantes.</p><h3>Hipercinético</h3><p>Existe aumento importante de la actividad motora, con inquietud que puede ser intensa y afectar la adaptación al medio.</p><h3>Modalidades</h3><p>El material relaciona diferentes formas de aumento psicomotor con cuadros catatónicos, afectivos, disociativos u orgánicos.</p><h3>Exploración</h3><p>Se observan cantidad y finalidad del movimiento, postura, respuesta a instrucciones, lenguaje y relación con conciencia, pensamiento y afectividad.</p>";
+            case "sindromes_7":
+                return "<h2>Síndrome hipocondríaco</h2><p>Se caracteriza por preocupación excesiva y persistente por la salud y autoobservación continua de sensaciones y funciones corporales.</p><h3>Atención</h3><p>La vigilia y orientación suelen conservarse, mientras la atención se dirige intensamente hacia el propio cuerpo.</p><h3>Afectividad</h3><p>La ansiedad es relevante y la preocupación puede dominar la conversación y la interpretación de sensaciones corporales.</p><h3>Conducta</h3><p>Pueden aparecer consultas reiteradas y vigilancia frecuente de señales físicas.</p><h3>Clave</h3><p>El patrón implica intensidad, persistencia, focalización corporal y repercusión significativa, y debe diferenciarse de condiciones médicas reales.</p>";
+            default:
+                return "<h2>Contenido no disponible</h2><p>Esta sección todavía no tiene contenido.</p>";
+        }
     }
 }

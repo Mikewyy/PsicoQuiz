@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Cola -->
+    <path android:fillColor="#F59E0B"
+        android:pathData="M86,82C111,70 119,88 108,103C102,111 91,111 84,104C95,104 103,98 102,91C101,85 94,86 87,91Z"/>
+
+    <path android:fillColor="#FFF7ED"
+        android:pathData="M101,91C108,94 109,100 104,105C100,109 94,109 89,106C97,104 101,100 101,91Z"/>
+
+    <!-- Cuerpo -->
+    <path android:fillColor="#F59E0B"
+        android:pathData="M34,78C38,67 49,62 64,62C79,62 90,67 94,78L98,113H30Z"/>
+
+    <!-- Orejas -->
+    <path android:fillColor="#D97706"
+        android:pathData="M32,45L38,13L57,36Z"/>
+
+    <path android:fillColor="#D97706"
+        android:pathData="M71,36L90,13L96,45Z"/>
+
+    <path android:fillColor="#5B342A"
+        android:pathData="M39,33L41,21L50,35Z"/>
+
+    <path android:fillColor="#5B342A"
+        android:pathData="M78,35L87,21L89,34Z"/>
+
+    <!-- Cabeza -->
+    <path android:fillColor="#FBBF24"
+        android:pathData="M32,48C32,31 45,24 64,24C83,24 96,31 96,48C96,68 82,80 64,80C46,80 32,68 32,48Z"/>
+
+    <!-- Cara blanca -->
+    <path android:fillColor="#FFF7ED"
+        android:pathData="M39,49C46,51 55,54 64,65C73,54 82,51 89,49C87,68 77,76 64,76C51,76 41,68 39,49Z"/>
+
+    <!-- Ojos -->
+    <path android:fillColor="#422006"
+        android:pathData="M45,47Q51,42 57,47Q51,51 45,47Z"/>
+
+    <path android:fillColor="#422006"
+        android:pathData="M71,47Q77,42 83,47Q77,51 71,47Z"/>
+
+    <!-- Nariz -->
+    <path android:fillColor="#3F2A25"
+        android:pathData="M59,61Q64,57 69,61L64,67Z"/>
+
+    <!-- Medalla -->
+    <path android:fillColor="#6C5CE7"
+        android:pathData="M58,82L70,82L72,92L64,98L56,92Z"/>
+
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M62,86L66,86L66,92L62,92Z"/>
+
+</vector>

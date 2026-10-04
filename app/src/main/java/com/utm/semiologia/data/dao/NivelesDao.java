@@ -266,48 +266,279 @@ public class NivelesDao {
 
     /** El camino de una categoría, con el estado del usuario y el bloqueo. */
     public List<ProgresoNivel> listarProgreso(long usuarioId, String categoria) {
-        SQLiteDatabase db = helper.getReadableDatabase();
-        String sql =
-                "SELECT n.id AS nivel_id, n.numero, n.categoria, n.orden," +
-                "       n.nombre, n.emoji, n.tema, n.descripcion, n.total_preguntas," +
-                "       COALESCE(p.aprobado, 0)         AS aprobado," +
-                "       COALESCE(p.mejor_porcentaje, 0) AS mejor_porcentaje," +
-                "       COALESCE(p.mejor_puntaje, 0)    AS mejor_puntaje," +
-                "       COALESCE(p.intentos, 0)         AS intentos," +
-                "       p.completado_en                 AS completado_en " +
-                "FROM " + DatabaseHelper.T_NIVELES + " n " +
-                "LEFT JOIN " + DatabaseHelper.T_PROGRESO_NIVELES + " p " +
-                "  ON p.nivel_id = n.id AND p.usuario_id = ? " +
-                "WHERE n.categoria = ? " +
-                "ORDER BY n.orden ASC";
 
-        List<ProgresoNivel> lista = new ArrayList<>();
-        try (Cursor c = db.rawQuery(sql, new String[]{
-                String.valueOf(usuarioId), categoria})) {
-            boolean anteriorAprobado = true; // el tramo 1 siempre esta abierto
-            while (c.moveToNext()) {
-                ProgresoNivel pn = new ProgresoNivel();
-                pn.setNivelId(c.getLong(c.getColumnIndexOrThrow("nivel_id")));
-                pn.setNumero(c.getInt(c.getColumnIndexOrThrow("numero")));
-                pn.setCategoria(c.getString(c.getColumnIndexOrThrow("categoria")));
-                pn.setOrden(c.getInt(c.getColumnIndexOrThrow("orden")));
-                pn.setNombre(c.getString(c.getColumnIndexOrThrow("nombre")));
-                pn.setEmoji(c.getString(c.getColumnIndexOrThrow("emoji")));
-                pn.setTema(c.getString(c.getColumnIndexOrThrow("tema")));
-                pn.setDescripcion(c.getString(c.getColumnIndexOrThrow("descripcion")));
-                pn.setTotalPreguntas(c.getInt(c.getColumnIndexOrThrow("total_preguntas")));
-                pn.setAprobado(c.getInt(c.getColumnIndexOrThrow("aprobado")) == 1);
-                pn.setMejorPorcentaje(c.getInt(c.getColumnIndexOrThrow("mejor_porcentaje")));
-                pn.setMejorPuntaje(c.getInt(c.getColumnIndexOrThrow("mejor_puntaje")));
-                pn.setIntentos(c.getInt(c.getColumnIndexOrThrow("intentos")));
-                int ci = c.getColumnIndexOrThrow("completado_en");
-                pn.setCompletadoEn(c.isNull(ci) ? null : c.getLong(ci));
+        // Usamos writable porque, si faltan los síndromes,
+        // los vamos a sembrar automáticamente.
+        SQLiteDatabase db = helper.getWritableDatabase();
 
-                pn.setBloqueado(!anteriorAprobado);
-                anteriorAprobado = pn.isAprobado();
-                lista.add(pn);
+
+        // =========================================================
+        // ASEGURAR BANCO DE SÍNDROMES
+        // =========================================================
+
+        if (Nivel.CAT_SINDROMES.equals(categoria)) {
+
+            int cantidadSindromes =
+                    contarFilasCategoria(
+                            db,
+                            Nivel.CAT_SINDROMES
+                    );
+
+
+            android.util.Log.d(
+                    "NivelesDao",
+                    "Síndromes antes de comprobar: " + cantidadSindromes
+            );
+
+
+            // Si la tabla no tiene niveles de síndromes,
+            // intentar cargarlos directamente desde assets/sindromes.json.
+            if (cantidadSindromes == 0) {
+
+                android.util.Log.d(
+                        "NivelesDao",
+                        "No hay síndromes. Cargando assets/sindromes.json..."
+                );
+
+
+                sembrarSindromes(
+                        helper.getAppContext(),
+                        db
+                );
+
+
+                cantidadSindromes =
+                        contarFilasCategoria(
+                                db,
+                                Nivel.CAT_SINDROMES
+                        );
+
+
+                android.util.Log.d(
+                        "NivelesDao",
+                        "Síndromes después de sembrar: " + cantidadSindromes
+                );
             }
         }
+
+
+        // =========================================================
+        // CONSULTAR CAMINO
+        // =========================================================
+
+        String sql =
+                "SELECT n.id AS nivel_id, " +
+                        "n.numero, " +
+                        "n.categoria, " +
+                        "n.orden, " +
+                        "n.nombre, " +
+                        "n.emoji, " +
+                        "n.tema, " +
+                        "n.descripcion, " +
+                        "n.total_preguntas, " +
+
+                        "COALESCE(p.aprobado, 0) AS aprobado, " +
+                        "COALESCE(p.mejor_porcentaje, 0) AS mejor_porcentaje, " +
+                        "COALESCE(p.mejor_puntaje, 0) AS mejor_puntaje, " +
+                        "COALESCE(p.intentos, 0) AS intentos, " +
+                        "p.completado_en AS completado_en " +
+
+                        "FROM " + DatabaseHelper.T_NIVELES + " n " +
+
+                        "LEFT JOIN " +
+                        DatabaseHelper.T_PROGRESO_NIVELES + " p " +
+
+                        "ON p.nivel_id = n.id " +
+                        "AND p.usuario_id = ? " +
+
+                        "WHERE n.categoria = ? " +
+
+                        "ORDER BY n.orden ASC";
+
+
+        List<ProgresoNivel> lista =
+                new ArrayList<>();
+
+
+        try (
+                Cursor c =
+                        db.rawQuery(
+                                sql,
+                                new String[]{
+                                        String.valueOf(usuarioId),
+                                        categoria
+                                }
+                        )
+        ) {
+
+            boolean anteriorAprobado = true;
+
+
+            while (c.moveToNext()) {
+
+                ProgresoNivel pn =
+                        new ProgresoNivel();
+
+
+                pn.setNivelId(
+                        c.getLong(
+                                c.getColumnIndexOrThrow(
+                                        "nivel_id"
+                                )
+                        )
+                );
+
+
+                pn.setNumero(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "numero"
+                                )
+                        )
+                );
+
+
+                pn.setCategoria(
+                        c.getString(
+                                c.getColumnIndexOrThrow(
+                                        "categoria"
+                                )
+                        )
+                );
+
+
+                pn.setOrden(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "orden"
+                                )
+                        )
+                );
+
+
+                pn.setNombre(
+                        c.getString(
+                                c.getColumnIndexOrThrow(
+                                        "nombre"
+                                )
+                        )
+                );
+
+
+                pn.setEmoji(
+                        c.getString(
+                                c.getColumnIndexOrThrow(
+                                        "emoji"
+                                )
+                        )
+                );
+
+
+                pn.setTema(
+                        c.getString(
+                                c.getColumnIndexOrThrow(
+                                        "tema"
+                                )
+                        )
+                );
+
+
+                pn.setDescripcion(
+                        c.getString(
+                                c.getColumnIndexOrThrow(
+                                        "descripcion"
+                                )
+                        )
+                );
+
+
+                pn.setTotalPreguntas(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "total_preguntas"
+                                )
+                        )
+                );
+
+
+                pn.setAprobado(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "aprobado"
+                                )
+                        ) == 1
+                );
+
+
+                pn.setMejorPorcentaje(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "mejor_porcentaje"
+                                )
+                        )
+                );
+
+
+                pn.setMejorPuntaje(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "mejor_puntaje"
+                                )
+                        )
+                );
+
+
+                pn.setIntentos(
+                        c.getInt(
+                                c.getColumnIndexOrThrow(
+                                        "intentos"
+                                )
+                        )
+                );
+
+
+                int completadoIndex =
+                        c.getColumnIndexOrThrow(
+                                "completado_en"
+                        );
+
+
+                if (!c.isNull(completadoIndex)) {
+
+                    pn.setCompletadoEn(
+                            c.getLong(
+                                    completadoIndex
+                            )
+                    );
+                }
+
+
+                // Primer nivel siempre abierto.
+                // Los siguientes dependen del nivel anterior.
+                pn.setBloqueado(
+                        !anteriorAprobado
+                );
+
+
+                anteriorAprobado =
+                        pn.isAprobado();
+
+
+                lista.add(
+                        pn
+                );
+            }
+        }
+
+
+        android.util.Log.d(
+                "NivelesDao",
+                "listarProgreso(" + categoria + ") = "
+                        + lista.size()
+                        + " niveles"
+        );
+
+
         return lista;
     }
 

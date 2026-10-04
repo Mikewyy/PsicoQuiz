@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F3FF"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <!-- =====================================================
+             CABECERA
+             ===================================================== -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#6C5CE7"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="28dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/btnVolver"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_boton_volver_guia"
+                    android:gravity="center"
+                    android:text="‹"
+                    android:textColor="#FFFFFF"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Multijugador"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Estudia junto a tus compañeros"
+                        android:textColor="#E5E0FF"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:gravity="center"
+                    android:text="👥"
+                    android:textSize="27sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <!-- =====================================================
+             CONTENIDO
+             ===================================================== -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="40dp">
+
+
+            <!-- NOMBRE -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu nombre"
+                android:textColor="#29263A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/etNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_etiqueta_suave"
+                android:hint="Ej. Jimmy"
+                android:inputType="textPersonName"
+                android:maxLength="30"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:singleLine="true"
+                android:textColor="#29263A"
+                android:textColorHint="#918D9F"
+                android:textSize="15sp" />
+
+
+            <!-- =================================================
+                 CREAR SALA
+                 ================================================= -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#E3DFFF"
+                app:strokeWidth="1dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_numero_seccion"
+                            android:gravity="center"
+                            android:text="＋"
+                            android:textColor="#6C5CE7"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Crear sala"
+                                android:textColor="#29263A"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Crea una sala y comparte el código con tus compañeros."
+                                android:textColor="#777386"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:id="@+id/etNombreSala"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/bg_etiqueta_suave"
+                        android:hint="Nombre de la sala"
+                        android:inputType="textCapSentences"
+                        android:maxLength="40"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:singleLine="true"
+                        android:textColor="#29263A"
+                        android:textColorHint="#918D9F"
+                        android:textSize="15sp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCrearSala"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Crear sala"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#6C5CE7"
+                        app:cornerRadius="16dp" />
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- =================================================
+                 SEPARADOR
+                 ================================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:gravity="center"
+                android:text="o"
+                android:textColor="#8A8698"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+            <!-- =================================================
+                 UNIRSE
+                 ================================================= -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#E3DFFF"
+                app:strokeWidth="1dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_numero_seccion"
+                            android:gravity="center"
+                            android:text="#"
+                            android:textColor="#6C5CE7"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Unirse a una sala"
+                                android:textColor="#29263A"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Ingresa el código de 6 caracteres."
+                                android:textColor="#777386"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:id="@+id/etCodigoSala"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/bg_etiqueta_suave"
+                        android:gravity="center"
+                        android:hint="ABC123"
+                        android:inputType="textCapCharacters"
+                        android:letterSpacing="0.16"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:textColor="#29263A"
+                        android:textColorHint="#AAA6B7"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnUnirseSala"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Unirme a la sala"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#5145CD"
+                        app:cornerRadius="16dp" />
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- =================================================
+                 CARGANDO
+                 ================================================= -->
+
+            <ProgressBar
+                android:id="@+id/progressFirebase"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:visibility="gone" />
+
+
+            <!-- =================================================
+                 RESULTADO
+                 ================================================= -->
+
+            <LinearLayout
+                android:id="@+id/panelResultado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_etiqueta_suave"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/tvEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sala creada correctamente"
+                    android:textColor="#423A78"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Código de sala"
+                    android:textColor="#777386"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tvCodigoResultado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:letterSpacing="0.18"
+                    android:text="ABC123"
+                    android:textColor="#6C5CE7"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvNombreSalaResultado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Comparte este código con tus compañeros."
+                    android:textColor="#777386"
+                    android:textSize="13sp" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCopiarCodigo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Copiar código"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:backgroundTint="#6C5CE7"
+                    app:cornerRadius="15dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

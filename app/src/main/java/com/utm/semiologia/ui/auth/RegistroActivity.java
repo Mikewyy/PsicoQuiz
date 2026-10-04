@@ -24,197 +24,707 @@ import com.utm.semiologia.util.HashUtil;
 
 /**
  * Registro de un estudiante nuevo.
- * Otorga automáticamente una mascota inicial y suministros de bienvenida.
+ *
+ * Crea:
+ * - Usuario
+ * - Mascota inicial
+ * - 3 alimentos
+ * - Accesorio inicial
+ *
+ * No permite entrar al Dashboard si la mascota
+ * no pudo crearse correctamente.
  */
 public class RegistroActivity extends AppCompatActivity {
 
-    private static final long ALIMENTO_INICIAL_ID = 1L; // Galleta
+    // =========================================================
+    // CONFIGURACIÓN INICIAL
+    // =========================================================
+
+    private static final long ALIMENTO_INICIAL_ID = 1L;
     private static final int CANTIDAD_INICIAL_ALIMENTO = 3;
-    private static final long ACCESORIO_INICIAL_ID = 1L; // Collar básico
+
+    private static final long ACCESORIO_INICIAL_ID = 1L;
+
     private static final int MIN_PASSWORD_LENGTH = 6;
 
-    private EditText etNombre, etEmail, etPassword;
+
+    // =========================================================
+    // VISTAS
+    // =========================================================
+
+    private EditText etNombre;
+    private EditText etEmail;
+    private EditText etPassword;
+
     private Button btnCrear;
+
     private TextView linkLogin;
+
+
+    // =========================================================
+    // CREACIÓN
+    // =========================================================
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
 
-        // Inicializar vistas mediante findViewById
-        etNombre   = findViewById(R.id.etNombre);
-        etEmail    = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
-        btnCrear   = findViewById(R.id.btnCrear);
-        linkLogin  = findViewById(R.id.linkLogin);
+        super.onCreate(savedInstanceState);
+
+        setContentView(
+                R.layout.activity_registro
+        );
+
+
+        enlazarVistas();
 
         setupListeners();
     }
 
-    private void setupListeners() {
-        btnCrear.setOnClickListener(v -> intentarRegistro());
-        // Al presionar "¿Ya tienes cuenta? Ingresa" pide confirmación con Snackbar
-        linkLogin.setOnClickListener(v -> confirmarSalida());
+
+    // =========================================================
+    // ENLAZAR VISTAS
+    // =========================================================
+
+    private void enlazarVistas() {
+
+        etNombre =
+                findViewById(
+                        R.id.etNombre
+                );
+
+        etEmail =
+                findViewById(
+                        R.id.etEmail
+                );
+
+        etPassword =
+                findViewById(
+                        R.id.etPassword
+                );
+
+        btnCrear =
+                findViewById(
+                        R.id.btnCrear
+                );
+
+        linkLogin =
+                findViewById(
+                        R.id.linkLogin
+                );
     }
 
-    /**
-     * Intercepta el botón físico/gesto "Atrás" del dispositivo
-     */
+
+    // =========================================================
+    // LISTENERS
+    // =========================================================
+
+    private void setupListeners() {
+
+        btnCrear.setOnClickListener(
+                v -> intentarRegistro()
+        );
+
+
+        linkLogin.setOnClickListener(
+                v -> confirmarSalida()
+        );
+    }
+
+
+    // =========================================================
+    // BOTÓN ATRÁS
+    // =========================================================
+
     @Override
     public void onBackPressed() {
+
         confirmarSalida();
     }
 
-    /**
-     * Muestra una Snackbar flotante para confirmar si desea salir del registro
-     */
+
+    // =========================================================
+    // CONFIRMAR SALIDA
+    // =========================================================
+
     private void confirmarSalida() {
-        View vistaBase = obtenerVistaAnchor();
 
-        Snackbar snackbar = Snackbar.make(vistaBase, "¿Deseas salir del registro?", Snackbar.LENGTH_LONG)
-                .setAction("SÍ, SALIR", v -> finish())
-                .setActionTextColor(Color.parseColor("#FBBF24")); // Amarillo llamativo
+        View vistaBase =
+                obtenerVistaAnchor();
 
-        View snackView = snackbar.getView();
-        snackView.setBackgroundColor(Color.parseColor("#1E293B")); // Gris oscuro/Azul noche
 
-        TextView textView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+        Snackbar snackbar =
+                Snackbar.make(
+                                vistaBase,
+                                "¿Deseas salir del registro?",
+                                Snackbar.LENGTH_LONG
+                        )
+                        .setAction(
+                                "SÍ, SALIR",
+                                v -> finish()
+                        )
+                        .setActionTextColor(
+                                Color.parseColor("#FBBF24")
+                        );
+
+
+        View snackView =
+                snackbar.getView();
+
+
+        snackView.setBackgroundColor(
+                Color.parseColor("#1E293B")
+        );
+
+
+        TextView textView =
+                snackView.findViewById(
+                        com.google.android.material.R.id.snackbar_text
+                );
+
+
         if (textView != null) {
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(14);
+
+            textView.setTextColor(
+                    Color.WHITE
+            );
+
+            textView.setTextSize(
+                    14
+            );
         }
+
 
         snackbar.show();
     }
 
+
+    // =========================================================
+    // INTENTAR REGISTRO
+    // =========================================================
+
     private void intentarRegistro() {
-        String nombre   = etNombre.getText().toString().trim();
-        String email    = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString();
 
-        if (!validarEntradas(nombre, email, password)) {
+        String nombre =
+                etNombre
+                        .getText()
+                        .toString()
+                        .trim();
+
+
+        String email =
+                etEmail
+                        .getText()
+                        .toString()
+                        .trim();
+
+
+        String password =
+                etPassword
+                        .getText()
+                        .toString();
+
+
+        // -----------------------------------------------------
+        // VALIDAR
+        // -----------------------------------------------------
+
+        if (!validarEntradas(
+                nombre,
+                email,
+                password
+        )) {
+
             return;
         }
 
-        Repositorio repo = SemiologiaApp.getRepositorio();
-        if (repo.usuarios().buscarPorEmail(email) != null) {
-            mostrarSnackbarError(getString(R.string.error_email_duplicado));
+
+        Repositorio repo =
+                SemiologiaApp.getRepositorio();
+
+
+        // -----------------------------------------------------
+        // EMAIL DUPLICADO
+        // -----------------------------------------------------
+
+        if (
+                repo.usuarios()
+                        .buscarPorEmail(email)
+                        != null
+        ) {
+
+            mostrarSnackbarError(
+                    getString(
+                            R.string.error_email_duplicado
+                    )
+            );
+
             return;
         }
 
-        crearCuentaYRegistrarMascota(repo, nombre, email, password);
+
+        // -----------------------------------------------------
+        // CREAR CUENTA
+        // -----------------------------------------------------
+
+        crearCuentaYRegistrarMascota(
+                repo,
+                nombre,
+                email,
+                password
+        );
     }
 
-    private boolean validarEntradas(String nombre, String email, String password) {
+
+    // =========================================================
+    // VALIDAR ENTRADAS
+    // =========================================================
+
+    private boolean validarEntradas(
+            String nombre,
+            String email,
+            String password
+    ) {
+
+
+        // -----------------------------------------------------
+        // NOMBRE
+        // -----------------------------------------------------
+
         if (TextUtils.isEmpty(nombre)) {
-            etNombre.setError("Ingresa tu nombre completo");
+
+            etNombre.setError(
+                    "Ingresa tu nombre completo"
+            );
+
             etNombre.requestFocus();
-            mostrarSnackbarError(getString(R.string.error_campos_vacios));
+
+
+            mostrarSnackbarError(
+                    getString(
+                            R.string.error_campos_vacios
+                    )
+            );
+
             return false;
         }
+
+
+        // -----------------------------------------------------
+        // EMAIL
+        // -----------------------------------------------------
 
         if (TextUtils.isEmpty(email)) {
-            etEmail.setError("Ingresa tu correo electrónico");
+
+            etEmail.setError(
+                    "Ingresa tu correo electrónico"
+            );
+
             etEmail.requestFocus();
-            mostrarSnackbarError(getString(R.string.error_campos_vacios));
+
+
+            mostrarSnackbarError(
+                    getString(
+                            R.string.error_campos_vacios
+                    )
+            );
+
             return false;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            etEmail.setError("Correo electrónico inválido");
+
+        if (
+                !Patterns.EMAIL_ADDRESS
+                        .matcher(email)
+                        .matches()
+        ) {
+
+            etEmail.setError(
+                    "Correo electrónico inválido"
+            );
+
             etEmail.requestFocus();
-            mostrarSnackbarError(getString(R.string.error_email_invalido));
+
+
+            mostrarSnackbarError(
+                    getString(
+                            R.string.error_email_invalido
+                    )
+            );
+
             return false;
         }
 
-        if (TextUtils.isEmpty(password) || password.length() < MIN_PASSWORD_LENGTH) {
-            etPassword.setError("La contraseña debe tener al menos " + MIN_PASSWORD_LENGTH + " caracteres");
+
+        // -----------------------------------------------------
+        // CONTRASEÑA
+        // -----------------------------------------------------
+
+        if (
+                TextUtils.isEmpty(password)
+                        ||
+                        password.length()
+                                < MIN_PASSWORD_LENGTH
+        ) {
+
+            etPassword.setError(
+                    "La contraseña debe tener al menos "
+                            + MIN_PASSWORD_LENGTH
+                            + " caracteres"
+            );
+
             etPassword.requestFocus();
-            mostrarSnackbarError(getString(R.string.error_password_corta));
+
+
+            mostrarSnackbarError(
+                    getString(
+                            R.string.error_password_corta
+                    )
+            );
+
             return false;
         }
+
 
         return true;
     }
 
-    private void crearCuentaYRegistrarMascota(Repositorio repo, String nombre, String email, String password) {
-        String salt = HashUtil.nuevoSalt();
-        String passwordHasheada = HashUtil.hashear(password, salt);
 
-        Usuario nuevoUsuario = Usuario.crear(nombre, email, passwordHasheada, salt);
-        long usuarioId = repo.usuarios().insertar(nuevoUsuario);
+    // =========================================================
+    // CREAR CUENTA Y MASCOTA
+    // =========================================================
+
+    private void crearCuentaYRegistrarMascota(
+            Repositorio repo,
+            String nombre,
+            String email,
+            String password
+    ) {
+
+
+        // -----------------------------------------------------
+        // SEGURIDAD
+        // -----------------------------------------------------
+
+        String salt =
+                HashUtil.nuevoSalt();
+
+
+        String passwordHasheada =
+                HashUtil.hashear(
+                        password,
+                        salt
+                );
+
+
+        // -----------------------------------------------------
+        // CREAR USUARIO
+        // -----------------------------------------------------
+
+        Usuario nuevoUsuario =
+                Usuario.crear(
+                        nombre,
+                        email,
+                        passwordHasheada,
+                        salt
+                );
+
+
+        long usuarioId =
+                repo.usuarios()
+                        .insertar(
+                                nuevoUsuario
+                        );
+
 
         if (usuarioId <= 0) {
-            mostrarSnackbarError(getString(R.string.error_email_duplicado));
+
+            mostrarSnackbarError(
+                    getString(
+                            R.string.error_email_duplicado
+                    )
+            );
+
             return;
         }
 
-        otorgarRegalosBienvenida(repo, usuarioId, nombre);
-        iniciarSesionYNavegar(email, salt, usuarioId);
+
+        // -----------------------------------------------------
+        // CREAR MASCOTA Y REGALOS
+        // -----------------------------------------------------
+
+        boolean mascotaCreada =
+                otorgarRegalosBienvenida(
+                        repo,
+                        usuarioId,
+                        nombre
+                );
+
+
+        /*
+         * MUY IMPORTANTE:
+         *
+         * No dejamos entrar al Dashboard si no existe
+         * una mascota asociada al usuario.
+         */
+        if (!mascotaCreada) {
+
+            mostrarSnackbarError(
+                    "No se pudo crear la mascota inicial. Intenta nuevamente."
+            );
+
+            return;
+        }
+
+
+        // -----------------------------------------------------
+        // INICIAR SESIÓN
+        // -----------------------------------------------------
+
+        iniciarSesionYNavegar(
+                email,
+                salt,
+                usuarioId
+        );
     }
 
-    private void otorgarRegalosBienvenida(Repositorio repo, long usuarioId, String nombreUsuario) {
-        Mascota mascotaInicial = Mascota.crearPorDefecto(usuarioId, nombreUsuario);
-        repo.mascotas().insertar(mascotaInicial);
-        repo.mascotas().otorgarAlimento(usuarioId, ALIMENTO_INICIAL_ID, CANTIDAD_INICIAL_ALIMENTO);
-        repo.mascotas().otorgarAccesorio(usuarioId, ACCESORIO_INICIAL_ID);
+
+    // =========================================================
+    // CREAR MASCOTA + REGALOS
+    // =========================================================
+
+    private boolean otorgarRegalosBienvenida(
+            Repositorio repo,
+            long usuarioId,
+            String nombreUsuario
+    ) {
+
+
+        // -----------------------------------------------------
+        // MASCOTA INICIAL
+        // -----------------------------------------------------
+
+        Mascota mascotaInicial =
+                Mascota.crearPorDefecto(
+                        usuarioId,
+                        nombreUsuario
+                );
+
+
+        long mascotaId =
+                repo.mascotas()
+                        .insertar(
+                                mascotaInicial
+                        );
+
+
+        /*
+         * Si SQLite no pudo insertar la mascota,
+         * detenemos el registro.
+         */
+        if (mascotaId <= 0) {
+
+            return false;
+        }
+
+
+        // -----------------------------------------------------
+        // COMIDA INICIAL
+        // -----------------------------------------------------
+
+        repo.mascotas()
+                .otorgarAlimento(
+                        usuarioId,
+                        ALIMENTO_INICIAL_ID,
+                        CANTIDAD_INICIAL_ALIMENTO
+                );
+
+
+        // -----------------------------------------------------
+        // ACCESORIO INICIAL
+        // -----------------------------------------------------
+
+        repo.mascotas()
+                .otorgarAccesorio(
+                        usuarioId,
+                        ACCESORIO_INICIAL_ID
+                );
+
+
+        return true;
     }
 
-    private void iniciarSesionYNavegar(String email, String salt, long usuarioId) {
-        SemiologiaApp.getSesion().iniciarSesion(usuarioId, email, salt);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+    // =========================================================
+    // INICIAR SESIÓN
+    // =========================================================
+
+    private void iniciarSesionYNavegar(
+            String email,
+            String salt,
+            long usuarioId
+    ) {
+
+
+        SemiologiaApp
+                .getSesion()
+                .iniciarSesion(
+                        usuarioId,
+                        email,
+                        salt
+                );
+
+
+        Intent intent =
+                new Intent(
+                        this,
+                        MainActivity.class
+                );
+
+
+        intent.addFlags(
+
+                Intent.FLAG_ACTIVITY_NEW_TASK
+
+                        |
+
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        );
+
+
+        startActivity(
+                intent
+        );
+
+
         finish();
     }
 
-    /**
-     * Garantiza obtener una vista válida para anclar la Snackbar
-     */
+
+    // =========================================================
+    // VISTA PARA SNACKBAR
+    // =========================================================
+
     private View obtenerVistaAnchor() {
-        View vista = findViewById(R.id.btnCrear);
+
+        View vista =
+                findViewById(
+                        R.id.btnCrear
+                );
+
+
         if (vista == null) {
-            vista = findViewById(android.R.id.content);
+
+            vista =
+                    findViewById(
+                            android.R.id.content
+                    );
         }
+
+
         return vista;
     }
 
-    /**
-     * Muestra una Snackbar flotante de error (Color Rojo #EF4444).
-     */
-    private void mostrarSnackbarError(String mensaje) {
-        View vistaBase = obtenerVistaAnchor();
-        Snackbar snackbar = Snackbar.make(vistaBase, mensaje, Snackbar.LENGTH_LONG);
 
-        View snackView = snackbar.getView();
-        snackView.setBackgroundColor(Color.parseColor("#EF4444")); // Rojo Material
+    // =========================================================
+    // SNACKBAR ERROR
+    // =========================================================
 
-        TextView textView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+    private void mostrarSnackbarError(
+            String mensaje
+    ) {
+
+
+        View vistaBase =
+                obtenerVistaAnchor();
+
+
+        Snackbar snackbar =
+                Snackbar.make(
+                        vistaBase,
+                        mensaje,
+                        Snackbar.LENGTH_LONG
+                );
+
+
+        View snackView =
+                snackbar.getView();
+
+
+        snackView.setBackgroundColor(
+                Color.parseColor("#EF4444")
+        );
+
+
+        TextView textView =
+                snackView.findViewById(
+                        com.google.android.material.R.id.snackbar_text
+                );
+
+
         if (textView != null) {
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(14);
+
+            textView.setTextColor(
+                    Color.WHITE
+            );
+
+            textView.setTextSize(
+                    14
+            );
         }
+
 
         snackbar.show();
     }
 
-    /**
-     * Muestra una Snackbar flotante informativa/éxito (Color Morado #6366F1).
-     */
-    private void mostrarSnackbarExito(String mensaje) {
-        View vistaBase = obtenerVistaAnchor();
-        Snackbar snackbar = Snackbar.make(vistaBase, mensaje, Snackbar.LENGTH_LONG);
 
-        View snackView = snackbar.getView();
-        snackView.setBackgroundColor(Color.parseColor("#6366F1")); // Morado PsicoQuiz
+    // =========================================================
+    // SNACKBAR ÉXITO
+    // =========================================================
 
-        TextView textView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+    private void mostrarSnackbarExito(
+            String mensaje
+    ) {
+
+
+        View vistaBase =
+                obtenerVistaAnchor();
+
+
+        Snackbar snackbar =
+                Snackbar.make(
+                        vistaBase,
+                        mensaje,
+                        Snackbar.LENGTH_LONG
+                );
+
+
+        View snackView =
+                snackbar.getView();
+
+
+        snackView.setBackgroundColor(
+                Color.parseColor("#6366F1")
+        );
+
+
+        TextView textView =
+                snackView.findViewById(
+                        com.google.android.material.R.id.snackbar_text
+                );
+
+
         if (textView != null) {
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(14);
+
+            textView.setTextColor(
+                    Color.WHITE
+            );
+
+            textView.setTextSize(
+                    14
+            );
         }
+
 
         snackbar.show();
     }

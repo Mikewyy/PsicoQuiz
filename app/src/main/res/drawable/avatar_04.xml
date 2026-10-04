@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <path
+        android:fillColor="#FEF3C7"
+        android:pathData="M48,0A48,48 0,1 0,48 96A48,48 0,1 0,48 0" />
+
+    <!-- Cuerpo -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M18,96C20,77 31,68 48,68C65,68 76,77 78,96Z" />
+
+    <!-- Cuello -->
+    <path
+        android:fillColor="#C9815D"
+        android:pathData="M40,59L56,59L56,73C52,77 44,77 40,73Z" />
+
+    <!-- Cara -->
+    <path
+        android:fillColor="#D9936D"
+        android:pathData="M29,29C29,17 37,12 48,12C59,12 67,18 67,30L66,46C65,57 58,65 48,65C38,65 31,57 30,46Z" />
+
+    <!-- Cabello -->
+    <path
+        android:fillColor="#191821"
+        android:pathData="M27,34C25,18 34,8 48,8C61,8 69,17 68,31C62,31 57,28 54,23C47,29 38,30 30,29Z" />
+
+    <!-- Ojos -->
+    <path
+        android:fillColor="#25222C"
+        android:pathData="M37,41A2,2 0,1 0,41 41A2,2 0,1 0,37 41" />
+
+    <path
+        android:fillColor="#25222C"
+        android:pathData="M55,41A2,2 0,1 0,59 41A2,2 0,1 0,55 41" />
+
+    <!-- Gafas -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#554E65"
+        android:strokeWidth="1.7"
+        android:pathData="M33,39L43,39L43,46L33,46ZM53,39L63,39L63,46L53,46ZM43,41L53,41" />
+
+    <!-- Sonrisa -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#985D50"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M43,53Q48,56 53,53" />
+
+</vector>

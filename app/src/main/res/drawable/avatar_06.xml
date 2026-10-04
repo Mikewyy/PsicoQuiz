@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Fondo PsicoQuiz -->
+    <path
+        android:fillColor="#E0E7FF"
+        android:pathData="M48,0A48,48 0,1 0,48 96A48,48 0,1 0,48 0" />
+
+    <!-- Cuerpo -->
+    <path
+        android:fillColor="#4F46E5"
+        android:pathData="M18,96C20,77 31,68 48,68C65,68 76,77 78,96Z" />
+
+    <!-- Cuello -->
+    <path
+        android:fillColor="#EDB38D"
+        android:pathData="M40,59L56,59L56,73C52,77 44,77 40,73Z" />
+
+    <!-- Cara -->
+    <path
+        android:fillColor="#F3BE99"
+        android:pathData="M29,29C29,17 37,12 48,12C59,12 67,18 67,30L66,46C65,57 58,65 48,65C38,65 31,57 30,46Z" />
+
+    <!-- Cabello moderno -->
+    <path
+        android:fillColor="#392E57"
+        android:pathData="M27,34C25,20 31,10 44,8C56,6 67,12 70,22C64,20 61,20 58,21C54,15 48,14 44,15C40,22 34,27 29,28Z" />
+
+    <!-- Ojos -->
+    <path
+        android:fillColor="#302A43"
+        android:pathData="M37,41A2,2 0,1 0,41 41A2,2 0,1 0,37 41" />
+
+    <path
+        android:fillColor="#302A43"
+        android:pathData="M55,41A2,2 0,1 0,59 41A2,2 0,1 0,55 41" />
+
+    <!-- Sonrisa -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#A76459"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M42,52Q48,57 54,52" />
+
+    <!-- Detalle camiseta -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.90"
+        android:pathData="M44,79L48,75L52,79L48,86Z" />
+
+</vector>
