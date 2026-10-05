@@ -14,22 +14,19 @@ public class SalaEstudio {
     private String estadoPomodoro;
     private int duracionPomodoro;
     private int duracionDescanso;
-
     private Timestamp inicioPomodoro;
+
+    // MULTIJUGADOR / QUIZ
+    private String estadoPartida;
+    private int preguntaActual;
+    private int totalPreguntas;
+    private String partidaId;
+    private Timestamp inicioPartida;
 
     private long creadoEn;
 
-    // ------------------------------------------------------------
-    // CONSTRUCTOR VACÍO
-    // Firestore lo necesita para convertir documentos en objetos.
-    // ------------------------------------------------------------
-
     public SalaEstudio() {
     }
-
-    // ------------------------------------------------------------
-    // CONSTRUCTOR
-    // ------------------------------------------------------------
 
     public SalaEstudio(
             String codigo,
@@ -44,21 +41,18 @@ public class SalaEstudio {
         this.cantidadParticipantes = 1;
 
         this.estadoPomodoro = "detenido";
-
-        // 25 minutos
         this.duracionPomodoro = 25 * 60;
-
-        // 5 minutos
         this.duracionDescanso = 5 * 60;
-
         this.inicioPomodoro = null;
+
+        this.estadoPartida = "esperando";
+        this.preguntaActual = 0;
+        this.totalPreguntas = 10;
+        this.partidaId = null;
+        this.inicioPartida = null;
 
         this.creadoEn = System.currentTimeMillis();
     }
-
-    // ------------------------------------------------------------
-    // GETTERS / SETTERS
-    // ------------------------------------------------------------
 
     public String getCodigo() {
         return codigo;
@@ -130,6 +124,46 @@ public class SalaEstudio {
 
     public void setInicioPomodoro(Timestamp inicioPomodoro) {
         this.inicioPomodoro = inicioPomodoro;
+    }
+
+    public String getEstadoPartida() {
+        return estadoPartida;
+    }
+
+    public void setEstadoPartida(String estadoPartida) {
+        this.estadoPartida = estadoPartida;
+    }
+
+    public int getPreguntaActual() {
+        return preguntaActual;
+    }
+
+    public void setPreguntaActual(int preguntaActual) {
+        this.preguntaActual = preguntaActual;
+    }
+
+    public int getTotalPreguntas() {
+        return totalPreguntas;
+    }
+
+    public void setTotalPreguntas(int totalPreguntas) {
+        this.totalPreguntas = totalPreguntas;
+    }
+
+    public String getPartidaId() {
+        return partidaId;
+    }
+
+    public void setPartidaId(String partidaId) {
+        this.partidaId = partidaId;
+    }
+
+    public Timestamp getInicioPartida() {
+        return inicioPartida;
+    }
+
+    public void setInicioPartida(Timestamp inicioPartida) {
+        this.inicioPartida = inicioPartida;
     }
 
     public long getCreadoEn() {

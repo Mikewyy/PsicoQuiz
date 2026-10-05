@@ -253,7 +253,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Cuando otro estudiante se una con este código aparecerá automáticamente en la lista."
+                        android:text="Se necesitan mínimo 2 jugadores y la sala admite máximo 5. Solo el anfitrión puede iniciar la partida."
                         android:textColor="#6C648E"
                         android:textSize="12sp" />
 
@@ -271,7 +271,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
-                android:text="Iniciar sesión de estudio"
+                android:text="Esperando jugadores..."
                 android:textAllCaps="false"
                 android:textSize="15sp"
                 android:textStyle="bold"

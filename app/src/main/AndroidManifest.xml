@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Semiologia">
 
+
+        <activity
+            android:name=".ui.estudio.QuizMultijugadorActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.estudio.MultijugadorActivity"
             android:exported="false" />
@@ -81,9 +86,6 @@
         <!-- EVALUACIÓN / JUEGO -->
         <!-- ========================================= -->
 
-        <activity
-            android:name=".ui.evaluacion.JugarActivity"
-            android:exported="false" />
 
         <activity
             android:name=".ui.evaluacion.CaminoActivity"
