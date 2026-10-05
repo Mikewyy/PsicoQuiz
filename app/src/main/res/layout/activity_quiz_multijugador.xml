@@ -248,6 +248,41 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <LinearLayout
+                android:id="@+id/contenedorAccionesFinales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVolverJugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Volver a jugar"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#6C5CE7"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSalirPartida"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Salir"
+                    android:textAllCaps="false"
+                    android:textColor="#6C5CE7"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#EEEAFE"
+                    app:cornerRadius="16dp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

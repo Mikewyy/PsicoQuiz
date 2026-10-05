@@ -1,5 +1,7 @@
 package com.utm.semiologia.ui.estudio;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -28,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class QuizMultijugadorActivity
         extends AppCompatActivity {
@@ -36,10 +39,10 @@ public class QuizMultijugadorActivity
             "extra_codigo_sala";
 
     private static final long TIEMPO_PREGUNTA_MS =
-            15_000L;
+            30_000L;
 
     private static final long TIEMPO_RESULTADO_MS =
-            5_000L;
+            10_000L;
 
     private static final int[] PUNTOS_POR_LUGAR = {
             1000,
@@ -66,6 +69,7 @@ public class QuizMultijugadorActivity
 
     private int cantidadParticipantes = 0;
     private int preguntaActual = -1;
+    private int indiceRespuestaUsuario = -1;
 
     private String clavePantalla = "";
 
@@ -92,6 +96,10 @@ public class QuizMultijugadorActivity
     private MaterialButton btnOpcionB;
     private MaterialButton btnOpcionC;
     private MaterialButton btnOpcionD;
+    private MaterialButton btnVolverJugar;
+    private MaterialButton btnSalirPartida;
+
+    private LinearLayout contenedorAccionesFinales;
 
     private MaterialButton[] botonesOpciones;
 
@@ -230,6 +238,21 @@ public class QuizMultijugadorActivity
                         R.id.btnOpcionD
                 );
 
+        btnVolverJugar =
+                findViewById(
+                        R.id.btnVolverJugar
+                );
+
+        btnSalirPartida =
+                findViewById(
+                        R.id.btnSalirPartida
+                );
+
+        contenedorAccionesFinales =
+                findViewById(
+                        R.id.contenedorAccionesFinales
+                );
+
         botonesOpciones =
                 new MaterialButton[]{
                         btnOpcionA,
@@ -254,6 +277,14 @@ public class QuizMultijugadorActivity
                                     )
                     );
         }
+
+        btnVolverJugar.setOnClickListener(
+                v -> volverAJugar()
+        );
+
+        btnSalirPartida.setOnClickListener(
+                v -> finish()
+        );
     }
 
     private void escucharSala() {
@@ -621,6 +652,15 @@ public class QuizMultijugadorActivity
         respuestaEnviada =
                 false;
 
+        indiceRespuestaUsuario =
+                -1;
+
+        restaurarColoresOpciones();
+
+        contenedorAccionesFinales.setVisibility(
+                View.GONE
+        );
+
         panelResultado.setVisibility(
                 View.GONE
         );
@@ -801,6 +841,29 @@ public class QuizMultijugadorActivity
                         .getCurrentUser()
                         .getUid();
 
+        /*
+         * Feedback INMEDIATO:
+         * al tocar una opción se pinta amarilla para que el jugador
+         * sepa que el toque sí fue registrado.
+         */
+        respuestaEnviada =
+                true;
+
+        indiceRespuestaUsuario =
+                indiceOpcion;
+
+        marcarOpcionSeleccionada(
+                indiceOpcion
+        );
+
+        habilitarOpciones(
+                false
+        );
+
+        tvEstadoRespuesta.setText(
+                "Respuesta seleccionada · enviando..."
+        );
+
         String idRespuesta =
                 partidaId
                         + "_"
@@ -880,27 +943,55 @@ public class QuizMultijugadorActivity
                                     )
                             ) {
 
-                                respuestaEnviada =
-                                        true;
-
-                                habilitarOpciones(
-                                        false
-                                );
-
                                 tvEstadoRespuesta
                                         .setText(
                                                 "Respuesta enviada · esperando a los demás"
+                                        );
+
+                            } else {
+
+                                tvEstadoRespuesta
+                                        .setText(
+                                                "Tu respuesta ya estaba registrada"
                                         );
                             }
                         }
                 )
                 .addOnFailureListener(
-                        error ->
-                                Toast.makeText(
-                                        this,
-                                        "No se pudo enviar la respuesta.",
-                                        Toast.LENGTH_SHORT
-                                ).show()
+                        error -> {
+
+                            /*
+                             * Si Firebase falla, devolvemos el botón a su estado
+                             * normal para que el jugador pueda intentar de nuevo.
+                             */
+                            respuestaEnviada =
+                                    false;
+
+                            indiceRespuestaUsuario =
+                                    -1;
+
+                            restaurarColoresOpciones();
+
+                            habilitarOpciones(
+                                    true
+                            );
+
+                            tvEstadoRespuesta
+                                    .setText(
+                                            "No se pudo enviar. Intenta otra vez."
+                                    );
+
+                            Toast.makeText(
+                                    this,
+                                    "Error al responder: "
+                                            + (
+                                            error.getMessage() != null
+                                                    ? error.getMessage()
+                                                    : "desconocido"
+                                    ),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
                 );
     }
 
@@ -1237,8 +1328,17 @@ public class QuizMultijugadorActivity
 
         cancelarTimerPregunta();
 
+        /*
+         * Dejamos las opciones visibles:
+         * - correcta = verde
+         * - selección incorrecta del jugador = rojo
+         */
         contenedorOpciones.setVisibility(
-                View.GONE
+                View.VISIBLE
+        );
+
+        habilitarOpciones(
+                false
         );
 
         panelResultado.setVisibility(
@@ -1264,9 +1364,18 @@ public class QuizMultijugadorActivity
                         : ""
         );
 
-        tvEstadoRespuesta.setText(
-                "Ranking actualizado"
-        );
+        pintarResultadoOpciones();
+
+        /*
+         * Si la Activity se recreó o llegó tarde al resultado,
+         * recuperamos la opción que eligió este jugador.
+         */
+        cargarRespuestaDelJugador();
+
+        /*
+         * Mostramos si acertó y cuántos puntos ganó en esta ronda.
+         */
+        cargarResultadoDelJugador();
 
         if (soyAnfitrion) {
             iniciarTimerResultado();
@@ -1424,8 +1533,446 @@ public class QuizMultijugadorActivity
         );
 
         tvEstadoRespuesta.setText(
-                "Gracias por jugar"
+                soyAnfitrion
+                        ? "Puedes iniciar otra partida con los mismos jugadores."
+                        : "El anfitrión puede iniciar una nueva partida."
         );
+
+        contenedorAccionesFinales.setVisibility(
+                View.VISIBLE
+        );
+
+        /*
+         * Solo el anfitrión reinicia la sala para que todos
+         * entren juntos a la misma nueva partida.
+         */
+        btnVolverJugar.setVisibility(
+                soyAnfitrion
+                        ? View.VISIBLE
+                        : View.GONE
+        );
+    }
+
+    private void volverAJugar() {
+
+        if (!soyAnfitrion) {
+            return;
+        }
+
+        btnVolverJugar.setEnabled(
+                false
+        );
+
+        btnVolverJugar.setText(
+                "Preparando nueva partida..."
+        );
+
+        final List<Map<String, Object>> nuevasPreguntas;
+
+        try {
+
+            nuevasPreguntas =
+                    BancoPreguntasMultijugador
+                            .seleccionarPreguntas(
+                                    this,
+                                    10
+                            );
+
+        } catch (Exception error) {
+
+            btnVolverJugar.setEnabled(
+                    true
+            );
+
+            btnVolverJugar.setText(
+                    "Volver a jugar"
+            );
+
+            Toast.makeText(
+                    this,
+                    "No se pudo preparar otra partida: "
+                            + error.getMessage(),
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        DocumentReference salaRef =
+                firestore
+                        .collection("salas")
+                        .document(codigoSala);
+
+        salaRef
+                .collection("participantes")
+                .get()
+                .addOnSuccessListener(
+                        participantes -> {
+
+                            WriteBatch batch =
+                                    firestore.batch();
+
+                            for (
+                                    DocumentSnapshot jugador :
+                                    participantes.getDocuments()
+                            ) {
+
+                                Map<String, Object> reinicio =
+                                        new HashMap<>();
+
+                                reinicio.put(
+                                        "puntosPartida",
+                                        0
+                                );
+
+                                reinicio.put(
+                                        "ultimoPuntaje",
+                                        0
+                                );
+
+                                reinicio.put(
+                                        "ultimaCorrecta",
+                                        false
+                                );
+
+                                batch.update(
+                                        jugador.getReference(),
+                                        reinicio
+                                );
+                            }
+
+                            batch.commit()
+                                    .addOnSuccessListener(
+                                            unused -> {
+
+                                                String nuevaPartidaId =
+                                                        UUID
+                                                                .randomUUID()
+                                                                .toString();
+
+                                                Map<String, Object> datos =
+                                                        new HashMap<>();
+
+                                                datos.put(
+                                                        "estadoPartida",
+                                                        "jugando"
+                                                );
+
+                                                datos.put(
+                                                        "fasePartida",
+                                                        "pregunta"
+                                                );
+
+                                                datos.put(
+                                                        "preguntaActual",
+                                                        0
+                                                );
+
+                                                datos.put(
+                                                        "totalPreguntas",
+                                                        nuevasPreguntas.size()
+                                                );
+
+                                                datos.put(
+                                                        "partidaId",
+                                                        nuevaPartidaId
+                                                );
+
+                                                datos.put(
+                                                        "preguntasPartida",
+                                                        nuevasPreguntas
+                                                );
+
+                                                datos.put(
+                                                        "inicioPartida",
+                                                        FieldValue.serverTimestamp()
+                                                );
+
+                                                datos.put(
+                                                        "inicioPregunta",
+                                                        FieldValue.serverTimestamp()
+                                                );
+
+                                                datos.put(
+                                                        "respuestaCorrectaTexto",
+                                                        ""
+                                                );
+
+                                                datos.put(
+                                                        "retroalimentacionActual",
+                                                        ""
+                                                );
+
+                                                /*
+                                                 * Al cambiar partidaId, todos los
+                                                 * dispositivos detectan automáticamente
+                                                 * una partida nueva y muestran la pregunta 1.
+                                                 */
+                                                salaRef
+                                                        .update(
+                                                                datos
+                                                        )
+                                                        .addOnFailureListener(
+                                                                error ->
+                                                                        errorReinicio(
+                                                                                error
+                                                                        )
+                                                        );
+                                            }
+                                    )
+                                    .addOnFailureListener(
+                                            this::errorReinicio
+                                    );
+                        }
+                )
+                .addOnFailureListener(
+                        this::errorReinicio
+                );
+    }
+
+    private void errorReinicio(
+            Exception error
+    ) {
+
+        btnVolverJugar.setEnabled(
+                true
+        );
+
+        btnVolverJugar.setText(
+                "Volver a jugar"
+        );
+
+        Toast.makeText(
+                this,
+                "No se pudo reiniciar la partida: "
+                        + (
+                        error.getMessage() != null
+                                ? error.getMessage()
+                                : "error desconocido"
+                ),
+                Toast.LENGTH_LONG
+        ).show();
+    }
+
+    private void marcarOpcionSeleccionada(
+            int indice
+    ) {
+
+        restaurarColoresOpciones();
+
+        if (
+                indice >= 0 &&
+                indice < botonesOpciones.length
+        ) {
+
+            botonesOpciones[indice]
+                    .setBackgroundTintList(
+                            ColorStateList.valueOf(
+                                    Color.parseColor(
+                                            "#F4B942"
+                                    )
+                            )
+                    );
+        }
+    }
+
+    private void pintarResultadoOpciones() {
+
+        restaurarColoresOpciones();
+
+        if (
+                preguntaActual < 0 ||
+                preguntaActual >=
+                        preguntasPartida.size()
+        ) {
+            return;
+        }
+
+        Map<String, Object> pregunta =
+                preguntasPartida.get(
+                        preguntaActual
+                );
+
+        int indiceCorrecto =
+                enteroMapa(
+                        pregunta,
+                        "indiceCorrecto"
+                );
+
+        if (
+                indiceCorrecto >= 0 &&
+                indiceCorrecto <
+                        botonesOpciones.length
+        ) {
+
+            botonesOpciones[
+                    indiceCorrecto
+            ].setBackgroundTintList(
+                    ColorStateList.valueOf(
+                            Color.parseColor(
+                                    "#22A06B"
+                            )
+                    )
+            );
+        }
+
+        if (
+                indiceRespuestaUsuario >= 0 &&
+                indiceRespuestaUsuario <
+                        botonesOpciones.length &&
+                indiceRespuestaUsuario !=
+                        indiceCorrecto
+        ) {
+
+            botonesOpciones[
+                    indiceRespuestaUsuario
+            ].setBackgroundTintList(
+                    ColorStateList.valueOf(
+                            Color.parseColor(
+                                    "#D64545"
+                            )
+                    )
+            );
+        }
+    }
+
+    private void restaurarColoresOpciones() {
+
+        if (
+                botonesOpciones == null
+        ) {
+            return;
+        }
+
+        for (
+                MaterialButton boton :
+                botonesOpciones
+        ) {
+
+            boton.setBackgroundTintList(
+                    ColorStateList.valueOf(
+                            Color.parseColor(
+                                    "#6C5CE7"
+                            )
+                    )
+            );
+
+            boton.setTextColor(
+                    Color.WHITE
+            );
+        }
+    }
+
+    private void cargarRespuestaDelJugador() {
+
+        if (
+                auth.getCurrentUser() == null ||
+                partidaId.isEmpty() ||
+                preguntaActual < 0
+        ) {
+            return;
+        }
+
+        String uid =
+                auth
+                        .getCurrentUser()
+                        .getUid();
+
+        String idRespuesta =
+                partidaId
+                        + "_"
+                        + preguntaActual
+                        + "_"
+                        + uid;
+
+        firestore
+                .collection("salas")
+                .document(codigoSala)
+                .collection("respuestas")
+                .document(idRespuesta)
+                .get()
+                .addOnSuccessListener(
+                        documento -> {
+
+                            Long opcion =
+                                    documento.getLong(
+                                            "opcionIndex"
+                                    );
+
+                            if (opcion != null) {
+
+                                indiceRespuestaUsuario =
+                                        opcion.intValue();
+
+                                pintarResultadoOpciones();
+                            }
+                        }
+                );
+    }
+
+    private void cargarResultadoDelJugador() {
+
+        if (
+                auth.getCurrentUser() == null
+        ) {
+            return;
+        }
+
+        String uid =
+                auth
+                        .getCurrentUser()
+                        .getUid();
+
+        firestore
+                .collection("salas")
+                .document(codigoSala)
+                .collection("participantes")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(
+                        jugador -> {
+
+                            Boolean correcta =
+                                    jugador.getBoolean(
+                                            "ultimaCorrecta"
+                                    );
+
+                            Long puntos =
+                                    jugador.getLong(
+                                            "ultimoPuntaje"
+                                    );
+
+                            long puntosRonda =
+                                    puntos != null
+                                            ? puntos
+                                            : 0L;
+
+                            if (
+                                    Boolean.TRUE.equals(
+                                            correcta
+                                    )
+                            ) {
+
+                                tvEstadoRespuesta.setText(
+                                        "¡Correcto!  +"
+                                                + puntosRonda
+                                                + " puntos"
+                                );
+
+                            } else {
+
+                                tvEstadoRespuesta.setText(
+                                        "Incorrecto · +0 puntos"
+                                );
+                            }
+                        }
+                )
+                .addOnFailureListener(
+                        error ->
+                                tvEstadoRespuesta.setText(
+                                        "Resultado de la ronda"
+                                )
+                );
     }
 
     private void habilitarOpciones(
