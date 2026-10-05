@@ -17,13 +17,17 @@
     <string name="link_registro">¿No tienes cuenta? Regístrate</string>
     <string name="link_login">¿Ya tienes cuenta? Ingresa</string>
     <string name="titulo_registro">Crear cuenta</string>
+    <string name="ver_contrasena">Ver contraseña</string>
+    <string name="ocultar_contrasena">Ocultar contraseña</string>
 
     <!-- Errores -->
     <string name="error_campos_vacios">Completa todos los campos</string>
     <string name="error_email_invalido">Correo electrónico inválido</string>
     <string name="error_password_corta">La contraseña debe tener al menos 6 caracteres</string>
     <string name="error_email_duplicado">Ese correo ya está registrado</string>
-    <string name="error_credenciales">Correo o contraseña incorrectos</string>
+    <string name="error_password_incorrecta">Contraseña incorrecta</string>
+    <string name="error_usuario_no_registrado">Usuario no encontrado en el sistema, regístrate para poder ingresar</string>
+    <string name="error_email_no_registrado">Este correo no está registrado</string>
 
     <!-- Dashboard -->
     <string name="saludo">Hola, %1$s</string>
@@ -35,6 +39,8 @@
     <string name="etiqueta_hambre">Hambre</string>
     <string name="etiqueta_felicidad">Felicidad</string>
     <string name="etiqueta_energia">Energía</string>
+    <string name="hambre_consejo">Baja 1 punto por hora. Aliméntala (+10) o lee la guía para ganar galletas.</string>
+    <string name="felicidad_consejo">Sube al alimentarla (+3). Con el hambre por debajo de 20 pierde 5 puntos cada 6 h.</string>
     <string name="mascota_alimentar">Alimentar</string>
     <string name="mascota_jugar">Jugar</string>
     <string name="mascota_inventario">Inventario</string>

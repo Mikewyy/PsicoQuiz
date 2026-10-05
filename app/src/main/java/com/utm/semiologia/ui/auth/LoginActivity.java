@@ -64,8 +64,17 @@ public class LoginActivity extends AppCompatActivity {
         Repositorio repo = SemiologiaApp.getRepositorio();
         Usuario u = repo.usuarios().buscarPorEmail(email);
 
-        if (u == null || !HashUtil.verificar(password, u.getPasswordSalt(), u.getPasswordHash())) {
-            Toast.makeText(this, R.string.error_credenciales, Toast.LENGTH_SHORT).show();
+        // El usuario escribe mal el correo con frecuencia, asi que conviene
+        // distinguir "no existe" de "existe pero la clave no coincide".
+        if (u == null) {
+            Toast.makeText(this, R.string.error_usuario_no_registrado, Toast.LENGTH_LONG).show();
+            etEmail.setError(getString(R.string.error_email_no_registrado));
+            return;
+        }
+
+        if (!HashUtil.verificar(password, u.getPasswordSalt(), u.getPasswordHash())) {
+            Toast.makeText(this, R.string.error_password_incorrecta, Toast.LENGTH_SHORT).show();
+            etPassword.setText("");
             return;
         }
 

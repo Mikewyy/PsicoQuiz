@@ -654,6 +654,15 @@
                         app:trackThickness="9dp"
                         tools:progress="80" />
 
+                    <TextView
+                        android:id="@+id/tvHambreHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/hambre_consejo"
+                        android:textColor="#6B7280"
+                        android:textSize="11sp" />
+
 
                     <!-- FELICIDAD -->
 
@@ -693,6 +702,15 @@
                         app:trackCornerRadius="6dp"
                         app:trackThickness="9dp"
                         tools:progress="90" />
+
+                    <TextView
+                        android:id="@+id/tvFelicidadHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/felicidad_consejo"
+                        android:textColor="#6B7280"
+                        android:textSize="11sp" />
 
 
                     <!-- ENERGÍA -->

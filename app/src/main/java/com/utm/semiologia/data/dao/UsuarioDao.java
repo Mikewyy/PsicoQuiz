@@ -222,6 +222,30 @@ public class UsuarioDao {
     }
 
     /**
+     * Guarda el alias que el usuario quiere ver en la app. Si es null o
+     * viene vacío, la app vuelve a mostrar el nombre real del registro.
+     */
+    public void actualizarNombreMostrado(long usuarioId, String nombreMostrado) {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+
+        if (nombreMostrado == null || nombreMostrado.trim().isEmpty()) {
+            cv.putNull("nombre_mostrado");
+        } else {
+            cv.put("nombre_mostrado", nombreMostrado.trim());
+        }
+
+        db.update(
+                DatabaseHelper.T_USUARIOS,
+                cv,
+                "id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        );
+    }
+
+    /**
      * Suma puntos semanales dentro de un grupo.
      */
     public void sumarPuntosSemanales(
@@ -438,6 +462,20 @@ public class UsuarioDao {
                 )
         );
 
+        /*
+         * Alias visible: se lee con getColumnIndex (y no getColumnIndexOrThrow)
+         * para no romper si alguna consulta futura trae un subconjunto de
+         * columnas. Si no está, el usuario ve su nombre real.
+         */
+        int idxMostrado =
+                c.getColumnIndex("nombre_mostrado");
+
+        if (idxMostrado >= 0) {
+            u.setNombreMostrado(
+                    c.getString(idxMostrado)
+            );
+        }
+
         // Seguridad
         u.setPasswordHash(
                 c.getString(
@@ -551,6 +589,11 @@ public class UsuarioDao {
         cv.put(
                 "nombre",
                 u.getNombre()
+        );
+
+        cv.put(
+                "nombre_mostrado",
+                u.getNombreMostrado()
         );
 
         cv.put(

@@ -14,6 +14,7 @@ public class Usuario {
 
     private long    id;
     private String  nombre;
+    @Nullable private String  nombreMostrado;  // alias elegido por el usuario
     private String  email;
     private String  passwordHash;
     private String  passwordSalt;
@@ -96,6 +97,25 @@ public class Usuario {
 
     @NonNull public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    @Nullable public String getNombreMostrado() { return nombreMostrado; }
+
+    public void setNombreMostrado(String nombreMostrado) {
+        this.nombreMostrado = nombreMostrado;
+    }
+
+    /**
+     * Nombre tal y como debe verse en la app.
+     *
+     * Si el usuario eligió un alias se usa tal cual (puede ser compuesto,
+     * no se recorta al primer nombre); si no, se cae al nombre del registro.
+     */
+    @NonNull public String getNombreParaSaludo() {
+        if (nombreMostrado != null && !nombreMostrado.trim().isEmpty()) {
+            return nombreMostrado.trim();
+        }
+        return nombre != null ? nombre : "";
+    }
 
     @NonNull public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }

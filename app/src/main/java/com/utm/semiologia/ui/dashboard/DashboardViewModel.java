@@ -370,6 +370,35 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
 
+    /**
+     * Guarda el alias que el usuario quiere ver en la app. Si viene vacío se
+     * guarda como NULL y la app vuelve a mostrar el nombre real.
+     */
+    public void cambiarNombreVisible(
+            String nuevoNombre
+    ) {
+
+        long usuarioId =
+                sesion.getUsuarioId();
+
+
+        if (usuarioId <= 0) {
+
+            return;
+        }
+
+
+        repo.usuarios()
+                .actualizarNombreMostrado(
+                        usuarioId,
+                        nuevoNombre
+                );
+
+
+        cargar();
+    }
+
+
     // =========================================================
     // CAMBIAR SKIN DE MASCOTA
     // =========================================================

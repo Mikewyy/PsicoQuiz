@@ -3,11 +3,13 @@ package com.utm.semiologia.ui.auth;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -58,7 +60,12 @@ public class RegistroActivity extends AppCompatActivity {
 
     private Button btnCrear;
 
+    private ImageButton btnVerPassword;
+
     private TextView linkLogin;
+
+    /** true cuando la contraseña se está mostrando en claro. */
+    private boolean passwordVisible = false;
 
 
     // =========================================================
@@ -107,6 +114,11 @@ public class RegistroActivity extends AppCompatActivity {
                         R.id.btnCrear
                 );
 
+        btnVerPassword =
+                findViewById(
+                        R.id.btnVerPassword
+                );
+
         linkLogin =
                 findViewById(
                         R.id.linkLogin
@@ -122,6 +134,10 @@ public class RegistroActivity extends AppCompatActivity {
 
         btnCrear.setOnClickListener(
                 v -> intentarRegistro()
+        );
+
+        btnVerPassword.setOnClickListener(
+                v -> alternarVisibilidadPassword()
         );
 
 
@@ -278,6 +294,53 @@ public class RegistroActivity extends AppCompatActivity {
     // =========================================================
     // VALIDAR ENTRADAS
     // =========================================================
+
+    private void alternarVisibilidadPassword() {
+
+        passwordVisible = !passwordVisible;
+
+
+        if (passwordVisible) {
+
+            etPassword.setInputType(
+                    InputType.TYPE_CLASS_TEXT
+                            | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            );
+
+            etPassword.setSelection(
+                    etPassword.getText().length()
+            );
+
+            btnVerPassword.setImageResource(
+                    R.drawable.ic_ojo_cerrado
+            );
+
+            btnVerPassword.setContentDescription(
+                    getString(
+                            R.string.ocultar_contrasena
+                    )
+            );
+
+        } else {
+
+            etPassword.setInputType(
+                    InputType.TYPE_CLASS_TEXT
+                            | InputType.TYPE_TEXT_VARIATION_PASSWORD
+            );
+
+            btnVerPassword.setImageResource(
+                    R.drawable.ic_ojo
+            );
+
+            btnVerPassword.setContentDescription(
+                    getString(
+                            R.string.ver_contrasena
+                    )
+            );
+
+        }
+    }
+
 
     private boolean validarEntradas(
             String nombre,

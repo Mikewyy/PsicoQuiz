@@ -27,7 +27,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 14;
+    public static final int DB_VERSION = 15;
     public Context getAppContext() {
         return appContext;
     }
@@ -144,6 +144,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         if (oldVersion < 14) {
             recrearBancoSindromes(db);
+        }
+        if (oldVersion < 15) {
+            migrarAV15(db);
+        }
+    }
+
+    // =========================================================
+    // V15 - NOMBRE VISIBLE DEL USUARIO
+    // =========================================================
+
+    /**
+     * Añade el alias que el usuario quiere ver en la app. NULL significa
+     * "usa el nombre real del registro", así que las cuentas existentes no
+     * cambian deAspecto al actualizar.
+     */
+    private void migrarAV15(SQLiteDatabase db) {
+        if (!existeColumna(db, T_USUARIOS, "nombre_mostrado")) {
+            db.execSQL(
+                    "ALTER TABLE " + T_USUARIOS +
+                            " ADD COLUMN nombre_mostrado TEXT DEFAULT NULL"
+            );
         }
     }
 
@@ -414,6 +435,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + T_USUARIOS + " (" +
                 "id                     INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nombre                 TEXT    NOT NULL," +
+                "nombre_mostrado        TEXT             DEFAULT NULL," +   // alias opcional para la app
                 "avatar                 TEXT             DEFAULT 'avatar_01'," +
                 "email                  TEXT    NOT NULL UNIQUE COLLATE NOCASE," +
                 "password_hash          TEXT    NOT NULL," +

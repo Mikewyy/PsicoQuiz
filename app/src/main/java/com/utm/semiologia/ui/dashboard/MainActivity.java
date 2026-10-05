@@ -12,9 +12,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -117,6 +120,18 @@ public class MainActivity extends BaseActivity {
 
     private boolean pomodoroMinimizado = false;
 
+    /**
+     * Lado en el que quedó anclada la pestaña del pomodoro. El panel se abre
+     * y se cierra siempre hacia este mismo lado.
+     */
+    private boolean pomodoroEnBordeIzquierdo = false;
+
+    private static final String ESTADO_POMODORO_IZQUIERDA =
+            "pomodoro_borde_izquierdo";
+
+    private static final String ESTADO_POMODORO_X =
+            "pomodoro_x_pestana";
+
 
     // =========================================================
     // CREACIÓN
@@ -184,6 +199,49 @@ public class MainActivity extends BaseActivity {
 
             viewModel.cargar();
         }
+    }
+
+
+    // =========================================================
+    // GUARDAR EL LADO DEL POMODORO AL ROTAR
+    // =========================================================
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(
+                ESTADO_POMODORO_IZQUIERDA,
+                pomodoroEnBordeIzquierdo
+        );
+
+        outState.putFloat(
+                ESTADO_POMODORO_X,
+                pestanaPomodoro.getX()
+        );
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+
+        super.onRestoreInstanceState(state);
+
+        if (!state.containsKey(ESTADO_POMODORO_IZQUIERDA)) {
+            return;
+        }
+
+        boolean izquierda =
+                state.getBoolean(ESTADO_POMODORO_IZQUIERDA);
+
+        aplicarLadoPomodoro(izquierda);
+
+        aplicarFormaBordePestana(izquierda);
+
+        pestanaPomodoro.setX(
+                state.getFloat(ESTADO_POMODORO_X, xAncladoPestana())
+        );
     }
 
 
@@ -776,11 +834,15 @@ public class MainActivity extends BaseActivity {
 
         pomodoroMinimizado = true;
 
+
+        // El panel se va por el lado en el que está anclado
+        float salidaPanel =
+                desplazamientoPanelPomodoro();
+
+
         panelPomodoro
                 .animate()
-                .translationX(
-                        panelPomodoro.getWidth() + 40f
-                )
+                .translationX(salidaPanel)
                 .alpha(0f)
                 .setDuration(260)
                 .withEndAction(
@@ -802,8 +864,11 @@ public class MainActivity extends BaseActivity {
                                     0f
                             );
 
-                            pestanaPomodoro.setTranslationX(
-                                    pestanaPomodoro.getWidth()
+
+                            // La pestaña se queda donde está anclada: solo se desliza
+                            // desde ese mismo borde.
+                            pestanaPomodoro.setX(
+                                    xEntradaPestanaPomodoro()
                             );
 
                             pestanaPomodoro.setVisibility(
@@ -812,7 +877,7 @@ public class MainActivity extends BaseActivity {
 
                             pestanaPomodoro
                                     .animate()
-                                    .translationX(0f)
+                                    .x(xAncladoPestana())
                                     .alpha(1f)
                                     .setDuration(220)
                                     .start();
@@ -839,11 +904,23 @@ public class MainActivity extends BaseActivity {
 
         pomodoroMinimizado = false;
 
+
+        float entradaPanel =
+                desplazamientoPanelPomodoro();
+
+
+        // El panel se coloca en el lado de la pestaña ANTES de hacerlo
+        // visible: si no, cambiar el gravity se vería como un salto.
+        aplicarLadoPomodoro(pomodoroEnBordeIzquierdo);
+
+
+        float xSalidaPestana =
+                xEntradaPestanaPomodoro();
+
+
         pestanaPomodoro
                 .animate()
-                .translationX(
-                        pestanaPomodoro.getWidth()
-                )
+                .x(xSalidaPestana)
                 .alpha(0f)
                 .setDuration(180)
                 .withEndAction(
@@ -857,8 +934,8 @@ public class MainActivity extends BaseActivity {
                                     1f
                             );
 
-                            pestanaPomodoro.setTranslationX(
-                                    0f
+                            pestanaPomodoro.setX(
+                                    xAncladoPestana()
                             );
 
 
@@ -866,8 +943,10 @@ public class MainActivity extends BaseActivity {
                                     0f
                             );
 
+
+                            // Entra desde el lado en el que está anclado
                             panelPomodoro.setTranslationX(
-                                    panelPomodoro.getWidth()
+                                    entradaPanel
                             );
 
                             panelPomodoro.setVisibility(
@@ -969,7 +1048,7 @@ public class MainActivity extends BaseActivity {
         findViewById(
                 R.id.btnEditarPerfil
         ).setOnClickListener(
-                v -> mostrarSelectorAvatar()
+                v -> mostrarEditorPerfil()
         );
 
 
@@ -1085,7 +1164,7 @@ public class MainActivity extends BaseActivity {
 
                     dialog.dismiss();
 
-                    mostrarSelectorAvatar();
+                    mostrarEditorPerfil();
                 }
         );
 
@@ -1148,8 +1227,318 @@ public class MainActivity extends BaseActivity {
 
 
     // =========================================================
-    // SELECTOR DE AVATAR MODERNO
+    // EDITAR PERFIL: AVATAR + NOMBRE VISIBLE
     // =========================================================
+
+    /**
+     * Panel "Editar perfil".
+     *
+     * El avatar conserva el comportamiento actual: al tocar uno se guarda al
+     * instante y el panel se cierra. El nombre visible se guarda con su propio
+     * botón; además, si el usuario escribe un nombre válido y luego cierra el
+     * panel por otra vía (por ejemplo, tocando un avatar), se guarda igualmente
+     * para que no se pierda lo escrito.
+     */
+    private void mostrarEditorPerfil() {
+
+
+        final String[] avatares = {
+
+                "avatar_01",
+                "avatar_02",
+                "avatar_03",
+                "avatar_04",
+                "avatar_05",
+                "avatar_06"
+        };
+
+
+        final int[] resIds = {
+
+                R.drawable.avatar_01,
+                R.drawable.avatar_02,
+                R.drawable.avatar_03,
+                R.drawable.avatar_04,
+                R.drawable.avatar_05,
+                R.drawable.avatar_06
+        };
+
+
+        BottomSheetDialog dialog =
+                new BottomSheetDialog(
+                        this
+                );
+
+
+        View vista =
+                LayoutInflater
+                        .from(this)
+                        .inflate(
+                                R.layout.bottom_sheet_editar_perfil,
+                                null
+                        );
+
+
+        dialog.setContentView(
+                vista
+        );
+
+
+        GridLayout grid =
+                vista.findViewById(
+                        R.id.gridAvatares
+                );
+
+
+        EditText inputNombre =
+                vista.findViewById(
+                        R.id.etNombreVisible
+                );
+
+
+        TextView contadorNombre =
+                vista.findViewById(
+                        R.id.tvContadorNombreVisible
+                );
+
+
+        Usuario usuario =
+                null;
+
+        if (
+                viewModel
+                        .getEstado()
+                        .getValue() != null
+        ) {
+
+            usuario =
+                    viewModel
+                            .getEstado()
+                            .getValue()
+                            .usuario;
+        }
+
+
+        // -----------------------------------------------------
+        // NOMBRE VISIBLE ACTUAL
+        // -----------------------------------------------------
+
+        final String nombreGuardado =
+                usuario != null
+                        ? usuario.getNombreParaSaludo()
+                        : "";
+
+
+        if (usuario != null) {
+
+            inputNombre.setText(
+                    nombreGuardado
+            );
+
+            inputNombre.setSelection(
+                    nombreGuardado.length()
+            );
+        }
+
+
+        contadorNombre.setText(
+                inputNombre.length() + "/20"
+        );
+
+
+        // -----------------------------------------------------
+        // CONTADOR DE CARACTERES
+        // -----------------------------------------------------
+
+        inputNombre.addTextChangedListener(
+                new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(
+                            CharSequence s,
+                            int start,
+                            int count,
+                            int after
+                    ) {
+
+                    }
+
+
+                    @Override
+                    public void onTextChanged(
+                            CharSequence s,
+                            int start,
+                            int before,
+                            int count
+                    ) {
+
+                        contadorNombre.setText(
+                                s.length() + "/20"
+                        );
+                    }
+
+
+                    @Override
+                    public void afterTextChanged(
+                            Editable s
+                    ) {
+
+                    }
+                }
+        );
+
+
+        // -----------------------------------------------------
+        // GUARDAR EL NOMBRE
+        // -----------------------------------------------------
+
+        vista.findViewById(
+                R.id.btnGuardarPerfil
+        ).setOnClickListener(
+                v -> {
+
+                    String nuevoNombre =
+                            inputNombre
+                                    .getText()
+                                    .toString()
+                                    .trim();
+
+
+                    if (nuevoNombre.isEmpty()) {
+
+                        inputNombre.setError(
+                                "Escribe un nombre"
+                        );
+
+                        return;
+                    }
+
+
+                    if (nuevoNombre.length() > 20) {
+
+                        inputNombre.setError(
+                                "Máximo 20 caracteres"
+                        );
+
+                        return;
+                    }
+
+
+                    viewModel.cambiarNombreVisible(
+                            nuevoNombre
+                    );
+
+
+                    Toast.makeText(
+                            this,
+                            "Nombre actualizado",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+
+                    dialog.dismiss();
+                }
+        );
+
+
+        // -----------------------------------------------------
+        // CANCELAR
+        // -----------------------------------------------------
+
+        vista.findViewById(
+                R.id.btnCerrarPerfil
+        ).setOnClickListener(
+                v -> dialog.dismiss()
+        );
+
+
+        // -----------------------------------------------------
+        // AVATARES: se guardan al instante, como antes
+        // -----------------------------------------------------
+
+        for (
+                int i = 0;
+                        i < avatares.length;
+                        i++
+        ) {
+
+
+            final int index =
+                    i;
+
+
+            View item =
+                    LayoutInflater
+                            .from(this)
+                            .inflate(
+                                    R.layout.item_avatar_selector,
+                                    grid,
+                                    false
+                            );
+
+
+            ImageView imagen =
+                    item.findViewById(
+                            R.id.ivAvatarOpcion
+                    );
+
+
+            imagen.setImageResource(
+                    resIds[index]
+            );
+
+
+            item.setOnClickListener(
+                    v -> {
+
+                        viewModel.cambiarAvatar(
+                                avatares[index]
+                        );
+
+
+                        /*
+                         * Si el usuario ya había escrito un nombre válido,
+                         * se guarda antes de cerrar el panel para que no
+                         * se pierda.
+                         */
+                        String escrito =
+                                inputNombre
+                                        .getText()
+                                        .toString()
+                                        .trim();
+
+                        if (!escrito.isEmpty()
+                                && !escrito.equals(nombreGuardado)) {
+
+                            viewModel.cambiarNombreVisible(
+                                    escrito
+                            );
+                        }
+
+
+                        dialog.dismiss();
+                    }
+            );
+
+
+            grid.addView(
+                    item
+            );
+        }
+
+
+        prepararBottomSheetRedondeado(
+                dialog
+        );
+
+
+        dialog.show();
+    }
+
+
+    // =========================================================
+// SELECTOR DE AVATAR
+// =========================================================
 
     private void mostrarSelectorAvatar() {
 
@@ -1786,9 +2175,7 @@ public class MainActivity extends BaseActivity {
         tvSaludo.setText(
                 getString(
                         R.string.saludo,
-                        primerNombre(
-                                u.getNombre()
-                        )
+                        u.getNombreParaSaludo()
                 )
         );
 
@@ -2111,34 +2498,6 @@ public class MainActivity extends BaseActivity {
 
 
     // =========================================================
-    // PRIMER NOMBRE
-    // =========================================================
-
-    private String primerNombre(
-            String nombreCompleto
-    ) {
-
-
-        if (
-                nombreCompleto == null
-                        ||
-                        nombreCompleto
-                                .trim()
-                                .isEmpty()
-        ) {
-
-
-            return "";
-        }
-
-
-        return nombreCompleto
-                .trim()
-                .split("\\s+")[0];
-    }
-
-
-    // =========================================================
     // ESTADO DE MASCOTA
     // =========================================================
 
@@ -2328,6 +2687,11 @@ public class MainActivity extends BaseActivity {
                                             Math.abs(deltaY) > 8
                             ) {
 
+                                if (!arrastrandoPomodoro) {
+                                    // Solo en el frame en que empieza el arrastre
+                                    levantarPestanaPomodoro();
+                                }
+
                                 arrastrandoPomodoro =
                                         true;
                             }
@@ -2426,6 +2790,176 @@ public class MainActivity extends BaseActivity {
 // PEGAR POMODORO AL BORDE
 // =========================================================
 
+    /**
+     * Estado "suelta": mientras se arrastra la pestaña no está pegada a ningún
+     * borde, así que se le ponen las cuatro esquinas redondeadas y se escala un
+     * poco, para que se lea que está "en la mano".
+     */
+    private void levantarPestanaPomodoro() {
+
+        pestanaPomodoro.animate().cancel();
+
+        pestanaPomodoro.setBackgroundResource(
+                R.drawable.bg_pomodoro_pestana_libre
+        );
+
+
+        // Padding simétrico: el contenido se mantiene centrado al soltar
+        pestanaPomodoro.setPadding(
+                dpPomodoro(6),
+                dpPomodoro(6),
+                dpPomodoro(6),
+                dpPomodoro(6)
+        );
+
+
+        pestanaPomodoro
+                .animate()
+                .scaleX(1.06f)
+                .scaleY(1.06f)
+                .setDuration(120)
+                .start();
+    }
+
+
+/**
+     * Devuelve a la pestaña su forma de borde: el canto recto queda pegado a la
+     * pantalla. La vuelta a escala 1 se anima en {@link #pegarPomodoroAlBorde()},
+     * en el mismo animador que el deslizamiento, para que no se pisen.
+     */
+    private void aplicarFormaBordePestana(boolean izquierda) {
+
+        pestanaPomodoro.animate().cancel();
+
+        if (izquierda) {
+
+            pestanaPomodoro.setBackgroundResource(
+                    R.drawable.bg_pomodoro_pestana_izquierda
+            );
+
+            pestanaPomodoro.setPadding(
+                    dpPomodoro(4),
+                    dpPomodoro(6),
+                    dpPomodoro(10),
+                    dpPomodoro(6)
+            );
+
+        } else {
+
+            pestanaPomodoro.setBackgroundResource(
+                    R.drawable.bg_pomodoro_pestana
+            );
+
+            pestanaPomodoro.setPadding(
+                    dpPomodoro(10),
+                    dpPomodoro(6),
+                    dpPomodoro(4),
+                    dpPomodoro(6)
+            );
+        }
+    }
+
+
+    /**
+     * Fija el lado del pomodoro. El panel es un hijo del FrameLayout raíz, así
+     * que cambiar su gravity lo acerca al borde correspondiente. Se llama con
+     * el panel en GONE para que el recolocado no se vea como un salto.
+     */
+    private void aplicarLadoPomodoro(boolean izquierda) {
+
+        pomodoroEnBordeIzquierdo = izquierda;
+
+
+        ViewParent padre = panelPomodoro.getParent();
+
+        if (padre instanceof FrameLayout) {
+
+            FrameLayout.LayoutParams lp =
+                    (FrameLayout.LayoutParams) panelPomodoro.getLayoutParams();
+
+            lp.gravity =
+                    (izquierda ? Gravity.START : Gravity.END)
+                            | Gravity.CENTER_VERTICAL;
+
+            lp.leftMargin = dpPomodoro(12);
+            lp.rightMargin = dpPomodoro(12);
+
+            panelPomodoro.setLayoutParams(lp);
+        }
+
+
+        // La flecha de minimizar mira hacia el lado donde se va la ventana
+        View btnMinimizar =
+                panelPomodoro.findViewById(R.id.btnMinimizarPomodoro);
+
+        if (btnMinimizar instanceof TextView) {
+            ((TextView) btnMinimizar).setText(izquierda ? "‹" : "›");
+        }
+    }
+
+
+    /** Distancia con signo desde la que el panel entra o sale de la pantalla. */
+    private float desplazamientoPanelPomodoro() {
+
+        float ancho = panelPomodoro.getWidth();
+
+        if (ancho <= 0) {
+            ViewParent padre = panelPomodoro.getParent();
+            float anchoPadre =
+                    padre instanceof FrameLayout
+                            ? ((FrameLayout) padre).getWidth()
+                            : 0f;
+            ancho = anchoPadre > 0
+                    ? anchoPadre * 0.8f
+                    : dpPomodoro(300);
+        }
+
+        return pomodoroEnBordeIzquierdo
+                ? -ancho - dpPomodoro(20)
+                : ancho + dpPomodoro(20);
+    }
+
+
+    /**
+     * Distancia con signo desde la que la pestaña entra o sale al borde.
+     *
+     * OJO: la pestaña tiene layout_gravity="end", así que su left en el layout
+     * NO es 0. Por eso todo lo que la mueve se hace con coordenadas X
+     * absolutas (setX / animate().x()) y nunca con translationX a secas.
+     */
+    private float desplazamientoPestanaPomodoro() {
+
+        float ancho = pestanaPomodoro.getWidth();
+
+        if (ancho <= 0) {
+            ancho = dpPomodoro(72);
+        }
+
+        return pomodoroEnBordeIzquierdo ? -ancho : ancho;
+    }
+
+
+    /** Coordenada X a la que la pestaña queda pegada en su borde. */
+    private float xAncladoPestana() {
+
+        View padre = (View) pestanaPomodoro.getParent();
+
+        if (pomodoroEnBordeIzquierdo) {
+            return 0f;
+        }
+
+        return padre.getWidth() - pestanaPomodoro.getWidth();
+    }
+
+
+    /** Coordenada X desde la que la pestaña asoma por su borde. */
+    private float xEntradaPestanaPomodoro() {
+
+        return xAncladoPestana()
+                + desplazamientoPestanaPomodoro();
+    }
+
+
     private void pegarPomodoroAlBorde() {
 
         View padre =
@@ -2446,60 +2980,22 @@ public class MainActivity extends BaseActivity {
                         / 2f;
 
 
-        float destinoX;
+        boolean izquierda =
+                centroPomodoro < centroPantalla;
 
 
-        if (centroPomodoro < centroPantalla) {
+        aplicarLadoPomodoro(izquierda);
 
-            // =====================================================
-            // LADO IZQUIERDO
-            // =====================================================
-
-            destinoX = 0f;
+        aplicarFormaBordePestana(izquierda);
 
 
-            pestanaPomodoro.setBackgroundResource(
-                    R.drawable.bg_pomodoro_pestana_izquierda
-            );
-
-
-            // El contenido queda un poquito separado del borde
-            pestanaPomodoro.setPadding(
-                    dpPomodoro(4),
-                    dpPomodoro(6),
-                    dpPomodoro(10),
-                    dpPomodoro(6)
-            );
-
-        } else {
-
-            // =====================================================
-            // LADO DERECHO
-            // =====================================================
-
-            destinoX =
-                    padre.getWidth()
-                            -
-                            pestanaPomodoro.getWidth();
-
-
-            pestanaPomodoro.setBackgroundResource(
-                    R.drawable.bg_pomodoro_pestana
-            );
-
-
-            pestanaPomodoro.setPadding(
-                    dpPomodoro(10),
-                    dpPomodoro(6),
-                    dpPomodoro(4),
-                    dpPomodoro(6)
-            );
-        }
-
-
+        // Se asienta (vuelve a escala 1 y recupera su forma de borde) mientras
+        // se desliza hasta el borde: todo en el mismo animador.
         pestanaPomodoro
                 .animate()
-                .x(destinoX)
+                .scaleX(1f)
+                .scaleY(1f)
+                .x(xAncladoPestana())
                 .setDuration(180)
                 .start();
     }
