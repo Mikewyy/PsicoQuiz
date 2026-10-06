@@ -15,6 +15,7 @@ import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.dao.EstudioDao;
 import com.utm.semiologia.data.model.ProgresoSeccion;
 import com.utm.semiologia.ui.common.BaseActivity;
+import com.utm.semiologia.ui.common.NavegacionInferior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,12 @@ public class CaminoEstudioActivity extends BaseActivity
         configurarRecycler();
         configurarListeners();
         configurarCabecera();
+
+        // Se configura al final: si el camino no es valido la pantalla se
+        // cierra antes, asi que la barra no llega a verse en ese caso.
+        configurarNavInferior(
+                NavegacionInferior.SECCION_EXPLORAR
+        );
     }
 
 

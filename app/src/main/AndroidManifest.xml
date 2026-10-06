@@ -24,13 +24,6 @@
             android:name=".ui.estudio.SalaActivity"
             android:exported="false" />
         <!-- ========================================= -->
-        <!-- POMODORO -->
-        <!-- ========================================= -->
-        <activity
-            android:name=".ui.pomodoro.PomodoroActivity"
-            android:exported="false" />
-
-        <!-- ========================================= -->
         <!-- LOGIN -->
         <!-- ========================================= -->
 
@@ -62,7 +55,8 @@
 
         <activity
             android:name=".ui.dashboard.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop" />
 
 
         <!-- ========================================= -->

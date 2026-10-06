@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.utm.semiologia.R;
 import com.utm.semiologia.SemiologiaApp;
@@ -35,6 +36,7 @@ import com.utm.semiologia.data.model.Mascota;
 import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.ui.auth.LoginActivity;
 import com.utm.semiologia.ui.common.BaseActivity;
+import com.utm.semiologia.ui.common.NavegacionInferior;
 import com.utm.semiologia.ui.estudio.GuiaActivity;
 import com.utm.semiologia.ui.evaluacion.CaminoActivity;
 
@@ -43,7 +45,8 @@ import com.utm.semiologia.ui.evaluacion.CaminoActivity;
 /**
  * Dashboard principal del estudiante.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity
+        implements NavegacionInferior.Navegador {
 
 
     // =========================================================
@@ -134,6 +137,32 @@ public class MainActivity extends BaseActivity {
 
 
     // =========================================================
+    // SECCIONES DE LA BARRA INFERIOR
+    // =========================================================
+
+    /**
+     * Las cuatro secciones viven como hijas del mismo FrameLayout: solo una
+     * está visible a la vez. Desafíos y Ayuda comparten una única tarjeta y
+     * solo cambian sus textos.
+     */
+    private View seccionInicio;
+    private View seccionExplorar;
+    private View seccionProximamente;
+
+    private TextView tvProxTitulo;
+    private TextView tvProxEtiqueta;
+    private TextView tvProxEmoji;
+    private TextView tvProxMensaje;
+    private TextView tvProxBadge;
+
+    private int seccionActual = NavegacionInferior.SECCION_INICIO;
+
+    private BottomNavigationView barraInferior;
+
+    private static final String ESTADO_SECCION = "seccion_nav_activa";
+
+
+    // =========================================================
     // CREACIÓN
     // =========================================================
 
@@ -155,6 +184,54 @@ public class MainActivity extends BaseActivity {
                 R.layout.activity_main
         );
 
+        //Boton informacion Hambre
+
+        ImageView btnInfoHambre = findViewById(R.id.btn_info_hambre);
+        TextView tvHambreHint = findViewById(R.id.tvHambreHint);
+
+        btnInfoHambre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvHambreHint.getVisibility() == View.GONE) {
+                    tvHambreHint.setVisibility(View.VISIBLE);
+                } else {
+                    tvHambreHint.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        //Boton informacion Felicidad
+
+        ImageView btnInfoFelicidad = findViewById(R.id.btn_info_felicidad);
+        TextView tvFelicidadHint = findViewById(R.id.tvFelicidadHint);
+
+        btnInfoFelicidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvFelicidadHint.getVisibility() == View.GONE) {
+                    tvFelicidadHint.setVisibility(View.VISIBLE);
+                } else {
+                    tvFelicidadHint.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        //Boton informacion Energia
+
+        ImageView btnInfoEnergia = findViewById(R.id.btn_info_energia);
+        TextView tvEnergiaHint = findViewById(R.id.tvEnergiaHint);
+
+        btnInfoEnergia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvEnergiaHint.getVisibility() == View.GONE) {
+                    tvEnergiaHint.setVisibility(View.VISIBLE);
+                } else {
+                    tvEnergiaHint.setVisibility(View.GONE);
+                }
+            }
+        });
+
         PomodoroManager.init(this);
         pomodoroManager = PomodoroManager.get();
 
@@ -168,6 +245,23 @@ public class MainActivity extends BaseActivity {
         configurarPomodoro();
         configurarListeners();
 
+        /*
+         * Si venimos desde una pantalla interna con la barra, el extra dice en
+         * qué sección hay que caer. Se lee antes de configurar la barra para
+         * que quede marcada directamente en esa sección.
+         */
+        int seccionPedida =
+                getIntent()
+                        .getIntExtra(
+                                NavegacionInferior.EXTRA_SECCION,
+                                NavegacionInferior.SECCION_INICIO
+                        );
+
+        seccionActual = seccionPedida;
+        irASeccion(seccionPedida);
+
+        configurarNavInferior(seccionActual);
+
 
         viewModel
                 .getEstado()
@@ -178,6 +272,124 @@ public class MainActivity extends BaseActivity {
 
 
         viewModel.cargar();
+    }
+
+
+    // =========================================================
+    // NAVEGACIÓN ENTRE SECCIONES
+    // =========================================================
+
+    /**
+     * La barra pide un cambio de sección. Solo alterna la visibilidad de los
+     * contenedores: ni el scroll ni el pomodoro se tocan.
+     */
+    @Override
+    public void irASeccion(int seccion) {
+
+        seccionActual = seccion;
+
+        if (seccionInicio != null) {
+            seccionInicio.setVisibility(
+                    seccion == NavegacionInferior.SECCION_INICIO
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        if (seccionExplorar != null) {
+            seccionExplorar.setVisibility(
+                    seccion == NavegacionInferior.SECCION_EXPLORAR
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        boolean esProximamente =
+                seccion == NavegacionInferior.SECCION_DESAFIOS
+                        || seccion == NavegacionInferior.SECCION_AYUDA;
+
+        if (seccionProximamente != null) {
+            seccionProximamente.setVisibility(
+                    esProximamente
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        if (esProximamente) {
+            pintarProximamente(seccion);
+        }
+
+        /*
+         * El item marcado se actualiza aquí y no solo desde el listener porque
+         * la sección también puede cambiar por el botón atrás o por un onNewIntent.
+         * Volver a marcar el que ya estaba no dispara el listener: Material
+         * enruta ese caso al onItemReselectedListener.
+         */
+        if (barraInferior != null) {
+            barraInferior.setSelectedItemId(
+                    NavegacionInferior.idItemDeSeccion(seccion)
+            );
+        }
+    }
+
+
+    private void pintarProximamente(int seccion) {
+
+        boolean desafios =
+                seccion == NavegacionInferior.SECCION_DESAFIOS;
+
+        tvProxTitulo.setText(
+                desafios
+                        ? R.string.desafios_titulo
+                        : R.string.ayuda_titulo
+        );
+
+        tvProxEmoji.setText(desafios ? "🏆" : "💡");
+
+        tvProxMensaje.setText(
+                desafios
+                        ? R.string.desafios_mensaje
+                        : R.string.ayuda_mensaje
+        );
+    }
+
+
+    /**
+     * Al volver de una pantalla interna, MainActivity se reutiliza en lugar de
+     * recrearse (launchMode singleTop + CLEAR_TOP), así que el scroll y el
+     * pomodoro sobreviven intactos.
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+
+        int seccion =
+                intent.getIntExtra(
+                        NavegacionInferior.EXTRA_SECCION,
+                        NavegacionInferior.SECCION_INICIO
+                );
+
+        irASeccion(seccion);
+    }
+
+
+    /**
+     * Si no estamos en Inicio, el botón atrás vuelve a Inicio en lugar de
+     * dejar la app.
+     */
+    @Override
+    public void onBackPressed() {
+
+        if (seccionActual != NavegacionInferior.SECCION_INICIO) {
+            irASeccion(NavegacionInferior.SECCION_INICIO);
+            return;
+        }
+
+        super.onBackPressed();
     }
 
 
@@ -220,6 +432,11 @@ public class MainActivity extends BaseActivity {
                 ESTADO_POMODORO_X,
                 pestanaPomodoro.getX()
         );
+
+        outState.putInt(
+                ESTADO_SECCION,
+                seccionActual
+        );
     }
 
 
@@ -227,6 +444,17 @@ public class MainActivity extends BaseActivity {
     protected void onRestoreInstanceState(Bundle state) {
 
         super.onRestoreInstanceState(state);
+
+        /*
+         * Antes del guard del pomodoro: si se restaura con instancia nueva,
+         * la sección guardada es la única fuente de verdad y de las dos solo
+         * debe quedar una aplicada.
+         */
+        if (state.containsKey(ESTADO_SECCION)) {
+            irASeccion(
+                    state.getInt(ESTADO_SECCION)
+            );
+        }
 
         if (!state.containsKey(ESTADO_POMODORO_IZQUIERDA)) {
             return;
@@ -340,6 +568,35 @@ public class MainActivity extends BaseActivity {
                 findViewById(
                         R.id.tvComidaCantidad
                 );
+
+
+        seccionInicio =
+                findViewById(
+                        R.id.dashboardScroll
+                );
+
+        seccionExplorar =
+                findViewById(
+                        R.id.explorarScroll
+                );
+
+        seccionProximamente =
+                findViewById(
+                        R.id.seccionProximamente
+                );
+
+        barraInferior =
+                findViewById(
+                        R.id.bottomNav
+                );
+
+        if (seccionProximamente != null) {
+            tvProxTitulo = seccionProximamente.findViewById(R.id.tvProxTitulo);
+            tvProxEtiqueta = seccionProximamente.findViewById(R.id.tvProxEtiqueta);
+            tvProxEmoji = seccionProximamente.findViewById(R.id.tvProxEmoji);
+            tvProxMensaje = seccionProximamente.findViewById(R.id.tvProxMensaje);
+            tvProxBadge = seccionProximamente.findViewById(R.id.tvProxBadge);
+        }
 
 
         barHambre =
@@ -1099,16 +1356,9 @@ public class MainActivity extends BaseActivity {
                                 com.utm.semiologia.ui.estudio.MultijugadorActivity.class
                         )
                 )
-        );findViewById(
-                R.id.modGrupos
-        ).setOnClickListener(
-                v -> startActivity(
-                        new Intent(
-                                this,
-                                com.utm.semiologia.ui.estudio.MultijugadorActivity.class
-                        )
-                )
         );
+
+
         // -----------------------------------------------------
         // EVALUACIÓN
         // -----------------------------------------------------

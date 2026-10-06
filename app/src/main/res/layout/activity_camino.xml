@@ -5,213 +5,234 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
-    <!-- ENCABEZADO -->
+    <!--
+        Esta raiz ya era vertical, asi que solo se le anade weight=1 para cederle el
+        alto a la barra inferior. El degradado se queda aqui: termina justo encima
+        de la barra blanca en lugar de pasar por detras.
+    -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingTop="40dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="14dp">
-
-        <TextView
-            android:id="@+id/btnVolver"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@drawable/bg_stat"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="‹"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvTituloCamino"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Casos clínicos · Síntomas"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:alpha="0.85"
-                android:text="Practica lo aprendido por niveles"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvPuntos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_stat"
-            android:gravity="center"
-            android:minWidth="70dp"
-            android:paddingStart="12dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="8dp"
-            android:text="0 pts"
-            android:textColor="#FDE68A"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-    <!-- TARJETA PRINCIPAL -->
-    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="14dp"
         android:layout_weight="1"
-        app:cardBackgroundColor="#F9F8FE"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="3dp"
-        app:strokeColor="#EEEAF8"
-        app:strokeWidth="1dp">
+        android:background="@drawable/bg_gradient"
+        android:orientation="vertical">
 
+        <!-- ENCABEZADO -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="14dp">
 
+            <TextView
+                android:id="@+id/btnVolver"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_stat"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
-            <!-- TEXTO -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="20dp">
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvTituloCamino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Elige tu camino"
-                    android:textColor="#211D3B"
-                    android:textSize="18sp"
+                    android:text="Casos clínicos · Síntomas"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Completa los niveles en orden para desbloquear los siguientes."
-                    android:textColor="#77738A"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.85"
+                    android:text="Practica lo aprendido por niveles"
+                    android:textColor="#FFFFFF"
                     android:textSize="12sp" />
 
             </LinearLayout>
 
-
-            <!-- SELECTOR -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                android:background="#ECE9FA"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/btnCaminoSintomas"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#6C5CE7"
-                    android:text="Síntomas"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnCaminoSindromes"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#ECE9FA"
-                    android:text="Síndromes"
-                    android:textAllCaps="false"
-                    android:textColor="#665F7A"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-            <!-- TÍTULO NIVELES -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvPuntos"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Niveles"
-                    android:textColor="#211D3B"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Progreso por camino"
-                    android:textColor="#8B86A0"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-
-            <!-- LISTA -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerTramos"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:clipToPadding="false"
-                android:overScrollMode="never"
-                android:paddingStart="4dp"
+                android:background="@drawable/bg_stat"
+                android:gravity="center"
+                android:minWidth="70dp"
+                android:paddingStart="12dp"
                 android:paddingTop="8dp"
-                android:paddingEnd="4dp"
-                android:paddingBottom="24dp" />
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:text="0 pts"
+                android:textColor="#FDE68A"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+
+        <!-- TARJETA PRINCIPAL -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="14dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#F9F8FE"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="3dp"
+            app:strokeColor="#EEEAF8"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <!-- TEXTO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Elige tu camino"
+                        android:textColor="#211D3B"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Completa los niveles en orden para desbloquear los siguientes."
+                        android:textColor="#77738A"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+                <!-- SELECTOR -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="#ECE9FA"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <Button
+                        android:id="@+id/btnCaminoSintomas"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="3dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#6C5CE7"
+                        android:text="Síntomas"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnCaminoSindromes"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#ECE9FA"
+                        android:text="Síndromes"
+                        android:textAllCaps="false"
+                        android:textColor="#665F7A"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!-- TÍTULO NIVELES -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Niveles"
+                        android:textColor="#211D3B"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Progreso por camino"
+                        android:textColor="#8B86A0"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+
+                <!-- LISTA -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerTramos"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingStart="4dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="24dp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <!-- ================================================= -->
+    <!-- NAVEGACIÓN INFERIOR -->
+    <!-- ================================================= -->
+
+    <include layout="@layout/view_bottom_nav" />
 
 </LinearLayout>

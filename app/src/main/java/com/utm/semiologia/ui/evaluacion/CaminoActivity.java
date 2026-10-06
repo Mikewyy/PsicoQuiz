@@ -18,6 +18,7 @@ import com.utm.semiologia.R;
 import com.utm.semiologia.data.model.Nivel;
 import com.utm.semiologia.data.model.ProgresoNivel;
 import com.utm.semiologia.ui.common.BaseActivity;
+import com.utm.semiologia.ui.common.NavegacionInferior;
 
 /**
  * Pantalla de casos clínicos.
@@ -82,6 +83,10 @@ public class CaminoActivity extends BaseActivity
 
         setContentView(
                 R.layout.activity_camino
+        );
+
+        configurarNavInferior(
+                NavegacionInferior.SECCION_EXPLORAR
         );
 
 

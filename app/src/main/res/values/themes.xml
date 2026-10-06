@@ -17,36 +17,4 @@
         <item name="android:statusBarColor">@color/brand_start</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
-
-    <!-- Estilos para pantallas que aún usan el diseño anterior -->
-    <style name="CardStat">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/bg_card_full</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:gravity">center</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-    </style>
-
-    <style name="ModuloBoton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_margin">6dp</item>
-        <item name="android:background">@drawable/bg_module</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">14dp</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-    </style>
-
-    <style name="BarraEstado">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="trackThickness">12dp</item>
-        <item name="trackCornerRadius">6dp</item>
-    </style>
 </resources>

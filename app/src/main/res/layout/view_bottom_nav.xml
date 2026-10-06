@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Barra de navegacion inferior, compartida por MainActivity, GuiaActivity,
+    MultijugadorActivity, CaminoActivity y CaminoEstudioActivity.
+
+    Se incluye con <include layout="@layout/view_bottom_nav" /> al final de
+    una raiz LinearLayout vertical; la barra se pega a la barra del sistema de
+    abajo porque el peso lo aporta el contenido, no la barra.
+
+    labelVisibilityMode es "labeled" y no "auto" porque Material oculta las
+    etiquetas solo cuando hay 3 items o menos y aqui hay 4 secciones.
+-->
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomNav"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_nav"
+    android:elevation="3dp"
+    app:elevation="3dp"
+    app:itemActiveIndicatorStyle="@null"
+    app:itemIconTint="@color/bottom_nav_item"
+    app:itemRippleColor="#206C5CE7"
+    app:itemTextColor="@color/bottom_nav_item"
+    app:labelVisibilityMode="labeled"
+    app:menu="@menu/bottom_nav_menu" />

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_nav_inicio"
+        android:title="@string/nav_inicio" />
+
+    <item
+        android:id="@+id/nav_explorar"
+        android:icon="@drawable/ic_nav_explorar"
+        android:title="@string/nav_explorar" />
+
+    <item
+        android:id="@+id/nav_desafios"
+        android:icon="@drawable/ic_nav_desafios"
+        android:title="@string/nav_desafios" />
+
+    <item
+        android:id="@+id/nav_ayuda"
+        android:icon="@drawable/ic_nav_ayuda"
+        android:title="@string/nav_ayuda" />
+
+</menu>

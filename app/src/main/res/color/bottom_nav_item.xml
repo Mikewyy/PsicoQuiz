@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tint de la barra inferior. Usa los colores reales que ya dominan el
+    dashboard (#6C5CE7 activo, #8B88A8 inactivo) en lugar de los tokens de
+    colors.xml, porque ningun layout del proyecto los referencia.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:color="#6C5CE7"
+        android:state_checked="true" />
+
+    <item android:color="#8B88A8" />
+
+</selector>

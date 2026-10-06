@@ -12,6 +12,7 @@ import com.utm.semiologia.SemiologiaApp;
 import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.dao.EstudioDao;
 import com.utm.semiologia.ui.common.BaseActivity;
+import com.utm.semiologia.ui.common.NavegacionInferior;
 
 
 /**
@@ -80,6 +81,10 @@ public class GuiaActivity extends BaseActivity {
 
         setContentView(
                 R.layout.activity_guia
+        );
+
+        configurarNavInferior(
+                NavegacionInferior.SECCION_EXPLORAR
         );
 
 

@@ -19,6 +19,7 @@ import com.utm.semiologia.R;
 import com.utm.semiologia.firebase.SalaRepository;
 import com.utm.semiologia.firebase.model.SalaEstudio;
 import com.utm.semiologia.ui.common.BaseActivity;
+import com.utm.semiologia.ui.common.NavegacionInferior;
 
 import java.util.Locale;
 
@@ -80,6 +81,10 @@ public class MultijugadorActivity extends BaseActivity {
 
         setContentView(
                 R.layout.activity_multijugador
+        );
+
+        configurarNavInferior(
+                NavegacionInferior.SECCION_EXPLORAR
         );
 
 

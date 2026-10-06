@@ -196,9 +196,8 @@ public class TramoAdapter
             );
 
             /*
-             * Ya no usamos conn_dr / conn_dl.
              * El ImageView funciona simplemente como
-             * línea vertical.
+             * línea vertical, sin imagen.
              */
 
             h.ivConector.setImageDrawable(

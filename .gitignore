@@ -2,4 +2,12 @@
 /.gradle/
 /app/build/
 /app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/
-/build/a.out
+
+# Build outputs
+/build/
+
+# IDE
+.idea/
+
+# Machine-specific: apunta al SDK de cada maquina
+local.properties

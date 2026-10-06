@@ -49,6 +49,20 @@
     <string name="modulo_grupos">Estudio colaborativo</string>
     <string name="modulo_evaluacion">Casos clínicos</string>
 
+    <!-- Barra de navegación inferior -->
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_explorar">Explorar</string>
+    <string name="nav_desafios">Desafíos</string>
+    <string name="nav_ayuda">Ayuda</string>
+
+    <!-- Secciones en construcción -->
+    <string name="prox_etiqueta">Próximamente</string>
+    <string name="prox_badge">Muy pronto</string>
+    <string name="desafios_titulo">Desafíos diarios</string>
+    <string name="desafios_mensaje">Retos que se renuevan cada día para poner a prueba lo que aprendiste.</string>
+    <string name="ayuda_titulo">Ayuda y créditos</string>
+    <string name="ayuda_mensaje">Guía de usuario, instrucciones paso a paso y créditos del equipo.</string>
+
     <string name="salir">Cerrar sesión</string>
     <string name="confirmar_salir">¿Seguro que quieres cerrar sesión?</string>
     <string name="cancelar">Cancelar</string>

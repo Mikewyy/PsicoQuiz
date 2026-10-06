@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Fondo de la barra inferior: blanca a ancho completo con un filete #EEEAF8
+    de 1dp arriba, el mismo trazo que usan las MaterialCardView del proyecto.
+    Sin esquinas redondeadas porque los headers de Guia, Estudio compartido y
+    Casos clinicos son a sangre y sin redondeo inferior.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+        </shape>
+    </item>
+
+    <item
+        android:gravity="top"
+        android:height="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#EEEAF8" />
+        </shape>
+    </item>
+
+</layer-list>

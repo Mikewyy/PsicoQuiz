@@ -1,343 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7FC">
+    android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/dashboardScroll"
+    <!--
+        El FrameLayout interior lleva weight=1 para reservarse el alto que
+        ocupa la barra inferior: asi el clamp del arrastre del Pomodoro, que
+        usa el alto de su padre, nunca deja la pestana debajo de la barra.
+    -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:overScrollMode="never">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F7F7FC">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:clipToPadding="false"
+            android:id="@+id/dashboardScroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="32dp">
-
-
-            <!-- ================================================= -->
-            <!-- HEADER -->
-            <!-- ================================================= -->
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_header_moderno"
                 android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="38dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="32dp">
+                android:paddingBottom="70dp">
 
 
-                <!-- PERFIL -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-
-                    <!-- AVATAR -->
-
-                    <FrameLayout
-                        android:layout_width="66dp"
-                        android:layout_height="66dp"
-                        android:background="@drawable/bg_circle"
-                        android:padding="4dp">
-
-                        <ImageView
-                            android:id="@+id/ivAvatar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:contentDescription="Avatar del usuario"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/avatar_01" />
-
-                    </FrameLayout>
-
-
-                    <!-- USUARIO -->
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:alpha="0.78"
-                            android:letterSpacing="0.12"
-                            android:text="PSICOQUIZ"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvSaludo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:maxLines="1"
-                            android:textColor="#FFFFFF"
-                            android:textSize="22sp"
-                            android:textStyle="bold"
-                            tools:text="Hola, Jimmy" />
-
-                        <TextView
-                            android:id="@+id/tvSaludoSub"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:alpha="0.82"
-                            android:maxLines="1"
-                            android:text="@string/saludo_sub"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-
-                    <!-- MENÚ -->
-
-                    <TextView
-                        android:id="@+id/btnSalir"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:background="@drawable/bg_circle"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                        android:gravity="center"
-                        android:text="⋮"
-                        android:textColor="#FFFFFF"
-                        android:textSize="27sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <!-- ESTADÍSTICAS -->
+                <!-- ================================================= -->
+                <!-- HEADER -->
+                <!-- ================================================= -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal">
-
-
-                    <!-- PUNTOS -->
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="84dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_stat"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="★"
-                            android:textColor="#FDE68A"
-                            android:textSize="17sp" />
-
-                        <TextView
-                            android:id="@+id/tvPuntos"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="1 250 pts" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:text="Puntos"
-                            android:textColor="#EDE9FE"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-
-                    <!-- NIVEL -->
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="84dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_stat"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="◆"
-                            android:textColor="#BFDBFE"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tvNivel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="Nivel 4" />
-
-                        <TextView
-                            android:id="@+id/tvNivelProgreso"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:textColor="#E0E7FF"
-                            android:textSize="9sp"
-                            tools:text="320 restantes" />
-
-                    </LinearLayout>
-
-
-                    <!-- RACHA -->
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="84dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_stat"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🔥"
-                            android:textSize="17sp" />
-
-                        <TextView
-                            android:id="@+id/tvRacha"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="7 días" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1dp"
-                            android:text="Racha"
-                            android:textColor="#EDE9FE"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <!-- COMPATIBILIDAD -->
-
-                <Button
-                    android:id="@+id/btnEditarPerfil"
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
-                    android:visibility="gone" />
-
-
-                <TextView
-                    android:id="@+id/tvAvisoRacha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_aviso"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Estudia hoy para mantener tu racha"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-            </LinearLayout>
-
-
-            <!-- ================================================= -->
-            <!-- CONTINUAR APRENDIENDO -->
-            <!-- ================================================= -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tu aprendizaje"
-                    android:textColor="#211D3B"
-                    android:textSize="19sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Progreso"
-                    android:textColor="#8B88A8"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-
-            <!-- TARJETA PROGRESO -->
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
-                app:strokeColor="#EEEAF8"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_header_moderno"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:paddingStart="20dp"
+                    android:paddingTop="38dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="32dp">
 
+
+                    <!-- PERFIL -->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -346,16 +58,26 @@
                         android:orientation="horizontal">
 
 
-                        <!-- ICONO -->
+                        <!-- AVATAR -->
 
-                        <TextView
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
-                            android:background="@drawable/bg_emoji_circle"
-                            android:gravity="center"
-                            android:text="📚"
-                            android:textSize="24sp" />
+                        <FrameLayout
+                            android:layout_width="66dp"
+                            android:layout_height="66dp"
+                            android:background="@drawable/bg_circle"
+                            android:padding="4dp">
 
+                            <ImageView
+                                android:id="@+id/ivAvatar"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="Avatar del usuario"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/avatar_01" />
+
+                        </FrameLayout>
+
+
+                        <!-- USUARIO -->
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -367,241 +89,184 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Guía de estudio"
-                                android:textColor="#211D3B"
-                                android:textSize="16sp"
+                                android:alpha="0.78"
+                                android:letterSpacing="0.12"
+                                android:text="PSICOQUIZ"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvSaludo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="Aprende y gana recompensas"
-                                android:textColor="#7B7890"
-                                android:textSize="11sp" />
-
-                        </LinearLayout>
-
-
-                        <TextView
-                            android:id="@+id/tvProgresoLectura"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_pill"
-                            android:paddingStart="13dp"
-                            android:paddingTop="6dp"
-                            android:paddingEnd="13dp"
-                            android:paddingBottom="6dp"
-                            android:textColor="#5B4FE9"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            tools:text="2/22" />
-
-                    </LinearLayout>
-
-
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/barProgreso"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        app:indicatorColor="#6C5CE7"
-                        app:trackColor="#EEEAF8"
-                        app:trackCornerRadius="6dp"
-                        app:trackThickness="9dp"
-                        tools:progress="40" />
-
-
-                    <TextView
-                        android:id="@+id/tvPomodoroResumen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:textColor="#7B7890"
-                        android:textSize="11sp"
-                        tools:text="45 min de estudio esta semana" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <!-- ================================================= -->
-            <!-- MASCOTA -->
-            <!-- ================================================= -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tu compañero"
-                    android:textColor="#211D3B"
-                    android:textSize="19sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cuídalo cada día"
-                    android:textColor="#8B88A8"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="26dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#EEEAF8"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-
-                    <!-- MASCOTA PRINCIPAL -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-
-                        <FrameLayout
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
-                            android:background="@drawable/bg_pet_stage">
-
-                            <ImageView
-                                android:id="@+id/ivMascota"
-                                android:layout_width="108dp"
-                                android:layout_height="108dp"
-                                android:layout_gravity="center"
-                                android:contentDescription="@string/mascota_seccion"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/pet_cat_nuevo" />
-
-                        </FrameLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="18dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:letterSpacing="0.08"
-                                android:text="TU MASCOTA"
-                                android:textColor="#9793A9"
-                                android:textSize="9sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvMascotaNombre"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
-                                android:textColor="#211D3B"
-                                android:textSize="24sp"
+                                android:maxLines="1"
+                                android:textColor="#FFFFFF"
+                                android:textSize="22sp"
                                 android:textStyle="bold"
-                                tools:text="Milo" />
+                                tools:text="Hola, Jimmy" />
 
                             <TextView
-                                android:id="@+id/tvMascotaEstado"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:background="@drawable/bg_pill"
-                                android:paddingStart="13dp"
-                                android:paddingTop="5dp"
-                                android:paddingEnd="13dp"
-                                android:paddingBottom="5dp"
-                                android:textColor="#5B4FE9"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                tools:text="Muy feliz" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <!-- ALIMENTO -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="18dp"
-                        android:background="@drawable/bg_food_card"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="16dp">
-
-                        <TextView
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:background="@drawable/bg_food_icon"
-                            android:gravity="center"
-                            android:text="🍪"
-                            android:textSize="21sp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Alimento disponible"
-                                android:textColor="#433E5C"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-
-                            <TextView
+                                android:id="@+id/tvSaludoSub"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Estudia para conseguir más"
-                                android:textColor="#8A849F"
+                                android:alpha="0.82"
+                                android:maxLines="1"
+                                android:text="@string/saludo_sub"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+
+                        <!-- MENÚ -->
+
+                        <TextView
+                            android:id="@+id/btnSalir"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_circle"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                            android:gravity="center"
+                            android:text="⋮"
+                            android:textColor="#FFFFFF"
+                            android:textSize="27sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <!-- ESTADÍSTICAS -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal">
+
+
+                        <!-- PUNTOS -->
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="84dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_stat"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="★"
+                                android:textColor="#FDE68A"
+                                android:textSize="17sp" />
+
+                            <TextView
+                                android:id="@+id/tvPuntos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="1 250 pts" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="Puntos"
+                                android:textColor="#EDE9FE"
                                 android:textSize="10sp" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvComidaCantidad"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="x 0"
-                            android:textColor="#6C5CE7"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+
+                        <!-- NIVEL -->
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="84dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_stat"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="◆"
+                                android:textColor="#BFDBFE"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvNivel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="Nivel 4" />
+
+                            <TextView
+                                android:id="@+id/tvNivelProgreso"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:textColor="#E0E7FF"
+                                android:textSize="9sp"
+                                tools:text="320 restantes" />
+
+                        </LinearLayout>
+
+
+                        <!-- RACHA -->
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="84dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_stat"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🔥"
+                                android:textSize="17sp" />
+
+                            <TextView
+                                android:id="@+id/tvRacha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="7 días" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="Racha"
+                                android:textColor="#EDE9FE"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -609,212 +274,1038 @@
                     <!-- COMPATIBILIDAD -->
 
                     <Button
-                        android:id="@+id/btnPersonalizarMascota"
+                        android:id="@+id/btnEditarPerfil"
                         android:layout_width="1dp"
                         android:layout_height="1dp"
                         android:visibility="gone" />
 
 
-                    <!-- HAMBRE -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/etiqueta_hambre"
-                            android:textColor="#433E5C"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvHambreValor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#8A849F"
-                            android:textSize="11sp"
-                            tools:text="80/100" />
-
-                    </LinearLayout>
-
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/barHambre"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        app:indicatorColor="@color/hambre_alto"
-                        app:trackColor="#F0EEF7"
-                        app:trackCornerRadius="6dp"
-                        app:trackThickness="9dp"
-                        tools:progress="80" />
-
                     <TextView
-                        android:id="@+id/tvHambreHint"
+                        android:id="@+id/tvAvisoRacha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/hambre_consejo"
-                        android:textColor="#6B7280"
-                        android:textSize="11sp" />
-
-
-                    <!-- FELICIDAD -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/etiqueta_felicidad"
-                            android:textColor="#433E5C"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvFelicidadValor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#8A849F"
-                            android:textSize="11sp"
-                            tools:text="90/100" />
-
-                    </LinearLayout>
-
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/barFelicidad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        app:indicatorColor="@color/bar_felicidad"
-                        app:trackColor="#F0EEF7"
-                        app:trackCornerRadius="6dp"
-                        app:trackThickness="9dp"
-                        tools:progress="90" />
-
-                    <TextView
-                        android:id="@+id/tvFelicidadHint"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/felicidad_consejo"
-                        android:textColor="#6B7280"
-                        android:textSize="11sp" />
-
-
-                    <!-- ENERGÍA -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/etiqueta_energia"
-                            android:textColor="#433E5C"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvEnergiaValor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#8A849F"
-                            android:textSize="11sp"
-                            tools:text="75/100" />
-
-                    </LinearLayout>
-
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/barEnergia"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        app:indicatorColor="@color/bar_energia"
-                        app:trackColor="#F0EEF7"
-                        app:trackCornerRadius="6dp"
-                        app:trackThickness="9dp"
-                        tools:progress="75" />
-
-
-                    <!-- BOTONES -->
-
-                    <TextView
-                        android:id="@+id/tvEnergiaHint"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/energia_recuperacion"
-                        android:textColor="#6B7280"
-                        android:textSize="11sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="23dp"
-                        android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnAlimentar"
-                            android:layout_width="0dp"
-                            android:layout_height="52dp"
-                            android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button"
-                            android:stateListAnimator="@null"
-                            android:text="@string/mascota_alimentar"
-                            android:textAllCaps="false"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnJugar"
-                            android:layout_width="0dp"
-                            android:layout_height="52dp"
-                            android:layout_marginStart="6dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button_outline"
-                            android:stateListAnimator="@null"
-                            android:text="@string/mascota_jugar"
-                            android:textAllCaps="false"
-                            android:textColor="#5B4FE9"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_aviso"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Estudia hoy para mantener tu racha"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+
+                <!-- ================================================= -->
+                <!-- CONTINUAR APRENDIENDO -->
+                <!-- ================================================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tu aprendizaje"
+                        android:textColor="#211D3B"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Progreso"
+                        android:textColor="#8B88A8"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
 
 
-            <!-- ================================================= -->
-            <!-- EXPLORAR -->
-            <!-- ================================================= -->
+                <!-- TARJETA PROGRESO -->
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="#EEEAF8"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <!-- ICONO -->
+
+                            <TextView
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:background="@drawable/bg_emoji_circle"
+                                android:gravity="center"
+                                android:text="📚"
+                                android:textSize="24sp" />
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="14dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Guía de estudio"
+                                    android:textColor="#211D3B"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="Aprende y gana recompensas"
+                                    android:textColor="#7B7890"
+                                    android:textSize="11sp" />
+
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:id="@+id/tvProgresoLectura"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_pill"
+                                android:paddingStart="13dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="13dp"
+                                android:paddingBottom="6dp"
+                                android:textColor="#5B4FE9"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                tools:text="2/22" />
+
+                        </LinearLayout>
+
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/barProgreso"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            app:indicatorColor="#6C5CE7"
+                            app:trackColor="#EEEAF8"
+                            app:trackCornerRadius="6dp"
+                            app:trackThickness="9dp"
+                            tools:progress="40" />
+
+
+                        <TextView
+                            android:id="@+id/tvPomodoroResumen"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="#7B7890"
+                            android:textSize="11sp"
+                            tools:text="45 min de estudio esta semana" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <!-- ================================================= -->
+                <!-- MASCOTA -->
+                <!-- ================================================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tu compañero"
+                        android:textColor="#211D3B"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cuídalo cada día"
+                        android:textColor="#8B88A8"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="26dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="#EEEAF8"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+
+                        <!-- MASCOTA PRINCIPAL -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <FrameLayout
+                                android:layout_width="130dp"
+                                android:layout_height="130dp"
+                                android:background="@drawable/bg_pet_stage">
+
+                                <ImageView
+                                    android:id="@+id/ivMascota"
+                                    android:layout_width="108dp"
+                                    android:layout_height="108dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/mascota_seccion"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/pet_cat_nuevo" />
+
+                            </FrameLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:letterSpacing="0.08"
+                                    android:text="TU MASCOTA"
+                                    android:textColor="#9793A9"
+                                    android:textSize="9sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvMascotaNombre"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:textColor="#211D3B"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    tools:text="Milo" />
+
+                                <TextView
+                                    android:id="@+id/tvMascotaEstado"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="7dp"
+                                    android:background="@drawable/bg_pill"
+                                    android:paddingStart="13dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingEnd="13dp"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="#5B4FE9"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    tools:text="Muy feliz" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                        <!-- ALIMENTO -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="18dp"
+                            android:background="@drawable/bg_food_card"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="16dp">
+
+                            <TextView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="@drawable/bg_food_icon"
+                                android:gravity="center"
+                                android:text="🍪"
+                                android:textSize="21sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Alimento disponible"
+                                    android:textColor="#433E5C"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Estudia para conseguir más"
+                                    android:textColor="#8A849F"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvComidaCantidad"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="x 0"
+                                android:textColor="#6C5CE7"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                        <!-- COMPATIBILIDAD -->
+
+                        <Button
+                            android:id="@+id/btnPersonalizarMascota"
+                            android:layout_width="1dp"
+                            android:layout_height="1dp"
+                            android:visibility="gone" />
+
+
+                        <!-- HAMBRE -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="22dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/btn_info_hambre"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="6dp"
+                                android:src="@drawable/ic_info"
+                                app:tint="#A0A0A0"
+                                android:background="?attr/selectableItemBackgroundBorderless" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/etiqueta_hambre"
+                                android:textColor="#433E5C"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvHambreValor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#8A849F"
+                                android:textSize="11sp"
+                                tools:text="80/100" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/barHambre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            app:indicatorColor="@color/hambre_alto"
+                            app:trackColor="#F0EEF7"
+                            app:trackCornerRadius="6dp"
+                            app:trackThickness="9dp"
+                            tools:progress="80" />
+
+
+                        <TextView
+                            android:id="@+id/tvHambreHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/hambre_consejo"
+                            android:textColor="#6B7280"
+                            android:textSize="11sp" />
+
+
+                        <!-- FELICIDAD -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <ImageView
+                                android:id="@+id/btn_info_felicidad"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="6dp"
+                                android:src="@drawable/ic_info"
+                                app:tint="#A0A0A0"
+                                android:background="?attr/selectableItemBackgroundBorderless" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/etiqueta_felicidad"
+                                android:textColor="#433E5C"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvFelicidadValor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#8A849F"
+                                android:textSize="11sp"
+                                tools:text="90/100" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/barFelicidad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            app:indicatorColor="@color/bar_felicidad"
+                            app:trackColor="#F0EEF7"
+                            app:trackCornerRadius="6dp"
+                            app:trackThickness="9dp"
+                            tools:progress="90" />
+
+                        <TextView
+                            android:id="@+id/tvFelicidadHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/felicidad_consejo"
+                            android:textColor="#6B7280"
+                            android:textSize="11sp" />
+
+
+                        <!-- ENERGÍA -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/btn_info_energia"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="6dp"
+                                android:src="@drawable/ic_info"
+                                app:tint="#A0A0A0"
+                                android:background="?attr/selectableItemBackgroundBorderless" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/etiqueta_energia"
+                                android:textColor="#433E5C"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvEnergiaValor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#8A849F"
+                                android:textSize="11sp"
+                                tools:text="75/100" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/barEnergia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            app:indicatorColor="@color/bar_energia"
+                            app:trackColor="#F0EEF7"
+                            app:trackCornerRadius="6dp"
+                            app:trackThickness="9dp"
+                            tools:progress="75" />
+
+
+                        <!-- BOTONES -->
+
+                        <TextView
+                            android:id="@+id/tvEnergiaHint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/energia_recuperacion"
+                            android:textColor="#6B7280"
+                            android:textSize="11sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="23dp"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnAlimentar"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_marginEnd="6dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_button"
+                                android:stateListAnimator="@null"
+                                android:text="@string/mascota_alimentar"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnJugar"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_marginStart="6dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_button_outline"
+                                android:stateListAnimator="@null"
+                                android:text="@string/mascota_jugar"
+                                android:textAllCaps="false"
+                                android:textColor="#5B4FE9"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- ================================================= -->
+        <!-- SEGUNDA SECCIÓN: EXPLORAR -->
+        <!-- ================================================= -->
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/explorarScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                android:paddingBottom="32dp">
+
+                <!-- ================================================= -->
+                <!-- EXPLORAR -->
+                <!-- ================================================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Explorar"
+                        android:textColor="#211D3B"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Accesos rápidos"
+                        android:textColor="#8B88A8"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+
+                <!-- ================================================= -->
+                <!-- MÓDULOS PRINCIPALES -->
+                <!-- ================================================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="vertical">
+
+
+                    <!-- ================================================= -->
+                    <!-- GUÍA DE ESTUDIO -->
+                    <!-- ================================================= -->
+
+                    <LinearLayout
+                        android:id="@+id/modGuia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+
+                        <!-- 1. La Ilustración Principal (Caja grande de color) -->
+
+                            <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:layout_marginBottom="5dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/img_guia_estudios" />
+
+                        <!-- 2. Etiqueta tipo "TIPS" -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/bg_module"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:text="GUIA DE ESTUDIO"
+                            android:textColor="#6C5CE7"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <!-- 3. Título y Descripción -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="¿Quieres dominar la teoría? Repasa síntomas, funciones y síndromes paso a paso."
+                            android:textColor="#211D3B"
+                            android:textSize="16sp" />
+
+                        <!-- 4. Botón de acción principal -->
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="12dp"
+                            android:text="CONTINUAR ESTUDIANDO"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#6C5CE7"
+                            app:cornerRadius="12dp" />
+
+                        <!-- 5. Línea separadora inferior -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="24dp"
+                            android:background="#1A000000" /> <!-- Un gris súper transparente -->
+
+                    </LinearLayout>
+
+
+                    <!-- ================================================= -->
+                    <!-- ESTUDIO COMPARTIDO -->
+                    <!-- ================================================= -->
+
+
+                    <LinearLayout
+                        android:id="@+id/modGrupos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+
+                        <!-- 1. La Ilustración Principal (Caja grande de color) -->
+
+                        <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/img_grupos" />
+
+                        <!-- 2. Etiqueta tipo "TIPS" -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/bg_module"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:text="ESTUDIO COMPARTIDO"
+                            android:textColor="#00A8FF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <!-- 3. Título y Descripción -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="Crea o únete a una sala para estudiar con otros. Juega y compite para ver quien es el mejor de tu clase"
+                            android:textColor="#211D3B"
+                            android:textSize="16sp" />
+
+                        <!-- 4. Botón de acción principal -->
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="12dp"
+                            android:text="Entra al juego"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#00A8FF"
+                            app:cornerRadius="12dp" />
+
+                        <!-- 5. Línea separadora inferior -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="24dp"
+                            android:background="#1A000000" /> <!-- Un gris súper transparente -->
+
+                    </LinearLayout>
+
+
+
+
+                    <!--                    <LinearLayout-->
+<!--                        android:id="@+id/modGrupos"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="12dp"-->
+<!--                        android:background="@drawable/bg_module"-->
+<!--                        android:clickable="true"-->
+<!--                        android:elevation="3dp"-->
+<!--                        android:focusable="true"-->
+<!--                        android:foreground="?android:attr/selectableItemBackground"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:padding="16dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="62dp"-->
+<!--                            android:layout_height="62dp"-->
+<!--                            android:background="@drawable/bg_module_grupos"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="👥"-->
+<!--                            android:textSize="29sp" />-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Estudio compartido"-->
+<!--                                android:textColor="#211D3B"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="4dp"-->
+<!--                                android:lineSpacingExtra="2dp"-->
+<!--                                android:text="Crea o únete a una sala para estudiar con otros."-->
+<!--                                android:textColor="#77738F"-->
+<!--                                android:textSize="11sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="8dp"-->
+<!--                                android:text="Entrar al multijugador"-->
+<!--                                android:textColor="#00A8FF"-->
+<!--                                android:textSize="11sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                        </LinearLayout>-->
+
+
+<!--                        <TextView-->
+<!--                            android:layout_width="32dp"-->
+<!--                            android:layout_height="32dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="›"-->
+<!--                            android:textColor="#00A8FF"-->
+<!--                            android:textSize="28sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+                    <!-- ================================================= -->
+                    <!-- CASOS CLÍNICOS -->
+                    <!-- ================================================= -->
+
+                    <LinearLayout
+                        android:id="@+id/modEvaluacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+
+                        <!-- 1. La Ilustración Principal (Caja grande de color) -->
+
+                        <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/img_casos" />
+
+                        <!-- 2. Etiqueta tipo "TIPS" -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/bg_module"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:text="CASOS CLINICOS"
+                            android:textColor="#FF8A5C"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <!-- 3. Título y Descripción -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="Pon a prueba lo aprendido resolviendo situaciones clínicas."
+                            android:textColor="#211D3B"
+                            android:textSize="16sp" />
+
+                        <!-- 4. Botón de acción principal -->
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="12dp"
+                            android:text="Comenzar desafío"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#FF8A5C"
+                            app:cornerRadius="12dp" />
+
+                        <!-- 5. Línea separadora inferior -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="24dp"
+                            android:background="#1A000000" /> <!-- Un gris súper transparente -->
+
+                    </LinearLayout>
+
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/modEvaluacion"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/bg_module"-->
+<!--                        android:clickable="true"-->
+<!--                        android:elevation="3dp"-->
+<!--                        android:focusable="true"-->
+<!--                        android:foreground="?android:attr/selectableItemBackground"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:padding="16dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="62dp"-->
+<!--                            android:layout_height="62dp"-->
+<!--                            android:background="@drawable/bg_module_evaluacion"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="🧠"-->
+<!--                            android:textSize="29sp" />-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Casos clínicos"-->
+<!--                                android:textColor="#211D3B"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="4dp"-->
+<!--                                android:lineSpacingExtra="2dp"-->
+<!--                                android:text="Pon a prueba lo aprendido resolviendo situaciones clínicas."-->
+<!--                                android:textColor="#77738F"-->
+<!--                                android:textSize="11sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginTop="8dp"-->
+<!--                                android:text="Comenzar desafío"-->
+<!--                                android:textColor="#FF8A5C"-->
+<!--                                android:textSize="11sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                        </LinearLayout>-->
+
+
+<!--                        <TextView-->
+<!--                            android:layout_width="32dp"-->
+<!--                            android:layout_height="32dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="›"-->
+<!--                            android:textColor="#FF8A5C"-->
+<!--                            android:textSize="28sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- ================================================= -->
+        <!-- TERCERA Y CUARTA SECCIÓN -->
+        <!-- ================================================= -->
+
+        <!--
+            Desafíos y Ayuda comparten una sola tarjeta: MainActivity le
+            inyecta el texto de la sección activa, así evitamos dos copias de
+            la misma vista con ids repetidos.
+        -->
+        <include
+            android:id="@+id/seccionProximamente"
+            layout="@layout/view_seccion_proximamente"
+            android:visibility="gone" />
+
+        <!-- ================================================= -->
+        <!-- POMODORO FLOTANTE -->
+        <!-- ================================================= -->
+
+        <LinearLayout
+            android:id="@+id/panelPomodoro"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_pomodoro_flotante"
+            android:elevation="14dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <!-- CABECERA -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -822,506 +1313,228 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Explorar"
-                    android:textColor="#211D3B"
-                    android:textSize="19sp"
+                    android:text="POMODORO"
+                    android:textColor="#6C5CE7"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Accesos rápidos"
-                    android:textColor="#8B88A8"
-                    android:textSize="11sp" />
+                    android:id="@+id/btnMinimizarPomodoro"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/bg_pomodoro_icon"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="#5B4FE9"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
 
-            <!-- ================================================= -->
-            <!-- MÓDULOS PRINCIPALES -->
-            <!-- ================================================= -->
+            <!-- ESTADO -->
+
+            <TextView
+                android:id="@+id/tvPomodoroModo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Tiempo de enfoque"
+                android:textColor="#8B88A8"
+                android:textSize="12sp" />
+
+
+            <!-- RELOJ -->
+
+            <TextView
+                android:id="@+id/tvPomodoroTiempo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="20:00"
+                android:textColor="#211D3B"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+
+            <!-- MINUTOS ELEGIDOS -->
+
+            <TextView
+                android:id="@+id/tvPomodoroSeleccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="20 min de enfoque"
+                android:textColor="#6C5CE7"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+
+            <!-- BARRA 10 - 60 -->
+
+            <SeekBar
+                android:id="@+id/seekPomodoro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:max="10"
+                android:progress="2"
+                android:progressTint="#6C5CE7"
+                android:thumbTint="#6C5CE7" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="30dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-
-                <!-- ================================================= -->
-                <!-- GUÍA DE ESTUDIO -->
-                <!-- ================================================= -->
-
-                <LinearLayout
-                    android:id="@+id/modGuia"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_module"
-                    android:clickable="true"
-                    android:elevation="3dp"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:layout_weight="1"
+                    android:text="10 min"
+                    android:textColor="#AAA6B8"
+                    android:textSize="10sp" />
 
-                    <TextView
-                        android:layout_width="62dp"
-                        android:layout_height="62dp"
-                        android:background="@drawable/bg_module_guia"
-                        android:gravity="center"
-                        android:text="📖"
-                        android:textSize="29sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Guía de estudio"
-                            android:textColor="#211D3B"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:lineSpacingExtra="2dp"
-                            android:text="Repasa síntomas, funciones y síndromes paso a paso."
-                            android:textColor="#77738F"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Continuar estudiando"
-                            android:textColor="#6C5CE7"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:gravity="center"
-                        android:text="›"
-                        android:textColor="#6C5CE7"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <!-- ================================================= -->
-                <!-- ESTUDIO COMPARTIDO -->
-                <!-- ================================================= -->
-
-                <LinearLayout
-                    android:id="@+id/modGrupos"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_module"
-                    android:clickable="true"
-                    android:elevation="3dp"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="62dp"
-                        android:layout_height="62dp"
-                        android:background="@drawable/bg_module_grupos"
-                        android:gravity="center"
-                        android:text="👥"
-                        android:textSize="29sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Estudio compartido"
-                            android:textColor="#211D3B"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:lineSpacingExtra="2dp"
-                            android:text="Crea o únete a una sala para estudiar con otros."
-                            android:textColor="#77738F"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Entrar al multijugador"
-                            android:textColor="#00A8FF"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:gravity="center"
-                        android:text="›"
-                        android:textColor="#00A8FF"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <!-- ================================================= -->
-                <!-- CASOS CLÍNICOS -->
-                <!-- ================================================= -->
-
-                <LinearLayout
-                    android:id="@+id/modEvaluacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_module"
-                    android:clickable="true"
-                    android:elevation="3dp"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="62dp"
-                        android:layout_height="62dp"
-                        android:background="@drawable/bg_module_evaluacion"
-                        android:gravity="center"
-                        android:text="🧠"
-                        android:textSize="29sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Casos clínicos"
-                            android:textColor="#211D3B"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:lineSpacingExtra="2dp"
-                            android:text="Pon a prueba lo aprendido resolviendo situaciones clínicas."
-                            android:textColor="#77738F"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Comenzar desafío"
-                            android:textColor="#FF8A5C"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:gravity="center"
-                        android:text="›"
-                        android:textColor="#FF8A5C"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                    android:text="60 min"
+                    android:textColor="#AAA6B8"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
-        </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- ================================================= -->
-    <!-- POMODORO FLOTANTE -->
-    <!-- ================================================= -->
-
-    <LinearLayout
-        android:id="@+id/panelPomodoro"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/bg_pomodoro_flotante"
-        android:elevation="14dp"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-
-        <!-- CABECERA -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            <!-- DESCANSO -->
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="POMODORO"
-                android:textColor="#6C5CE7"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/btnMinimizarPomodoro"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:background="@drawable/bg_pomodoro_icon"
-                android:clickable="true"
-                android:focusable="true"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="›"
-                android:textColor="#5B4FE9"
-                android:textSize="28sp"
+                android:text="Descanso automático · 5 min"
+                android:textColor="#8B88A8"
+                android:textSize="11sp" />
+
+
+            <!-- INICIAR -->
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPomodoroIniciar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_button"
+                android:stateListAnimator="@null"
+                android:text="Iniciar"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
                 android:textStyle="bold" />
+
+
+            <!-- CONTROLES -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnPomodoroPausar"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_outline"
+                    android:enabled="false"
+                    android:stateListAnimator="@null"
+                    android:text="Pausar"
+                    android:textAllCaps="false"
+                    android:textColor="#5B4FE9"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnPomodoroReiniciar"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_button_outline"
+                    android:stateListAnimator="@null"
+                    android:text="Reiniciar"
+                    android:textAllCaps="false"
+                    android:textColor="#5B4FE9"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <!-- CICLOS -->
+
+            <TextView
+                android:id="@+id/tvPomodoroCiclos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
+                android:text="0 ciclos completados"
+                android:textColor="#8B88A8"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
 
-        <!-- ESTADO -->
-
-        <TextView
-            android:id="@+id/tvPomodoroModo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Tiempo de enfoque"
-            android:textColor="#8B88A8"
-            android:textSize="12sp" />
-
-
-        <!-- RELOJ -->
-
-        <TextView
-            android:id="@+id/tvPomodoroTiempo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="20:00"
-            android:textColor="#211D3B"
-            android:textSize="48sp"
-            android:textStyle="bold" />
-
-
-        <!-- MINUTOS ELEGIDOS -->
-
-        <TextView
-            android:id="@+id/tvPomodoroSeleccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="20 min de enfoque"
-            android:textColor="#6C5CE7"
-            android:textSize="13sp"
-            android:textStyle="bold" />
-
-
-        <!-- BARRA 10 - 60 -->
-
-        <SeekBar
-            android:id="@+id/seekPomodoro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:max="10"
-            android:progress="2"
-            android:progressTint="#6C5CE7"
-            android:thumbTint="#6C5CE7" />
-
+        <!-- ================================================= -->
+        <!-- PESTAÑA DEL FILO -->
+        <!-- ================================================= -->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10 min"
-                android:textColor="#AAA6B8"
-                android:textSize="10sp" />
+            android:id="@+id/pestanaPomodoro"
+            android:layout_width="72dp"
+            android:layout_height="82dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/bg_pomodoro_pestana"
+            android:clickable="true"
+            android:elevation="15dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="60 min"
-                android:textColor="#AAA6B8"
-                android:textSize="10sp" />
+                android:text="◷"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp" />
 
-        </LinearLayout>
-
-
-        <!-- DESCANSO -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Descanso automático · 5 min"
-            android:textColor="#8B88A8"
-            android:textSize="11sp" />
-
-
-        <!-- INICIAR -->
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPomodoroIniciar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/bg_button"
-            android:stateListAnimator="@null"
-            android:text="Iniciar"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-
-        <!-- CONTROLES -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnPomodoroPausar"
-                android:layout_width="0dp"
-                android:layout_height="46dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button_outline"
-                android:enabled="false"
-                android:stateListAnimator="@null"
-                android:text="Pausar"
-                android:textAllCaps="false"
-                android:textColor="#5B4FE9"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnPomodoroReiniciar"
-                android:layout_width="0dp"
-                android:layout_height="46dp"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_button_outline"
-                android:stateListAnimator="@null"
-                android:text="Reiniciar"
-                android:textAllCaps="false"
-                android:textColor="#5B4FE9"
+            <TextView
+                android:id="@+id/tvPomodoroMiniTiempo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="20:00"
+                android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-
-        <!-- CICLOS -->
-
-        <TextView
-            android:id="@+id/tvPomodoroCiclos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:gravity="center"
-            android:text="0 ciclos completados"
-            android:textColor="#8B88A8"
-            android:textSize="11sp" />
-
-    </LinearLayout>
-
+    </FrameLayout>
 
     <!-- ================================================= -->
-    <!-- PESTAÑA DEL FILO -->
+    <!-- NAVEGACIÓN INFERIOR -->
     <!-- ================================================= -->
 
-    <LinearLayout
-        android:id="@+id/pestanaPomodoro"
-        android:layout_width="72dp"
-        android:layout_height="82dp"
-        android:layout_gravity="end|center_vertical"
-        android:background="@drawable/bg_pomodoro_pestana"
-        android:clickable="true"
-        android:elevation="15dp"
-        android:focusable="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="6dp"
-        android:visibility="gone">
+    <include layout="@layout/view_bottom_nav" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="◷"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp" />
-
-        <TextView
-            android:id="@+id/tvPomodoroMiniTiempo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="20:00"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>
