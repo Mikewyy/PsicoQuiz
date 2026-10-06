@@ -2,6 +2,7 @@ package com.utm.semiologia.data;
 
 import android.content.Context;
 
+import com.utm.semiologia.data.dao.DesafioDao;
 import com.utm.semiologia.data.dao.EstudioDao;
 import com.utm.semiologia.data.dao.MascotaDao;
 import com.utm.semiologia.data.dao.NivelesDao;
@@ -25,6 +26,7 @@ public class Repositorio {
     private final EstudioDao  estudioDao;
     private final PomodoroDao pomodoroDao;
     private final NivelesDao  nivelesDao;
+    private final DesafioDao  desafioDao;
 
     private Repositorio(Context context) {
         DatabaseHelper helper = DatabaseHelper.get(context);
@@ -33,6 +35,7 @@ public class Repositorio {
         this.estudioDao  = new EstudioDao(helper);
         this.pomodoroDao = new PomodoroDao(helper);
         this.nivelesDao  = new NivelesDao(helper);
+        this.desafioDao  = new DesafioDao(helper);
     }
 
     public static Repositorio get(Context context) {
@@ -51,4 +54,5 @@ public class Repositorio {
     public EstudioDao  estudio()   { return estudioDao; }
     public PomodoroDao pomodoro()  { return pomodoroDao; }
     public NivelesDao  niveles()   { return nivelesDao; }
+    public DesafioDao  desafios()  { return desafioDao; }
 }

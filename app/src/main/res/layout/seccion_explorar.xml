@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/explorarScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingTop="36dp"
+    android:paddingBottom="10dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:paddingHorizontal="16dp">
+
+<!-- TÍTULO DE LA SECCIÓN -->
+
+    <!-- ========================================== -->
+<!-- AQUÍ PEGARÁS TUS TARJETAS ESTILO DUOLINGO  -->
+<!-- ========================================== -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="Explorar"
+        android:textColor="#211D3B"
+        android:layout_marginStart="24dp"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+
+        <!-- ================================================= -->
+        <!-- GUÍA DE ESTUDIO -->
+        <!-- ================================================= -->
+
+        <LinearLayout
+            android:id="@+id/modGuia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+
+            <!-- 1. La Ilustración Principal (Caja grande de color) -->
+
+            <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_guia_estudios" />
+
+            <!-- 2. Etiqueta tipo "TIPS" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_module"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="GUIA DE ESTUDIO"
+                android:textColor="#6C5CE7"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- 3. Título y Descripción -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="4dp"
+                android:text="¿Quieres dominar la teoría? Repasa síntomas, funciones y síndromes paso a paso."
+                android:textColor="#211D3B"
+                android:textSize="16sp" />
+
+            <!-- 4. Botón de acción principal -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_guia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:text="CONTINUAR ESTUDIANDO"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:backgroundTint="#6C5CE7"
+                app:cornerRadius="12dp" />
+
+            <!-- 5. Línea separadora inferior -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#1A000000" /> <!-- Un gris súper transparente -->
+
+        </LinearLayout>
+
+
+        <!-- ================================================= -->
+        <!-- ESTUDIO COMPARTIDO -->
+        <!-- ================================================= -->
+
+
+        <LinearLayout
+            android:id="@+id/modGrupos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+
+            <!-- 1. La Ilustración Principal (Caja grande de color) -->
+
+            <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_grupos" />
+
+            <!-- 2. Etiqueta tipo "TIPS" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_module"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="ESTUDIO COMPARTIDO"
+                android:textColor="#00A8FF"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- 3. Título y Descripción -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Crea o únete a una sala para estudiar con otros. Juega y compite para ver quien es el mejor de tu clase"
+                android:textColor="#211D3B"
+                android:textSize="16sp" />
+
+            <!-- 4. Botón de acción principal -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_estudio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:text="ENTRA AL JUEGO"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:backgroundTint="#00A8FF"
+                app:cornerRadius="12dp" />
+
+            <!-- 5. Línea separadora inferior -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#1A000000" /> <!-- Un gris súper transparente -->
+
+        </LinearLayout>
+
+        <!-- ================================================= -->
+        <!-- CASOS CLÍNICOS -->
+        <!-- ================================================= -->
+
+        <LinearLayout
+            android:id="@+id/modEvaluacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+
+            <!-- 1. La Ilustración Principal (Caja grande de color) -->
+
+            <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_casos" />
+
+            <!-- 2. Etiqueta tipo "TIPS" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_module"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="CASOS CLINICOS"
+                android:textColor="#FF8A5C"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- 3. Título y Descripción -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Pon a prueba lo aprendido resolviendo situaciones clínicas."
+                android:textColor="#211D3B"
+                android:textSize="16sp" />
+
+            <!-- 4. Botón de acción principal -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_casos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:text="COMENZAR DESAFIO"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:backgroundTint="#FF8A5C"
+                app:cornerRadius="12dp" />
+
+            <!-- 5. Línea separadora inferior -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#1A000000" /> <!-- Un gris súper transparente -->
+            </LinearLayout>
+        </LinearLayout>
+</LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>

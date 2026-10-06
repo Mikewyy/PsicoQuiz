@@ -29,9 +29,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.utm.semiologia.R;
 import com.utm.semiologia.SemiologiaApp;
+import com.utm.semiologia.data.dao.DesafioDao;
+import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.model.Mascota;
 import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.ui.auth.LoginActivity;
@@ -39,6 +42,9 @@ import com.utm.semiologia.ui.common.BaseActivity;
 import com.utm.semiologia.ui.common.NavegacionInferior;
 import com.utm.semiologia.ui.estudio.GuiaActivity;
 import com.utm.semiologia.ui.evaluacion.CaminoActivity;
+import com.utm.semiologia.util.DesafioDiario;
+import com.utm.semiologia.util.FechaUtil;
+import com.utm.semiologia.util.Gamificacion;
 
 
 
@@ -147,6 +153,7 @@ public class MainActivity extends BaseActivity
      */
     private View seccionInicio;
     private View seccionExplorar;
+    private View seccionDesafios;
     private View seccionProximamente;
 
     private TextView tvProxTitulo;
@@ -154,6 +161,22 @@ public class MainActivity extends BaseActivity
     private TextView tvProxEmoji;
     private TextView tvProxMensaje;
     private TextView tvProxBadge;
+
+    private TextView tvDesafioRacha;
+    private TextView tvDesafioPregunta;
+    private TextView tvDesafioResultadoTitulo;
+    private TextView tvDesafioResultadoSub;
+    private TextView tvDesafioCorrecta;
+    private TextView tvDesafioJustificacion;
+    private TextView tvDesafioRecompensa;
+    private LinearLayout contenedorDesafioResultado;
+
+    private final MaterialButton[] btnsDesafio = new MaterialButton[3];
+
+    private DesafioDiario.Presentacion desafioPresentacion;
+    private boolean desafioPintado;
+    private int selIndiceFallado = -1;
+    private int cantidadGanada;
 
     private int seccionActual = NavegacionInferior.SECCION_INICIO;
 
@@ -304,9 +327,20 @@ public class MainActivity extends BaseActivity
             );
         }
 
+        if (seccionDesafios != null) {
+            seccionDesafios.setVisibility(
+                    seccion == NavegacionInferior.SECCION_DESAFIOS
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        if (seccion == NavegacionInferior.SECCION_DESAFIOS) {
+            pintarDesafio();
+        }
+
         boolean esProximamente =
-                seccion == NavegacionInferior.SECCION_DESAFIOS
-                        || seccion == NavegacionInferior.SECCION_AYUDA;
+                seccion == NavegacionInferior.SECCION_AYUDA;
 
         if (seccionProximamente != null) {
             seccionProximamente.setVisibility(
@@ -336,22 +370,243 @@ public class MainActivity extends BaseActivity
 
     private void pintarProximamente(int seccion) {
 
-        boolean desafios =
-                seccion == NavegacionInferior.SECCION_DESAFIOS;
+        /*
+         * Solo Ayuda usa el placeholder; Desafíos ya tiene sección propia.
+         * Pintar de nuevo la pieza con la que ya estaba pintado es barato y
+         * garantiza el texto correcto en cualquier navegación.
+         */
+        tvProxTitulo.setText(R.string.ayuda_titulo);
+        tvProxEmoji.setText("💡");
+        tvProxMensaje.setText(R.string.ayuda_mensaje);
+    }
 
-        tvProxTitulo.setText(
-                desafios
-                        ? R.string.desafios_titulo
-                        : R.string.ayuda_titulo
+
+    // =========================================================
+    // DESAFÍO DIARIO
+    // =========================================================
+
+    /**
+     * Refresca la pestaña Desafíos. La pregunta del día se recompone desde la
+     * fecha actual (mismo orden de opciones para todos ese día), así que una
+     * reconexión sobre una partida ya resuelta sigue mostrando la respuesta
+     * correcta con su letra original.
+     */
+    private void pintarDesafio() {
+
+        long usuarioId =
+                SemiologiaApp.getSesion().getUsuarioId();
+
+        String hoy = FechaUtil.hoy();
+
+        DesafioDiario.Presentacion presentacion =
+                DesafioDiario.preguntaDe(this, hoy);
+
+        tvDesafioRacha.setText(
+                getString(
+                        R.string.desafio_racha,
+                        Repositorio.get(this).desafios().rachaActual(usuarioId, hoy)
+                )
         );
 
-        tvProxEmoji.setText(desafios ? "🏆" : "💡");
+        if (presentacion == null) {
+            tvDesafioPregunta.setText(R.string.desafio_sin_preguntas);
+            for (MaterialButton btn : btnsDesafio) {
+                btn.setVisibility(View.GONE);
+            }
+            return;
+        }
 
-        tvProxMensaje.setText(
-                desafios
-                        ? R.string.desafios_mensaje
-                        : R.string.ayuda_mensaje
+        desafioPresentacion = presentacion;
+
+        String resultado =
+                Repositorio.get(this).desafios().resultadoHoy(usuarioId, hoy);
+
+        if (resultado != null) {
+            pintarResultadoDesafio(
+                    DesafioDao.OK.equals(resultado),
+                    presentacion,
+                    usuarioId,
+                    hoy
+            );
+            return;
+        }
+
+        // Estado pendiente: preguntas + opciones listas para responder.
+        tvDesafioPregunta.setText(presentacion.getPregunta().getEnunciado());
+
+        for (int i = 0; i < btnsDesafio.length; i++) {
+            btnsDesafio[i].setText(
+                    getString(
+                            R.string.desafio_correcta,
+                            String.valueOf((char) ('A' + i)),
+                            presentacion.getOpcion(i)
+                    )
+            );
+            btnsDesafio[i].setVisibility(View.VISIBLE);
+            btnsDesafio[i].setEnabled(true);
+            btnsDesafio[i].setBackgroundTintList(
+                    android.content.res.ColorStateList.valueOf(
+                            android.graphics.Color.WHITE
+                    )
+            );
+            btnsDesafio[i].setTextColor(android.graphics.Color.parseColor("#211D3B"));
+            btnsDesafio[i].setStrokeColor(
+                    android.content.res.ColorStateList.valueOf(
+                            android.graphics.Color.parseColor("#6C5CE7")
+                    )
+            );
+        }
+
+        contenedorDesafioResultado.setVisibility(View.GONE);
+        desafioPintado = true;
+    }
+
+
+    private void responderDesafio(int opcionElegida) {
+
+        if (!desafioPintado || desafioPresentacion == null) {
+            return;
+        }
+
+        long usuarioId =
+                SemiologiaApp.getSesion().getUsuarioId();
+
+        String hoy = FechaUtil.hoy();
+
+        DesafioDiario.Presentacion pres = desafioPresentacion;
+        boolean acerto = opcionElegida == pres.getLetraCorrecta();
+
+        for (MaterialButton btn : btnsDesafio) {
+            btn.setEnabled(false);
+        }
+
+        Repositorio repo = Repositorio.get(this);
+
+        if (acerto) {
+            repo.desafios().marcarResultado(usuarioId, hoy, DesafioDao.OK);
+
+            cantidadGanada = calcularRecompensa(repo, usuarioId, hoy);
+            repo.mascotas().otorgarAlimento(
+                    usuarioId,
+                    Gamificacion.ALIMENTO_GALLETA_ID,
+                    cantidadGanada
+            );
+
+            // Refresca el contador de comida del dashboard (Inicio).
+            viewModel.cargar();
+        } else {
+            selIndiceFallado = opcionElegida;
+            repo.desafios().marcarResultado(usuarioId, hoy, DesafioDao.ERROR);
+        }
+
+        pintarResultadoDesafio(acerto, pres, usuarioId, hoy);
+    }
+
+
+    /**
+     * Galletas por ganar el desafío: 3 base; si la racha queda en un múltiplo
+     * exacto de 7 días, +1 extra de racha. Solo se otorga al ganar.
+     */
+    private int calcularRecompensa(Repositorio repo, long usuarioId, String hoy) {
+        int racha = repo.desafios().rachaActual(usuarioId, hoy);
+        return (racha > 0 && racha % 7 == 0) ? 4 : 3;
+    }
+
+
+    private void pintarResultadoDesafio(
+            boolean acerto,
+            DesafioDiario.Presentacion pres,
+            long usuarioId,
+            String hoy) {
+
+        if (acerto) {
+            cantidadGanada = calcularRecompensa(Repositorio.get(this), usuarioId, hoy);
+        }
+
+        // Coloreado de las tres opciones: verde la correcta, roja la fallada.
+        for (int i = 0; i < btnsDesafio.length; i++) {
+            if (i == pres.getLetraCorrecta()) {
+                btnsDesafio[i].setBackgroundTintList(
+                        android.content.res.ColorStateList.valueOf(
+                                android.graphics.Color.parseColor("#22C55E")
+                        )
+                );
+                btnsDesafio[i].setStrokeColor(
+                        android.content.res.ColorStateList.valueOf(
+                                android.graphics.Color.parseColor("#22C55E")
+                        )
+                );
+                btnsDesafio[i].setTextColor(android.graphics.Color.WHITE);
+            } else if (!acerto && i == selIndiceFallado) {
+                btnsDesafio[i].setBackgroundTintList(
+                        android.content.res.ColorStateList.valueOf(
+                                android.graphics.Color.parseColor("#EF4444")
+                        )
+                );
+                btnsDesafio[i].setStrokeColor(
+                        android.content.res.ColorStateList.valueOf(
+                                android.graphics.Color.parseColor("#EF4444")
+                        )
+                );
+                btnsDesafio[i].setTextColor(android.graphics.Color.WHITE);
+            } else {
+                btnsDesafio[i].setAlpha(0.35f);
+            }
+        }
+
+        String letraCorrecta =
+                String.valueOf(
+                        (char) ('A' + pres.getLetraCorrecta())
+                );
+
+        tvDesafioResultadoTitulo.setText(
+                acerto
+                        ? R.string.desafio_ok_titulo
+                        : R.string.desafio_error_titulo
         );
+        tvDesafioResultadoTitulo.setTextColor(
+                android.graphics.Color.parseColor(
+                        acerto ? "#22C55E" : "#EF4444"
+                )
+        );
+
+        tvDesafioResultadoSub.setText(
+                acerto
+                        ? getString(R.string.desafio_ok_sub, cantidadGanada)
+                        : getString(R.string.desafio_error_sub, letraCorrecta)
+        );
+
+        tvDesafioCorrecta.setText(
+                getString(
+                        R.string.desafio_correcta,
+                        letraCorrecta,
+                        pres.getOpcion(pres.getLetraCorrecta())
+                )
+        );
+
+        tvDesafioJustificacion.setText(
+                getString(
+                        R.string.desafio_justificacion,
+                        pres.getPregunta().getJustificacion()
+                )
+        );
+
+        if (acerto) {
+            tvDesafioRecompensa.setVisibility(View.VISIBLE);
+            tvDesafioRecompensa.setText(
+                    getString(
+                            cantidadGanada > 3
+                                    ? R.string.desafio_recompensa_racha
+                                    : R.string.desafio_recompensa_normal,
+                            cantidadGanada
+                    )
+            );
+        } else {
+            tvDesafioRecompensa.setVisibility(View.GONE);
+        }
+
+        contenedorDesafioResultado.setVisibility(View.VISIBLE);
+        desafioPintado = false;
     }
 
 
@@ -580,6 +835,11 @@ public class MainActivity extends BaseActivity
                         R.id.explorarScroll
                 );
 
+        seccionDesafios =
+                findViewById(
+                        R.id.seccion_desafios
+                );
+
         seccionProximamente =
                 findViewById(
                         R.id.seccionProximamente
@@ -596,6 +856,26 @@ public class MainActivity extends BaseActivity
             tvProxEmoji = seccionProximamente.findViewById(R.id.tvProxEmoji);
             tvProxMensaje = seccionProximamente.findViewById(R.id.tvProxMensaje);
             tvProxBadge = seccionProximamente.findViewById(R.id.tvProxBadge);
+        }
+
+        if (seccionDesafios != null) {
+            tvDesafioRacha = seccionDesafios.findViewById(R.id.tvDesafioRacha);
+            tvDesafioPregunta = seccionDesafios.findViewById(R.id.tvDesafioPregunta);
+            btnsDesafio[0] = seccionDesafios.findViewById(R.id.btnDesafioA);
+            btnsDesafio[1] = seccionDesafios.findViewById(R.id.btnDesafioB);
+            btnsDesafio[2] = seccionDesafios.findViewById(R.id.btnDesafioC);
+            contenedorDesafioResultado =
+                    seccionDesafios.findViewById(R.id.contenedorDesafioResultado);
+            tvDesafioResultadoTitulo =
+                    seccionDesafios.findViewById(R.id.tvDesafioResultadoTitulo);
+            tvDesafioResultadoSub =
+                    seccionDesafios.findViewById(R.id.tvDesafioResultadoSub);
+            tvDesafioCorrecta =
+                    seccionDesafios.findViewById(R.id.tvDesafioCorrecta);
+            tvDesafioJustificacion =
+                    seccionDesafios.findViewById(R.id.tvDesafioJustificacion);
+            tvDesafioRecompensa =
+                    seccionDesafios.findViewById(R.id.tvDesafioRecompensa);
         }
 
 
@@ -1332,7 +1612,7 @@ public class MainActivity extends BaseActivity
         // -----------------------------------------------------
 
         findViewById(
-                R.id.modGuia
+                R.id.btn_guia
         ).setOnClickListener(
                 v -> startActivity(
                         new Intent(
@@ -1348,7 +1628,7 @@ public class MainActivity extends BaseActivity
         // -----------------------------------------------------
 
         findViewById(
-                R.id.modGrupos
+                R.id.btn_estudio
         ).setOnClickListener(
                 v -> startActivity(
                         new Intent(
@@ -1364,7 +1644,7 @@ public class MainActivity extends BaseActivity
         // -----------------------------------------------------
 
         findViewById(
-                R.id.modEvaluacion
+                R.id.btn_casos
         ).setOnClickListener(
                 v -> startActivity(
                         new Intent(
@@ -1373,6 +1653,18 @@ public class MainActivity extends BaseActivity
                         )
                 )
         );
+
+
+        // -----------------------------------------------------
+        // DESAFÍO DIARIO
+        // -----------------------------------------------------
+
+        for (int i = 0; i < btnsDesafio.length; i++) {
+            final int opcion = i;
+            btnsDesafio[i].setOnClickListener(
+                    v -> responderDesafio(opcion)
+            );
+        }
     }
 
 

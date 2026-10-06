@@ -59,9 +59,23 @@
     <string name="prox_etiqueta">Próximamente</string>
     <string name="prox_badge">Muy pronto</string>
     <string name="desafios_titulo">Desafíos diarios</string>
-    <string name="desafios_mensaje">Retos que se renuevan cada día para poner a prueba lo que aprendiste.</string>
     <string name="ayuda_titulo">Ayuda y créditos</string>
     <string name="ayuda_mensaje">Guía de usuario, instrucciones paso a paso y créditos del equipo.</string>
+
+    <!-- Desafío diario -->
+    <string name="desafio_badge">HOY</string>
+    <string name="desafio_titulo_carta">Desafío de hoy</string>
+    <string name="desafio_sin_preguntas">Hoy no hay desafíos disponibles. Vuelve más tarde.</string>
+    <string name="desafio_racha">🔥 %1$d días de racha</string>
+    <string name="desafio_recompensa_normal">Recompensa: %1$d galletas 🍪</string>
+    <string name="desafio_recompensa_racha">Recompensa: %1$d galletas 🍪 (incluye +1 de tu racha 🔥)</string>
+    <string name="desafio_ok_titulo">¡Correcto!</string>
+    <string name="desafio_ok_sub">Ganaste %1$d galletas para tu mascota.</string>
+    <string name="desafio_error_titulo">Respuesta equivocada</string>
+    <string name="desafio_error_sub">La respuesta correcta era la opción %1$s. Inténtalo de nuevo mañana.</string>
+    <string name="desafio_correcta">Opción %1$s: %2$s</string>
+    <string name="desafio_justificacion">¿Por qué? %1$s</string>
+    <string name="desafio_vuelve">Vuelve mañana por un nuevo desafío 🎯</string>
 
     <string name="salir">Cerrar sesión</string>
     <string name="confirmar_salir">¿Seguro que quieres cerrar sesión?</string>

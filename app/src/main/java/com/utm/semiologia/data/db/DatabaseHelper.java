@@ -27,7 +27,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 15;
+    public static final int DB_VERSION = 16;
     public Context getAppContext() {
         return appContext;
     }
@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String T_ACCESORIOS = "accesorios";
     public static final String T_INV_ACCESORIOS = "inventario_accesorios";
     public static final String T_ACTIVIDAD = "actividad_diaria";
+    public static final String COL_DESAFIO = "desafio";
     public static final String T_GRUPOS = "grupos";
     public static final String T_GRUPO_MIEMBROS = "grupo_miembros";
     public static final String T_NOTAS_COMPARTIDAS = "notas_compartidas";
@@ -147,6 +148,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         if (oldVersion < 15) {
             migrarAV15(db);
+        }
+        if (oldVersion < 16) {
+            migrarAV16(db);
+        }
+    }
+
+    // =========================================================
+    // V16 - RESULTADO DEL DESAFÍO DIARIO
+    // =========================================================
+
+    /**
+     * Guarda el resultado de hoy del desafío diario en la fila de actividad.
+     * 'ok' u 'error'; NULL significa que todavía no ha jugado. Al ser la
+     * tabla actividad_diaria UNIQUE(usuario_id, fecha), un usuario solo puede
+     * tener un resultado por día.
+     */
+    private void migrarAV16(SQLiteDatabase db) {
+        if (!existeColumna(db, T_ACTIVIDAD, COL_DESAFIO)) {
+            db.execSQL(
+                    "ALTER TABLE " + T_ACTIVIDAD +
+                            " ADD COLUMN " + COL_DESAFIO + " TEXT DEFAULT NULL"
+            );
         }
     }
 
@@ -600,6 +623,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "secciones_leidas    INTEGER NOT NULL DEFAULT 0," +
                 "minutos_pomodoro    INTEGER NOT NULL DEFAULT 0," +
                 "puntos              INTEGER NOT NULL DEFAULT 0," +
+                COL_DESAFIO + "         TEXT    DEFAULT NULL," +  // 'ok'|'error'|NULL
                 "UNIQUE(usuario_id, fecha)" +
                 ")");
 

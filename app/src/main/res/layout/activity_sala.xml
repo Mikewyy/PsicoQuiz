@@ -24,7 +24,7 @@
             android:background="#6C5CE7"
             android:orientation="vertical"
             android:paddingStart="20dp"
-            android:paddingTop="18dp"
+            android:paddingTop="28dp"
             android:paddingEnd="20dp"
             android:paddingBottom="28dp">
 

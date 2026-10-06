@@ -32,10 +32,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#6C5CE7"
+                android:background="#00A8FF"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
-                android:paddingTop="18dp"
+                android:paddingTop="38dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="28dp">
 
@@ -51,7 +51,7 @@
                         android:id="@+id/btnVolver"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
-                        android:background="@drawable/bg_boton_volver_guia"
+                        android:background="@drawable/btn_volver_estudio"
                         android:gravity="center"
                         android:text="‹"
                         android:textColor="#FFFFFF"
@@ -179,7 +179,7 @@
                                 android:background="@drawable/bg_numero_seccion"
                                 android:gravity="center"
                                 android:text="＋"
-                                android:textColor="#6C5CE7"
+                                android:textColor="#00A8FF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
 
@@ -242,7 +242,7 @@
                             android:textAllCaps="false"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            app:backgroundTint="#6C5CE7"
+                            app:backgroundTint="#00A8FF"
                             app:cornerRadius="16dp" />
 
 
@@ -302,7 +302,7 @@
                                 android:background="@drawable/bg_numero_seccion"
                                 android:gravity="center"
                                 android:text="#"
-                                android:textColor="#6C5CE7"
+                                android:textColor="#00A8FF"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
 
@@ -366,7 +366,7 @@
                             android:textAllCaps="false"
                             android:textSize="15sp"
                             android:textStyle="bold"
-                            app:backgroundTint="#5145CD"
+                            app:backgroundTint="#00A8FF"
                             app:cornerRadius="16dp" />
 
 
@@ -431,7 +431,7 @@
                         android:layout_marginTop="5dp"
                         android:letterSpacing="0.18"
                         android:text="ABC123"
-                        android:textColor="#6C5CE7"
+                        android:textColor="#00A8FF"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -455,7 +455,7 @@
                         android:text="Copiar código"
                         android:textAllCaps="false"
                         android:textStyle="bold"
-                        app:backgroundTint="#6C5CE7"
+                        app:backgroundTint="#00A8FF"
                         app:cornerRadius="15dp" />
 
 
