@@ -290,7 +290,7 @@ android:paddingHorizontal="16dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ESTUDIO COMPARTIDO"
+                        android:text="CASOS CLINICOS"
                         android:textColor="#FF8A5C"
                         android:textSize="11sp"
                         android:textStyle="bold" />

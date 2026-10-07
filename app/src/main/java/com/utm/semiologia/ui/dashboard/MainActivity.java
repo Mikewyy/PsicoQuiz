@@ -1,5 +1,8 @@
 package com.utm.semiologia.ui.dashboard;
 import com.utm.semiologia.ui.pomodoro.PomodoroManager;
+
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.SeekBar;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
@@ -3094,6 +3097,27 @@ public class MainActivity extends BaseActivity
     }
 
 
+    //Mostrar ocultar contraseña
+
+    private void configurarTogglePassword(EditText editText, ImageView imageView) {
+        imageView.setOnClickListener(v -> {
+            // Verifica si la contraseña actualmente está oculta
+            if (editText.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Mostrar contraseña
+                editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                imageView.setImageResource(R.drawable.ic_ojo); // Tu ícono de ojo abierto
+            } else {
+                // Ocultar contraseña
+                editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                imageView.setImageResource(R.drawable.ic_ojo_cerrado); // Tu ícono de ojo cerrado
+            }
+
+            // Mueve el cursor al final del texto para que el usuario pueda seguir escribiendo cómodamente
+            editText.setSelection(editText.getText().length());
+        });
+    }
+
+
     // =========================================================
     // CAMBIAR CORREO ELECTRÓNICO
     // =========================================================
@@ -3123,39 +3147,38 @@ public class MainActivity extends BaseActivity
                         R.id.etCorreoConfirmar
                 );
 
+        ImageView ivToggleActual = vista.findViewById(R.id.ivToggleActual);
+
+// Aplicar la lógica a cada campo
+        configurarTogglePassword(etActual, ivToggleActual);
+
+        TextView btnCancelarCorreo = vista.findViewById(R.id.btnCancelarCorreo);
+        com.google.android.material.button.MaterialButton btnAceptarCorreo = vista.findViewById(R.id.btnAceptarCorreo);
+
         final AlertDialog dialog =
                 new AlertDialog.Builder(
                         this
                 )
-                        .setTitle(
-                                R.string.config_cambiar_correo
-                        )
                         .setView(
                                 vista
                         )
-                        .setNegativeButton(
-                                R.string.cancelar,
-                                null
-                        )
-                        .setPositiveButton(
-                                R.string.aceptar,
-                                null
-                        )
                         .create();
 
-        dialog.setOnShowListener(
-                d -> dialog
-                        .getButton(
-                                AlertDialog.BUTTON_POSITIVE
-                        )
-                        .setOnClickListener(
-                                v -> aplicarCambioCorreo(
-                                        etActual,
-                                        etNuevo,
-                                        etConfirmar,
-                                        dialog
-                                )
-                        )
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        btnCancelarCorreo.setOnClickListener(
+                v -> dialog.dismiss()
+        );
+
+        btnAceptarCorreo.setOnClickListener(
+                v -> aplicarCambioCorreo(
+                        etActual,
+                        etNuevo,
+                        etConfirmar,
+                        dialog
+                )
         );
 
         dialog.show();
@@ -3330,6 +3353,7 @@ public class MainActivity extends BaseActivity
                                 null
                         );
 
+        // 1. Instanciar los campos de texto
         final EditText etActual =
                 vista.findViewById(
                         R.id.etPasswordActual
@@ -3345,39 +3369,47 @@ public class MainActivity extends BaseActivity
                         R.id.etPasswordConfirmar
                 );
 
+        // Inicializar los ImageView de los botones toggle
+        ImageView ivToggleActual = vista.findViewById(R.id.ivToggleActual);
+        ImageView ivToggleNueva = vista.findViewById(R.id.ivToggleNueva);
+        ImageView ivToggleConfirmar = vista.findViewById(R.id.ivToggleConfirmar);
+
+// Aplicar la lógica a cada campo
+        configurarTogglePassword(etActual, ivToggleActual);
+        configurarTogglePassword(etNueva, ivToggleNueva);
+        configurarTogglePassword(etConfirmar, ivToggleConfirmar);
+
+        // 2. Instanciar los NUEVOS botones personalizados de tu XML
+        TextView btnCancelar = vista.findViewById(R.id.btnCancelar);
+        com.google.android.material.button.MaterialButton btnAceptar = vista.findViewById(R.id.btnAceptar);
+
+        // 3. Crear el diálogo ÚNICAMENTE con la vista (sin setTitle ni botones nativos)
         final AlertDialog dialog =
                 new AlertDialog.Builder(
                         this
                 )
-                        .setTitle(
-                                R.string.config_cambiar_password
-                        )
                         .setView(
                                 vista
                         )
-                        .setNegativeButton(
-                                R.string.cancelar,
-                                null
-                        )
-                        .setPositiveButton(
-                                R.string.aceptar,
-                                null
-                        )
                         .create();
 
-        dialog.setOnShowListener(
-                d -> dialog
-                        .getButton(
-                                AlertDialog.BUTTON_POSITIVE
-                        )
-                        .setOnClickListener(
-                                v -> aplicarCambioContrasena(
-                                        etActual,
-                                        etNueva,
-                                        etConfirmar,
-                                        dialog
-                                )
-                        )
+        // 4. Hacer el fondo transparente para que se vean las esquinas redondeadas de tu XML
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        // 5. Asignar los eventos de clic directamente a tus botones personalizados
+        btnCancelar.setOnClickListener(
+                v -> dialog.dismiss()
+        );
+
+        btnAceptar.setOnClickListener(
+                v -> aplicarCambioContrasena(
+                        etActual,
+                        etNueva,
+                        etConfirmar,
+                        dialog
+                )
         );
 
         dialog.show();
