@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingTop="36dp"
+    android:paddingTop="40dp"
     android:paddingBottom="10dp">
 
 <LinearLayout
@@ -21,20 +21,18 @@ android:paddingHorizontal="16dp">
 <!-- ========================================== -->
     <TextView
         android:layout_width="wrap_content"
+        android:fontFamily="sans-serif"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
         android:text="Explorar"
         android:textColor="#211D3B"
-        android:layout_marginStart="24dp"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="18dp"
         android:layout_marginBottom="30dp"
         android:orientation="vertical">
 
@@ -43,173 +41,260 @@ android:paddingHorizontal="16dp">
         <!-- GUÍA DE ESTUDIO -->
         <!-- ================================================= -->
 
-        <LinearLayout
+        <!-- Contenedor Principal: La Tarjeta -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/modGuia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#E3DAFF"
+            app:strokeWidth="1dp">
 
-            <!-- 1. La Ilustración Principal (Caja grande de color) -->
-
-            <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginBottom="5dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_guia_estudios" />
-
-            <!-- 2. Etiqueta tipo "TIPS" -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_module"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:text="GUIA DE ESTUDIO"
-                android:textColor="#6C5CE7"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-
-            <!-- 3. Título y Descripción -->
-            <TextView
+            <!-- Contenedor de la Tarjeta SIN padding (permite que la imagen llegue a los bordes) -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:lineSpacingExtra="4dp"
-                android:text="¿Quieres dominar la teoría? Repasa síntomas, funciones y síndromes paso a paso."
-                android:textColor="#211D3B"
-                android:textSize="16sp" />
-
-            <!-- 4. Botón de acción principal -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_guia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="12dp"
-                android:text="CONTINUAR ESTUDIANDO"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:backgroundTint="#6C5CE7"
-                app:cornerRadius="12dp" />
-
-            <!-- 5. Línea separadora inferior -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:background="#1A000000" /> <!-- Un gris súper transparente -->
-
-        </LinearLayout>
+                android:background="@drawable/bg_learning_card"
+                android:orientation="vertical">
 
 
+                <!-- 1. La Ilustración Principal -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/img_guia_estudios" />
+
+                <!-- Contenedor Secundario CON padding (para los textos y el botón) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingBottom="18dp"
+                    android:paddingTop="1dp">
+
+                    <!-- 2. Etiqueta tipo "TIPS" -->
+                    <!-- Nota: Quité el marginTop porque el padding del contenedor ya le da espacio -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_learning_chip"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingStart="12dp"
+                        android:paddingTop="7dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="7dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GUIA DE ESTUDIO"
+                            android:textColor="#5A46D6"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- 3. Título y Descripción -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="¿Quieres dominar la teoría? Repasa síntomas, funciones y síndromes paso a paso."
+                        android:textColor="#211D3B"
+                        android:textSize="16sp" />
+
+                    <!-- 4. Botón de acción principal -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_guia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="12dp"
+                        android:text="CONTINUAR ESTUDIANDO"
+                        android:textColor="#FFFFFF"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#6C5CE7"
+                        app:cornerRadius="12dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
         <!-- ================================================= -->
         <!-- ESTUDIO COMPARTIDO -->
         <!-- ================================================= -->
 
 
-        <LinearLayout
-            android:id="@+id/modGrupos"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#E3DAFF"
+            app:strokeWidth="1dp">
 
-            <!-- 1. La Ilustración Principal (Caja grande de color) -->
+        <!-- Contenedor de la Tarjeta SIN padding (permite que la imagen llegue a los bordes) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_learning_card"
+            android:orientation="vertical">
 
-            <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
+
+            <!-- 1. La Ilustración Principal -->
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/img_grupos" />
 
-            <!-- 2. Etiqueta tipo "TIPS" -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_module"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:text="ESTUDIO COMPARTIDO"
-                android:textColor="#00A8FF"
-                android:textSize="11sp"
-                android:textStyle="bold" />
 
-            <!-- 3. Título y Descripción -->
-            <TextView
+            <!-- Contenedor para el texto -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:lineSpacingExtra="4dp"
-                android:text="Crea o únete a una sala para estudiar con otros. Juega y compite para ver quien es el mejor de tu clase"
-                android:textColor="#211D3B"
-                android:textSize="16sp" />
+                android:orientation="vertical"
+                android:paddingStart="18dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="18dp">
 
-            <!-- 4. Botón de acción principal -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_estudio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="12dp"
-                android:text="ENTRA AL JUEGO"
-                android:textColor="#FFFFFF"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:backgroundTint="#00A8FF"
-                app:cornerRadius="12dp" />
+                <!-- 2. Etiqueta tipo "TIPS" -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_estudio"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp">
 
-            <!-- 5. Línea separadora inferior -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:background="#1A000000" /> <!-- Un gris súper transparente -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ESTUDIO COMPARTIDO"
+                        android:textColor="#00A8FF"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        </LinearLayout>
+                <!-- 3. Título y Descripción -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="4dp"
+                    android:text="Crea o únete a una sala para estudiar con otros. Juega y compite para ver quien es el mejor de tu clase"
+                    android:textColor="#211D3B"
+                    android:textSize="16sp" />
+
+                <!-- 4. Botón de acción principal -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_estudio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="12dp"
+                    android:text="ENTRA AL JUEGO"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#00A8FF"
+                    app:cornerRadius="12dp" />
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- ================================================= -->
         <!-- CASOS CLÍNICOS -->
         <!-- ================================================= -->
 
-        <LinearLayout
-            android:id="@+id/modEvaluacion"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp"> <!-- Margen inferior para separar del siguiente módulo -->
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#E3DAFF"
+            app:strokeWidth="1dp">
 
-            <!-- 1. La Ilustración Principal (Caja grande de color) -->
+        <!-- Contenedor de la Tarjeta SIN padding (permite que la imagen llegue a los bordes) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_learning_card"
+            android:orientation="vertical">
 
             <!-- Aquí usamos el emoji, pero luego puedes cambiarlo por un <ImageView> con un dibujo -->
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/img_casos" />
 
-            <!-- 2. Etiqueta tipo "TIPS" -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_module"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:text="CASOS CLINICOS"
-                android:textColor="#FF8A5C"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:paddingStart="18dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="18dp">
+
+            <!-- 2. Etiqueta tipo "TIPS" -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_casos"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ESTUDIO COMPARTIDO"
+                        android:textColor="#FF8A5C"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             <!-- 3. Título y Descripción -->
             <TextView
@@ -236,13 +321,15 @@ android:paddingHorizontal="16dp">
                 app:backgroundTint="#FF8A5C"
                 app:cornerRadius="12dp" />
 
-            <!-- 5. Línea separadora inferior -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:background="#1A000000" /> <!-- Un gris súper transparente -->
+
             </LinearLayout>
+        </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+
+
         </LinearLayout>
 </LinearLayout>
 

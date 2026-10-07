@@ -333,7 +333,7 @@
                         android:fontFamily="sans-serif"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tu aprendizaje"
+                        android:text="Tu progreso"
                         android:textColor="#211D3B"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -406,7 +406,7 @@
                                     android:fontFamily="sans-serif"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Guía de estudio"
+                                    android:text="Juega mientras aprendes"
                                     android:textColor="#201A38"
                                     android:textSize="19sp"
                                     android:textStyle="bold" />
@@ -504,6 +504,31 @@
                                 android:textSize="11sp"
                                 tools:text="45 min de estudio esta semana · 3 ciclos" />
                         </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:orientation="horizontal">
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnJugar"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_marginStart="56dp"
+                            android:layout_marginEnd="56dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_button"
+                            android:fontFamily="sans-serif-medium"
+                            android:stateListAnimator="@null"
+                            android:text="@string/mascota_jugar"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -908,7 +933,8 @@
                         android:id="@+id/btnAlimentar"
                         android:layout_width="0dp"
                         android:layout_height="54dp"
-                        android:layout_marginEnd="6dp"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="56dp"
                         android:layout_weight="1"
                         android:background="@drawable/bg_button"
                         android:fontFamily="sans-serif-medium"
@@ -919,20 +945,6 @@
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnJugar"
-                        android:layout_width="0dp"
-                        android:layout_height="54dp"
-                        android:layout_marginStart="6dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_button_outline"
-                        android:fontFamily="sans-serif-medium"
-                        android:stateListAnimator="@null"
-                        android:text="@string/mascota_jugar"
-                        android:textAllCaps="false"
-                        android:textColor="#5B4FE9"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
