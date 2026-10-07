@@ -390,6 +390,10 @@ public class MainActivity extends BaseActivity
      * fecha actual (mismo orden de opciones para todos ese día), así que una
      * reconexión sobre una partida ya resuelta sigue mostrando la respuesta
      * correcta con su letra original.
+     *
+     * La pregunta y las tres opciones se pintan SIEMPRE (también si ya se
+     * jugó hoy): si solo se mostrase el panel de resultado, tras reiniciar la
+     * app la tarjeta quedaría en blanco.
      */
     private void pintarDesafio() {
 
@@ -413,10 +417,28 @@ public class MainActivity extends BaseActivity
             for (MaterialButton btn : btnsDesafio) {
                 btn.setVisibility(View.GONE);
             }
+            contenedorDesafioResultado.setVisibility(View.GONE);
+            desafioPresentacion = null;
+            desafioPintado = false;
             return;
         }
 
         desafioPresentacion = presentacion;
+
+        tvDesafioPregunta.setText(
+                presentacion.getPregunta().getEnunciado()
+        );
+
+        for (int i = 0; i < btnsDesafio.length; i++) {
+            btnsDesafio[i].setText(
+                    getString(
+                            R.string.desafio_correcta,
+                            String.valueOf((char) ('A' + i)),
+                            presentacion.getOpcion(i)
+                    )
+            );
+            btnsDesafio[i].setVisibility(View.VISIBLE);
+        }
 
         String resultado =
                 Repositorio.get(this).desafios().resultadoHoy(usuarioId, hoy);
@@ -431,26 +453,19 @@ public class MainActivity extends BaseActivity
             return;
         }
 
-        // Estado pendiente: preguntas + opciones listas para responder.
-        tvDesafioPregunta.setText(presentacion.getPregunta().getEnunciado());
-
-        for (int i = 0; i < btnsDesafio.length; i++) {
-            btnsDesafio[i].setText(
-                    getString(
-                            R.string.desafio_correcta,
-                            String.valueOf((char) ('A' + i)),
-                            presentacion.getOpcion(i)
-                    )
-            );
-            btnsDesafio[i].setVisibility(View.VISIBLE);
-            btnsDesafio[i].setEnabled(true);
-            btnsDesafio[i].setBackgroundTintList(
+        // Estado pendiente: opciones listas para responder.
+        for (MaterialButton btn : btnsDesafio) {
+            btn.setEnabled(true);
+            btn.setAlpha(1f);
+            btn.setBackgroundTintList(
                     android.content.res.ColorStateList.valueOf(
                             android.graphics.Color.WHITE
                     )
             );
-            btnsDesafio[i].setTextColor(android.graphics.Color.parseColor("#211D3B"));
-            btnsDesafio[i].setStrokeColor(
+            btn.setTextColor(
+                    android.graphics.Color.parseColor("#211D3B")
+            );
+            btn.setStrokeColor(
                     android.content.res.ColorStateList.valueOf(
                             android.graphics.Color.parseColor("#6C5CE7")
                     )
@@ -499,6 +514,14 @@ public class MainActivity extends BaseActivity
             repo.desafios().marcarResultado(usuarioId, hoy, DesafioDao.ERROR);
         }
 
+        // La racha cambió al guardar el resultado; actualiza la etiqueta ya.
+        tvDesafioRacha.setText(
+                getString(
+                        R.string.desafio_racha,
+                        repo.desafios().rachaActual(usuarioId, hoy)
+                )
+        );
+
         pintarResultadoDesafio(acerto, pres, usuarioId, hoy);
     }
 
@@ -525,6 +548,7 @@ public class MainActivity extends BaseActivity
 
         // Coloreado de las tres opciones: verde la correcta, roja la fallada.
         for (int i = 0; i < btnsDesafio.length; i++) {
+            btnsDesafio[i].setEnabled(false);
             if (i == pres.getLetraCorrecta()) {
                 btnsDesafio[i].setBackgroundTintList(
                         android.content.res.ColorStateList.valueOf(

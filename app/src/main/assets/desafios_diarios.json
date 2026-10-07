@@ -1,0 +1,362 @@
+[
+  {
+    "id": 1,
+    "enunciado": "Un perro salivaba al escuchar el metrónomo que acompañaba la comida. En el condicionamiento clásico, el metrónomo sería:",
+    "opciones": {
+      "A": "El estímulo incondicionado",
+      "B": "El estímulo condicionado",
+      "C": "La respuesta incondicionada"
+    },
+    "correcta": "B",
+    "justificacion": "El metrónomo pasa a ser un estímulo condicionado porque provoca salivación tras asociarse repetidas veces con la comida (el estímulo incondicionado).",
+    "fuente": "Pavlov; APA Dictionary of Psychology"
+  },
+  {
+    "id": 2,
+    "enunciado": "Reforzar cada 5 respuestas correctas con un punto a un estudiante es un ejemplo de reforzamiento:",
+    "opciones": {
+      "A": "Continuo",
+      "B": "De intervalo fijo",
+      "C": "De razón fija"
+    },
+    "correcta": "C",
+    "justificacion": "En el reforzamiento de razón fija la recompensa llega tras un número fijo de respuestas (cada 5), no tras un tiempo determinado.",
+    "fuente": "Skinner; APA Dictionary of Psychology"
+  },
+  {
+    "id": 3,
+    "enunciado": "Quitar el volumen de música desagradable cuando el niño obedece es un reforzador:",
+    "opciones": {
+      "A": "Positivo",
+      "B": "Negativo",
+      "C": "Punitivo"
+    },
+    "correcta": "B",
+    "justificacion": "El reforzamiento negativo aumenta la conducta RETIRANDO un estímulo aversivo (el ruido). Reforzar, no castigar, porque la conducta aumenta.",
+    "fuente": "Skinner; APA Dictionary of Psychology"
+  },
+  {
+    "id": 4,
+    "enunciado": "Recordar un número de teléfono unos segundos mientras lo marcas depende de la memoria:",
+    "opciones": {
+      "A": "Sensorial",
+      "B": "A corto plazo",
+      "C": "A largo plazo"
+    },
+    "correcta": "B",
+    "justificacion": "La memoria a corto plazo retiene una cantidad limitada de información durante unos segundos, justo el tiempo de usar un dato transitorio.",
+    "fuente": "Baddeley; APA Dictionary of Psychology"
+  },
+  {
+    "id": 5,
+    "enunciado": "Dormir bien después de estudiar mejora el recuerdo principalmente porque:",
+    "opciones": {
+      "A": "Consolida la memoria",
+      "B": "Aumenta la atención selectiva",
+      "C": "Elimina las emociones del recuerdo"
+    },
+    "correcta": "A",
+    "justificacion": "Durante el sueño los recuerdos recientes se consolidan y se transfieren a la memoria a largo plazo; la privación de sueño lo dificulta.",
+    "fuente": "Neurociencia cognitiva del sueño; Ciencia Psicológica"
+  },
+  {
+    "id": 6,
+    "enunciado": "El efecto de primacía explica que recordemos mejor:",
+    "opciones": {
+      "A": "Lo que vimos al final",
+      "B": "Lo que estuvo al principio",
+      "C": "Lo que decimos en voz alta"
+    },
+    "correcta": "B",
+    "justificacion": "En el efecto de primacía los primeros ítems de una lista pasan con más facilidad a la memoria a largo plazo y por eso se recuerdan mejor.",
+    "fuente": "Ebbinghaus; Atkinsons en memoria"
+  },
+  {
+    "id": 7,
+    "enunciado": "Creer que algo es más frecuente solo porque recordamos ejemplos llamativos es el sesgo de:",
+    "opciones": {
+      "A": "Anclaje",
+      "B": "Disponibilidad",
+      "C": "Confirmación"
+    },
+    "correcta": "B",
+    "justificacion": "El sesgo de disponibilidad nos hace juzgar la probabilidad por la facilidad con que nos vienen ejemplos a la mente.",
+    "fuente": "Tversky y Kahneman, 1973"
+  },
+  {
+    "id": 8,
+    "enunciado": "Buscar y valorar solo la información que apoya lo que ya creemos es el sesgo de:",
+    "opciones": {
+      "A": "Confirmación",
+      "B": "Falsa consenso",
+      "C": "Optimismo"
+    },
+    "correcta": "A",
+    "justificacion": "El sesgo de confirmación nos lleva a atender preferentemente la evidencia que respalda nuestras creencias e ignorar la que las contradice.",
+    "fuente": "Wason, 1960; Ciencia Psicológica"
+  },
+  {
+    "id": 9,
+    "enunciado": "Negociar con una oferta alta y luego 'bajar' poco a poco aprovecha el heurístico de:",
+    "opciones": {
+      "A": "Disponibilidad",
+      "B": "Anclaje",
+      "C": "Representatividad"
+    },
+    "correcta": "B",
+    "justificacion": "El anclaje se produce cuando el primer valor que vemos (ancla) sesga los juicios posteriores, incluso si ese valor es arbitrario.",
+    "fuente": "Tversky y Kahneman, 1974"
+  },
+  {
+    "id": 10,
+    "enunciado": "La figura y el fondo en una imagen siempre son un ejemplo de organización:",
+    "opciones": {
+      "A": "de la percepción",
+      "B": "de la memoria",
+      "C": "del lenguaje"
+    },
+    "correcta": "A",
+    "justificacion": "Separar la figura del fondo es una de las leyes básicas de la percepción visual: organizamos el estímulo en un objeto destacado y un contexto de fondo.",
+    "fuente": "Gestalt; APA Dictionary of Psychology"
+  },
+  {
+    "id": 11,
+    "enunciado": "Cuando una persona repite tu nombre para asegurarse de que escuchaste, está usando:",
+    "opciones": {
+      "A": "La atención dividida",
+      "B": "La atención selectiva",
+      "C": "La atención sostenida"
+    },
+    "correcta": "B",
+    "justificacion": "La atención selectiva permite enfocar un estímulo relevante (tu nombre) e ignorar o procesar de forma marginal los demás.",
+    "fuente": "Broadbent; APA Dictionary of Psychology"
+  },
+  {
+    "id": 12,
+    "enunciado": "Escuchar música mientras se estudia y aun así rendir bien implica:",
+    "opciones": {
+      "A": "Atención dividida",
+      "B": "Percepción subliminal",
+      "C": "Habituación sensorial"
+    },
+    "correcta": "A",
+    "justificacion": "La atención dividida reparte recursos entre dos tareas simultáneas (estudiar y escuchar). El rendimiento suele bajar al dividir la atención.",
+    "fuente": "Ciencia Psicológica, cap. de atención"
+  },
+  {
+    "id": 13,
+    "enunciado": "Según la teoría de James-Lange, primero sentimos la respuesta corporal y luego:",
+    "opciones": {
+      "A": "Expresamos la emoción con gestos",
+      "B": "Interpretamos que estamos emocionados",
+      "C": "La reprimimos"
+    },
+    "correcta": "B",
+    "justificacion": "James-Lange propone que la emoción es nuestra interpretación de la activación fisiológica: el cuerpo reacciona y la mente etiqueta ese estado.",
+    "fuente": "William James y Carl Lange, 1884"
+  },
+  {
+    "id": 14,
+    "enunciado": "La hambruna lleva a las personas a preocuparse casi solo por la comida; esto refleja el orden de prioridades de:",
+    "opciones": {
+      "A": "La teoría del drive de Hull",
+      "B": "La jerarquía de necesidades de Maslow",
+      "C": "El condicionamiento operante"
+    },
+    "correcta": "B",
+    "justificacion": "En la pirámide de Maslow las necesidades fisiológicas (como el hambre) dominan la conducta hasta que quedan razonablemente satisfechas.",
+    "fuente": "Maslow, 1943"
+  },
+  {
+    "id": 15,
+    "enunciado": "La 'recompensa esperada' que anticipa el cerebro durante una tarea se relaciona sobre todo con:",
+    "opciones": {
+      "A": "La dopamina",
+      "B": "La serotonina",
+      "C": "El cortisol"
+    },
+    "correcta": "A",
+    "justificacion": "La dopamina modula la anticipación y la búsqueda de recompensa; las neuronas dopaminérgicas señalan más la expectativa que el placer mismo.",
+    "fuente": "Schultz; neurociencia de la recompensa"
+  },
+  {
+    "id": 16,
+    "enunciado": "Cuando todos en un grupo responden igual solo para encajar, aunque la respuesta sea claramente errónea, ocurre:",
+    "opciones": {
+      "A": "La obediencia a la autoridad",
+      "B": "El efecto espectador",
+      "C": "La conformidad"
+    },
+    "correcta": "C",
+    "justificacion": "La conformidad es ajustar la conducta o el juicio a las normas del grupo; el experimento de Asch con las líneas lo demostró.",
+    "fuente": "Asch, 1951"
+  },
+  {
+    "id": 17,
+    "enunciado": "Cuanto más tiempo y esfuerzo invertimos en algo, más tendemos a justificarlo como valioso. Esto ilustra:",
+    "opciones": {
+      "A": "La disonancia cognitiva",
+      "B": "El efecto halo",
+      "C": "La reactancia psicológica"
+    },
+    "correcta": "A",
+    "justificacion": "La disonancia cognitiva genera malestar cuando la conducta y las creencias chocan; tendemos a cambiar la creencia para reducirla.",
+    "fuente": "Festinger, 1957"
+  },
+  {
+    "id": 18,
+    "enunciado": "Atribuir el fracaso de los demás a su carácter, pero el propio a las circunstancias, es el error:",
+    "opciones": {
+      "A": "De atribución fundamental",
+      "B": "De disponibilidad",
+      "C": "De sobreconfianza"
+    },
+    "correcta": "A",
+    "justificacion": "El error fundamental de atribución es sobrevalorar rasgos de personalidad y subestimar el contexto al explicar conductas ajenas.",
+    "fuente": "Ross, 1977"
+  },
+  {
+    "id": 19,
+    "enunciado": "Un niño entiende que la cantidad de agua no cambia al pasarla a un vaso más alto; ya logró la:",
+    "opciones": {
+      "A": "Etapa preoperacional",
+      "B": "Etapa de las operaciones concretas",
+      "C": "Etapa sensorio-motora"
+    },
+    "correcta": "B",
+    "justificacion": "En las operaciones concretas (aprox. 7-11 años) el niño adquiere la conservación: comprende que la cantidad se conserva pese a cambios de forma.",
+    "fuente": "Piaget; APA Dictionary of Psychology"
+  },
+  {
+    "id": 20,
+    "enunciado": "Según Piaget, el bebé que busca el objeto aunque esté escondido ya desarrolló la permanencia del objeto en la etapa:",
+    "opciones": {
+      "A": "Preoperacional",
+      "B": "De las operaciones formales",
+      "C": "Sensorio-motora"
+    },
+    "correcta": "C",
+    "justificacion": "La permanencia del objeto se consigue al final de la etapa sensorio-motora (0-2 años): el bebé sabe que el objeto existe aunque no lo vea.",
+    "fuente": "Piaget; APA Dictionary of Psychology"
+  },
+  {
+    "id": 21,
+    "enunciado": "Según Erikson, la crisis principal de la adolescencia es la identidad frente a:",
+    "opciones": {
+      "A": "La intimidad",
+      "B": "La confusión de roles",
+      "C": "La generatividad"
+    },
+    "correcta": "B",
+    "justificacion": "Erikson ubica en la adolescencia la crisis 'identidad vs. confusión de roles', cuando se explora quién se es y qué se quiere ser.",
+    "fuente": "Erikson, 1968"
+  },
+  {
+    "id": 22,
+    "enunciado": "El modelo de los Cinco Grandes evalúa la personalidad con:",
+    "opciones": {
+      "A": "Cinco rasgos amplios",
+      "B": "Tres instintos básicos",
+      "C": "Ocho etapas de desarrollo"
+    },
+    "correcta": "A",
+    "justificacion": "El modelo de los Big Five describe la personalidad con cinco factores estables: apertura, responsabilidad, extraversión, amabilidad y neuroticismo.",
+    "fuente": "McCrae y Costa, 1987"
+  },
+  {
+    "id": 23,
+    "enunciado": "El 'ello', según Freud, opera bajo el principio:",
+    "opciones": {
+      "A": "De realidad",
+      "B": "Del placer",
+      "C": "De moralidad"
+    },
+    "correcta": "B",
+    "justificacion": "El ello busca la satisfacción inmediata del instinto siguiendo el principio del placer, sin considerar consecuencias ni normas.",
+    "fuente": "Freud; APA Dictionary of Psychology"
+  },
+  {
+    "id": 24,
+    "enunciado": "Una persona tranquila que evita fiestas y prefiere la lectura conduce con extraversión:",
+    "opciones": {
+      "A": "Alta",
+      "B": "Baja",
+      "C": "Inestable"
+    },
+    "correcta": "B",
+    "justificacion": "La extraversión se caracteriza por la búsqueda de estímulos y vida social; puntuaciones bajas (introversión) prefieren entornos calmados.",
+    "fuente": "Eysenck; McCrae y Costa"
+  },
+  {
+    "id": 25,
+    "enunciado": "En el DSM-5, los síntomas deben durar al menos 5 meses para hablar de trastorno de ansiedad generalizada:",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso",
+      "C": "Solo en adultos mayores"
+    },
+    "correcta": "B",
+    "justificacion": "El criterio de tiempo del DSM-5 para el TAG es de al menos 6 meses, no 5. Una pregunta trampa clásica.",
+    "fuente": "DSM-5, criterios del TAG"
+  },
+  {
+    "id": 26,
+    "enunciado": "El recuerdo de los detalles de un evento traumático con imágenes y evitación intensa es propio de:",
+    "opciones": {
+      "A": "El trastorno de estrés postraumático",
+      "B": "La fobia específica",
+      "C": "El trastorno obsesivo-compulsivo"
+    },
+    "correcta": "A",
+    "justificacion": "El TEPT se caracteriza por reexperimentación (flashbacks, imágenes), evitación y alteraciones de la activación tras un evento traumático.",
+    "fuente": "DSM-5, TEPT"
+  },
+  {
+    "id": 27,
+    "enunciado": "A las ganas de estar triste sin motivo aparente durante al menos 2 semanas en el DSM-5 se le llama episodio:",
+    "opciones": {
+      "A": "Hipomaníaco",
+      "B": "Depresivo mayor",
+      "C": "Disociativo"
+    },
+    "correcta": "B",
+    "justificacion": "El episodio depresivo mayor exige estado de ánimo deprimido o pérdida de interés durante al menos 2 semanas casi todos los días.",
+    "fuente": "DSM-5, episodio depresivo mayor"
+  },
+  {
+    "id": 28,
+    "enunciado": "El cerebro que coordina principalmente el equilibrio y los movimientos finos es:",
+    "opciones": {
+      "A": "El cerebelo",
+      "B": "El hipocampo",
+      "C": "La amígdala"
+    },
+    "correcta": "A",
+    "justificacion": "El cerebelo coordina el equilibrio, la postura y los movimientos precisos; el hipocampo y la amígdala participan en memoria y emoción.",
+    "fuente": "Biopsicología; APA Dictionary of Psychology"
+  },
+  {
+    "id": 29,
+    "enunciado": "Tras un daño en la amígdala, lo que más se altera es:",
+    "opciones": {
+      "A": "El lenguaje",
+      "B": "La respuesta emocional y el miedo",
+      "C": "La memoria de procedimientos"
+    },
+    "correcta": "B",
+    "justificacion": "La amígdala es central en el procesamiento del miedo y las emociones; su lesión reduce la respuesta emocional y el condicionamiento al miedo.",
+    "fuente": "LeDoux; Biopsicología"
+  },
+  {
+    "id": 30,
+    "enunciado": "Las neuronas espejo se activan cuando una persona:",
+    "opciones": {
+      "A": "Solo ejecuta una acción",
+      "B": "Observa a otro ejecutar la acción",
+      "C": "Duerme en fase REM"
+    },
+    "correcta": "B",
+    "justificacion": "Las neuronas espejo se activan tanto al realizar una acción como al verla en otro; se vinculan con la imitación y la empatía.",
+    "fuente": "Rizzolatti y Craighero, 2004"
+  }
+]
