@@ -939,12 +939,16 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <!-- ================================================= -->
         <!-- SEGUNDA SECCIÓN: EXPLORAR -->
         <!-- ================================================= -->
 
         <include
+            android:visibility="gone"
             layout="@layout/seccion_explorar" />
 
         <!-- ================================================= -->
@@ -962,9 +966,7 @@
             android:id="@+id/seccionProximamente"
             layout="@layout/view_seccion_proximamente"
             android:visibility="gone" />
-            </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
         <!-- ================================================= -->
         <!-- POMODORO FLOTANTE -->
         <!-- ================================================= -->

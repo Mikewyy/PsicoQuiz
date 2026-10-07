@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="4dp"
+    android:paddingTop="18dp"
+    android:paddingEnd="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_moderno"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONTRASEÑA ACTUAL"
+            android:textColor="#6C5CE7"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etCorreoActual"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:hint="Tu contraseña actual"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:textColor="#211D3B"
+            android:textColorHint="#B0ACBD"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_moderno"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NUEVO CORREO"
+            android:textColor="#6C5CE7"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etCorreoNuevo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:hint="nuevo@correo.com"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:textColor="#211D3B"
+            android:textColorHint="#B0ACBD"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_input_moderno"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONFIRMAR NUEVO CORREO"
+            android:textColor="#6C5CE7"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etCorreoConfirmar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:hint="Repite el nuevo correo"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:textColor="#211D3B"
+            android:textColorHint="#B0ACBD"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
