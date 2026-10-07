@@ -1,27 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Barra de navegacion inferior, compartida por MainActivity, GuiaActivity,
-    MultijugadorActivity, CaminoActivity y CaminoEstudioActivity.
-
-    Se incluye con <include layout="@layout/view_bottom_nav" /> al final de
-    una raiz LinearLayout vertical; la barra se pega a la barra del sistema de
-    abajo porque el peso lo aporta el contenido, no la barra.
-
-    labelVisibilityMode es "labeled" y no "auto" porque Material oculta las
-    etiquetas solo cuando hay 3 items o menos y aqui hay 4 secciones.
--->
-<com.google.android.material.bottomnavigation.BottomNavigationView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomNav"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="4dp"
     android:background="@drawable/bg_bottom_nav"
-    android:elevation="3dp"
-    app:elevation="3dp"
-    app:itemActiveIndicatorStyle="@null"
-    app:itemIconTint="@color/bottom_nav_item"
-    app:itemRippleColor="#206C5CE7"
-    app:itemTextColor="@color/bottom_nav_item"
-    app:labelVisibilityMode="labeled"
-    app:menu="@menu/bottom_nav_menu" />
+    android:elevation="8dp"
+    android:orientation="horizontal"
+    android:paddingStart="6dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="6dp"
+    android:paddingBottom="6dp">
+
+    <!-- INICIO -->
+    <LinearLayout
+        android:id="@id/nav_inicio"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/nav_inicio">
+
+        <ImageView
+            android:id="@+id/navIconInicio"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_nav_inicio"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/navTextoInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/nav_inicio"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- EXPLORAR -->
+    <LinearLayout
+        android:id="@id/nav_explorar"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/nav_explorar">
+
+        <ImageView
+            android:id="@+id/navIconExplorar"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_nav_explorar"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/navTextoExplorar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/nav_explorar"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <!-- DESAFÍOS -->
+    <LinearLayout
+        android:id="@id/nav_desafios"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/nav_desafios">
+
+        <ImageView
+            android:id="@+id/navIconDesafios"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_nav_desafios"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/navTextoDesafios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/nav_desafios"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <!-- AYUDA -->
+    <LinearLayout
+        android:id="@id/nav_ayuda"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/nav_ayuda">
+
+        <ImageView
+            android:id="@+id/navIconAyuda"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_nav_ayuda"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/navTextoAyuda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/nav_ayuda"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

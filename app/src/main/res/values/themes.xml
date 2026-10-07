@@ -2,6 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.Semiologia" parent="Theme.Material3.Light.NoActionBar">
+
+        <!-- COLORES -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorPrimaryContainer">@color/primary_light</item>
@@ -13,8 +15,15 @@
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
         <item name="colorOutline">@color/outline</item>
 
-        <!-- Barra de estado: mismo morado con el que empieza el degradado -->
+        <!-- TIPOGRAFÍA MODERNA -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">sans-serif</item>
+
+        <!-- BARRA DE ESTADO -->
         <item name="android:statusBarColor">@color/brand_start</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightStatusBar"
+            tools:targetApi="m">false</item>
+
     </style>
+
 </resources>

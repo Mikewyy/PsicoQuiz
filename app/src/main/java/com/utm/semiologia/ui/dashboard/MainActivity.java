@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity
 
     private int seccionActual = NavegacionInferior.SECCION_INICIO;
 
-    private BottomNavigationView barraInferior;
+    private View barraInferior;
 
     private static final String ESTADO_SECCION = "seccion_nav_activa";
 
@@ -374,11 +374,14 @@ public class MainActivity extends BaseActivity
          * Volver a marcar el que ya estaba no dispara el listener: Material
          * enruta ese caso al onItemReselectedListener.
          */
+
         if (barraInferior != null) {
-            barraInferior.setSelectedItemId(
-                    NavegacionInferior.idItemDeSeccion(seccion)
+            NavegacionInferior.actualizarSeccion(
+                    this,
+                    seccion
             );
         }
+
     }
 
 
