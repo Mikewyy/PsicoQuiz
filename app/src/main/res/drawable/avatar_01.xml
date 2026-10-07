@@ -1,59 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="96dp"
-    android:height="96dp"
-    android:viewportWidth="96"
-    android:viewportHeight="96">
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
 
-    <!-- Fondo -->
-    <path
-        android:fillColor="#EDE9FE"
-        android:pathData="M48,0A48,48 0,1 0,48 96A48,48 0,1 0,48 0" />
+    <!--
+        RECORTE CIRCULAR
+        Todos los elementos quedan dentro del círculo.
+    -->
+    <group>
 
-    <!-- Cuerpo -->
-    <path
-        android:fillColor="#6C5CE7"
-        android:pathData="M19,96C20,76 30,67 48,67C66,67 76,76 77,96Z" />
+        <clip-path
+            android:pathData="M50,0A50,50 0,1 1,50 100A50,50 0,1 1,50 0Z" />
 
-    <!-- Cuello -->
-    <path
-        android:fillColor="#F1B894"
-        android:pathData="M40,60L56,60L56,73C52,77 44,77 40,73Z" />
+        <!-- FONDO CIRCULAR -->
+        <path
+            android:fillColor="#FFE4A3"
+            android:pathData="M50,0A50,50 0,1 1,50 100A50,50 0,1 1,50 0Z" />
 
-    <!-- Orejas -->
-    <path
-        android:fillColor="#F1B894"
-        android:pathData="M27,39C23,39 22,44 24,48C25,51 28,52 30,50L30,40Z" />
+        <!-- FONDO INTERIOR -->
+        <path
+            android:fillColor="#FFF0C8"
+            android:pathData="M50,9A41,41 0,1 1,50 91A41,41 0,1 1,50 9Z" />
 
-    <path
-        android:fillColor="#F1B894"
-        android:pathData="M69,39C73,39 74,44 72,48C71,51 68,52 66,50L66,40Z" />
+        <!-- HOMBROS Y BATA -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M8,100C11,80 23,72 39,70L61,70C77,72 89,80 92,100Z" />
 
-    <!-- Cara -->
-    <path
-        android:fillColor="#F5C6A5"
-        android:pathData="M29,29C29,17 37,12 48,12C59,12 67,17 67,29L66,46C65,57 58,65 48,65C38,65 31,57 30,46Z" />
+        <!-- CAMISA NARANJA -->
+        <path
+            android:fillColor="#F58B25"
+            android:pathData="M38,73L50,88L62,73L68,100H32Z" />
 
-    <!-- Cabello -->
-    <path
-        android:fillColor="#29233B"
-        android:pathData="M28,36C25,20 33,8 48,8C62,8 71,18 68,36L64,29C58,30 53,25 51,21C46,28 37,30 31,29Z" />
+        <!-- CUELLO -->
+        <path
+            android:fillColor="#F0AA79"
+            android:pathData="M42,62H58V76L50,83L42,76Z" />
 
-    <!-- Ojos -->
-    <path
-        android:fillColor="#29233B"
-        android:pathData="M37,41A2,2 0,1 0,41 41A2,2 0,1 0,37 41" />
+        <!-- SOLAPAS DE LA BATA -->
+        <path
+            android:fillColor="#F1EFF6"
+            android:pathData="M39,70L50,85L39,96L29,75Z" />
 
-    <path
-        android:fillColor="#29233B"
-        android:pathData="M55,41A2,2 0,1 0,59 41A2,2 0,1 0,55 41" />
+        <path
+            android:fillColor="#F1EFF6"
+            android:pathData="M61,70L50,85L61,96L71,75Z" />
 
-    <!-- Sonrisa -->
-    <path
-        android:fillColor="@android:color/transparent"
-        android:strokeColor="#B46F62"
-        android:strokeWidth="2"
-        android:strokeLineCap="round"
-        android:pathData="M42,52Q48,57 54,52" />
+        <!-- CABELLO POSTERIOR -->
+        <path
+            android:fillColor="#3B2531"
+            android:pathData="M24,44C18,34 22,20 31,15C37,7 48,9 53,12C65,5 78,16 78,27C84,36 80,46 73,52L27,52Z" />
+
+        <!-- OREJA IZQUIERDA -->
+        <path
+            android:fillColor="#F7BB87"
+            android:pathData="M27,44C20,41 19,49 23,54C25,57 28,56 30,54Z" />
+
+        <!-- OREJA DERECHA -->
+        <path
+            android:fillColor="#F7BB87"
+            android:pathData="M73,44C80,41 81,49 77,54C75,57 72,56 70,54Z" />
+
+        <!-- ROSTRO -->
+        <path
+            android:fillColor="#FFC897"
+            android:pathData="M29,34C29,22 38,17 50,17C62,17 71,23 71,34L70,52C69,65 61,73 50,73C39,73 31,65 30,52Z" />
+
+        <!-- CABELLO RIZADO FRONTAL -->
+        <path
+            android:fillColor="#3B2531"
+            android:pathData="M27,38C21,30 25,21 31,20C29,12 40,9 45,14C50,7 61,10 64,15C74,13 79,24 73,31L69,39L67,30C60,33 55,29 52,26C47,33 39,36 32,32L29,43Z" />
+
+        <!-- RIZO SUPERIOR -->
+        <path
+            android:fillColor="#442936"
+            android:pathData="M32,23C29,17 36,12 42,16C46,9 55,10 58,16C65,12 73,18 70,24C65,29 59,26 55,23C49,30 40,30 36,26Z" />
+
+        <!-- CEJA IZQUIERDA -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#30212A"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:pathData="M34,39Q40,35 45,39" />
+
+        <!-- CEJA DERECHA -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#30212A"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:pathData="M55,39Q61,35 66,39" />
+
+        <!-- OJO IZQUIERDO -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M34,48A8,9 0,1 1,50 48A8,9 0,1 1,34 48Z" />
+
+        <!-- OJO DERECHO -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M52,48A8,9 0,1 1,68 48A8,9 0,1 1,52 48Z" />
+
+        <!-- PUPILA IZQUIERDA -->
+        <path
+            android:fillColor="#312331"
+            android:pathData="M41,48A4.5,6 0,1 1,50 48A4.5,6 0,1 1,41 48Z" />
+
+        <!-- PUPILA DERECHA -->
+        <path
+            android:fillColor="#312331"
+            android:pathData="M59,48A4.5,6 0,1 1,68 48A4.5,6 0,1 1,59 48Z" />
+
+        <!-- BRILLOS EN LOS OJOS -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M45,45A1.5,1.5 0,1 1,48 45A1.5,1.5 0,1 1,45 45Z" />
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M63,45A1.5,1.5 0,1 1,66 45A1.5,1.5 0,1 1,63 45Z" />
+
+        <!-- NARIZ -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#EB9970"
+            android:strokeWidth="1.7"
+            android:strokeLineCap="round"
+            android:pathData="M52,52Q49,57 54,57" />
+
+        <!-- SONRISA -->
+        <path
+            android:fillColor="#84352E"
+            android:pathData="M43,61Q50,65 58,60Q57,69 50,69Q44,69 43,61Z" />
+
+        <!-- DIENTES -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M44,61Q50,64 57,61Q55,65 50,65Q46,65 44,61Z" />
+
+        <!-- ESTETOSCOPIO IZQUIERDO -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#344E80"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:pathData="M34,74C29,82 31,93 39,94Q47,94 47,85" />
+
+        <!-- ESTETOSCOPIO DERECHO -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#344E80"
+            android:strokeWidth="3.5"
+            android:strokeLineCap="round"
+            android:pathData="M66,74C71,82 69,93 61,94Q53,94 53,85" />
+
+        <!-- CAMPANA DEL ESTETOSCOPIO -->
+        <path
+            android:fillColor="#9BAED4"
+            android:pathData="M50,83A6,6 0,1 1,50 95A6,6 0,1 1,50 83Z" />
+
+        <path
+            android:fillColor="#344E80"
+            android:pathData="M50,86A3,3 0,1 1,50 92A3,3 0,1 1,50 86Z" />
+
+        <!-- BORDE CIRCULAR BLANCO -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="3"
+            android:pathData="M50,2A48,48 0,1 1,50 98A48,48 0,1 1,50 2Z" />
+
+    </group>
 
 </vector>

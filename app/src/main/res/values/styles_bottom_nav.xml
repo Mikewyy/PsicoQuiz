@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PsicoQuizNavIndicator">
+        <item name="android:width">88dp</item>
+        <item name="android:height">72dp</item>
+        <item name="android:color">#EDE9FE</item>
+        <item name="shapeAppearance">
+            @style/PsicoQuizNavIndicatorShape
+        </item>
+    </style>
+
+    <style name="PsicoQuizNavIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">26dp</item>
+    </style>
+
+</resources>
