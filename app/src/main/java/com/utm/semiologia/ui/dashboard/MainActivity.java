@@ -710,6 +710,8 @@ public class MainActivity extends BaseActivity
 
             viewModel.cargar();
         }
+
+        mostrarPrimerAvisoNotificaciones();
     }
 
 
@@ -2988,6 +2990,43 @@ public class MainActivity extends BaseActivity
         );
 
         dialog.show();
+    }
+
+
+    /** Pregunta al primer ingreso si quiere activar las notificaciones. */
+    private void mostrarPrimerAvisoNotificaciones() {
+
+        if (PreferenciasManager.avisoNotificacionesMostrado(this)) {
+            return;
+        }
+
+        PreferenciasManager.marcarAvisoNotificaciones(this);
+
+        if (isFinishing()) {
+            return;
+        }
+
+        new AlertDialog.Builder(this)
+
+                .setTitle(
+                        R.string.notificaciones_aviso_titulo
+                )
+
+                .setMessage(
+                        R.string.notificaciones_aviso_mensaje
+                )
+
+                .setPositiveButton(
+                        R.string.notificaciones_aviso_activar,
+                        (d, w) -> gestionarNotificaciones(true)
+                )
+
+                .setNegativeButton(
+                        R.string.notificaciones_aviso_ahora_no,
+                        null
+                )
+
+                .show();
     }
 
 

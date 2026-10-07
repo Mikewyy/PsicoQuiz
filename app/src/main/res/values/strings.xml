@@ -176,4 +176,10 @@
     <string name="notificaciones_activadas">Recordatorio del desafío diario activado</string>
     <string name="notificaciones_desactivadas">Recordatorio del desafío diario desactivado</string>
     <string name="notificaciones_permiso_denegado">Permiso de notificaciones denegado</string>
+
+    <!-- Primer ingreso: aviso de notificaciones -->
+    <string name="notificaciones_aviso_titulo">¿Activar las notificaciones?</string>
+    <string name="notificaciones_aviso_mensaje">Te recordaremos todos los días a las 07:00 para que no te pierdas el desafío diario de PsicoQuiz.</string>
+    <string name="notificaciones_aviso_activar">Activar</string>
+    <string name="notificaciones_aviso_ahora_no">Ahora no</string>
 </resources>
