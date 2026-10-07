@@ -435,6 +435,53 @@ public class DashboardViewModel extends AndroidViewModel {
 
 
     // =========================================================
+    // PERSONALIZAR MASCOTA (NOMBRE + TIPO)
+    // =========================================================
+
+    /**
+     * Guarda el nombre y el tipo de la mascota en una sola operación,
+     * como pide la ventana "Personalizar mascota".
+     */
+    public void personalizarMascota(
+            String nuevoNombre,
+            int skinId
+    ) {
+
+        long usuarioId =
+                sesion.getUsuarioId();
+
+
+        if (usuarioId <= 0) {
+
+            return;
+        }
+
+
+        if (skinId < 0 || skinId > 5) {
+
+            skinId = 0;
+        }
+
+
+        repo.mascotas()
+                .actualizarNombre(
+                        usuarioId,
+                        nuevoNombre
+                );
+
+
+        repo.mascotas()
+                .actualizarSkin(
+                        usuarioId,
+                        skinId
+                );
+
+
+        cargar();
+    }
+
+
+    // =========================================================
     // DRAWABLE DE MASCOTA
     // =========================================================
 

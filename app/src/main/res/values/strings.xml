@@ -158,4 +158,22 @@
     <string name="pomodoro_descanso_salir">Salir del modo descanso</string>
     <string name="pomodoro_descanso_restante">Descanso: %1$s</string>
     <string name="pomodoro_dato_titulo">¿Sabías que…?</string>
+
+    <!-- Personalizar mascota -->
+    <string name="nombre_mascota_vacio">Escribe un nombre</string>
+    <string name="nombre_mascota_largo">Máximo 20 caracteres</string>
+
+    <!-- Configuración: correo y contraseña -->
+    <string name="config_cambiar_correo">Cambiar correo electrónico</string>
+    <string name="config_cambiar_password">Cambiar contraseña</string>
+    <string name="error_email_no_coinciden">Los correos no coinciden</string>
+    <string name="error_email_igual">El correo nuevo es igual al actual</string>
+    <string name="error_password_no_coinciden">Las contraseñas no coinciden</string>
+    <string name="config_correo_ok">Correo actualizado correctamente</string>
+    <string name="config_password_ok">Contraseña actualizada correctamente</string>
+
+    <!-- Configuración: notificaciones -->
+    <string name="notificaciones_activadas">Recordatorio del desafío diario activado</string>
+    <string name="notificaciones_desactivadas">Recordatorio del desafío diario desactivado</string>
+    <string name="notificaciones_permiso_denegado">Permiso de notificaciones denegado</string>
 </resources>

@@ -246,6 +246,47 @@ public class UsuarioDao {
     }
 
     /**
+     * Cambia el correo del usuario. El UNIQUE COLLATE NOCASE de la columna
+     * lanza {@link android.database.sqlite.SQLiteConstraintException} si otro
+     * usuario ya lo tiene; conviene validarlo antes con buscarPorEmail.
+     */
+    public void actualizarEmail(long usuarioId, String email) {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("email", email.trim());
+
+        db.update(
+                DatabaseHelper.T_USUARIOS,
+                cv,
+                "id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        );
+    }
+
+    /**
+     * Cambia la contraseña (hash + salt) del usuario.
+     */
+    public void actualizarPassword(long usuarioId, String hash, String salt) {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("password_hash", hash);
+        cv.put("password_salt", salt);
+
+        db.update(
+                DatabaseHelper.T_USUARIOS,
+                cv,
+                "id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        );
+    }
+
+    /**
      * Suma puntos semanales dentro de un grupo.
      */
     public void sumarPuntosSemanales(

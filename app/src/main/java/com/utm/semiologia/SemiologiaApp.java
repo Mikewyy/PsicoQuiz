@@ -9,6 +9,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.ui.pomodoro.PomodoroManager;
+import com.utm.semiologia.util.NotificacionesUtil;
 import com.utm.semiologia.util.SesionManager;
 
 /**
@@ -25,6 +26,8 @@ public class SemiologiaApp extends Application implements DefaultLifecycleObserv
         super.onCreate();
         repositorio = Repositorio.get(this);
         sesion = new SesionManager(this);
+
+        NotificacionesUtil.crearCanal(this);
 
         PomodoroManager.init(this);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);

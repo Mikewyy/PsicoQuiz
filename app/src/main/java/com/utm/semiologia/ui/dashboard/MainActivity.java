@@ -5,12 +5,17 @@ import android.widget.LinearLayout;
 import android.view.MotionEvent;
 
 import java.util.Locale;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Gravity;
 import android.view.View;
@@ -23,14 +28,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.utm.semiologia.R;
 import com.utm.semiologia.SemiologiaApp;
 import com.utm.semiologia.data.dao.DesafioDao;
@@ -45,6 +54,9 @@ import com.utm.semiologia.ui.evaluacion.CaminoActivity;
 import com.utm.semiologia.util.DesafioDiario;
 import com.utm.semiologia.util.FechaUtil;
 import com.utm.semiologia.util.Gamificacion;
+import com.utm.semiologia.util.HashUtil;
+import com.utm.semiologia.util.NotificacionesUtil;
+import com.utm.semiologia.util.PreferenciasManager;
 
 
 
@@ -100,6 +112,8 @@ public class MainActivity extends BaseActivity
     private ImageView ivMascota;
 
     private DashboardViewModel viewModel;
+
+    private static final int CODIGO_PERMISO_NOTIFICACIONES = 5001;
     // =========================================================
 // POMODORO FLOTANTE
 // =========================================================
@@ -1616,7 +1630,7 @@ public class MainActivity extends BaseActivity
         findViewById(
                 R.id.btnPersonalizarMascota
         ).setOnClickListener(
-                v -> mostrarSelectorSkins()
+                v -> mostrarPersonalizarMascota()
         );
 
 
@@ -1746,13 +1760,13 @@ public class MainActivity extends BaseActivity
 
                     dialog.dismiss();
 
-                    mostrarSelectorSkins();
+                    mostrarPersonalizarMascota();
                 }
         );
 
 
         // -----------------------------------------------------
-        // CAMBIAR NOMBRE
+        // CONFIGURACIÓN
         // -----------------------------------------------------
 
         vista.findViewById(
@@ -1762,7 +1776,7 @@ public class MainActivity extends BaseActivity
 
                     dialog.dismiss();
 
-                    mostrarEditorNombreMascota();
+                    mostrarConfiguracion();
                 }
         );
 
@@ -2283,7 +2297,7 @@ public class MainActivity extends BaseActivity
                 LayoutInflater
                         .from(this)
                         .inflate(
-                                R.layout.bottom_sheet_mascota,
+                                R.layout.bottom_sheet_tipo_mascota,
                                 null
                         );
 
@@ -2354,7 +2368,6 @@ public class MainActivity extends BaseActivity
                                 ids[index]
                         );
 
-
                         dialog.dismiss();
                     }
             );
@@ -2371,7 +2384,7 @@ public class MainActivity extends BaseActivity
         // -----------------------------------------------------
 
         vista.findViewById(
-                R.id.btnCerrarMascota
+                R.id.btnCerrarTipo
         ).setOnClickListener(
                 v -> dialog.dismiss()
         );
@@ -2595,6 +2608,915 @@ public class MainActivity extends BaseActivity
 
 
         dialog.show();
+    }
+
+
+    // =========================================================
+    // PERSONALIZAR MASCOTA (NOMBRE + TIPO)
+    // =========================================================
+
+    private void mostrarPersonalizarMascota() {
+
+        final String[] nombres = {
+
+                "Gato",
+                "Perro",
+                "Conejo",
+                "Búho",
+                "Ajolote",
+                "Zorro"
+        };
+
+        final int[] resIds = {
+
+                R.drawable.pet_cat_nuevo,
+                R.drawable.pet_cat_blue,
+                R.drawable.pet_cat_purple,
+                R.drawable.pet_cat_student,
+                R.drawable.pet_cat_space,
+                R.drawable.pet_cat_golden
+        };
+
+        Mascota mascota =
+                mascotaActual();
+
+        BottomSheetDialog dialog =
+                new BottomSheetDialog(
+                        this
+                );
+
+        View vista =
+                LayoutInflater
+                        .from(this)
+                        .inflate(
+                                R.layout.bottom_sheet_personalizar_mascota,
+                                null
+                        );
+
+        dialog.setContentView(
+                vista
+        );
+
+        EditText input =
+                vista.findViewById(
+                        R.id.etNombreMascota
+                );
+
+        TextView contador =
+                vista.findViewById(
+                        R.id.tvContadorNombre
+                );
+
+        GridLayout grid =
+                vista.findViewById(
+                        R.id.gridMascotas
+                );
+
+        // -----------------------------------------------------
+        // TIPO SELECCIONADO (se aplica al pulsar Guardar)
+        // -----------------------------------------------------
+
+        final int[] seleccion =
+                {0};
+
+        final View[] items =
+                new View[nombres.length];
+
+        if (mascota != null) {
+
+            seleccion[0] =
+                    mascota.getSkinId();
+        }
+
+        // -----------------------------------------------------
+        // MOSTRAR NOMBRE ACTUAL
+        // -----------------------------------------------------
+
+        if (mascota != null) {
+
+            input.setText(
+                    mascota.getNombre()
+            );
+
+            input.setSelection(
+                    input
+                            .getText()
+                            .length()
+            );
+
+            contador.setText(
+                    input.length()
+                            + "/20"
+            );
+
+        } else {
+
+            contador.setText(
+                    "0/20"
+            );
+        }
+
+        // -----------------------------------------------------
+        // CONTADOR DE CARACTERES
+        // -----------------------------------------------------
+
+        input.addTextChangedListener(
+                new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(
+                            CharSequence s,
+                            int start,
+                            int count,
+                            int after
+                    ) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(
+                            CharSequence s,
+                            int start,
+                            int before,
+                            int count
+                    ) {
+
+                        contador.setText(
+                                s.length()
+                                        + "/20"
+                        );
+                    }
+
+                    @Override
+                    public void afterTextChanged(
+                            Editable s
+                    ) {
+
+                    }
+                }
+        );
+
+        // -----------------------------------------------------
+        // CREAR LAS 6 OPCIONES DE TIPO
+        // -----------------------------------------------------
+
+        for (
+                int i = 0;
+                i < nombres.length;
+                i++
+        ) {
+
+            final int index =
+                    i;
+
+            View item =
+                    LayoutInflater
+                            .from(this)
+                            .inflate(
+                                    R.layout.item_skin_selector,
+                                    grid,
+                                    false
+                            );
+
+            ImageView imagen =
+                    item.findViewById(
+                            R.id.ivSkinOpcion
+                    );
+
+            TextView nombre =
+                    item.findViewById(
+                            R.id.tvNombreSkin
+                    );
+
+            imagen.setImageResource(
+                    resIds[index]
+            );
+
+            nombre.setText(
+                    nombres[index]
+            );
+
+            items[index] =
+                    item;
+
+            item.setOnClickListener(
+                    v -> {
+
+                        seleccion[0] =
+                                index;
+
+                        pintarSeleccionTipo(
+                                items,
+                                seleccion[0]
+                        );
+                    }
+            );
+
+            grid.addView(
+                    item
+            );
+        }
+
+        pintarSeleccionTipo(
+                items,
+                seleccion[0]
+        );
+
+        // -----------------------------------------------------
+        // CANCELAR
+        // -----------------------------------------------------
+
+        vista.findViewById(
+                R.id.btnCancelarPersonalizar
+        ).setOnClickListener(
+                v -> dialog.dismiss()
+        );
+
+        // -----------------------------------------------------
+        // GUARDAR
+        // -----------------------------------------------------
+
+        vista.findViewById(
+                R.id.btnGuardarPersonalizar
+        ).setOnClickListener(
+                v -> {
+
+                    String nuevoNombre =
+                            input
+                                    .getText()
+                                    .toString()
+                                    .trim();
+
+                    if (nuevoNombre.isEmpty()) {
+
+                        input.setError(
+                                getString(
+                                        R.string.nombre_mascota_vacio
+                                )
+                        );
+
+                        return;
+                    }
+
+                    if (nuevoNombre.length() > 20) {
+
+                        input.setError(
+                                getString(
+                                        R.string.nombre_mascota_largo
+                                )
+                        );
+
+                        return;
+                    }
+
+                    viewModel.personalizarMascota(
+                            nuevoNombre,
+                            seleccion[0]
+                    );
+
+                    dialog.dismiss();
+                }
+        );
+
+        prepararBottomSheetRedondeado(
+                dialog
+        );
+
+        dialog.show();
+    }
+
+
+    private void pintarSeleccionTipo(
+            View[] items,
+            int seleccion
+    ) {
+
+        for (
+                int i = 0;
+                i < items.length;
+                i++
+        ) {
+
+            items[i].setBackgroundResource(
+
+                    i == seleccion
+
+                            ? R.drawable.bg_selector_item_seleccionado
+                            : R.drawable.bg_selector_item
+            );
+        }
+    }
+
+
+    @Nullable
+    private Mascota mascotaActual() {
+
+        if (
+                viewModel
+                        .getEstado()
+                        .getValue() != null
+        ) {
+
+            return viewModel
+                    .getEstado()
+                    .getValue()
+                    .mascota;
+        }
+
+        return null;
+    }
+
+
+    // =========================================================
+    // CONFIGURACIÓN
+    // =========================================================
+
+    private void mostrarConfiguracion() {
+
+        BottomSheetDialog dialog =
+                new BottomSheetDialog(
+                        this
+                );
+
+        View vista =
+                LayoutInflater
+                        .from(this)
+                        .inflate(
+                                R.layout.bottom_sheet_configuracion,
+                                null
+                        );
+
+        dialog.setContentView(
+                vista
+        );
+
+        vista.findViewById(
+                R.id.filaConfigCorreo
+        ).setOnClickListener(
+                v -> mostrarCambiarCorreo()
+        );
+
+        vista.findViewById(
+                R.id.filaConfigPassword
+        ).setOnClickListener(
+                v -> mostrarCambiarContrasena()
+        );
+
+        final SwitchMaterial sw =
+                vista.findViewById(
+                        R.id.swConfigNotificaciones
+                );
+
+        sw.setChecked(
+                PreferenciasManager
+                        .notificacionesActivas(this)
+        );
+
+        sw.setOnCheckedChangeListener(
+                (boton, activado) ->
+                        gestionarNotificaciones(activado)
+        );
+
+        prepararBottomSheetRedondeado(
+                dialog
+        );
+
+        dialog.show();
+    }
+
+
+    private void gestionarNotificaciones(
+            boolean activas
+    ) {
+
+        if (activas) {
+
+            PreferenciasManager.setNotificaciones(
+                    this,
+                    true
+            );
+
+            if (
+                    Build.VERSION.SDK_INT
+                            >= Build.VERSION_CODES.TIRAMISU
+                            && ContextCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.POST_NOTIFICATIONS
+                    ) != PackageManager.PERMISSION_GRANTED
+            ) {
+
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{
+                                Manifest.permission.POST_NOTIFICATIONS
+                        },
+                        CODIGO_PERMISO_NOTIFICACIONES
+                );
+
+                return;
+            }
+
+            NotificacionesUtil.programarRecordatorio(
+                    this
+            );
+
+            toast(
+                    R.string.notificaciones_activadas
+            );
+
+        } else {
+
+            PreferenciasManager.setNotificaciones(
+                    this,
+                    false
+            );
+
+            NotificacionesUtil.cancelarRecordatorio(
+                    this
+            );
+
+            toast(
+                    R.string.notificaciones_desactivadas
+            );
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults
+    ) {
+
+        super.onRequestPermissionsResult(
+                requestCode,
+                permissions,
+                grantResults
+        );
+
+        if (
+                requestCode
+                        != CODIGO_PERMISO_NOTIFICACIONES
+        ) {
+
+            return;
+        }
+
+        if (
+                grantResults.length > 0
+                        && grantResults[0]
+                        == PackageManager.PERMISSION_GRANTED
+        ) {
+
+            NotificacionesUtil.programarRecordatorio(
+                    this
+            );
+
+            toast(
+                    R.string.notificaciones_activadas
+            );
+
+        } else {
+
+            PreferenciasManager.setNotificaciones(
+                    this,
+                    false
+            );
+
+            toast(
+                    R.string.notificaciones_permiso_denegado
+            );
+        }
+    }
+
+
+    // =========================================================
+    // CAMBIAR CORREO ELECTRÓNICO
+    // =========================================================
+
+    private void mostrarCambiarCorreo() {
+
+        View vista =
+                LayoutInflater
+                        .from(this)
+                        .inflate(
+                                R.layout.dialog_cambiar_correo,
+                                null
+                        );
+
+        final EditText etActual =
+                vista.findViewById(
+                        R.id.etCorreoActual
+                );
+
+        final EditText etNuevo =
+                vista.findViewById(
+                        R.id.etCorreoNuevo
+                );
+
+        final EditText etConfirmar =
+                vista.findViewById(
+                        R.id.etCorreoConfirmar
+                );
+
+        final AlertDialog dialog =
+                new AlertDialog.Builder(
+                        this
+                )
+                        .setTitle(
+                                R.string.config_cambiar_correo
+                        )
+                        .setView(
+                                vista
+                        )
+                        .setNegativeButton(
+                                R.string.cancelar,
+                                null
+                        )
+                        .setPositiveButton(
+                                R.string.aceptar,
+                                null
+                        )
+                        .create();
+
+        dialog.setOnShowListener(
+                d -> dialog
+                        .getButton(
+                                AlertDialog.BUTTON_POSITIVE
+                        )
+                        .setOnClickListener(
+                                v -> aplicarCambioCorreo(
+                                        etActual,
+                                        etNuevo,
+                                        etConfirmar,
+                                        dialog
+                                )
+                        )
+        );
+
+        dialog.show();
+    }
+
+
+    private void aplicarCambioCorreo(
+            EditText etActual,
+            EditText etNuevo,
+            EditText etConfirmar,
+            AlertDialog dialog
+    ) {
+
+        String actual =
+                etActual
+                        .getText()
+                        .toString()
+                        .trim();
+
+        String nuevo =
+                etNuevo
+                        .getText()
+                        .toString()
+                        .trim();
+
+        String confirmar =
+                etConfirmar
+                        .getText()
+                        .toString()
+                        .trim();
+
+        long usuarioId =
+                SemiologiaApp
+                        .getSesion()
+                        .getUsuarioId();
+
+        if (usuarioId <= 0) {
+
+            return;
+        }
+
+        Usuario u =
+                SemiologiaApp
+                        .getRepositorio()
+                        .usuarios()
+                        .buscarPorId(
+                                usuarioId
+                        );
+
+        if (u == null) {
+
+            return;
+        }
+
+        if (
+                TextUtils.isEmpty(actual)
+                        || TextUtils.isEmpty(nuevo)
+                        || TextUtils.isEmpty(confirmar)
+        ) {
+
+            toast(
+                    R.string.error_campos_vacios
+            );
+
+            return;
+        }
+
+        if (
+                !HashUtil.verificar(
+                        actual,
+                        u.getPasswordSalt(),
+                        u.getPasswordHash()
+                )
+        ) {
+
+            toast(
+                    R.string.error_password_incorrecta
+            );
+
+            return;
+        }
+
+        if (
+                !Patterns.EMAIL_ADDRESS
+                        .matcher(nuevo)
+                        .matches()
+        ) {
+
+            toast(
+                    R.string.error_email_invalido
+            );
+
+            return;
+        }
+
+        if (!nuevo.equals(confirmar)) {
+
+            toast(
+                    R.string.error_email_no_coinciden
+            );
+
+            return;
+        }
+
+        if (nuevo.equalsIgnoreCase(actual)) {
+
+            toast(
+                    R.string.error_email_igual
+            );
+
+            return;
+        }
+
+        Usuario existente =
+                SemiologiaApp
+                        .getRepositorio()
+                        .usuarios()
+                        .buscarPorEmail(
+                                nuevo
+                        );
+
+        if (
+                existente != null
+                        && existente.getId()
+                        != usuarioId
+        ) {
+
+            toast(
+                    R.string.error_email_duplicado
+            );
+
+            return;
+        }
+
+        SemiologiaApp
+                .getRepositorio()
+                .usuarios()
+                .actualizarEmail(
+                        usuarioId,
+                        nuevo
+                );
+
+        SemiologiaApp
+                .getSesion()
+                .iniciarSesion(
+                        usuarioId,
+                        nuevo,
+                        u.getPasswordSalt()
+                );
+
+        viewModel.cargar();
+
+        toast(
+                R.string.config_correo_ok
+        );
+
+        dialog.dismiss();
+    }
+
+
+    // =========================================================
+    // CAMBIAR CONTRASEÑA
+    // =========================================================
+
+    private void mostrarCambiarContrasena() {
+
+        View vista =
+                LayoutInflater
+                        .from(this)
+                        .inflate(
+                                R.layout.dialog_cambiar_contrasena,
+                                null
+                        );
+
+        final EditText etActual =
+                vista.findViewById(
+                        R.id.etPasswordActual
+                );
+
+        final EditText etNueva =
+                vista.findViewById(
+                        R.id.etPasswordNueva
+                );
+
+        final EditText etConfirmar =
+                vista.findViewById(
+                        R.id.etPasswordConfirmar
+                );
+
+        final AlertDialog dialog =
+                new AlertDialog.Builder(
+                        this
+                )
+                        .setTitle(
+                                R.string.config_cambiar_password
+                        )
+                        .setView(
+                                vista
+                        )
+                        .setNegativeButton(
+                                R.string.cancelar,
+                                null
+                        )
+                        .setPositiveButton(
+                                R.string.aceptar,
+                                null
+                        )
+                        .create();
+
+        dialog.setOnShowListener(
+                d -> dialog
+                        .getButton(
+                                AlertDialog.BUTTON_POSITIVE
+                        )
+                        .setOnClickListener(
+                                v -> aplicarCambioContrasena(
+                                        etActual,
+                                        etNueva,
+                                        etConfirmar,
+                                        dialog
+                                )
+                        )
+        );
+
+        dialog.show();
+    }
+
+
+    private void aplicarCambioContrasena(
+            EditText etActual,
+            EditText etNueva,
+            EditText etConfirmar,
+            AlertDialog dialog
+    ) {
+
+        String actual =
+                etActual
+                        .getText()
+                        .toString()
+                        .trim();
+
+        String nueva =
+                etNueva
+                        .getText()
+                        .toString()
+                        .trim();
+
+        String confirmar =
+                etConfirmar
+                        .getText()
+                        .toString()
+                        .trim();
+
+        long usuarioId =
+                SemiologiaApp
+                        .getSesion()
+                        .getUsuarioId();
+
+        if (usuarioId <= 0) {
+
+            return;
+        }
+
+        Repositorio repo =
+                SemiologiaApp
+                        .getRepositorio();
+
+        Usuario u =
+                repo
+                        .usuarios()
+                        .buscarPorId(
+                                usuarioId
+                        );
+
+        if (u == null) {
+
+            return;
+        }
+
+        if (
+                TextUtils.isEmpty(actual)
+                        || TextUtils.isEmpty(nueva)
+                        || TextUtils.isEmpty(confirmar)
+        ) {
+
+            toast(
+                    R.string.error_campos_vacios
+            );
+
+            return;
+        }
+
+        if (
+                !HashUtil.verificar(
+                        actual,
+                        u.getPasswordSalt(),
+                        u.getPasswordHash()
+                )
+        ) {
+
+            toast(
+                    R.string.error_password_incorrecta
+            );
+
+            return;
+        }
+
+        if (nueva.length() < 6) {
+
+            toast(
+                    R.string.error_password_corta
+            );
+
+            return;
+        }
+
+        if (!nueva.equals(confirmar)) {
+
+            toast(
+                    R.string.error_password_no_coinciden
+            );
+
+            return;
+        }
+
+        String saltNuevo =
+                HashUtil.nuevoSalt();
+
+        String hashNuevo =
+                HashUtil.hashear(
+                        nueva,
+                        saltNuevo
+                );
+
+        repo.usuarios()
+                .actualizarPassword(
+                        usuarioId,
+                        hashNuevo,
+                        saltNuevo
+                );
+
+        SemiologiaApp
+                .getSesion()
+                .iniciarSesion(
+                        usuarioId,
+                        u.getEmail(),
+                        saltNuevo
+                );
+
+        toast(
+                R.string.config_password_ok
+        );
+
+        dialog.dismiss();
+    }
+
+
+    private void toast(int resId) {
+
+        Toast.makeText(
+                this,
+                resId,
+                Toast.LENGTH_SHORT
+        ).show();
     }
 
 
