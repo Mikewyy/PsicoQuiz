@@ -2041,8 +2041,8 @@ public class MainActivity extends BaseActivity
 
         for (
                 int i = 0;
-                        i < avatares.length;
-                        i++
+                i < avatares.length;
+                i++
         ) {
 
 
@@ -4313,7 +4313,7 @@ public class MainActivity extends BaseActivity
     }
 
 
-/**
+    /**
      * Devuelve a la pestaña su forma de borde: el canto recto queda pegado a la
      * pantalla. La vuelta a escala 1 se anima en {@link #pegarPomodoroAlBorde()},
      * en el mismo animador que el deslizamiento, para que no se pisen.

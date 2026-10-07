@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -68,6 +69,7 @@ public class QuizMultijugadorActivity
     private boolean finalizandoPregunta = false;
 
     private int cantidadParticipantes = 0;
+    private int respuestasPreguntaActual = 0;
     private int preguntaActual = -1;
     private int indiceRespuestaUsuario = -1;
 
@@ -88,9 +90,28 @@ public class QuizMultijugadorActivity
     private TextView tvResultadoTitulo;
     private TextView tvRetroalimentacion;
     private TextView tvRanking;
+    private TextView tvRespuestasJugadores;
+    private TextView tvEsperaRespuestas;
+
+    private TextView tvPodioNombre1;
+    private TextView tvPodioPuntos1;
+    private TextView tvPodioNombre2;
+    private TextView tvPodioPuntos2;
+    private TextView tvPodioNombre3;
+    private TextView tvPodioPuntos3;
+
+    private LinearProgressIndicator barRespuestasJugadores;
 
     private LinearLayout contenedorOpciones;
     private LinearLayout panelResultado;
+    private LinearLayout panelPodioFinal;
+    private View podioPuesto1;
+    private View podioPuesto2;
+    private View podioPuesto3;
+    private View cardRankingTexto;
+
+    private List<DocumentSnapshot> jugadoresRankingActual =
+            new ArrayList<>();
 
     private MaterialButton btnOpcionA;
     private MaterialButton btnOpcionB;
@@ -208,6 +229,76 @@ public class QuizMultijugadorActivity
                         R.id.tvRanking
                 );
 
+        tvRespuestasJugadores =
+                findViewById(
+                        R.id.tvRespuestasJugadores
+                );
+
+        tvEsperaRespuestas =
+                findViewById(
+                        R.id.tvEsperaRespuestas
+                );
+
+        barRespuestasJugadores =
+                findViewById(
+                        R.id.barRespuestasJugadores
+                );
+
+        panelPodioFinal =
+                findViewById(
+                        R.id.panelPodioFinal
+                );
+
+        podioPuesto1 =
+                findViewById(
+                        R.id.podioPuesto1
+                );
+
+        podioPuesto2 =
+                findViewById(
+                        R.id.podioPuesto2
+                );
+
+        podioPuesto3 =
+                findViewById(
+                        R.id.podioPuesto3
+                );
+
+        tvPodioNombre1 =
+                findViewById(
+                        R.id.tvPodioNombre1
+                );
+
+        tvPodioPuntos1 =
+                findViewById(
+                        R.id.tvPodioPuntos1
+                );
+
+        tvPodioNombre2 =
+                findViewById(
+                        R.id.tvPodioNombre2
+                );
+
+        tvPodioPuntos2 =
+                findViewById(
+                        R.id.tvPodioPuntos2
+                );
+
+        tvPodioNombre3 =
+                findViewById(
+                        R.id.tvPodioNombre3
+                );
+
+        tvPodioPuntos3 =
+                findViewById(
+                        R.id.tvPodioPuntos3
+                );
+
+        cardRankingTexto =
+                findViewById(
+                        R.id.cardRankingTexto
+                );
+
         contenedorOpciones =
                 findViewById(
                         R.id.contenedorOpciones
@@ -308,7 +399,7 @@ public class QuizMultijugadorActivity
 
                                     if (
                                             snapshot == null ||
-                                            !snapshot.exists()
+                                                    !snapshot.exists()
                                     ) {
                                         return;
                                     }
@@ -333,13 +424,13 @@ public class QuizMultijugadorActivity
         soyAnfitrion =
                 auth.getCurrentUser() != null
                         &&
-                anfitrionId != null
+                        anfitrionId != null
                         &&
-                anfitrionId.equals(
-                        auth
-                                .getCurrentUser()
-                                .getUid()
-                );
+                        anfitrionId.equals(
+                                auth
+                                        .getCurrentUser()
+                                        .getUid()
+                        );
 
         String nuevoPartidaId =
                 snapshot.getString(
@@ -473,13 +564,17 @@ public class QuizMultijugadorActivity
 
                                     if (
                                             error != null ||
-                                            snapshot == null
+                                                    snapshot == null
                                     ) {
                                         return;
                                     }
 
                                     cantidadParticipantes =
                                             snapshot.size();
+
+                                    actualizarProgresoRespuestas(
+                                            respuestasPreguntaActual
+                                    );
 
                                     List<DocumentSnapshot> jugadores =
                                             new ArrayList<>(
@@ -488,12 +583,56 @@ public class QuizMultijugadorActivity
                                             );
 
                                     jugadores.sort(
-                                            (a, b) ->
-                                                    Long.compare(
-                                                            puntosDe(b),
-                                                            puntosDe(a)
-                                                    )
+                                            (a, b) -> {
+
+                                                int porPuntos =
+                                                        Long.compare(
+                                                                puntosDe(b),
+                                                                puntosDe(a)
+                                                        );
+
+                                                if (porPuntos != 0) {
+                                                    return porPuntos;
+                                                }
+
+                                                int porAciertos =
+                                                        Long.compare(
+                                                                aciertosDe(b),
+                                                                aciertosDe(a)
+                                                        );
+
+                                                if (porAciertos != 0) {
+                                                    return porAciertos;
+                                                }
+
+                                                /*
+                                                 * Último desempate estable:
+                                                 * si tienen exactamente los mismos puntos
+                                                 * y aciertos, se ordenan por nombre para
+                                                 * que el podio no cambie aleatoriamente
+                                                 * entre actualizaciones de Firebase.
+                                                 */
+                                                return nombreDe(a)
+                                                        .compareToIgnoreCase(
+                                                                nombreDe(b)
+                                                        );
+                                            }
                                     );
+
+                                    jugadoresRankingActual =
+                                            new ArrayList<>(
+                                                    jugadores
+                                            );
+
+                                    if (
+                                            panelPodioFinal != null &&
+                                                    panelPodioFinal.getVisibility() == View.VISIBLE
+                                    ) {
+                                        actualizarPodioFinal(
+                                                jugadoresRankingActual
+                                        );
+                                        return;
+                                    }
 
                                     StringBuilder ranking =
                                             new StringBuilder();
@@ -514,7 +653,7 @@ public class QuizMultijugadorActivity
 
                                         if (
                                                 nombre == null ||
-                                                nombre.trim().isEmpty()
+                                                        nombre.trim().isEmpty()
                                         ) {
                                             nombre =
                                                     "Jugador";
@@ -576,6 +715,20 @@ public class QuizMultijugadorActivity
                 : 0L;
     }
 
+    private long aciertosDe(
+            DocumentSnapshot documento
+    ) {
+
+        Long aciertos =
+                documento.getLong(
+                        "aciertosPartida"
+                );
+
+        return aciertos != null
+                ? aciertos
+                : 0L;
+    }
+
     private void escucharRespuestas() {
 
         listenerRespuestas =
@@ -588,12 +741,9 @@ public class QuizMultijugadorActivity
 
                                     if (
                                             error != null ||
-                                            snapshot == null ||
-                                            !soyAnfitrion ||
-                                            finalizandoPregunta ||
-                                            preguntaActual < 0 ||
-                                            cantidadParticipantes < 2 ||
-                                            partidaId.isEmpty()
+                                                    snapshot == null ||
+                                                    preguntaActual < 0 ||
+                                                    partidaId.isEmpty()
                                     ) {
                                         return;
                                     }
@@ -621,24 +771,166 @@ public class QuizMultijugadorActivity
                                                         partida
                                                 )
                                                         &&
-                                                indice != null
+                                                        indice != null
                                                         &&
-                                                indice.intValue()
-                                                        ==
-                                                preguntaActual
+                                                        indice.intValue()
+                                                                ==
+                                                                preguntaActual
                                         ) {
                                             respuestasActuales++;
                                         }
                                     }
 
+                                    respuestasPreguntaActual =
+                                            respuestasActuales;
+
+                                    actualizarProgresoRespuestas(
+                                            respuestasActuales
+                                    );
+
                                     if (
-                                            respuestasActuales >=
-                                                    cantidadParticipantes
+                                            soyAnfitrion &&
+                                                    !finalizandoPregunta &&
+                                                    cantidadParticipantes >= 2 &&
+                                                    respuestasActuales >=
+                                                            cantidadParticipantes
                                     ) {
                                         finalizarPregunta();
                                     }
                                 }
                         );
+    }
+
+    private void actualizarProgresoRespuestas(
+            int respuestasActuales
+    ) {
+
+        int total =
+                Math.max(
+                        cantidadParticipantes,
+                        0
+                );
+
+        int respondieron =
+                Math.max(
+                        respuestasActuales,
+                        0
+                );
+
+        if (total > 0) {
+            respondieron =
+                    Math.min(
+                            respondieron,
+                            total
+                    );
+        }
+
+        if (total <= 0) {
+            tvRespuestasJugadores.setText(
+                    "0 de 0"
+            );
+        } else {
+            tvRespuestasJugadores.setText(
+                    respondieron
+                            + " de "
+                            + total
+            );
+        }
+
+        int progreso =
+                total > 0
+                        ? Math.round(
+                        (respondieron * 100f)
+                                / total
+                )
+                        : 0;
+
+        // Animación suave para que el avance se vea en tiempo real.
+        barRespuestasJugadores.setProgressCompat(
+                progreso,
+                true
+        );
+
+        if (total <= 0) {
+
+            barRespuestasJugadores.setIndicatorColor(
+                    Color.parseColor("#B8B5C9")
+            );
+
+            tvRespuestasJugadores.setTextColor(
+                    Color.parseColor("#7C7893")
+            );
+
+            tvEsperaRespuestas.setTextColor(
+                    Color.parseColor("#8B88A8")
+            );
+
+            tvEsperaRespuestas.setText(
+                    "Conectando con los jugadores..."
+            );
+
+        } else if (respondieron >= total) {
+
+            // Verde cuando todos terminaron.
+            barRespuestasJugadores.setIndicatorColor(
+                    Color.parseColor("#32B879")
+            );
+
+            tvRespuestasJugadores.setTextColor(
+                    Color.parseColor("#249562")
+            );
+
+            tvEsperaRespuestas.setTextColor(
+                    Color.parseColor("#249562")
+            );
+
+            tvEsperaRespuestas.setText(
+                    "Todos respondieron. Preparando resultado..."
+            );
+
+        } else if (respondieron == 0) {
+
+            barRespuestasJugadores.setIndicatorColor(
+                    Color.parseColor("#6C5CE7")
+            );
+
+            tvRespuestasJugadores.setTextColor(
+                    Color.parseColor("#5A46D6")
+            );
+
+            tvEsperaRespuestas.setTextColor(
+                    Color.parseColor("#8B88A8")
+            );
+
+            tvEsperaRespuestas.setText(
+                    "Esperando las primeras respuestas..."
+            );
+
+        } else {
+
+            barRespuestasJugadores.setIndicatorColor(
+                    Color.parseColor("#6C5CE7")
+            );
+
+            tvRespuestasJugadores.setTextColor(
+                    Color.parseColor("#5A46D6")
+            );
+
+            tvEsperaRespuestas.setTextColor(
+                    Color.parseColor("#6F6A86")
+            );
+
+            int faltan =
+                    total - respondieron;
+
+            tvEsperaRespuestas.setText(
+                    faltan == 1
+                            ? "Falta 1 jugador por responder"
+                            : "Faltan "
+                            + faltan
+                            + " jugadores por responder"
+            );
+        }
     }
 
     private void mostrarPregunta() {
@@ -655,6 +947,13 @@ public class QuizMultijugadorActivity
         indiceRespuestaUsuario =
                 -1;
 
+        respuestasPreguntaActual =
+                0;
+
+        actualizarProgresoRespuestas(
+                0
+        );
+
         restaurarColoresOpciones();
 
         contenedorAccionesFinales.setVisibility(
@@ -663,6 +962,14 @@ public class QuizMultijugadorActivity
 
         panelResultado.setVisibility(
                 View.GONE
+        );
+
+        panelPodioFinal.setVisibility(
+                View.GONE
+        );
+
+        cardRankingTexto.setVisibility(
+                View.VISIBLE
         );
 
         contenedorOpciones.setVisibility(
@@ -679,8 +986,8 @@ public class QuizMultijugadorActivity
 
         if (
                 preguntaActual < 0 ||
-                preguntaActual >=
-                        preguntasPartida.size()
+                        preguntaActual >=
+                                preguntasPartida.size()
         ) {
 
             tvPregunta.setText(
@@ -812,11 +1119,11 @@ public class QuizMultijugadorActivity
 
         if (
                 respuestaEnviada ||
-                preguntaActual < 0 ||
-                preguntaActual >=
-                        preguntasPartida.size() ||
-                auth.getCurrentUser() == null ||
-                partidaId.isEmpty()
+                        preguntaActual < 0 ||
+                        preguntaActual >=
+                                preguntasPartida.size() ||
+                        auth.getCurrentUser() == null ||
+                        partidaId.isEmpty()
         ) {
             return;
         }
@@ -999,11 +1306,11 @@ public class QuizMultijugadorActivity
 
         if (
                 !soyAnfitrion ||
-                finalizandoPregunta ||
-                preguntaActual < 0 ||
-                preguntaActual >=
-                        preguntasPartida.size() ||
-                partidaId.isEmpty()
+                        finalizandoPregunta ||
+                        preguntaActual < 0 ||
+                        preguntaActual >=
+                                preguntasPartida.size() ||
+                        partidaId.isEmpty()
         ) {
             return;
         }
@@ -1045,11 +1352,11 @@ public class QuizMultijugadorActivity
                                                 partida
                                         )
                                                 &&
-                                        indice != null
+                                                indice != null
                                                 &&
-                                        indice.intValue()
-                                                ==
-                                        preguntaActual
+                                                indice.intValue()
+                                                        ==
+                                                        preguntaActual
                                 ) {
 
                                     respuestas.add(
@@ -1138,7 +1445,7 @@ public class QuizMultijugadorActivity
                         lugarCorrecto <
                                 PUNTOS_POR_LUGAR.length
                                 ? PUNTOS_POR_LUGAR[
-                                        lugarCorrecto
+                                lugarCorrecto
                                 ]
                                 : 0;
 
@@ -1222,6 +1529,13 @@ public class QuizMultijugadorActivity
                                         correcta
                                 );
 
+                                if (correcta) {
+                                    cambio.put(
+                                            "aciertosPartida",
+                                            FieldValue.increment(1)
+                                    );
+                                }
+
                                 batch.update(
                                         jugador.getReference(),
                                         cambio
@@ -1270,11 +1584,11 @@ public class QuizMultijugadorActivity
         String respuestaCorrecta =
                 indiceCorrecto >= 0
                         &&
-                indiceCorrecto <
-                        opciones.size()
+                        indiceCorrecto <
+                                opciones.size()
                         ? opciones.get(
-                                indiceCorrecto
-                        )
+                        indiceCorrecto
+                )
                         : "";
 
         String retro =
@@ -1342,6 +1656,14 @@ public class QuizMultijugadorActivity
         );
 
         panelResultado.setVisibility(
+                View.VISIBLE
+        );
+
+        panelPodioFinal.setVisibility(
+                View.GONE
+        );
+
+        cardRankingTexto.setVisibility(
                 View.VISIBLE
         );
 
@@ -1524,6 +1846,14 @@ public class QuizMultijugadorActivity
                 View.VISIBLE
         );
 
+        panelPodioFinal.setVisibility(
+                View.VISIBLE
+        );
+
+        actualizarPodioFinal(
+                jugadoresRankingActual
+        );
+
         tvResultadoTitulo.setText(
                 "Clasificación final"
         );
@@ -1551,6 +1881,180 @@ public class QuizMultijugadorActivity
                         ? View.VISIBLE
                         : View.GONE
         );
+    }
+
+    private void actualizarPodioFinal(
+            List<DocumentSnapshot> jugadores
+    ) {
+
+        if (
+                panelPodioFinal == null ||
+                        jugadores == null
+        ) {
+            return;
+        }
+
+        int totalJugadores = jugadores.size();
+
+        /*
+         * El podio se adapta al número real de participantes:
+         * 1 jugador  -> solo primer lugar.
+         * 2 jugadores -> primer y segundo lugar.
+         * 3 o más -> podio completo.
+         */
+        if (podioPuesto1 != null) {
+            podioPuesto1.setVisibility(
+                    totalJugadores >= 1
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        if (podioPuesto2 != null) {
+            podioPuesto2.setVisibility(
+                    totalJugadores >= 2
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        if (podioPuesto3 != null) {
+            podioPuesto3.setVisibility(
+                    totalJugadores >= 3
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+
+        if (totalJugadores >= 1) {
+            colocarJugadorPodio(
+                    jugadores,
+                    0,
+                    tvPodioNombre1,
+                    tvPodioPuntos1
+            );
+        }
+
+        if (totalJugadores >= 2) {
+            colocarJugadorPodio(
+                    jugadores,
+                    1,
+                    tvPodioNombre2,
+                    tvPodioPuntos2
+            );
+        }
+
+        if (totalJugadores >= 3) {
+            colocarJugadorPodio(
+                    jugadores,
+                    2,
+                    tvPodioNombre3,
+                    tvPodioPuntos3
+            );
+        }
+
+        StringBuilder restantes =
+                new StringBuilder();
+
+        for (
+                int i = 3;
+                i < totalJugadores;
+                i++
+        ) {
+
+            DocumentSnapshot jugador =
+                    jugadores.get(i);
+
+            restantes
+                    .append(i + 1)
+                    .append(". ")
+                    .append(nombreDe(jugador))
+                    .append("  ·  ")
+                    .append(puntosDe(jugador))
+                    .append(" pts");
+
+            if (i < totalJugadores - 1) {
+                restantes.append('\n');
+            }
+        }
+
+        if (cardRankingTexto != null) {
+            if (totalJugadores > 3) {
+
+                cardRankingTexto.setVisibility(
+                        View.VISIBLE
+                );
+
+                tvRanking.setText(
+                        restantes.toString()
+                );
+
+            } else {
+
+                cardRankingTexto.setVisibility(
+                        View.GONE
+                );
+            }
+        }
+    }
+
+    private void colocarJugadorPodio(
+            List<DocumentSnapshot> jugadores,
+            int posicion,
+            TextView tvNombre,
+            TextView tvPuntos
+    ) {
+
+        if (posicion < jugadores.size()) {
+
+            DocumentSnapshot jugador =
+                    jugadores.get(posicion);
+
+            tvNombre.setText(
+                    nombreDe(jugador)
+            );
+
+            tvPuntos.setText(
+                    puntosDe(jugador) + " pts"
+            );
+
+            tvNombre.setVisibility(
+                    View.VISIBLE
+            );
+
+            tvPuntos.setVisibility(
+                    View.VISIBLE
+            );
+
+        } else {
+
+            tvNombre.setText(
+                    "—"
+            );
+
+            tvPuntos.setText(
+                    ""
+            );
+        }
+    }
+
+    private String nombreDe(
+            DocumentSnapshot jugador
+    ) {
+
+        String nombre =
+                jugador.getString(
+                        "nombre"
+                );
+
+        if (
+                nombre == null ||
+                        nombre.trim().isEmpty()
+        ) {
+            return "Jugador";
+        }
+
+        return nombre.trim();
     }
 
     private void volverAJugar() {
@@ -1633,6 +2137,11 @@ public class QuizMultijugadorActivity
                                 reinicio.put(
                                         "ultimaCorrecta",
                                         false
+                                );
+
+                                reinicio.put(
+                                        "aciertosPartida",
+                                        0
                                 );
 
                                 batch.update(
@@ -1762,7 +2271,7 @@ public class QuizMultijugadorActivity
 
         if (
                 indice >= 0 &&
-                indice < botonesOpciones.length
+                        indice < botonesOpciones.length
         ) {
 
             botonesOpciones[indice]
@@ -1782,8 +2291,8 @@ public class QuizMultijugadorActivity
 
         if (
                 preguntaActual < 0 ||
-                preguntaActual >=
-                        preguntasPartida.size()
+                        preguntaActual >=
+                                preguntasPartida.size()
         ) {
             return;
         }
@@ -1801,13 +2310,13 @@ public class QuizMultijugadorActivity
 
         if (
                 indiceCorrecto >= 0 &&
-                indiceCorrecto <
-                        botonesOpciones.length
+                        indiceCorrecto <
+                                botonesOpciones.length
         ) {
 
             botonesOpciones[
                     indiceCorrecto
-            ].setBackgroundTintList(
+                    ].setBackgroundTintList(
                     ColorStateList.valueOf(
                             Color.parseColor(
                                     "#22A06B"
@@ -1818,15 +2327,15 @@ public class QuizMultijugadorActivity
 
         if (
                 indiceRespuestaUsuario >= 0 &&
-                indiceRespuestaUsuario <
-                        botonesOpciones.length &&
-                indiceRespuestaUsuario !=
-                        indiceCorrecto
+                        indiceRespuestaUsuario <
+                                botonesOpciones.length &&
+                        indiceRespuestaUsuario !=
+                                indiceCorrecto
         ) {
 
             botonesOpciones[
                     indiceRespuestaUsuario
-            ].setBackgroundTintList(
+                    ].setBackgroundTintList(
                     ColorStateList.valueOf(
                             Color.parseColor(
                                     "#D64545"
@@ -1867,8 +2376,8 @@ public class QuizMultijugadorActivity
 
         if (
                 auth.getCurrentUser() == null ||
-                partidaId.isEmpty() ||
-                preguntaActual < 0
+                        partidaId.isEmpty() ||
+                        preguntaActual < 0
         ) {
             return;
         }
@@ -2023,8 +2532,8 @@ public class QuizMultijugadorActivity
 
         return valor != null
                 ? String.valueOf(
-                        valor
-                )
+                valor
+        )
                 : "";
     }
 
