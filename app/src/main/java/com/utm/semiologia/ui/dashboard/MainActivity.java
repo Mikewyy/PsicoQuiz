@@ -172,6 +172,7 @@ public class MainActivity extends BaseActivity
     private View seccionExplorar;
     private View seccionDesafios;
     private View seccionProximamente;
+    private View raizActividad;
 
     private TextView tvProxTitulo;
     private TextView tvProxEtiqueta;
@@ -327,6 +328,19 @@ public class MainActivity extends BaseActivity
     public void irASeccion(int seccion) {
 
         seccionActual = seccion;
+
+        /*
+         * El fondo de la raíz engaña a la barra inferior: como la píldora
+         * flotante no cubre los bordes de la pantalla, se pinta aquí el
+         * degradado de la sección para que llegue hasta el borde inferior.
+         */
+        if (raizActividad != null) {
+            raizActividad.setBackgroundResource(
+                    seccion == NavegacionInferior.SECCION_DESAFIOS
+                            ? R.drawable.bg_gradient_orange
+                            : R.drawable.bg_inicio_general
+            );
+        }
 
         if (seccionInicio != null) {
             seccionInicio.setVisibility(
@@ -889,6 +903,11 @@ public class MainActivity extends BaseActivity
         seccionProximamente =
                 findViewById(
                         R.id.seccionProximamente
+                );
+
+        raizActividad =
+                findViewById(
+                        R.id.raizActividad
                 );
 
         barraInferior =

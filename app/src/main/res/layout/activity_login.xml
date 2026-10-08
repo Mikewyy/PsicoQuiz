@@ -90,6 +90,12 @@
                 android:layout_height="54dp"
                 android:layout_marginTop="16dp">
 
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp">
+
                 <EditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
@@ -104,17 +110,16 @@
                     android:textColor="#1E1B4B"
                     android:textColorHint="#9CA3AF"
                     android:textSize="16sp" />
-
-                <ImageButton
-                    android:id="@+id/btnVerPassword"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="6dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/ver_contrasena"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_ojo" />
+                <ImageView
+                    android:id="@+id/ivTogglePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_ojo_cerrado" />
+                </RelativeLayout>
             </FrameLayout>
 
             <androidx.appcompat.widget.AppCompatButton

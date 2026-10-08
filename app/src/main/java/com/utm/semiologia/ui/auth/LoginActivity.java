@@ -3,9 +3,12 @@ package com.utm.semiologia.ui.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +49,32 @@ public class LoginActivity extends AppCompatActivity {
         btnIngresar.setOnClickListener(v -> intentarIngreso());
         linkRegistro.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, RegistroActivity.class)));
+
+
+        ImageView ivTogglePassword= findViewById(R.id.ivTogglePassword);
+        configurarTogglePassword(etPassword, ivTogglePassword);
     }
+
+
+    private void configurarTogglePassword(EditText editText, ImageView imageView) {
+        imageView.setOnClickListener(v -> {
+            // Verifica si la contraseña actualmente está oculta
+            if (editText.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Mostrar contraseña
+                editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                imageView.setImageResource(R.drawable.ic_ojo); // Tu ícono de ojo abierto
+            } else {
+                // Ocultar contraseña
+                editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                imageView.setImageResource(R.drawable.ic_ojo_cerrado); // Tu ícono de ojo cerrado
+            }
+
+            // Mueve el cursor al final del texto para que el usuario pueda seguir escribiendo cómodamente
+            editText.setSelection(editText.getText().length());
+        });
+    }
+
+
 
     private void intentarIngreso() {
         String email = etEmail.getText().toString().trim();
