@@ -1,6 +1,6 @@
 package com.utm.semiologia.ui.dashboard;
 import com.utm.semiologia.ui.pomodoro.PomodoroManager;
-
+import androidx.appcompat.app.AlertDialog;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.SeekBar;
@@ -33,7 +33,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -171,14 +170,7 @@ public class MainActivity extends BaseActivity
     private View seccionInicio;
     private View seccionExplorar;
     private View seccionDesafios;
-    private View seccionProximamente;
-    private View raizActividad;
-
-    private TextView tvProxTitulo;
-    private TextView tvProxEtiqueta;
-    private TextView tvProxEmoji;
-    private TextView tvProxMensaje;
-    private TextView tvProxBadge;
+    private View seccionAyuda;
 
     private TextView tvDesafioRacha;
     private TextView tvDesafioPregunta;
@@ -285,6 +277,7 @@ public class MainActivity extends BaseActivity
         enlazarVistas();
         configurarPomodoro();
         configurarListeners();
+        configurarAyudaInteractiva();
 
         /*
          * Si venimos desde una pantalla interna con la barra, el extra dice en
@@ -329,19 +322,6 @@ public class MainActivity extends BaseActivity
 
         seccionActual = seccion;
 
-        /*
-         * El fondo de la raíz engaña a la barra inferior: como la píldora
-         * flotante no cubre los bordes de la pantalla, se pinta aquí el
-         * degradado de la sección para que llegue hasta el borde inferior.
-         */
-        if (raizActividad != null) {
-            raizActividad.setBackgroundResource(
-                    seccion == NavegacionInferior.SECCION_DESAFIOS
-                            ? R.drawable.bg_gradient_orange
-                            : R.drawable.bg_inicio_general
-            );
-        }
-
         if (seccionInicio != null) {
             seccionInicio.setVisibility(
                     seccion == NavegacionInferior.SECCION_INICIO
@@ -366,31 +346,17 @@ public class MainActivity extends BaseActivity
             );
         }
 
-        if (seccion == NavegacionInferior.SECCION_DESAFIOS) {
-            pintarDesafio();
-        }
-
-        boolean esProximamente =
-                seccion == NavegacionInferior.SECCION_AYUDA;
-
-        if (seccionProximamente != null) {
-            seccionProximamente.setVisibility(
-                    esProximamente
+        if (seccionAyuda != null) {
+            seccionAyuda.setVisibility(
+                    seccion == NavegacionInferior.SECCION_AYUDA
                             ? View.VISIBLE
                             : View.GONE
             );
         }
 
-        if (esProximamente) {
-            pintarProximamente(seccion);
+        if (seccion == NavegacionInferior.SECCION_DESAFIOS) {
+            pintarDesafio();
         }
-
-        /*
-         * El item marcado se actualiza aquí y no solo desde el listener porque
-         * la sección también puede cambiar por el botón atrás o por un onNewIntent.
-         * Volver a marcar el que ya estaba no dispara el listener: Material
-         * enruta ese caso al onItemReselectedListener.
-         */
 
         if (barraInferior != null) {
             NavegacionInferior.actualizarSeccion(
@@ -398,21 +364,8 @@ public class MainActivity extends BaseActivity
                     seccion
             );
         }
-
     }
 
-
-    private void pintarProximamente(int seccion) {
-
-        /*
-         * Solo Ayuda usa el placeholder; Desafíos ya tiene sección propia.
-         * Pintar de nuevo la pieza con la que ya estaba pintado es barato y
-         * garantiza el texto correcto en cualquier navegación.
-         */
-        tvProxTitulo.setText(R.string.ayuda_titulo);
-        tvProxEmoji.setText("💡");
-        tvProxMensaje.setText(R.string.ayuda_mensaje);
-    }
 
 
     // =========================================================
@@ -429,6 +382,366 @@ public class MainActivity extends BaseActivity
      * jugó hoy): si solo se mostrase el panel de resultado, tras reiniciar la
      * app la tarjeta quedaría en blanco.
      */
+// =========================================================
+// AYUDA INTERACTIVA
+// =========================================================
+
+    private void configurarAyudaInteractiva() {
+
+        if (seccionAyuda == null) {
+            return;
+        }
+
+        // ---------------------------------------------------------
+        // PRIMEROS PASOS
+        // ---------------------------------------------------------
+
+        View cardPrimerosPasos =
+                seccionAyuda.findViewById(
+                        R.id.cardAyudaPrimerosPasos
+                );
+
+        View contenidoPrimerosPasos =
+                seccionAyuda.findViewById(
+                        R.id.contenidoPrimerosPasos
+                );
+
+        TextView flechaPrimerosPasos =
+                seccionAyuda.findViewById(
+                        R.id.tvFlechaPrimerosPasos
+                );
+
+        if (
+                cardPrimerosPasos != null &&
+                        contenidoPrimerosPasos != null &&
+                        flechaPrimerosPasos != null
+        ) {
+            cardPrimerosPasos.setOnClickListener(
+                    v -> alternarAyuda(
+                            contenidoPrimerosPasos,
+                            flechaPrimerosPasos
+                    )
+            );
+        }
+
+        // ---------------------------------------------------------
+        // ESTUDIO
+        // ---------------------------------------------------------
+
+        View cardEstudio =
+                seccionAyuda.findViewById(
+                        R.id.cardAyudaEstudio
+                );
+
+        View contenidoEstudio =
+                seccionAyuda.findViewById(
+                        R.id.contenidoEstudio
+                );
+
+        TextView flechaEstudio =
+                seccionAyuda.findViewById(
+                        R.id.tvFlechaEstudio
+                );
+
+        if (
+                cardEstudio != null &&
+                        contenidoEstudio != null &&
+                        flechaEstudio != null
+        ) {
+            cardEstudio.setOnClickListener(
+                    v -> alternarAyuda(
+                            contenidoEstudio,
+                            flechaEstudio
+                    )
+            );
+        }
+
+        // ---------------------------------------------------------
+        // MASCOTA
+        // ---------------------------------------------------------
+
+        View cardMascota =
+                seccionAyuda.findViewById(
+                        R.id.cardAyudaMascota
+                );
+
+        View contenidoMascota =
+                seccionAyuda.findViewById(
+                        R.id.contenidoMascota
+                );
+
+        TextView flechaMascota =
+                seccionAyuda.findViewById(
+                        R.id.tvFlechaMascota
+                );
+
+        if (
+                cardMascota != null &&
+                        contenidoMascota != null &&
+                        flechaMascota != null
+        ) {
+            cardMascota.setOnClickListener(
+                    v -> alternarAyuda(
+                            contenidoMascota,
+                            flechaMascota
+                    )
+            );
+        }
+
+        // ---------------------------------------------------------
+        // POMODORO
+        // ---------------------------------------------------------
+
+        View cardPomodoro =
+                seccionAyuda.findViewById(
+                        R.id.cardAyudaPomodoro
+                );
+
+        View contenidoPomodoro =
+                seccionAyuda.findViewById(
+                        R.id.contenidoPomodoro
+                );
+
+        TextView flechaPomodoro =
+                seccionAyuda.findViewById(
+                        R.id.tvFlechaPomodoro
+                );
+
+        if (
+                cardPomodoro != null &&
+                        contenidoPomodoro != null &&
+                        flechaPomodoro != null
+        ) {
+            cardPomodoro.setOnClickListener(
+                    v -> alternarAyuda(
+                            contenidoPomodoro,
+                            flechaPomodoro
+                    )
+            );
+        }
+
+        // ---------------------------------------------------------
+        // MULTIJUGADOR
+        // ---------------------------------------------------------
+
+        View cardMultijugador =
+                seccionAyuda.findViewById(
+                        R.id.cardAyudaMultijugador
+                );
+
+        View contenidoMultijugador =
+                seccionAyuda.findViewById(
+                        R.id.contenidoMultijugador
+                );
+
+        TextView flechaMultijugador =
+                seccionAyuda.findViewById(
+                        R.id.tvFlechaMultijugador
+                );
+
+        if (
+                cardMultijugador != null &&
+                        contenidoMultijugador != null &&
+                        flechaMultijugador != null
+        ) {
+            cardMultijugador.setOnClickListener(
+                    v -> alternarAyuda(
+                            contenidoMultijugador,
+                            flechaMultijugador
+                    )
+            );
+        }
+
+        // ---------------------------------------------------------
+        // DESAFÍOS
+        // ---------------------------------------------------------
+
+        View cardDesafios =
+                seccionAyuda.findViewById(
+                        R.id.cardAyudaDesafios
+                );
+
+        View contenidoDesafios =
+                seccionAyuda.findViewById(
+                        R.id.contenidoDesafios
+                );
+
+        TextView flechaDesafios =
+                seccionAyuda.findViewById(
+                        R.id.tvFlechaDesafios
+                );
+
+        if (
+                cardDesafios != null &&
+                        contenidoDesafios != null &&
+                        flechaDesafios != null
+        ) {
+            cardDesafios.setOnClickListener(
+                    v -> alternarAyuda(
+                            contenidoDesafios,
+                            flechaDesafios
+                    )
+            );
+        }
+
+        // ---------------------------------------------------------
+        // ACERCA DE
+        // ---------------------------------------------------------
+
+        View cardCreditos =
+                seccionAyuda.findViewById(
+                        R.id.cardCreditos
+                );
+
+        if (cardCreditos != null) {
+            cardCreditos.setOnClickListener(
+                    v -> mostrarAcercaDe()
+            );
+        }
+    }
+
+
+    // =========================================================
+    // ABRIR / CERRAR TARJETAS DE AYUDA
+    // =========================================================
+
+    private void alternarAyuda(
+            View contenido,
+            TextView flecha
+    ) {
+
+        if (contenido == null || flecha == null) {
+            return;
+        }
+
+        boolean abierto =
+                contenido.getVisibility() == View.VISIBLE;
+
+        if (abierto) {
+
+            contenido.animate()
+                    .alpha(0f)
+                    .setDuration(140)
+                    .withEndAction(
+                            () -> {
+                                contenido.setVisibility(
+                                        View.GONE
+                                );
+
+                                contenido.setAlpha(
+                                        1f
+                                );
+                            }
+                    )
+                    .start();
+
+            flecha.animate()
+                    .rotation(0f)
+                    .setDuration(180)
+                    .start();
+
+        } else {
+
+            contenido.setAlpha(
+                    0f
+            );
+
+            contenido.setVisibility(
+                    View.VISIBLE
+            );
+
+            contenido.animate()
+                    .alpha(1f)
+                    .setDuration(180)
+                    .start();
+
+            flecha.animate()
+                    .rotation(180f)
+                    .setDuration(180)
+                    .start();
+        }
+    }
+
+
+    // =========================================================
+    // ACERCA DE PSICOQUIZ
+    // =========================================================
+
+    private void mostrarAcercaDe() {
+
+        BottomSheetDialog dialog =
+                new BottomSheetDialog(
+                        this
+                );
+
+        View vista =
+                LayoutInflater
+                        .from(this)
+                        .inflate(
+                                R.layout.bottom_sheet_acerca_de,
+                                null
+                        );
+
+        dialog.setContentView(
+                vista
+        );
+
+        // -----------------------------------------------------
+        // VERSIÓN DE LA APP
+        // -----------------------------------------------------
+
+        TextView tvVersion =
+                vista.findViewById(
+                        R.id.tvVersionAcerca
+                );
+
+        if (tvVersion != null) {
+
+            try {
+
+                String version =
+                        getPackageManager()
+                                .getPackageInfo(
+                                        getPackageName(),
+                                        0
+                                )
+                                .versionName;
+
+                tvVersion.setText(
+                        "Versión " + version
+                );
+
+            } catch (Exception e) {
+
+                tvVersion.setText(
+                        "Versión de desarrollo"
+                );
+            }
+        }
+
+        // -----------------------------------------------------
+        // BOTÓN CERRAR
+        // -----------------------------------------------------
+
+        View btnCerrar =
+                vista.findViewById(
+                        R.id.btnCerrarAcerca
+                );
+
+        if (btnCerrar != null) {
+            btnCerrar.setOnClickListener(
+                    v -> dialog.dismiss()
+            );
+        }
+
+        prepararBottomSheetRedondeado(
+                dialog
+        );
+
+        dialog.show();
+    }
+
+
     private void pintarDesafio() {
 
         long usuarioId =
@@ -725,7 +1038,7 @@ public class MainActivity extends BaseActivity
             viewModel.cargar();
         }
 
-        mostrarPrimerAvisoNotificaciones();
+        solicitarNotificacionesIniciales();
     }
 
 
@@ -900,14 +1213,9 @@ public class MainActivity extends BaseActivity
                         R.id.seccion_desafios
                 );
 
-        seccionProximamente =
+        seccionAyuda =
                 findViewById(
-                        R.id.seccionProximamente
-                );
-
-        raizActividad =
-                findViewById(
-                        R.id.raizActividad
+                        R.id.seccion_ayuda
                 );
 
         barraInferior =
@@ -915,13 +1223,6 @@ public class MainActivity extends BaseActivity
                         R.id.bottomNav
                 );
 
-        if (seccionProximamente != null) {
-            tvProxTitulo = seccionProximamente.findViewById(R.id.tvProxTitulo);
-            tvProxEtiqueta = seccionProximamente.findViewById(R.id.tvProxEtiqueta);
-            tvProxEmoji = seccionProximamente.findViewById(R.id.tvProxEmoji);
-            tvProxMensaje = seccionProximamente.findViewById(R.id.tvProxMensaje);
-            tvProxBadge = seccionProximamente.findViewById(R.id.tvProxBadge);
-        }
 
         if (seccionDesafios != null) {
             tvDesafioRacha = seccionDesafios.findViewById(R.id.tvDesafioRacha);
@@ -2288,7 +2589,7 @@ public class MainActivity extends BaseActivity
                 "Conejo",
                 "Búho",
                 "Ajolote",
-                "Zorro"
+                "Pato"
         };
 
 
@@ -3012,57 +3313,48 @@ public class MainActivity extends BaseActivity
     }
 
 
-    /** Pregunta al primer ingreso si quiere activar las notificaciones. */
-    private void mostrarPrimerAvisoNotificaciones() {
+// =========================================================
+// NOTIFICACIONES
+// =========================================================
 
+    /**
+     * Solicita el permiso de notificaciones usando directamente
+     * el cuadro oficial de Android.
+     *
+     * No muestra AlertDialog personalizado.
+     */
+    private void solicitarNotificacionesIniciales() {
+
+        // Solo preguntar una vez desde la lógica de la aplicación.
         if (PreferenciasManager.avisoNotificacionesMostrado(this)) {
             return;
         }
 
         PreferenciasManager.marcarAvisoNotificaciones(this);
 
-        if (isFinishing()) {
-            return;
-        }
-
-        new AlertDialog.Builder(this)
-
-                .setTitle(
-                        R.string.notificaciones_aviso_titulo
-                )
-
-                .setMessage(
-                        R.string.notificaciones_aviso_mensaje
-                )
-
-                .setPositiveButton(
-                        R.string.notificaciones_aviso_activar,
-                        (d, w) -> gestionarNotificaciones(true)
-                )
-
-                .setNegativeButton(
-                        R.string.notificaciones_aviso_ahora_no,
-                        null
-                )
-
-                .show();
+        gestionarNotificaciones(true);
     }
 
 
-    private void gestionarNotificaciones(
-            boolean activas
-    ) {
+    /**
+     * Activa o desactiva las notificaciones.
+     */
+    private void gestionarNotificaciones(boolean activas) {
+
+        // =====================================================
+        // ACTIVAR
+        // =====================================================
 
         if (activas) {
 
-            PreferenciasManager.setNotificaciones(
-                    this,
-                    true
-            );
-
+            /*
+             * Android 13 o superior necesita permiso POST_NOTIFICATIONS.
+             *
+             * Aquí aparece DIRECTAMENTE el cuadro oficial de Android.
+             * Ya no aparece ningún AlertDialog personalizado.
+             */
             if (
-                    Build.VERSION.SDK_INT
-                            >= Build.VERSION_CODES.TIRAMISU
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                             && ContextCompat.checkSelfPermission(
                             this,
                             Manifest.permission.POST_NOTIFICATIONS
@@ -3080,32 +3372,54 @@ public class MainActivity extends BaseActivity
                 return;
             }
 
+            /*
+             * Si ya tenemos permiso, guardamos la configuración.
+             */
+            PreferenciasManager.setNotificaciones(
+                    this,
+                    true
+            );
+
+            /*
+             * Programar recordatorio diario.
+             */
             NotificacionesUtil.programarRecordatorio(
                     this
             );
 
+            /*
+             * Mensaje pequeño dentro de la aplicación.
+             */
             toast(
                     R.string.notificaciones_activadas
             );
 
-        } else {
-
-            PreferenciasManager.setNotificaciones(
-                    this,
-                    false
-            );
-
-            NotificacionesUtil.cancelarRecordatorio(
-                    this
-            );
-
-            toast(
-                    R.string.notificaciones_desactivadas
-            );
+            return;
         }
+
+
+        // =====================================================
+        // DESACTIVAR
+        // =====================================================
+
+        PreferenciasManager.setNotificaciones(
+                this,
+                false
+        );
+
+        NotificacionesUtil.cancelarRecordatorio(
+                this
+        );
+
+        toast(
+                R.string.notificaciones_desactivadas
+        );
     }
 
 
+    /**
+     * Resultado del cuadro oficial de permiso de Android.
+     */
     @Override
     public void onRequestPermissionsResult(
             int requestCode,
@@ -3123,15 +3437,24 @@ public class MainActivity extends BaseActivity
                 requestCode
                         != CODIGO_PERMISO_NOTIFICACIONES
         ) {
-
             return;
         }
+
+
+        // =====================================================
+        // PERMISO CONCEDIDO
+        // =====================================================
 
         if (
                 grantResults.length > 0
                         && grantResults[0]
                         == PackageManager.PERMISSION_GRANTED
         ) {
+
+            PreferenciasManager.setNotificaciones(
+                    this,
+                    true
+            );
 
             NotificacionesUtil.programarRecordatorio(
                     this
@@ -3141,19 +3464,23 @@ public class MainActivity extends BaseActivity
                     R.string.notificaciones_activadas
             );
 
-        } else {
-
-            PreferenciasManager.setNotificaciones(
-                    this,
-                    false
-            );
-
-            toast(
-                    R.string.notificaciones_permiso_denegado
-            );
+            return;
         }
-    }
 
+
+        // =====================================================
+        // PERMISO DENEGADO
+        // =====================================================
+
+        PreferenciasManager.setNotificaciones(
+                this,
+                false
+        );
+
+        NotificacionesUtil.cancelarRecordatorio(
+                this
+        );
+    }
 
     //Mostrar ocultar contraseña
 
@@ -3863,7 +4190,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case 5:
-                tipoMascota = "Zorro";
+                tipoMascota = "Pato";
                 break;
 
             case 0:

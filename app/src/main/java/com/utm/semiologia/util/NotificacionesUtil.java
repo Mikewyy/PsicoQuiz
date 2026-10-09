@@ -23,9 +23,9 @@ import java.util.Calendar;
 /**
  * Notificaciones locales del desafío diario.
  *
- * Se usa AlarmManager (sin dependencias externas) para lanzar un recordatorio
- * en horario fijo cada día. El receptor solo publica la notificación si el
- * desafío de hoy aún no se ha jugado.
+ * Se usa AlarmManager para lanzar un recordatorio diario.
+ * El receptor solo publica la notificación si el desafío
+ * de hoy todavía no ha sido jugado.
  */
 public final class NotificacionesUtil {
 
@@ -37,12 +37,15 @@ public final class NotificacionesUtil {
     private static final int CODIGO_RECORDATORIO = 202;
     private static final int CODIGO_ABRIR_APP = 203;
 
-    /** Hora (local) en la que se recuerda el desafío: 07:00. */
+    /** Hora local del recordatorio diario. */
     private static final int HORA_RECORDATORIO = 7;
 
     private NotificacionesUtil() {
     }
 
+    /**
+     * Crea el canal de notificaciones para Android 8 o superior.
+     */
     public static void crearCanal(Context context) {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -64,13 +67,19 @@ public final class NotificacionesUtil {
                 );
 
         canal.setDescription(
-                "Recordatorio del desafío diario de PsicoQuiz"
+                "Recordatorios del desafío diario de PsicoQuiz"
         );
 
+        /*
+         * El canal usa el comportamiento normal del sistema.
+         * No se configura ningún diseño personalizado.
+         */
         nm.createNotificationChannel(canal);
     }
 
-    /** Programa el recordatorio diario solo si la preferencia está activa. */
+    /**
+     * Programa el recordatorio si las notificaciones están activadas.
+     */
     public static void programarSiActivo(Context context) {
 
         if (PreferenciasManager.notificacionesActivas(context)) {
@@ -78,6 +87,9 @@ public final class NotificacionesUtil {
         }
     }
 
+    /**
+     * Programa el recordatorio diario.
+     */
     public static void programarRecordatorio(Context context) {
 
         if (!PreferenciasManager.notificacionesActivas(context)) {
@@ -85,7 +97,9 @@ public final class NotificacionesUtil {
         }
 
         AlarmManager am =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                (AlarmManager) context.getSystemService(
+                        Context.ALARM_SERVICE
+                );
 
         if (am == null) {
             return;
@@ -114,6 +128,10 @@ public final class NotificacionesUtil {
                 0
         );
 
+        /*
+         * Si la hora de hoy ya pasó,
+         * se programa para el día siguiente.
+         */
         if (!proximo.after(Calendar.getInstance())) {
             proximo.add(
                     Calendar.DAY_OF_YEAR,
@@ -129,10 +147,15 @@ public final class NotificacionesUtil {
         );
     }
 
+    /**
+     * Cancela el recordatorio diario.
+     */
     public static void cancelarRecordatorio(Context context) {
 
         AlarmManager am =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                (AlarmManager) context.getSystemService(
+                        Context.ALARM_SERVICE
+                );
 
         if (am == null) {
             return;
@@ -143,9 +166,14 @@ public final class NotificacionesUtil {
         );
     }
 
-    /** Publica la notificación del desafío diario. */
+    /**
+     * Publica la notificación estándar de Android.
+     */
     public static void notificarDesafio(Context context) {
 
+        /*
+         * Android 13 o superior requiere permiso explícito.
+         */
         if (
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                         && ContextCompat.checkSelfPermission(
@@ -156,6 +184,9 @@ public final class NotificacionesUtil {
             return;
         }
 
+        /*
+         * Abre directamente la sección de desafíos.
+         */
         Intent abrir =
                 new Intent(
                         context,
@@ -170,6 +201,7 @@ public final class NotificacionesUtil {
         abrir.addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP
         );
 
         PendingIntent piAbrir =
@@ -181,31 +213,72 @@ public final class NotificacionesUtil {
                                 | PendingIntent.FLAG_IMMUTABLE
                 );
 
+        /*
+         * NOTIFICACIÓN NORMAL DEL SISTEMA
+         */
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(
                         context,
                         CANAL_DESAFIO
                 )
-                        .setSmallIcon(R.drawable.ic_nav_desafios)
-                        .setContentTitle(
-                                "¡Ya está disponible el desafío de hoy!"
+
+                        // Icono pequeño obligatorio
+                        .setSmallIcon(
+                                R.drawable.ic_nav_desafios
                         )
+
+                        // Título
+                        .setContentTitle(
+                                "Desafío diario disponible"
+                        )
+
+                        // Mensaje
                         .setContentText(
                                 "Responde la pregunta del día y gana galletas para tu mascota."
                         )
+
+                        // Permite mostrar todo el mensaje al expandir
                         .setStyle(
                                 new NotificationCompat.BigTextStyle()
                                         .bigText(
                                                 "Responde la pregunta del día y gana galletas para tu mascota."
                                         )
                         )
+
+                        /*
+                         * IMPORTANTE:
+                         * Oculta la hora de publicación.
+                         */
+                        .setShowWhen(false)
+
+                        /*
+                         * Comportamiento estándar de Android.
+                         */
+                        .setPriority(
+                                NotificationCompat.PRIORITY_DEFAULT
+                        )
+
+                        .setCategory(
+                                NotificationCompat.CATEGORY_REMINDER
+                        )
+
+                        /*
+                         * Al tocarla se elimina.
+                         */
                         .setAutoCancel(true)
+
+                        /*
+                         * Abre PsicoQuiz.
+                         */
                         .setContentIntent(piAbrir);
 
         NotificationManager nm =
-                context.getSystemService(NotificationManager.class);
+                context.getSystemService(
+                        NotificationManager.class
+                );
 
         if (nm != null) {
+
             nm.notify(
                     CODIGO_RECORDATORIO,
                     builder.build()
@@ -213,6 +286,9 @@ public final class NotificacionesUtil {
         }
     }
 
+    /**
+     * PendingIntent utilizado por AlarmManager.
+     */
     private static PendingIntent pendingIntent(Context context) {
 
         Intent intent =

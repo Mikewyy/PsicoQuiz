@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,6 +60,8 @@ public class QuizMultijugadorActivity
     private ListenerRegistration listenerSala;
     private ListenerRegistration listenerParticipantes;
     private ListenerRegistration listenerRespuestas;
+    private ListenerRegistration listenerLecturasResultado;
+    private ListenerRegistration listenerRevancha;
 
     private String codigoSala;
     private String partidaId = "";
@@ -67,6 +70,7 @@ public class QuizMultijugadorActivity
     private boolean soyAnfitrion = false;
     private boolean respuestaEnviada = false;
     private boolean finalizandoPregunta = false;
+    private boolean avanzandoTrasLecturas = false;
 
     private int cantidadParticipantes = 0;
     private int respuestasPreguntaActual = 0;
@@ -92,6 +96,8 @@ public class QuizMultijugadorActivity
     private TextView tvRanking;
     private TextView tvRespuestasJugadores;
     private TextView tvEsperaRespuestas;
+    private TextView tvLecturasResultado;
+    private TextView tvRevanchaEstado;
 
     private TextView tvPodioNombre1;
     private TextView tvPodioPuntos1;
@@ -109,6 +115,10 @@ public class QuizMultijugadorActivity
     private View podioPuesto2;
     private View podioPuesto3;
     private View cardRankingTexto;
+    private View cardRevancha;
+    private View cardRevisionRespuestas;
+
+    private LinearLayout contenedorRevisionRespuestas;
 
     private List<DocumentSnapshot> jugadoresRankingActual =
             new ArrayList<>();
@@ -117,8 +127,13 @@ public class QuizMultijugadorActivity
     private MaterialButton btnOpcionB;
     private MaterialButton btnOpcionC;
     private MaterialButton btnOpcionD;
+    private MaterialButton btnContinuarRespuesta;
+    private MaterialButton btnListoResultado;
+    private MaterialButton btnAceptarRevancha;
+    private MaterialButton btnRechazarRevancha;
     private MaterialButton btnVolverJugar;
     private MaterialButton btnSalirPartida;
+    private MaterialButton btnRevisarRespuestas;
 
     private LinearLayout contenedorAccionesFinales;
 
@@ -180,6 +195,7 @@ public class QuizMultijugadorActivity
         escucharParticipantes();
         escucharSala();
         escucharRespuestas();
+        escucharLecturasResultado();
     }
 
     private void enlazarVistas() {
@@ -237,6 +253,11 @@ public class QuizMultijugadorActivity
         tvEsperaRespuestas =
                 findViewById(
                         R.id.tvEsperaRespuestas
+                );
+
+        tvLecturasResultado =
+                findViewById(
+                        R.id.tvLecturasResultado
                 );
 
         barRespuestasJugadores =
@@ -329,6 +350,36 @@ public class QuizMultijugadorActivity
                         R.id.btnOpcionD
                 );
 
+        btnContinuarRespuesta =
+                findViewById(
+                        R.id.btnContinuarRespuesta
+                );
+
+        btnListoResultado =
+                findViewById(
+                        R.id.btnListoResultado
+                );
+
+        cardRevancha =
+                findViewById(
+                        R.id.cardRevancha
+                );
+
+        tvRevanchaEstado =
+                findViewById(
+                        R.id.tvRevanchaEstado
+                );
+
+        btnAceptarRevancha =
+                findViewById(
+                        R.id.btnAceptarRevancha
+                );
+
+        btnRechazarRevancha =
+                findViewById(
+                        R.id.btnRechazarRevancha
+                );
+
         btnVolverJugar =
                 findViewById(
                         R.id.btnVolverJugar
@@ -342,6 +393,21 @@ public class QuizMultijugadorActivity
         contenedorAccionesFinales =
                 findViewById(
                         R.id.contenedorAccionesFinales
+                );
+
+        btnRevisarRespuestas =
+                findViewById(
+                        R.id.btnRevisarRespuestas
+                );
+
+        cardRevisionRespuestas =
+                findViewById(
+                        R.id.cardRevisionRespuestas
+                );
+
+        contenedorRevisionRespuestas =
+                findViewById(
+                        R.id.contenedorRevisionRespuestas
                 );
 
         botonesOpciones =
@@ -369,8 +435,47 @@ public class QuizMultijugadorActivity
                     );
         }
 
+        /*
+         * PASO 1: después de enviar la respuesta, el jugador decide
+         * cuándo continuar a la pantalla de espera. Esto NO avanza
+         * la pregunta global: Firebase sigue esperando a los demás.
+         */
+        btnContinuarRespuesta.setOnClickListener(
+                v -> {
+                    btnContinuarRespuesta.setVisibility(
+                            View.GONE
+                    );
+
+                    contenedorOpciones.setVisibility(
+                            View.GONE
+                    );
+
+                    tvEstadoRespuesta.setText(
+                            "Respuesta registrada · esperando a los demás jugadores"
+                    );
+                }
+        );
+
+        btnListoResultado.setOnClickListener(
+                v -> confirmarLecturaResultado()
+        );
+
+        btnAceptarRevancha.setOnClickListener(
+                v -> confirmarRevancha(true)
+        );
+
+        btnRechazarRevancha.setOnClickListener(
+                v -> confirmarRevancha(false)
+        );
+
+        escucharRevancha();
+
         btnVolverJugar.setOnClickListener(
                 v -> volverAJugar()
+        );
+
+        btnRevisarRespuestas.setOnClickListener(
+                v -> alternarRevisionRespuestas()
         );
 
         btnSalirPartida.setOnClickListener(
@@ -801,6 +906,206 @@ public class QuizMultijugadorActivity
                         );
     }
 
+    private void escucharLecturasResultado() {
+
+        listenerLecturasResultado =
+                firestore
+                        .collection("salas")
+                        .document(codigoSala)
+                        .collection("lecturasResultado")
+                        .addSnapshotListener(
+                                (snapshot, error) -> {
+
+                                    if (
+                                            error != null ||
+                                                    snapshot == null ||
+                                                    preguntaActual < 0 ||
+                                                    partidaId.isEmpty()
+                                    ) {
+                                        return;
+                                    }
+
+                                    int confirmados = 0;
+
+                                    for (
+                                            DocumentSnapshot documento :
+                                            snapshot.getDocuments()
+                                    ) {
+
+                                        String partida =
+                                                documento.getString(
+                                                        "partidaId"
+                                                );
+
+                                        Long indice =
+                                                documento.getLong(
+                                                        "preguntaIndex"
+                                                );
+
+                                        Boolean listo =
+                                                documento.getBoolean(
+                                                        "listo"
+                                                );
+
+                                        if (
+                                                partidaId.equals(partida) &&
+                                                        indice != null &&
+                                                        indice.intValue() == preguntaActual &&
+                                                        Boolean.TRUE.equals(listo)
+                                        ) {
+                                            confirmados++;
+                                        }
+                                    }
+
+                                    actualizarLecturasResultado(
+                                            confirmados
+                                    );
+                                }
+                        );
+    }
+
+    private void confirmarLecturaResultado() {
+
+        if (
+                auth.getCurrentUser() == null ||
+                        partidaId.isEmpty() ||
+                        preguntaActual < 0
+        ) {
+            return;
+        }
+
+        btnListoResultado.setEnabled(false);
+        btnListoResultado.setText(
+                "Confirmando..."
+        );
+
+        String uid =
+                auth.getCurrentUser().getUid();
+
+        String idConfirmacion =
+                partidaId
+                        + "_"
+                        + preguntaActual
+                        + "_"
+                        + uid;
+
+        Map<String, Object> datos =
+                new HashMap<>();
+
+        datos.put(
+                "partidaId",
+                partidaId
+        );
+        datos.put(
+                "preguntaIndex",
+                preguntaActual
+        );
+        datos.put(
+                "uid",
+                uid
+        );
+        datos.put(
+                "listo",
+                true
+        );
+        datos.put(
+                "confirmadoEn",
+                FieldValue.serverTimestamp()
+        );
+
+        firestore
+                .collection("salas")
+                .document(codigoSala)
+                .collection("lecturasResultado")
+                .document(idConfirmacion)
+                .set(datos)
+                .addOnSuccessListener(
+                        unused -> {
+                            btnListoResultado.setText(
+                                    "Listo · esperando a los demás"
+                            );
+                        }
+                )
+                .addOnFailureListener(
+                        error -> {
+                            btnListoResultado.setEnabled(true);
+                            btnListoResultado.setText(
+                                    "Listo · ya leí la justificación"
+                            );
+
+                            Toast.makeText(
+                                    this,
+                                    "No se pudo confirmar. Intenta otra vez.",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                );
+    }
+
+    private void actualizarLecturasResultado(
+            int confirmados
+    ) {
+
+        if (
+                tvLecturasResultado == null ||
+                        tvLecturasResultado.getVisibility() != View.VISIBLE
+        ) {
+            return;
+        }
+
+        int total =
+                Math.max(
+                        cantidadParticipantes,
+                        0
+                );
+
+        int listos =
+                total > 0
+                        ? Math.min(confirmados, total)
+                        : confirmados;
+
+        if (total <= 0) {
+            tvLecturasResultado.setText(
+                    "Esperando a los jugadores..."
+            );
+            return;
+        }
+
+        if (listos >= total) {
+
+            tvLecturasResultado.setText(
+                    "Todos están listos · continuando..."
+            );
+
+            if (
+                    soyAnfitrion &&
+                            !avanzandoTrasLecturas
+            ) {
+                avanzandoTrasLecturas = true;
+                avanzarPregunta();
+            }
+
+        } else {
+
+            int faltan =
+                    total - listos;
+
+            tvLecturasResultado.setText(
+                    listos
+                            + " de "
+                            + total
+                            + " ya leyeron · "
+                            + (
+                            faltan == 1
+                                    ? "falta 1 jugador"
+                                    : "faltan "
+                                    + faltan
+                                    + " jugadores"
+                    )
+            );
+        }
+    }
+
     private void actualizarProgresoRespuestas(
             int respuestasActuales
     ) {
@@ -960,6 +1265,25 @@ public class QuizMultijugadorActivity
                 View.GONE
         );
 
+        if (cardRevisionRespuestas != null) {
+            cardRevisionRespuestas.setVisibility(
+                    View.GONE
+            );
+        }
+
+        if (contenedorRevisionRespuestas != null) {
+            contenedorRevisionRespuestas.removeAllViews();
+        }
+
+        if (btnRevisarRespuestas != null) {
+            btnRevisarRespuestas.setText(
+                    "Revisar mis respuestas"
+            );
+            btnRevisarRespuestas.setEnabled(
+                    true
+            );
+        }
+
         panelResultado.setVisibility(
                 View.GONE
         );
@@ -975,6 +1299,20 @@ public class QuizMultijugadorActivity
         contenedorOpciones.setVisibility(
                 View.VISIBLE
         );
+
+        btnContinuarRespuesta.setVisibility(
+                View.GONE
+        );
+
+        btnListoResultado.setVisibility(
+                View.GONE
+        );
+
+        tvLecturasResultado.setVisibility(
+                View.GONE
+        );
+
+        avanzandoTrasLecturas = false;
 
         tvEstadoRespuesta.setText(
                 "Elige una opción. ¡La rapidez cuenta!"
@@ -1252,8 +1590,12 @@ public class QuizMultijugadorActivity
 
                                 tvEstadoRespuesta
                                         .setText(
-                                                "Respuesta enviada · esperando a los demás"
+                                                "Respuesta enviada correctamente"
                                         );
+
+                                btnContinuarRespuesta.setVisibility(
+                                        View.VISIBLE
+                                );
 
                             } else {
 
@@ -1261,6 +1603,10 @@ public class QuizMultijugadorActivity
                                         .setText(
                                                 "Tu respuesta ya estaba registrada"
                                         );
+
+                                btnContinuarRespuesta.setVisibility(
+                                        View.VISIBLE
+                                );
                             }
                         }
                 )
@@ -1273,6 +1619,10 @@ public class QuizMultijugadorActivity
                              */
                             respuestaEnviada =
                                     false;
+
+                            btnContinuarRespuesta.setVisibility(
+                                    View.GONE
+                            );
 
                             indiceRespuestaUsuario =
                                     -1;
@@ -1659,6 +2009,27 @@ public class QuizMultijugadorActivity
                 View.VISIBLE
         );
 
+        btnContinuarRespuesta.setVisibility(
+                View.GONE
+        );
+
+        btnListoResultado.setVisibility(
+                View.VISIBLE
+        );
+        btnListoResultado.setEnabled(true);
+        btnListoResultado.setText(
+                "Listo · ya leí la justificación"
+        );
+
+        tvLecturasResultado.setVisibility(
+                View.VISIBLE
+        );
+        tvLecturasResultado.setText(
+                "Esperando confirmación de los jugadores..."
+        );
+
+        avanzandoTrasLecturas = false;
+
         panelPodioFinal.setVisibility(
                 View.GONE
         );
@@ -1699,9 +2070,8 @@ public class QuizMultijugadorActivity
          */
         cargarResultadoDelJugador();
 
-        if (soyAnfitrion) {
-            iniciarTimerResultado();
-        }
+        // La siguiente pregunta ya no avanza por tiempo.
+        // Avanza únicamente cuando TODOS confirman que leyeron la justificación.
     }
 
     private void iniciarTimerResultado() {
@@ -1842,6 +2212,18 @@ public class QuizMultijugadorActivity
                 View.GONE
         );
 
+        btnContinuarRespuesta.setVisibility(
+                View.GONE
+        );
+
+        btnListoResultado.setVisibility(
+                View.GONE
+        );
+
+        tvLecturasResultado.setVisibility(
+                View.GONE
+        );
+
         panelResultado.setVisibility(
                 View.VISIBLE
         );
@@ -1863,23 +2245,69 @@ public class QuizMultijugadorActivity
         );
 
         tvEstadoRespuesta.setText(
-                soyAnfitrion
-                        ? "Puedes iniciar otra partida con los mismos jugadores."
-                        : "El anfitrión puede iniciar una nueva partida."
+                "Decidan si quieren volver a jugar."
         );
 
         contenedorAccionesFinales.setVisibility(
                 View.VISIBLE
         );
 
+        if (btnRevisarRespuestas != null) {
+            btnRevisarRespuestas.setVisibility(
+                    View.VISIBLE
+            );
+            btnRevisarRespuestas.setEnabled(
+                    true
+            );
+            btnRevisarRespuestas.setText(
+                    "Revisar mis respuestas"
+            );
+        }
+
+        if (cardRevisionRespuestas != null) {
+            cardRevisionRespuestas.setVisibility(
+                    View.GONE
+            );
+        }
+
+        if (contenedorRevisionRespuestas != null) {
+            contenedorRevisionRespuestas.removeAllViews();
+        }
+
+        if (cardRevancha != null) {
+            cardRevancha.setVisibility(
+                    View.VISIBLE
+            );
+        }
+
+        btnAceptarRevancha.setEnabled(
+                true
+        );
+
+        btnRechazarRevancha.setEnabled(
+                true
+        );
+
+        btnAceptarRevancha.setText(
+                "Sí, jugar otra vez"
+        );
+
+        btnRechazarRevancha.setText(
+                "No por ahora"
+        );
+
         /*
-         * Solo el anfitrión reinicia la sala para que todos
-         * entren juntos a la misma nueva partida.
+         * El anfitrión NO puede iniciar solo.
+         * El botón se habilita y aparece desde escucharRevancha()
+         * únicamente cuando todos los jugadores aceptan.
          */
         btnVolverJugar.setVisibility(
-                soyAnfitrion
-                        ? View.VISIBLE
-                        : View.GONE
+                View.GONE
+        );
+
+        actualizarEstadoRevancha(
+                0,
+                0
         );
     }
 
@@ -2057,7 +2485,916 @@ public class QuizMultijugadorActivity
         return nombre.trim();
     }
 
+
+    // =========================================================
+    // REVANCHA: TODOS DEBEN ESTAR DE ACUERDO
+    // =========================================================
+
+    // =========================================================
+    // REVISIÓN FINAL DE RESPUESTAS
+    // =========================================================
+
+    private void alternarRevisionRespuestas() {
+
+        if (
+                cardRevisionRespuestas == null ||
+                        contenedorRevisionRespuestas == null ||
+                        btnRevisarRespuestas == null
+        ) {
+            return;
+        }
+
+        if (
+                cardRevisionRespuestas.getVisibility() ==
+                        View.VISIBLE
+        ) {
+
+            cardRevisionRespuestas.setVisibility(
+                    View.GONE
+            );
+
+            btnRevisarRespuestas.setText(
+                    "Revisar mis respuestas"
+            );
+
+            return;
+        }
+
+        cargarRevisionRespuestas();
+    }
+
+    private void cargarRevisionRespuestas() {
+
+        if (
+                auth.getCurrentUser() == null ||
+                        partidaId.isEmpty() ||
+                        preguntasPartida == null ||
+                        preguntasPartida.isEmpty()
+        ) {
+
+            Toast.makeText(
+                    this,
+                    "Todavía no hay respuestas para revisar.",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+        btnRevisarRespuestas.setEnabled(
+                false
+        );
+
+        btnRevisarRespuestas.setText(
+                "Cargando respuestas..."
+        );
+
+        String uid =
+                auth.getCurrentUser().getUid();
+
+        firestore
+                .collection("salas")
+                .document(codigoSala)
+                .collection("respuestas")
+                .get()
+                .addOnSuccessListener(
+                        snapshot -> {
+
+                            Map<Integer, DocumentSnapshot> respuestasUsuario =
+                                    new HashMap<>();
+
+                            for (
+                                    DocumentSnapshot documento :
+                                    snapshot.getDocuments()
+                            ) {
+
+                                String idPartida =
+                                        documento.getString(
+                                                "partidaId"
+                                        );
+
+                                String uidRespuesta =
+                                        documento.getString(
+                                                "uid"
+                                        );
+
+                                Long indice =
+                                        documento.getLong(
+                                                "preguntaIndex"
+                                        );
+
+                                if (
+                                        partidaId.equals(idPartida) &&
+                                                uid.equals(uidRespuesta) &&
+                                                indice != null
+                                ) {
+                                    respuestasUsuario.put(
+                                            indice.intValue(),
+                                            documento
+                                    );
+                                }
+                            }
+
+                            renderizarRevisionRespuestas(
+                                    respuestasUsuario
+                            );
+
+                            cardRevisionRespuestas.setVisibility(
+                                    View.VISIBLE
+                            );
+
+                            btnRevisarRespuestas.setEnabled(
+                                    true
+                            );
+
+                            btnRevisarRespuestas.setText(
+                                    "Ocultar revisión"
+                            );
+                        }
+                )
+                .addOnFailureListener(
+                        error -> {
+
+                            btnRevisarRespuestas.setEnabled(
+                                    true
+                            );
+
+                            btnRevisarRespuestas.setText(
+                                    "Revisar mis respuestas"
+                            );
+
+                            Toast.makeText(
+                                    this,
+                                    "No se pudieron cargar tus respuestas.",
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                );
+    }
+
+    private void renderizarRevisionRespuestas(
+            Map<Integer, DocumentSnapshot> respuestasUsuario
+    ) {
+
+        contenedorRevisionRespuestas.removeAllViews();
+
+        for (
+                int i = 0;
+                i < preguntasPartida.size();
+                i++
+        ) {
+
+            Map<String, Object> pregunta =
+                    preguntasPartida.get(i);
+
+            DocumentSnapshot respuesta =
+                    respuestasUsuario.get(i);
+
+            int indiceCorrecto =
+                    enteroMapa(
+                            pregunta,
+                            "indiceCorrecto"
+                    );
+
+            int indiceElegido =
+                    -1;
+
+            boolean correcta =
+                    false;
+
+            if (respuesta != null) {
+
+                Long opcion =
+                        respuesta.getLong(
+                                "opcionIndex"
+                        );
+
+                if (opcion != null) {
+                    indiceElegido =
+                            opcion.intValue();
+                }
+
+                Boolean fueCorrecta =
+                        respuesta.getBoolean(
+                                "correcta"
+                        );
+
+                correcta =
+                        Boolean.TRUE.equals(
+                                fueCorrecta
+                        );
+            }
+
+            List<String> opciones =
+                    opcionesDe(
+                            pregunta
+                    );
+
+            String respuestaJugador =
+                    textoOpcionRevision(
+                            opciones,
+                            indiceElegido
+                    );
+
+            String respuestaCorrecta =
+                    textoOpcionRevision(
+                            opciones,
+                            indiceCorrecto
+                    );
+
+            String justificacion =
+                    textoMapa(
+                            pregunta,
+                            "retroalimentacion"
+                    );
+
+            agregarTarjetaRevision(
+                    i + 1,
+                    textoMapa(
+                            pregunta,
+                            "pregunta"
+                    ),
+                    respuestaJugador,
+                    respuestaCorrecta,
+                    justificacion,
+                    respuesta != null,
+                    correcta
+            );
+        }
+    }
+
+    private String textoOpcionRevision(
+            List<String> opciones,
+            int indice
+    ) {
+
+        if (
+                indice < 0 ||
+                        indice >= opciones.size()
+        ) {
+            return "Sin respuesta";
+        }
+
+        String[] letras = {
+                "A", "B", "C", "D"
+        };
+
+        String letra =
+                indice < letras.length
+                        ? letras[indice]
+                        : String.valueOf(
+                        indice + 1
+                );
+
+        return letra
+                + ". "
+                + opciones.get(indice);
+    }
+
+    private void agregarTarjetaRevision(
+            int numeroPregunta,
+            String pregunta,
+            String respuestaJugador,
+            String respuestaCorrecta,
+            String justificacion,
+            boolean respondida,
+            boolean correcta
+    ) {
+
+        MaterialCardView tarjeta =
+                new MaterialCardView(
+                        this
+                );
+
+        LinearLayout.LayoutParams paramsTarjeta =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        paramsTarjeta.bottomMargin =
+                dp(12);
+
+        tarjeta.setLayoutParams(
+                paramsTarjeta
+        );
+
+        tarjeta.setRadius(
+                dp(18)
+        );
+
+        tarjeta.setCardElevation(
+                dp(1)
+        );
+
+        tarjeta.setStrokeWidth(
+                dp(1)
+        );
+
+        tarjeta.setCardBackgroundColor(
+                Color.WHITE
+        );
+
+        tarjeta.setStrokeColor(
+                Color.parseColor(
+                        correcta
+                                ? "#BFE8D0"
+                                : respondida
+                                ? "#F3C8C8"
+                                : "#DED7FF"
+                )
+        );
+
+        LinearLayout contenido =
+                new LinearLayout(
+                        this
+                );
+
+        contenido.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        contenido.setPadding(
+                dp(14),
+                dp(14),
+                dp(14),
+                dp(14)
+        );
+
+        TextView estado =
+                crearTextoRevision(
+                        respondida
+                                ? correcta
+                                ? "✓ Correcta"
+                                : "✕ Incorrecta"
+                                : "Sin respuesta",
+                        12,
+                        correcta
+                                ? "#218A57"
+                                : respondida
+                                ? "#C94A4A"
+                                : "#777386",
+                        true
+                );
+
+        contenido.addView(
+                estado
+        );
+
+        TextView tituloPregunta =
+                crearTextoRevision(
+                        "Pregunta "
+                                + numeroPregunta
+                                + " · "
+                                + pregunta,
+                        14,
+                        "#29263A",
+                        true
+                );
+
+        LinearLayout.LayoutParams paramsTitulo =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        paramsTitulo.topMargin =
+                dp(7);
+
+        tituloPregunta.setLayoutParams(
+                paramsTitulo
+        );
+
+        contenido.addView(
+                tituloPregunta
+        );
+
+        TextView tuRespuesta =
+                crearTextoRevision(
+                        "Tu respuesta: "
+                                + respuestaJugador,
+                        12,
+                        correcta
+                                ? "#218A57"
+                                : respondida
+                                ? "#C94A4A"
+                                : "#777386",
+                        false
+                );
+
+        LinearLayout.LayoutParams paramsRespuesta =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        paramsRespuesta.topMargin =
+                dp(9);
+
+        tuRespuesta.setLayoutParams(
+                paramsRespuesta
+        );
+
+        contenido.addView(
+                tuRespuesta
+        );
+
+        TextView correctaView =
+                crearTextoRevision(
+                        "Respuesta correcta: "
+                                + respuestaCorrecta,
+                        12,
+                        "#218A57",
+                        true
+                );
+
+        LinearLayout.LayoutParams paramsCorrecta =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        paramsCorrecta.topMargin =
+                dp(5);
+
+        correctaView.setLayoutParams(
+                paramsCorrecta
+        );
+
+        contenido.addView(
+                correctaView
+        );
+
+        TextView justificacionView =
+                crearTextoRevision(
+                        "Justificación: "
+                                + (
+                                justificacion.isEmpty()
+                                        ? "Sin justificación disponible."
+                                        : justificacion
+                        ),
+                        11,
+                        "#6C648E",
+                        false
+                );
+
+        LinearLayout.LayoutParams paramsJustificacion =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        paramsJustificacion.topMargin =
+                dp(8);
+
+        justificacionView.setLayoutParams(
+                paramsJustificacion
+        );
+
+        contenido.addView(
+                justificacionView
+        );
+
+        tarjeta.addView(
+                contenido
+        );
+
+        contenedorRevisionRespuestas.addView(
+                tarjeta
+        );
+    }
+
+    private TextView crearTextoRevision(
+            String texto,
+            int tamanoSp,
+            String colorHex,
+            boolean negrita
+    ) {
+
+        TextView vista =
+                new TextView(
+                        this
+                );
+
+        vista.setText(
+                texto
+        );
+
+        vista.setTextSize(
+                tamanoSp
+        );
+
+        vista.setTextColor(
+                Color.parseColor(
+                        colorHex
+                )
+        );
+
+        vista.setLineSpacing(
+                dp(2),
+                1.0f
+        );
+
+        if (negrita) {
+            vista.setTypeface(
+                    vista.getTypeface(),
+                    android.graphics.Typeface.BOLD
+            );
+        }
+
+        return vista;
+    }
+
+    private int dp(
+            int valor
+    ) {
+        return Math.round(
+                valor *
+                        getResources()
+                                .getDisplayMetrics()
+                                .density
+        );
+    }
+
+    private void escucharRevancha() {
+
+        if (listenerRevancha != null) {
+            listenerRevancha.remove();
+            listenerRevancha = null;
+        }
+
+        listenerRevancha =
+                firestore
+                        .collection("salas")
+                        .document(codigoSala)
+                        .collection("revancha")
+                        .addSnapshotListener(
+                                (snapshot, error) -> {
+
+                                    if (
+                                            error != null ||
+                                                    snapshot == null ||
+                                                    partidaId.isEmpty()
+                                    ) {
+                                        return;
+                                    }
+
+                                    int aceptaron = 0;
+                                    int rechazaron = 0;
+
+                                    for (
+                                            DocumentSnapshot documento :
+                                            snapshot.getDocuments()
+                                    ) {
+
+                                        String idPartida =
+                                                documento.getString(
+                                                        "partidaId"
+                                                );
+
+                                        if (
+                                                !partidaId.equals(
+                                                        idPartida
+                                                )
+                                        ) {
+                                            continue;
+                                        }
+
+                                        Boolean acepta =
+                                                documento.getBoolean(
+                                                        "acepta"
+                                                );
+
+                                        if (
+                                                Boolean.TRUE.equals(
+                                                        acepta
+                                                )
+                                        ) {
+                                            aceptaron++;
+
+                                        } else if (
+                                                Boolean.FALSE.equals(
+                                                        acepta
+                                                )
+                                        ) {
+                                            rechazaron++;
+                                        }
+                                    }
+
+                                    actualizarEstadoRevancha(
+                                            aceptaron,
+                                            rechazaron
+                                    );
+                                }
+                        );
+    }
+
+    private void confirmarRevancha(
+            boolean acepta
+    ) {
+
+        if (
+                auth.getCurrentUser() == null ||
+                        partidaId.isEmpty()
+        ) {
+            return;
+        }
+
+        String uid =
+                auth
+                        .getCurrentUser()
+                        .getUid();
+
+        Map<String, Object> datos =
+                new HashMap<>();
+
+        datos.put(
+                "partidaId",
+                partidaId
+        );
+
+        datos.put(
+                "uid",
+                uid
+        );
+
+        datos.put(
+                "acepta",
+                acepta
+        );
+
+        datos.put(
+                "confirmadoEn",
+                FieldValue.serverTimestamp()
+        );
+
+        btnAceptarRevancha.setEnabled(
+                false
+        );
+
+        btnRechazarRevancha.setEnabled(
+                false
+        );
+
+        firestore
+                .collection("salas")
+                .document(codigoSala)
+                .collection("revancha")
+                .document(uid)
+                .set(datos)
+                .addOnSuccessListener(
+                        unused -> {
+
+                            btnAceptarRevancha.setEnabled(
+                                    true
+                            );
+
+                            btnRechazarRevancha.setEnabled(
+                                    true
+                            );
+
+                            if (acepta) {
+
+                                btnAceptarRevancha.setText(
+                                        "Aceptado"
+                                );
+
+                                btnRechazarRevancha.setText(
+                                        "Cambiar a no"
+                                );
+
+                            } else {
+
+                                btnAceptarRevancha.setText(
+                                        "Cambiar a sí"
+                                );
+
+                                btnRechazarRevancha.setText(
+                                        "No por ahora"
+                                );
+                            }
+                        }
+                )
+                .addOnFailureListener(
+                        error -> {
+
+                            btnAceptarRevancha.setEnabled(
+                                    true
+                            );
+
+                            btnRechazarRevancha.setEnabled(
+                                    true
+                            );
+
+                            Toast.makeText(
+                                    this,
+                                    "No se pudo guardar tu decisión. Intenta otra vez.",
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                );
+    }
+
+    private void actualizarEstadoRevancha(
+            int aceptaron,
+            int rechazaron
+    ) {
+
+        if (
+                tvRevanchaEstado == null ||
+                        btnVolverJugar == null
+        ) {
+            return;
+        }
+
+        int total =
+                Math.max(
+                        cantidadParticipantes,
+                        0
+                );
+
+        int aceptadosSeguros =
+                total > 0
+                        ? Math.min(
+                        Math.max(
+                                aceptaron,
+                                0
+                        ),
+                        total
+                )
+                        : Math.max(
+                        aceptaron,
+                        0
+                );
+
+        if (total <= 0) {
+
+            tvRevanchaEstado.setText(
+                    "Esperando jugadores..."
+            );
+
+            btnVolverJugar.setVisibility(
+                    View.GONE
+            );
+
+            return;
+        }
+
+        int faltan =
+                Math.max(
+                        total - aceptadosSeguros,
+                        0
+                );
+
+        if (
+                aceptadosSeguros >= total
+        ) {
+
+            tvRevanchaEstado.setText(
+                    total
+                            + " de "
+                            + total
+                            + " jugadores aceptaron · todos listos"
+            );
+
+            btnVolverJugar.setVisibility(
+                    soyAnfitrion
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+
+            btnVolverJugar.setEnabled(
+                    soyAnfitrion
+            );
+
+            tvEstadoRespuesta.setText(
+                    soyAnfitrion
+                            ? "Todos aceptaron. Ya puedes iniciar la nueva partida."
+                            : "Todos aceptaron. Esperando que el anfitrión inicie."
+            );
+
+        } else {
+
+            String texto =
+                    aceptadosSeguros
+                            + " de "
+                            + total
+                            + " jugadores aceptaron";
+
+            if (rechazaron > 0) {
+                texto +=
+                        " · "
+                                + rechazaron
+                                + (
+                                rechazaron == 1
+                                        ? " no acepta por ahora"
+                                        : " no aceptan por ahora"
+                        );
+
+            } else if (faltan > 0) {
+                texto +=
+                        " · faltan "
+                                + faltan;
+            }
+
+            tvRevanchaEstado.setText(
+                    texto
+            );
+
+            btnVolverJugar.setVisibility(
+                    View.GONE
+            );
+        }
+    }
+
     private void volverAJugar() {
+
+        if (!soyAnfitrion) {
+            return;
+        }
+
+        /*
+         * Verificación final contra Firebase.
+         * Aunque el botón esté visible, volvemos a comprobar que TODOS
+         * aceptaron para evitar que el anfitrión pueda iniciar por accidente.
+         */
+        firestore
+                .collection("salas")
+                .document(codigoSala)
+                .collection("revancha")
+                .get()
+                .addOnSuccessListener(
+                        snapshot -> {
+
+                            int aceptaron = 0;
+
+                            for (
+                                    DocumentSnapshot documento :
+                                    snapshot.getDocuments()
+                            ) {
+
+                                String idPartida =
+                                        documento.getString(
+                                                "partidaId"
+                                        );
+
+                                Boolean acepta =
+                                        documento.getBoolean(
+                                                "acepta"
+                                        );
+
+                                if (
+                                        partidaId.equals(
+                                                idPartida
+                                        )
+                                                &&
+                                                Boolean.TRUE.equals(
+                                                        acepta
+                                                )
+                                ) {
+                                    aceptaron++;
+                                }
+                            }
+
+                            int total =
+                                    Math.max(
+                                            cantidadParticipantes,
+                                            0
+                                    );
+
+                            if (
+                                    total <= 0 ||
+                                            aceptaron < total
+                            ) {
+
+                                Toast.makeText(
+                                        this,
+                                        "Aún no todos los jugadores aceptaron volver a jugar.",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+
+                                actualizarEstadoRevancha(
+                                        aceptaron,
+                                        0
+                                );
+
+                                return;
+                            }
+
+                            reiniciarPartidaConfirmada();
+                        }
+                )
+                .addOnFailureListener(
+                        error ->
+                                Toast.makeText(
+                                        this,
+                                        "No se pudo verificar la revancha. Intenta otra vez.",
+                                        Toast.LENGTH_LONG
+                                ).show()
+                );
+    }
+
+    private void reiniciarPartidaConfirmada() {
 
         if (!soyAnfitrion) {
             return;
@@ -2607,6 +3944,22 @@ public class QuizMultijugadorActivity
         ) {
             listenerRespuestas.remove();
             listenerRespuestas = null;
+        }
+
+        if (
+                listenerLecturasResultado !=
+                        null
+        ) {
+            listenerLecturasResultado.remove();
+            listenerLecturasResultado = null;
+        }
+
+        if (
+                listenerRevancha !=
+                        null
+        ) {
+            listenerRevancha.remove();
+            listenerRevancha = null;
         }
 
         super.onDestroy();

@@ -1,58 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="128dp"
-    android:height="128dp"
-    android:viewportWidth="128"
-    android:viewportHeight="128">
+    android:width="220dp"
+    android:height="220dp"
+    android:viewportWidth="220"
+    android:viewportHeight="220">
 
-    <!-- Cola -->
-    <path android:fillColor="#F59E0B"
-        android:pathData="M86,82C111,70 119,88 108,103C102,111 91,111 84,104C95,104 103,98 102,91C101,85 94,86 87,91Z"/>
+    <!-- Sombra suave -->
+    <path
+        android:fillColor="#1A000000"
+        android:pathData="M55,190C55,181 80,175 110,175C140,175 165,181 165,190C165,199 140,205 110,205C80,205 55,199 55,190Z" />
 
-    <path android:fillColor="#FFF7ED"
-        android:pathData="M101,91C108,94 109,100 104,105C100,109 94,109 89,106C97,104 101,100 101,91Z"/>
+    <!-- Ala izquierda -->
+    <path
+        android:fillColor="#FFC83D"
+        android:pathData="M72,119C55,116 43,126 43,142C43,156 54,167 72,169C82,170 91,166 98,160C91,147 86,133 86,120C82,120 77,120 72,119Z" />
+    <path
+        android:fillColor="#FFE06B"
+        android:pathData="M64,127C55,128 50,134 51,141C52,149 59,154 69,154C77,154 83,151 88,147C85,140 82,133 81,127C75,127 69,127 64,127Z" />
+
+    <!-- Ala derecha -->
+    <path
+        android:fillColor="#FFC83D"
+        android:pathData="M148,119C165,116 177,126 177,142C177,156 166,167 148,169C138,170 129,166 122,160C129,147 134,133 134,120C138,120 143,120 148,119Z" />
+    <path
+        android:fillColor="#FFE06B"
+        android:pathData="M156,127C165,128 170,134 169,141C168,149 161,154 151,154C143,154 137,151 132,147C135,140 138,133 139,127C145,127 151,127 156,127Z" />
 
     <!-- Cuerpo -->
-    <path android:fillColor="#F59E0B"
-        android:pathData="M34,78C38,67 49,62 64,62C79,62 90,67 94,78L98,113H30Z"/>
+    <path
+        android:fillColor="#FFD84D"
+        android:pathData="M72,125C72,103 88,90 110,90C132,90 148,103 148,125L148,157C148,179 132,193 110,193C88,193 72,179 72,157Z" />
 
-    <!-- Orejas -->
-    <path android:fillColor="#D97706"
-        android:pathData="M32,45L38,13L57,36Z"/>
-
-    <path android:fillColor="#D97706"
-        android:pathData="M71,36L90,13L96,45Z"/>
-
-    <path android:fillColor="#5B342A"
-        android:pathData="M39,33L41,21L50,35Z"/>
-
-    <path android:fillColor="#5B342A"
-        android:pathData="M78,35L87,21L89,34Z"/>
+    <!-- Barriga -->
+    <path
+        android:fillColor="#FFF1B8"
+        android:pathData="M88,136C88,121 97,113 110,113C123,113 132,121 132,136L132,157C132,172 123,181 110,181C97,181 88,172 88,157Z" />
 
     <!-- Cabeza -->
-    <path android:fillColor="#FBBF24"
-        android:pathData="M32,48C32,31 45,24 64,24C83,24 96,31 96,48C96,68 82,80 64,80C46,80 32,68 32,48Z"/>
+    <path
+        android:fillColor="#FFE15A"
+        android:pathData="M53,79C53,47 77,27 110,27C143,27 167,47 167,79C167,111 143,132 110,132C77,132 53,111 53,79Z" />
 
-    <!-- Cara blanca -->
-    <path android:fillColor="#FFF7ED"
-        android:pathData="M39,49C46,51 55,54 64,65C73,54 82,51 89,49C87,68 77,76 64,76C51,76 41,68 39,49Z"/>
+    <!-- Plumitas laterales -->
+    <path
+        android:fillColor="#FFE15A"
+        android:pathData="M57,75C48,78 43,84 44,91C45,98 51,102 60,103C57,95 56,85 57,75Z" />
+    <path
+        android:fillColor="#FFE15A"
+        android:pathData="M163,75C172,78 177,84 176,91C175,98 169,102 160,103C163,95 164,85 163,75Z" />
 
-    <!-- Ojos -->
-    <path android:fillColor="#422006"
-        android:pathData="M45,47Q51,42 57,47Q51,51 45,47Z"/>
+    <!-- Copete -->
+    <path
+        android:fillColor="#FFD33D"
+        android:pathData="M101,31C94,20 98,13 108,11C108,18 111,24 116,29C117,19 123,15 131,17C127,24 124,30 122,36C116,33 109,31 101,31Z" />
 
-    <path android:fillColor="#422006"
-        android:pathData="M71,47Q77,42 83,47Q77,51 71,47Z"/>
+    <!-- Mejillas -->
+    <path
+        android:fillColor="#FF9C8E"
+        android:fillAlpha="0.62"
+        android:pathData="M68,88C68,81 74,77 82,77C90,77 96,81 96,88C96,95 90,99 82,99C74,99 68,95 68,88Z" />
+    <path
+        android:fillColor="#FF9C8E"
+        android:fillAlpha="0.62"
+        android:pathData="M124,88C124,81 130,77 138,77C146,77 152,81 152,88C152,95 146,99 138,99C130,99 124,95 124,88Z" />
 
-    <!-- Nariz -->
-    <path android:fillColor="#3F2A25"
-        android:pathData="M59,61Q64,57 69,61L64,67Z"/>
+    <!-- Ojos blancos -->
+    <path
+        android:fillColor="#FFFDF7"
+        android:pathData="M74,67C74,54 82,46 93,46C104,46 111,54 111,67C111,80 104,89 93,89C82,89 74,80 74,67Z" />
+    <path
+        android:fillColor="#FFFDF7"
+        android:pathData="M109,67C109,54 116,46 127,46C138,46 146,54 146,67C146,80 138,89 127,89C116,89 109,80 109,67Z" />
 
-    <!-- Medalla -->
-    <path android:fillColor="#6C5CE7"
-        android:pathData="M58,82L70,82L72,92L64,98L56,92Z"/>
+    <!-- Pupilas -->
+    <path
+        android:fillColor="#3C2415"
+        android:pathData="M83,67C83,58 87,52 94,52C101,52 105,58 105,67C105,76 101,82 94,82C87,82 83,76 83,67Z" />
+    <path
+        android:fillColor="#3C2415"
+        android:pathData="M115,67C115,58 119,52 126,52C133,52 137,58 137,67C137,76 133,82 126,82C119,82 115,76 115,67Z" />
 
-    <path android:fillColor="#FFFFFF"
-        android:pathData="M62,86L66,86L66,92L62,92Z"/>
+    <!-- Iris cálido -->
+    <path
+        android:fillColor="#9B5A1A"
+        android:pathData="M87,71C87,64 90,60 95,60C100,60 102,64 102,71C102,77 99,80 95,80C90,80 87,77 87,71Z" />
+    <path
+        android:fillColor="#9B5A1A"
+        android:pathData="M119,71C119,64 122,60 127,60C132,60 134,64 134,71C134,77 131,80 127,80C122,80 119,77 119,71Z" />
+
+    <!-- Brillos -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M88,58C88,55 90,53 93,53C96,53 98,55 98,58C98,61 96,63 93,63C90,63 88,61 88,58Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M120,58C120,55 122,53 125,53C128,53 130,55 130,58C130,61 128,63 125,63C122,63 120,61 120,58Z" />
+
+    <!-- Cejitas -->
+    <path
+        android:fillColor="#7A3D16"
+        android:pathData="M76,44C83,38 93,36 101,40C96,40 91,42 86,45C82,48 79,49 76,49Z" />
+    <path
+        android:fillColor="#7A3D16"
+        android:pathData="M119,40C127,36 137,38 144,44L144,49C141,49 138,48 134,45C129,42 124,40 119,40Z" />
+
+    <!-- Pico base -->
+    <path
+        android:fillColor="#FF962B"
+        android:pathData="M83,89C83,81 94,76 110,76C126,76 137,81 137,89C137,97 126,103 110,103C94,103 83,97 83,89Z" />
+
+    <!-- Pico superior claro -->
+    <path
+        android:fillColor="#FFAD3D"
+        android:pathData="M87,87C92,82 100,80 110,80C120,80 128,82 133,87C129,90 121,92 110,92C99,92 91,90 87,87Z" />
+
+    <!-- Boca abierta -->
+    <path
+        android:fillColor="#8D2B1B"
+        android:pathData="M92,93C97,97 103,99 110,99C117,99 123,97 128,93C126,106 119,112 110,112C101,112 94,106 92,93Z" />
+
+    <!-- Lengua -->
+    <path
+        android:fillColor="#FF6B6B"
+        android:pathData="M101,105C104,102 107,101 110,101C113,101 116,102 119,105C117,109 114,111 110,111C106,111 103,109 101,105Z" />
+
+    <!-- Patitas -->
+    <path
+        android:fillColor="#FF962B"
+        android:pathData="M88,180C91,177 97,176 102,178L101,190C96,194 88,196 79,193C81,187 84,183 88,180Z" />
+    <path
+        android:fillColor="#FF962B"
+        android:pathData="M132,180C129,177 123,176 118,178L119,190C124,194 132,196 141,193C139,187 136,183 132,180Z" />
+
+    <!-- Dedos izquierda -->
+    <path
+        android:fillColor="#FF8A1F"
+        android:pathData="M78,193C83,190 88,188 94,188C90,193 85,196 79,197Z" />
+    <path
+        android:fillColor="#FF8A1F"
+        android:pathData="M86,196C91,191 96,189 101,190C98,195 93,198 87,199Z" />
+
+    <!-- Dedos derecha -->
+    <path
+        android:fillColor="#FF8A1F"
+        android:pathData="M142,193C137,190 132,188 126,188C130,193 135,196 141,197Z" />
+    <path
+        android:fillColor="#FF8A1F"
+        android:pathData="M134,196C129,191 124,189 119,190C122,195 127,198 133,199Z" />
 
 </vector>

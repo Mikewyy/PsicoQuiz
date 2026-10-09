@@ -189,6 +189,22 @@
                 android:textColor="#777386"
                 android:textSize="13sp" />
 
+            <!-- PASO 11: continuar después de responder -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContinuarRespuesta"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="12dp"
+                android:text="Continuar"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:backgroundTint="#6C5CE7"
+                app:cornerRadius="16dp"
+                />
+
             <!-- JUGADORES QUE YA RESPONDIERON -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardRespuestasJugadores"
@@ -334,6 +350,32 @@
                     android:textColor="#6C648E"
                     android:textSize="13sp"
                     android:lineSpacingExtra="3dp" />
+
+                <!-- PASO 2: cada jugador confirma que ya leyó la justificación -->
+                <TextView
+                    android:id="@+id/tvLecturasResultado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="Esperando confirmación de los jugadores..."
+                    android:textColor="#777386"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnListoResultado"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Listo · ya leí la justificación"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:backgroundTint="#6C5CE7"
+                    app:cornerRadius="16dp" />
 
             </LinearLayout>
 
@@ -635,15 +677,166 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <!-- PASO 4: REVISIÓN FINAL DE RESPUESTAS -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRevisarRespuestas"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="Revisar mis respuestas"
+                    android:textAllCaps="false"
+                    android:textColor="#6C5CE7"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#EEEAFE"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardRevisionRespuestas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#DED7FF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Revisión de la partida"
+                            android:textColor="#211D3B"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif"
+                            android:text="Aquí podrás ver qué respondiste, cuál era la respuesta correcta y la justificación de cada pregunta."
+                            android:textColor="#7C7693"
+                            android:textSize="12sp"
+                            android:lineSpacingExtra="2dp" />
+
+                        <LinearLayout
+                            android:id="@+id/contenedorRevisionRespuestas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:orientation="vertical" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- CONFIRMACIÓN DE REVANCHA PARA TODOS LOS JUGADORES -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardRevancha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#F8F6FF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#DED7FF"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="¿Quieres volver a jugar?"
+                            android:textColor="#211D3B"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="sans-serif"
+                            android:text="La nueva partida comenzará únicamente cuando todos los jugadores acepten."
+                            android:textColor="#7C7693"
+                            android:textSize="12sp"
+                            android:lineSpacingExtra="2dp" />
+
+                        <TextView
+                            android:id="@+id/tvRevanchaEstado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="0 de 0 jugadores aceptaron"
+                            android:textColor="#6C5CE7"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnAceptarRevancha"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_weight="1"
+                                android:text="Sí, jugar otra vez"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="#6C5CE7"
+                                app:cornerRadius="15dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnRechazarRevancha"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:text="No por ahora"
+                                android:textAllCaps="false"
+                                android:textColor="#6C5CE7"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="#EEEAFE"
+                                app:cornerRadius="15dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- SOLO EL ANFITRIÓN VERÁ ESTE BOTÓN CUANDO TODOS ACEPTEN -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnVolverJugar"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="Volver a jugar"
+                    android:layout_marginTop="12dp"
+                    android:text="Iniciar nueva partida"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     app:backgroundTint="#6C5CE7"
                     app:cornerRadius="16dp" />
 
@@ -665,5 +858,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </androidx.core.widget.NestedScrollView>

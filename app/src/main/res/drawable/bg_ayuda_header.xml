@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base morada -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:startColor="#5F4DE2"
+                android:centerColor="#6C5CE7"
+                android:endColor="#8A7CFF" />
+            <corners
+                android:bottomLeftRadius="30dp"
+                android:bottomRightRadius="30dp" />
+        </shape>
+    </item>
+
+    <!-- Luz suave superior derecha -->
+    <item
+        android:width="190dp"
+        android:height="190dp"
+        android:gravity="top|end"
+        android:right="-35dp"
+        android:top="-70dp">
+        <shape android:shape="oval">
+            <gradient
+                android:angle="45"
+                android:startColor="#55FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- Luz secundaria -->
+    <item
+        android:width="120dp"
+        android:height="120dp"
+        android:gravity="top|start"
+        android:left="-40dp"
+        android:top="30dp">
+        <shape android:shape="oval">
+            <gradient
+                android:angle="45"
+                android:startColor="#2893C5FD"
+                android:endColor="#0093C5FD" />
+        </shape>
+    </item>
+
+    <!-- Brillo inferior -->
+    <item
+        android:width="160dp"
+        android:height="90dp"
+        android:gravity="bottom|end"
+        android:right="12dp"
+        android:bottom="-20dp">
+        <shape android:shape="oval">
+            <gradient
+                android:angle="45"
+                android:startColor="#26F9A8D4"
+                android:endColor="#00F9A8D4" />
+        </shape>
+    </item>
+
+</layer-list>
