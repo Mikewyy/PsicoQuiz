@@ -1,5 +1,7 @@
 package com.utm.semiologia.data.dao;
 
+import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -640,6 +642,7 @@ public class NivelesDao {
                         new String[]{String.valueOf(usuarioId), String.valueOf(nivelId)});
             }
             db.setTransactionSuccessful();
+            FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
             return aprobado;
         } finally {
             db.endTransaction();

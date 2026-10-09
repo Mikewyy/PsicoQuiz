@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.utm.semiologia.data.db.DatabaseHelper;
 import com.utm.semiologia.data.model.SesionPomodoro;
+import com.utm.semiologia.firebase.FirebaseSecondarySyncManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,10 @@ public class PomodoroDao {
         cv.put("completado", s.isCompletado() ? 1 : 0);
         cv.put("iniciado_en", s.getIniciadoEn());
         if (s.getFinalizadoEn() != null) cv.put("finalizado_en", s.getFinalizadoEn());
-        return db.insertOrThrow(DatabaseHelper.T_POMODORO, null, cv);
+        long id = db.insertOrThrow(DatabaseHelper.T_POMODORO, null, cv);
+        s.setId(id);
+        FirebaseSecondarySyncManager.sincronizarPomodoro(helper.getAppContext(), s);
+        return id;
     }
 
     public void actualizar(SesionPomodoro s) {
@@ -45,6 +49,7 @@ public class PomodoroDao {
         cv.put("completado", s.isCompletado() ? 1 : 0);
         if (s.getFinalizadoEn() != null) cv.put("finalizado_en", s.getFinalizadoEn());
         db.update(DatabaseHelper.T_POMODORO, cv, "id = ?", new String[]{String.valueOf(s.getId())});
+        FirebaseSecondarySyncManager.sincronizarPomodoro(helper.getAppContext(), s);
     }
 
     public List<SesionPomodoro> historial(long usuarioId, int limite) {

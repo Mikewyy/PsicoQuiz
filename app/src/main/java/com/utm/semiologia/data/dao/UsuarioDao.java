@@ -1,5 +1,8 @@
 package com.utm.semiologia.data.dao;
 
+import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
+import com.utm.semiologia.firebase.FirebaseProfileSyncManager;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -70,6 +73,70 @@ public class UsuarioDao {
             return c.moveToFirst()
                     ? mapear(c)
                     : null;
+        }
+    }
+
+    /**
+     * Busca el perfil local vinculado a un UID de Firebase Authentication.
+     */
+    @Nullable
+    public Usuario buscarPorFirebaseUid(String firebaseUid) {
+
+        if (firebaseUid == null || firebaseUid.trim().isEmpty()) {
+            return null;
+        }
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        try (Cursor c = db.query(
+                DatabaseHelper.T_USUARIOS,
+                null,
+                "firebase_uid = ?",
+                new String[]{firebaseUid.trim()},
+                null,
+                null,
+                null,
+                "1"
+        )) {
+
+            return c.moveToFirst()
+                    ? mapear(c)
+                    : null;
+        }
+    }
+
+    /**
+     * Devuelve el UID Firebase asociado a un usuario local, o null si todavía
+     * no ha sido vinculado.
+     */
+    @Nullable
+    public String obtenerFirebaseUid(long usuarioId) {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        try (Cursor c = db.query(
+                DatabaseHelper.T_USUARIOS,
+                new String[]{"firebase_uid"},
+                "id = ?",
+                new String[]{String.valueOf(usuarioId)},
+                null,
+                null,
+                null,
+                "1"
+        )) {
+            if (!c.moveToFirst()) {
+                return null;
+            }
+
+            int index = c.getColumnIndex("firebase_uid");
+            if (index < 0 || c.isNull(index)) {
+                return null;
+            }
+
+            String uid = c.getString(index);
+            return uid == null || uid.trim().isEmpty()
+                    ? null
+                    : uid.trim();
         }
     }
 
@@ -156,6 +223,61 @@ public class UsuarioDao {
     }
 
     /**
+     * Vincula un usuario local con su identidad estable de Firebase.
+     *
+     * @return true si la fila local fue actualizada.
+     */
+    public boolean vincularFirebaseUid(long usuarioId, String firebaseUid) {
+
+        if (usuarioId <= 0 || firebaseUid == null || firebaseUid.trim().isEmpty()) {
+            return false;
+        }
+
+        ContentValues cv = new ContentValues();
+        cv.put("firebase_uid", firebaseUid.trim());
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        int filas = db.update(
+                DatabaseHelper.T_USUARIOS,
+                cv,
+                "id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        );
+
+        return filas > 0;
+    }
+
+    /**
+     * Aplica únicamente los campos de perfil recibidos desde Firestore sobre
+     * el mismo usuario local. No dispara una subida a Firebase: esta operación
+     * forma parte de la restauración cloud -> SQLite y debe evitar bucles.
+     *
+     * El progreso (puntos, nivel, experiencia y rachas) se restaura después
+     * mediante FirebaseProgressSyncManager, que es su fuente autoritativa.
+     */
+    public boolean aplicarPerfilDesdeNube(long usuarioId, Usuario nube) {
+        if (usuarioId <= 0 || nube == null) return false;
+
+        ContentValues cv = new ContentValues();
+        cv.put("nombre", nube.getNombre());
+        if (nube.getNombreMostrado() == null || nube.getNombreMostrado().trim().isEmpty()) {
+            cv.putNull("nombre_mostrado");
+        } else {
+            cv.put("nombre_mostrado", nube.getNombreMostrado().trim());
+        }
+        cv.put("avatar", nube.getAvatar());
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        return db.update(
+                DatabaseHelper.T_USUARIOS,
+                cv,
+                "id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        ) > 0;
+    }
+
+    /**
      * Actualiza todos los datos del usuario.
      */
     public void actualizar(Usuario u) {
@@ -168,6 +290,9 @@ public class UsuarioDao {
                 "id = ?",
                 new String[]{String.valueOf(u.getId())}
         );
+
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), u.getId());
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), u.getId());
     }
 
     /**
@@ -194,6 +319,9 @@ public class UsuarioDao {
                 "id = ?",
                 new String[]{String.valueOf(usuarioId)}
         );
+
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
 
     /**
@@ -219,6 +347,7 @@ public class UsuarioDao {
                 "id = ?",
                 new String[]{String.valueOf(usuarioId)}
         );
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
 
     /**
@@ -243,6 +372,7 @@ public class UsuarioDao {
                 "id = ?",
                 new String[]{String.valueOf(usuarioId)}
         );
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
 
     /**
@@ -264,6 +394,7 @@ public class UsuarioDao {
                 "id = ?",
                 new String[]{String.valueOf(usuarioId)}
         );
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
 
     /**
@@ -447,6 +578,8 @@ public class UsuarioDao {
             );
 
             db.setTransactionSuccessful();
+            FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
+            FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
 
             return nuevaRacha;
 

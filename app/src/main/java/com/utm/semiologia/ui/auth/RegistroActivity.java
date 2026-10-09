@@ -20,226 +20,136 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.utm.semiologia.R;
 import com.utm.semiologia.SemiologiaApp;
 import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.model.Mascota;
 import com.utm.semiologia.data.model.Usuario;
+import com.utm.semiologia.firebase.FirebaseAuthManager;
+import com.utm.semiologia.firebase.FirebaseProfileSyncManager;
+import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
+import com.utm.semiologia.firebase.FirebaseSecondarySyncManager;
 import com.utm.semiologia.ui.dashboard.MainActivity;
 import com.utm.semiologia.util.HashUtil;
 
 /**
  * Registro de un estudiante nuevo.
  *
- * Crea:
+ * Firebase Authentication:
+ * - Vincula la sesión anónima existente con Email/Password cuando es posible.
+ * - Si no existe sesión anónima, crea una cuenta Email/Password.
+ *
+ * SQLite local:
  * - Usuario
  * - Mascota inicial
  * - 3 alimentos
  * - Accesorio inicial
- *
- * No permite entrar al Dashboard si la mascota
- * no pudo crearse correctamente.
  */
 public class RegistroActivity extends AppCompatActivity {
 
-    // =========================================================
-    // CONFIGURACIÓN INICIAL
-    // =========================================================
-
     private static final long ALIMENTO_INICIAL_ID = 1L;
     private static final int CANTIDAD_INICIAL_ALIMENTO = 3;
-
     private static final long ACCESORIO_INICIAL_ID = 1L;
-
     private static final int MIN_PASSWORD_LENGTH = 6;
-
-
-    // =========================================================
-    // VISTAS
-    // =========================================================
 
     private EditText etNombre;
     private EditText etEmail;
     private EditText etPassword;
-
     private Button btnCrear;
-
     private ImageButton btnVerPassword;
-
     private TextView linkLogin;
 
-    /** true cuando la contraseña se está mostrando en claro. */
     private boolean passwordVisible = false;
+    private boolean registroEnProceso = false;
 
-
-    // =========================================================
-    // CREACIÓN
-    // =========================================================
+    private FirebaseAuthManager firebaseAuthManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
-        setContentView(
-                R.layout.activity_registro
-        );
+        setContentView(R.layout.activity_registro);
 
+        firebaseAuthManager = new FirebaseAuthManager();
 
         enlazarVistas();
-
         setupListeners();
-
         configurarTeclado();
     }
 
-
     /** Mantiene visible el campo que se escribe cuando el teclado se abre. */
     private void configurarTeclado() {
+        ScrollView scroll = findViewById(R.id.scrollRegistro);
+        View contenido = scroll.getChildAt(0);
 
-        ScrollView scroll =
-                findViewById(
-                        R.id.scrollRegistro
-                );
-
-        View contenido =
-                scroll.getChildAt(0);
-
-        final int paddingTopBase =
-                contenido.getPaddingTop();
-
-        final int paddingBottomBase =
-                contenido.getPaddingBottom();
-
+        final int paddingTopBase = contenido.getPaddingTop();
+        final int paddingBottomBase = contenido.getPaddingBottom();
 
         ViewCompat.setOnApplyWindowInsetsListener(
                 scroll,
                 (v, insets) -> {
+                    Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
+                    Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-                    Insets ime =
-                            insets.getInsets(
-                                    WindowInsetsCompat.Type.ime()
-                            );
+                    int top = paddingTopBase + bars.top;
+                    int bottom = ime.bottom > 0 ? ime.bottom : paddingBottomBase;
 
-                    Insets bars =
-                            insets.getInsets(
-                                    WindowInsetsCompat.Type.systemBars()
-                            );
-
-                    int top =
-                            paddingTopBase
-                                    + bars.top;
-
-                    int bottom =
-                            ime.bottom > 0
-                                    ? ime.bottom
-                                    : paddingBottomBase;
-
-                    contenido.setPadding(
-                            0,
-                            top,
-                            0,
-                            bottom
-                    );
-
+                    contenido.setPadding(0, top, 0, bottom);
 
                     if (ime.bottom > 0) {
-
-                        revelarCampoEnfocado(
-                                scroll,
-                                ime.bottom
-                        );
+                        revelarCampoEnfocado(scroll, ime.bottom);
                     }
 
                     return insets;
                 }
         );
 
-
         View.OnFocusChangeListener alEnfocar =
                 (v, hasFocus) -> {
-
-                    if (
-                            !hasFocus
-                                    ||
-                                    v.getRootWindowInsets() == null
-                    ) {
-
+                    if (!hasFocus || v.getRootWindowInsets() == null) {
                         return;
                     }
 
-                    int ime =
-                            WindowInsetsCompat
-                                    .toWindowInsetsCompat(
-                                            v.getRootWindowInsets()
-                                    )
-                                    .getInsets(
-                                            WindowInsetsCompat.Type.ime()
-                                    )
-                                    .bottom;
+                    int ime = WindowInsetsCompat
+                            .toWindowInsetsCompat(v.getRootWindowInsets())
+                            .getInsets(WindowInsetsCompat.Type.ime())
+                            .bottom;
 
                     if (ime > 0) {
-
-                        revelarCampoEnfocado(
-                                scroll,
-                                ime
-                        );
+                        revelarCampoEnfocado(scroll, ime);
                     }
                 };
 
-
-        etNombre.setOnFocusChangeListener(
-                alEnfocar
-        );
-
-        etEmail.setOnFocusChangeListener(
-                alEnfocar
-        );
-
-        etPassword.setOnFocusChangeListener(
-                alEnfocar
-        );
+        etNombre.setOnFocusChangeListener(alEnfocar);
+        etEmail.setOnFocusChangeListener(alEnfocar);
+        etPassword.setOnFocusChangeListener(alEnfocar);
     }
-
 
     private void revelarCampoEnfocado(
             ScrollView scroll,
             int alturaTeclado
     ) {
-
-        View enfocado =
-                getCurrentFocus();
+        View enfocado = getCurrentFocus();
 
         if (enfocado == null) {
-
             return;
         }
 
+        int[] pos = new int[2];
+        enfocado.getLocationOnScreen(pos);
 
-        int[] pos =
-                new int[2];
+        int campoAbajo = pos[1] + enfocado.getHeight();
 
-        enfocado.getLocationOnScreen(
-                pos
-        );
-
-        int campoAbajo =
-                pos[1]
-                        + enfocado.getHeight();
-
-
-        int[] posScroll =
-                new int[2];
-
-        scroll.getLocationOnScreen(
-                posScroll
-        );
+        int[] posScroll = new int[2];
+        scroll.getLocationOnScreen(posScroll);
 
         int visibleAbajo =
                 posScroll[1]
                         + scroll.getHeight()
                         - alturaTeclado;
-
 
         int margen =
                 (int) (
@@ -254,94 +164,49 @@ public class RegistroActivity extends AppCompatActivity {
                         + margen;
 
         if (distancia > 0) {
-
-            scroll.smoothScrollBy(
-                    0,
-                    distancia
-            );
+            scroll.smoothScrollBy(0, distancia);
         }
     }
 
-
-    // =========================================================
-    // ENLAZAR VISTAS
-    // =========================================================
-
     private void enlazarVistas() {
-
-        etNombre =
-                findViewById(
-                        R.id.etNombre
-                );
-
-        etEmail =
-                findViewById(
-                        R.id.etEmail
-                );
-
-        etPassword =
-                findViewById(
-                        R.id.etPassword
-                );
-
-        btnCrear =
-                findViewById(
-                        R.id.btnCrear
-                );
-
-        btnVerPassword =
-                findViewById(
-                        R.id.btnVerPassword
-                );
-
-        linkLogin =
-                findViewById(
-                        R.id.linkLogin
-                );
+        etNombre = findViewById(R.id.etNombre);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnCrear = findViewById(R.id.btnCrear);
+        btnVerPassword = findViewById(R.id.btnVerPassword);
+        linkLogin = findViewById(R.id.linkLogin);
     }
 
-
-    // =========================================================
-    // LISTENERS
-    // =========================================================
-
     private void setupListeners() {
-
-        btnCrear.setOnClickListener(
-                v -> intentarRegistro()
-        );
+        btnCrear.setOnClickListener(v -> intentarRegistro());
 
         btnVerPassword.setOnClickListener(
                 v -> alternarVisibilidadPassword()
         );
 
-
         linkLogin.setOnClickListener(
-                v -> confirmarSalida()
+                v -> {
+                    if (!registroEnProceso) {
+                        confirmarSalida();
+                    }
+                }
         );
     }
 
-
-    // =========================================================
-    // BOTÓN ATRÁS
-    // =========================================================
-
     @Override
     public void onBackPressed() {
+        if (registroEnProceso) {
+            mostrarSnackbarError(
+                    "Espera mientras se crea tu cuenta."
+            );
+            return;
+        }
 
         confirmarSalida();
     }
 
-
-    // =========================================================
-    // CONFIRMAR SALIDA
-    // =========================================================
-
     private void confirmarSalida() {
-
-        View vistaBase =
-                obtenerVistaAnchor();
-
+        View vistaBase = obtenerVistaAnchor();
 
         Snackbar snackbar =
                 Snackbar.make(
@@ -357,43 +222,33 @@ public class RegistroActivity extends AppCompatActivity {
                                 Color.parseColor("#FBBF24")
                         );
 
-
-        View snackView =
-                snackbar.getView();
-
+        View snackView = snackbar.getView();
 
         snackView.setBackgroundColor(
                 Color.parseColor("#1E293B")
         );
-
 
         TextView textView =
                 snackView.findViewById(
                         com.google.android.material.R.id.snackbar_text
                 );
 
-
         if (textView != null) {
-
-            textView.setTextColor(
-                    Color.WHITE
-            );
-
-            textView.setTextSize(
-                    14
-            );
+            textView.setTextColor(Color.WHITE);
+            textView.setTextSize(14);
         }
-
 
         snackbar.show();
     }
 
-
     // =========================================================
-    // INTENTAR REGISTRO
+    // REGISTRO
     // =========================================================
 
     private void intentarRegistro() {
+        if (registroEnProceso) {
+            return;
+        }
 
         String nombre =
                 etNombre
@@ -401,63 +256,41 @@ public class RegistroActivity extends AppCompatActivity {
                         .toString()
                         .trim();
 
-
         String email =
                 etEmail
                         .getText()
                         .toString()
-                        .trim();
-
+                        .trim()
+                        .toLowerCase();
 
         String password =
                 etPassword
                         .getText()
                         .toString();
 
-
-        // -----------------------------------------------------
-        // VALIDAR
-        // -----------------------------------------------------
-
-        if (!validarEntradas(
-                nombre,
-                email,
-                password
-        )) {
-
+        if (!validarEntradas(nombre, email, password)) {
             return;
         }
-
 
         Repositorio repo =
                 SemiologiaApp.getRepositorio();
 
-
-        // -----------------------------------------------------
-        // EMAIL DUPLICADO
-        // -----------------------------------------------------
-
+        /*
+         * Evitamos crear en Firebase una cuenta cuyo correo
+         * ya pertenece a un usuario local.
+         */
         if (
                 repo.usuarios()
                         .buscarPorEmail(email)
                         != null
         ) {
-
             mostrarSnackbarError(
-                    getString(
-                            R.string.error_email_duplicado
-                    )
+                    getString(R.string.error_email_duplicado)
             );
-
             return;
         }
 
-
-        // -----------------------------------------------------
-        // CREAR CUENTA
-        // -----------------------------------------------------
-
-        crearCuentaYRegistrarMascota(
+        registrarEnFirebase(
                 repo,
                 nombre,
                 email,
@@ -465,18 +298,126 @@ public class RegistroActivity extends AppCompatActivity {
         );
     }
 
+    private void registrarEnFirebase(
+            Repositorio repo,
+            String nombre,
+            String email,
+            String password
+    ) {
+        establecerRegistroEnProceso(true);
+
+        firebaseAuthManager.registrarConEmail(
+                email,
+                password,
+                new FirebaseAuthManager.AuthCallback() {
+                    @Override
+                    public void onSuccess(
+                            FirebaseUser usuario
+                    ) {
+                        /*
+                         * Firebase ya confirmó la identidad.
+                         * Ahora conservamos la estructura local
+                         * que utiliza el resto de PsicoQuiz.
+                         */
+                        crearCuentaYRegistrarMascota(
+                                repo,
+                                nombre,
+                                email,
+                                password,
+                                usuario
+                        );
+                    }
+
+                    @Override
+                    public void onError(
+                            Exception error
+                    ) {
+                        establecerRegistroEnProceso(false);
+                        manejarErrorFirebase(error);
+                    }
+                }
+        );
+    }
+
+    private void establecerRegistroEnProceso(
+            boolean enProceso
+    ) {
+        registroEnProceso = enProceso;
+
+        btnCrear.setEnabled(!enProceso);
+        btnVerPassword.setEnabled(!enProceso);
+        etNombre.setEnabled(!enProceso);
+        etEmail.setEnabled(!enProceso);
+        etPassword.setEnabled(!enProceso);
+        linkLogin.setEnabled(!enProceso);
+
+        btnCrear.setText(
+                enProceso
+                        ? "Creando cuenta..."
+                        : "Crear cuenta"
+        );
+    }
+
+    private void manejarErrorFirebase(
+            Exception error
+    ) {
+        if (
+                error
+                        instanceof FirebaseAuthUserCollisionException
+        ) {
+            etEmail.setError(
+                    "Este correo ya tiene una cuenta"
+            );
+            etEmail.requestFocus();
+
+            mostrarSnackbarError(
+                    "Ya existe una cuenta registrada con este correo."
+            );
+            return;
+        }
+
+        if (
+                error
+                        instanceof FirebaseAuthInvalidCredentialsException
+        ) {
+            etEmail.setError(
+                    "Revisa el correo electrónico"
+            );
+            etEmail.requestFocus();
+
+            mostrarSnackbarError(
+                    "El correo electrónico no es válido."
+            );
+            return;
+        }
+
+        String detalle =
+                error != null
+                        ? error.getMessage()
+                        : null;
+
+        if (
+                detalle != null
+                        && !detalle.trim().isEmpty()
+        ) {
+            mostrarSnackbarError(
+                    "Firebase: " + detalle
+            );
+        } else {
+            mostrarSnackbarError(
+                    "No se pudo crear la cuenta. Revisa tu conexión e intenta nuevamente."
+            );
+        }
+    }
 
     // =========================================================
-    // VALIDAR ENTRADAS
+    // VALIDACIONES
     // =========================================================
 
     private void alternarVisibilidadPassword() {
-
         passwordVisible = !passwordVisible;
 
-
         if (passwordVisible) {
-
             etPassword.setInputType(
                     InputType.TYPE_CLASS_TEXT
                             | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
@@ -491,16 +432,17 @@ public class RegistroActivity extends AppCompatActivity {
             );
 
             btnVerPassword.setContentDescription(
-                    getString(
-                            R.string.ocultar_contrasena
-                    )
+                    getString(R.string.ocultar_contrasena)
             );
 
         } else {
-
             etPassword.setInputType(
                     InputType.TYPE_CLASS_TEXT
                             | InputType.TYPE_TEXT_VARIATION_PASSWORD
+            );
+
+            etPassword.setSelection(
+                    etPassword.getText().length()
             );
 
             btnVerPassword.setImageResource(
@@ -508,155 +450,96 @@ public class RegistroActivity extends AppCompatActivity {
             );
 
             btnVerPassword.setContentDescription(
-                    getString(
-                            R.string.ver_contrasena
-                    )
+                    getString(R.string.ver_contrasena)
             );
-
         }
     }
-
 
     private boolean validarEntradas(
             String nombre,
             String email,
             String password
     ) {
-
-
-        // -----------------------------------------------------
-        // NOMBRE
-        // -----------------------------------------------------
-
         if (TextUtils.isEmpty(nombre)) {
-
             etNombre.setError(
                     "Ingresa tu nombre completo"
             );
-
             etNombre.requestFocus();
 
-
             mostrarSnackbarError(
-                    getString(
-                            R.string.error_campos_vacios
-                    )
+                    getString(R.string.error_campos_vacios)
             );
-
             return false;
         }
 
-
-        // -----------------------------------------------------
-        // EMAIL
-        // -----------------------------------------------------
-
         if (TextUtils.isEmpty(email)) {
-
             etEmail.setError(
                     "Ingresa tu correo electrónico"
             );
-
             etEmail.requestFocus();
 
-
             mostrarSnackbarError(
-                    getString(
-                            R.string.error_campos_vacios
-                    )
+                    getString(R.string.error_campos_vacios)
             );
-
             return false;
         }
-
 
         if (
                 !Patterns.EMAIL_ADDRESS
                         .matcher(email)
                         .matches()
         ) {
-
             etEmail.setError(
                     "Correo electrónico inválido"
             );
-
             etEmail.requestFocus();
 
-
             mostrarSnackbarError(
-                    getString(
-                            R.string.error_email_invalido
-                    )
+                    getString(R.string.error_email_invalido)
             );
-
             return false;
         }
 
-
-        // -----------------------------------------------------
-        // CONTRASEÑA
-        // -----------------------------------------------------
-
         if (
                 TextUtils.isEmpty(password)
-                        ||
-                        password.length()
-                                < MIN_PASSWORD_LENGTH
+                        || password.length()
+                        < MIN_PASSWORD_LENGTH
         ) {
-
             etPassword.setError(
                     "La contraseña debe tener al menos "
                             + MIN_PASSWORD_LENGTH
                             + " caracteres"
             );
-
             etPassword.requestFocus();
 
-
             mostrarSnackbarError(
-                    getString(
-                            R.string.error_password_corta
-                    )
+                    getString(R.string.error_password_corta)
             );
-
             return false;
         }
-
 
         return true;
     }
 
-
     // =========================================================
-    // CREAR CUENTA Y MASCOTA
+    // SQLITE: USUARIO + MASCOTA
     // =========================================================
 
     private void crearCuentaYRegistrarMascota(
             Repositorio repo,
             String nombre,
             String email,
-            String password
+            String password,
+            FirebaseUser usuarioFirebase
     ) {
-
-
-        // -----------------------------------------------------
-        // SEGURIDAD
-        // -----------------------------------------------------
-
         String salt =
                 HashUtil.nuevoSalt();
-
 
         String passwordHasheada =
                 HashUtil.hashear(
                         password,
                         salt
                 );
-
-
-        // -----------------------------------------------------
-        // CREAR USUARIO
-        // -----------------------------------------------------
 
         Usuario nuevoUsuario =
                 Usuario.crear(
@@ -666,29 +549,26 @@ public class RegistroActivity extends AppCompatActivity {
                         salt
                 );
 
-
         long usuarioId =
                 repo.usuarios()
                         .insertar(
                                 nuevoUsuario
                         );
 
-
         if (usuarioId <= 0) {
+            /*
+             * Firebase ya creó/vinculó la cuenta.
+             * No intentamos borrarla automáticamente aquí:
+             * eliminar una cuenta vinculada que antes era
+             * anónima podría destruir su identidad Firebase.
+             */
+            establecerRegistroEnProceso(false);
 
             mostrarSnackbarError(
-                    getString(
-                            R.string.error_email_duplicado
-                    )
+                    "La cuenta se creó en Firebase, pero no se pudo crear el perfil local."
             );
-
             return;
         }
-
-
-        // -----------------------------------------------------
-        // CREAR MASCOTA Y REGALOS
-        // -----------------------------------------------------
 
         boolean mascotaCreada =
                 otorgarRegalosBienvenida(
@@ -697,56 +577,124 @@ public class RegistroActivity extends AppCompatActivity {
                         nombre
                 );
 
-
-        /*
-         * MUY IMPORTANTE:
-         *
-         * No dejamos entrar al Dashboard si no existe
-         * una mascota asociada al usuario.
-         */
         if (!mascotaCreada) {
+            establecerRegistroEnProceso(false);
 
             mostrarSnackbarError(
-                    "No se pudo crear la mascota inicial. Intenta nuevamente."
+                    "La cuenta se creó, pero no se pudo crear la mascota inicial."
             );
-
             return;
         }
 
+        boolean uidVinculado =
+                repo.usuarios().vincularFirebaseUid(
+                        usuarioId,
+                        usuarioFirebase.getUid()
+                );
 
-        // -----------------------------------------------------
-        // INICIAR SESIÓN
-        // -----------------------------------------------------
+        if (!uidVinculado) {
+            establecerRegistroEnProceso(false);
+            mostrarSnackbarError(
+                    "La cuenta se creó, pero no se pudo vincular el perfil local con Firebase."
+            );
+            return;
+        }
 
-        iniciarSesionYNavegar(
-                email,
-                salt,
-                usuarioId
+        Usuario usuarioLocal =
+                repo.usuarios().buscarPorId(usuarioId);
+
+        Mascota mascotaLocal =
+                repo.mascotas().obtener(usuarioId);
+
+        if (usuarioLocal == null) {
+            establecerRegistroEnProceso(false);
+            mostrarSnackbarError(
+                    "La cuenta se creó, pero no se pudo recuperar el perfil local para sincronizarlo."
+            );
+            return;
+        }
+
+        /*
+         * Primera copia del perfil en Firestore. Perfil + mascota se guardan
+         * en un único documento para reducir escrituras del plan gratuito.
+         */
+        new FirebaseProfileSyncManager().subirPerfilLocal(
+                usuarioFirebase,
+                usuarioLocal,
+                mascotaLocal,
+                new FirebaseProfileSyncManager.SyncCallback() {
+                    @Override
+                    public void onSuccess() {
+                        // Fase 2: crea también la primera copia de progreso e inventarios.
+                        new FirebaseProgressSyncManager(RegistroActivity.this).subirAhora(
+                                usuarioId,
+                                new FirebaseProgressSyncManager.SyncCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        sincronizarFase3YNavegar(email, salt, usuarioId);
+                                    }
+
+                                    @Override
+                                    public void onError(@androidx.annotation.NonNull Exception error) {
+                                        mostrarSnackbarError(
+                                                "Cuenta creada. El progreso cloud se sincronizará después."
+                                        );
+                                        iniciarSesionYNavegar(email, salt, usuarioId);
+                                    }
+                                }
+                        );
+                    }
+
+                    @Override
+                    public void onError(Exception error) {
+                        /*
+                         * La cuenta Firebase y el perfil SQLite ya existen.
+                         * No destruimos datos por un fallo temporal de red o
+                         * reglas de Firestore; se podrá reintentar después.
+                         */
+                        mostrarSnackbarError(
+                                "Cuenta creada. No se pudo sincronizar la nube en este momento."
+                        );
+                        iniciarSesionYNavegar(email, salt, usuarioId);
+                    }
+                }
         );
     }
 
+    private void sincronizarFase3YNavegar(
+            String email,
+            String salt,
+            long usuarioId
+    ) {
+        new FirebaseSecondarySyncManager(this).subirTodoLocal(
+                usuarioId,
+                new FirebaseSecondarySyncManager.SyncCallback() {
+                    @Override
+                    public void onSuccess() {
+                        iniciarSesionYNavegar(email, salt, usuarioId);
+                    }
 
-    // =========================================================
-    // CREAR MASCOTA + REGALOS
-    // =========================================================
+                    @Override
+                    public void onError(@androidx.annotation.NonNull Exception error) {
+                        mostrarSnackbarError(
+                                "Cuenta creada. Notas, desafío y Pomodoro se sincronizarán después."
+                        );
+                        iniciarSesionYNavegar(email, salt, usuarioId);
+                    }
+                }
+        );
+    }
 
     private boolean otorgarRegalosBienvenida(
             Repositorio repo,
             long usuarioId,
             String nombreUsuario
     ) {
-
-
-        // -----------------------------------------------------
-        // MASCOTA INICIAL
-        // -----------------------------------------------------
-
         Mascota mascotaInicial =
                 Mascota.crearPorDefecto(
                         usuarioId,
                         nombreUsuario
                 );
-
 
         long mascotaId =
                 repo.mascotas()
@@ -754,20 +702,9 @@ public class RegistroActivity extends AppCompatActivity {
                                 mascotaInicial
                         );
 
-
-        /*
-         * Si SQLite no pudo insertar la mascota,
-         * detenemos el registro.
-         */
         if (mascotaId <= 0) {
-
             return false;
         }
-
-
-        // -----------------------------------------------------
-        // COMIDA INICIAL
-        // -----------------------------------------------------
 
         repo.mascotas()
                 .otorgarAlimento(
@@ -776,24 +713,17 @@ public class RegistroActivity extends AppCompatActivity {
                         CANTIDAD_INICIAL_ALIMENTO
                 );
 
-
-        // -----------------------------------------------------
-        // ACCESORIO INICIAL
-        // -----------------------------------------------------
-
         repo.mascotas()
                 .otorgarAccesorio(
                         usuarioId,
                         ACCESORIO_INICIAL_ID
                 );
 
-
         return true;
     }
 
-
     // =========================================================
-    // INICIAR SESIÓN
+    // SESIÓN Y NAVEGACIÓN
     // =========================================================
 
     private void iniciarSesionYNavegar(
@@ -801,7 +731,7 @@ public class RegistroActivity extends AppCompatActivity {
             String salt,
             long usuarioId
     ) {
-
+        establecerRegistroEnProceso(false);
 
         SemiologiaApp
                 .getSesion()
@@ -811,71 +741,46 @@ public class RegistroActivity extends AppCompatActivity {
                         salt
                 );
 
-
         Intent intent =
                 new Intent(
                         this,
                         MainActivity.class
                 );
 
-
         intent.addFlags(
-
                 Intent.FLAG_ACTIVITY_NEW_TASK
-
-                        |
-
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK
-
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
         );
 
-
-        startActivity(
-                intent
-        );
-
-
+        startActivity(intent);
         finish();
     }
 
-
     // =========================================================
-    // VISTA PARA SNACKBAR
+    // SNACKBARS
     // =========================================================
 
     private View obtenerVistaAnchor() {
-
         View vista =
                 findViewById(
                         R.id.btnCrear
                 );
 
-
         if (vista == null) {
-
             vista =
                     findViewById(
                             android.R.id.content
                     );
         }
 
-
         return vista;
     }
-
-
-    // =========================================================
-    // SNACKBAR ERROR
-    // =========================================================
 
     private void mostrarSnackbarError(
             String mensaje
     ) {
-
-
         View vistaBase =
                 obtenerVistaAnchor();
-
 
         Snackbar snackbar =
                 Snackbar.make(
@@ -884,50 +789,31 @@ public class RegistroActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG
                 );
 
-
         View snackView =
                 snackbar.getView();
-
 
         snackView.setBackgroundColor(
                 Color.parseColor("#EF4444")
         );
 
-
         TextView textView =
                 snackView.findViewById(
                         com.google.android.material.R.id.snackbar_text
                 );
 
-
         if (textView != null) {
-
-            textView.setTextColor(
-                    Color.WHITE
-            );
-
-            textView.setTextSize(
-                    14
-            );
+            textView.setTextColor(Color.WHITE);
+            textView.setTextSize(14);
         }
-
 
         snackbar.show();
     }
 
-
-    // =========================================================
-    // SNACKBAR ÉXITO
-    // =========================================================
-
     private void mostrarSnackbarExito(
             String mensaje
     ) {
-
-
         View vistaBase =
                 obtenerVistaAnchor();
-
 
         Snackbar snackbar =
                 Snackbar.make(
@@ -936,33 +822,22 @@ public class RegistroActivity extends AppCompatActivity {
                         Snackbar.LENGTH_LONG
                 );
 
-
         View snackView =
                 snackbar.getView();
-
 
         snackView.setBackgroundColor(
                 Color.parseColor("#6366F1")
         );
-
 
         TextView textView =
                 snackView.findViewById(
                         com.google.android.material.R.id.snackbar_text
                 );
 
-
         if (textView != null) {
-
-            textView.setTextColor(
-                    Color.WHITE
-            );
-
-            textView.setTextSize(
-                    14
-            );
+            textView.setTextColor(Color.WHITE);
+            textView.setTextSize(14);
         }
-
 
         snackbar.show();
     }

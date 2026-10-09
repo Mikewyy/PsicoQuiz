@@ -47,7 +47,11 @@ import com.utm.semiologia.SemiologiaApp;
 import com.utm.semiologia.data.dao.DesafioDao;
 import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.data.model.Mascota;
+import com.utm.semiologia.data.model.SesionPomodoro;
 import com.utm.semiologia.data.model.Usuario;
+import com.utm.semiologia.firebase.FirebaseAuthManager;
+import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
+import com.utm.semiologia.firebase.FirebaseProfileSyncManager;
 import com.utm.semiologia.ui.auth.LoginActivity;
 import com.utm.semiologia.ui.common.BaseActivity;
 import com.utm.semiologia.ui.common.NavegacionInferior;
@@ -1529,6 +1533,26 @@ public class MainActivity extends BaseActivity
                                         "¡Enfoque completado! Comienza tu descanso.",
                                         Toast.LENGTH_LONG
                                 ).show();
+
+                                // Fase 3: cada bloque de enfoque terminado se guarda
+                                // en SQLite y PomodoroDao lo sincroniza con Firestore.
+                                long usuarioId = SemiologiaApp.getSesion().getUsuarioId();
+                                if (usuarioId > 0) {
+                                    int focoMin = pomodoroManager.getMinutosEnfoque();
+                                    SesionPomodoro sesion = SesionPomodoro.iniciar(
+                                            usuarioId,
+                                            SesionPomodoro.MODO_INDIVIDUAL,
+                                            null,
+                                            focoMin,
+                                            pomodoroManager.getMinutosDescanso()
+                                    );
+                                    sesion.setIniciadoEn(
+                                            System.currentTimeMillis() - focoMin * 60_000L
+                                    );
+                                    sesion.setCiclosCompletados(1);
+                                    sesion.finalizar();
+                                    Repositorio.get(MainActivity.this).pomodoro().insertar(sesion);
+                                }
 
                                 if (viewModel != null) {
                                     viewModel.cargar();
@@ -4475,10 +4499,16 @@ public class MainActivity extends BaseActivity
                                     .cancelar();
 
 
+                            long usuarioIdSync = SemiologiaApp.getSesion().getUsuarioId();
+                            FirebaseProgressSyncManager.forzarSubida(this, usuarioIdSync);
+                            FirebaseProfileSyncManager.forzarSubidaDesdeSQLite(this, usuarioIdSync);
+
                             SemiologiaApp
                                     .getSesion()
                                     .cerrarSesion();
 
+                            new FirebaseAuthManager()
+                                    .cerrarSesion();
 
                             irAlLogin();
                         }

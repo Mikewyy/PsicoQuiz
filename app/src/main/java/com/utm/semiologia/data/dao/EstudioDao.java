@@ -1,5 +1,8 @@
 package com.utm.semiologia.data.dao;
 
+import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
+import com.utm.semiologia.firebase.FirebaseSecondarySyncManager;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -90,11 +93,18 @@ public class EstudioDao {
                 0
         );
 
-        return db.insertOrThrow(
+        long notaId = db.insertOrThrow(
                 DatabaseHelper.T_NOTAS,
                 null,
                 cv
         );
+
+        FirebaseSecondarySyncManager.sincronizarNota(
+                helper.getAppContext(),
+                notaId
+        );
+
+        return notaId;
     }
 
 
@@ -133,6 +143,11 @@ public class EstudioDao {
                         String.valueOf(notaId)
                 }
         );
+
+        FirebaseSecondarySyncManager.sincronizarNota(
+                helper.getAppContext(),
+                notaId
+        );
     }
 
 
@@ -144,6 +159,19 @@ public class EstudioDao {
         SQLiteDatabase db =
                 helper.getWritableDatabase();
 
+        long creadaEn = -1L;
+        try (Cursor c = db.query(
+                DatabaseHelper.T_NOTAS,
+                new String[]{"creada_en"},
+                "id = ? AND usuario_id = ?",
+                new String[]{String.valueOf(notaId), String.valueOf(usuarioId)},
+                null, null, null, "1"
+        )) {
+            if (c.moveToFirst()) {
+                creadaEn = c.getLong(0);
+            }
+        }
+
         db.delete(
                 DatabaseHelper.T_NOTAS,
                 "id = ? AND usuario_id = ?",
@@ -152,6 +180,13 @@ public class EstudioDao {
                         String.valueOf(usuarioId)
                 }
         );
+
+        if (creadaEn > 0) {
+            FirebaseSecondarySyncManager.eliminarNotaCloud(
+                    helper.getAppContext(),
+                    creadaEn
+            );
+        }
     }
 
 
@@ -484,6 +519,8 @@ public class EstudioDao {
                         )
                 }
         );
+
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
     }
 
 
@@ -850,6 +887,9 @@ public class EstudioDao {
                         String.valueOf(seccionId)
                 }
         );
+
+        // Debounce: muchos eventos de scroll terminan en una sola escritura cloud.
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
     }
 
 

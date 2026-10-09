@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.utm.semiologia.data.db.DatabaseHelper;
+import com.utm.semiologia.firebase.FirebaseSecondarySyncManager;
 import com.utm.semiologia.util.FechaUtil;
 
 /**
@@ -62,6 +63,13 @@ public class DesafioDao {
         if (actualizadas == 0) {
             db.insert(DatabaseHelper.T_ACTIVIDAD, null, cv);
         }
+
+        FirebaseSecondarySyncManager.sincronizarDesafio(
+                helper.getAppContext(),
+                usuarioId,
+                fecha,
+                resultado
+        );
     }
 
     /**

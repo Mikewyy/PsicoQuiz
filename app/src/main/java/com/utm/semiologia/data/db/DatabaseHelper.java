@@ -27,7 +27,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 16;
+    public static final int DB_VERSION = 17;
     public Context getAppContext() {
         return appContext;
     }
@@ -152,6 +152,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 16) {
             migrarAV16(db);
         }
+        if (oldVersion < 17) {
+            migrarAV17(db);
+        }
+    }
+
+    // =========================================================
+    // V17 - VINCULACIÓN CON FIREBASE AUTH
+    // =========================================================
+
+    /**
+     * Vincula cada perfil SQLite con el UID estable de Firebase Authentication.
+     * El id local sigue siendo la PK interna del dispositivo; firebase_uid es
+     * la identidad portable entre dispositivos.
+     */
+    private void migrarAV17(SQLiteDatabase db) {
+        if (!existeColumna(db, T_USUARIOS, "firebase_uid")) {
+            db.execSQL(
+                    "ALTER TABLE " + T_USUARIOS +
+                            " ADD COLUMN firebase_uid TEXT DEFAULT NULL"
+            );
+        }
+
+        db.execSQL(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_usuarios_firebase_uid " +
+                        "ON " + T_USUARIOS + "(firebase_uid) " +
+                        "WHERE firebase_uid IS NOT NULL"
+        );
     }
 
     // =========================================================
@@ -461,6 +488,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "nombre_mostrado        TEXT             DEFAULT NULL," +   // alias opcional para la app
                 "avatar                 TEXT             DEFAULT 'avatar_01'," +
                 "email                  TEXT    NOT NULL UNIQUE COLLATE NOCASE," +
+                "firebase_uid           TEXT             DEFAULT NULL," +
                 "password_hash          TEXT    NOT NULL," +
                 "password_salt          TEXT    NOT NULL," +
                 "puntos                 INTEGER NOT NULL DEFAULT 0," +
@@ -474,6 +502,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")");
         db.execSQL("CREATE INDEX idx_usuarios_email ON " + T_USUARIOS + "(email)");
         db.execSQL("CREATE INDEX idx_usuarios_grupo ON " + T_USUARIOS + "(grupo_id)");
+        db.execSQL("CREATE UNIQUE INDEX idx_usuarios_firebase_uid ON " +
+                T_USUARIOS + "(firebase_uid) WHERE firebase_uid IS NOT NULL");
 
         // --------------------------------------------------------------
         // 3. SECCIONES  (catálogo de contenido de la guía de estudio)

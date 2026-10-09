@@ -1,0 +1,12 @@
+// No hace falta cambiar tus reglas si ya tienes este bloque para usuarios.
+match /usuarios/{usuarioId} {
+  allow read, create, update, delete:
+    if request.auth != null
+    && request.auth.uid == usuarioId;
+
+  match /{documento=**} {
+    allow read, create, update, delete:
+      if request.auth != null
+      && request.auth.uid == usuarioId;
+  }
+}

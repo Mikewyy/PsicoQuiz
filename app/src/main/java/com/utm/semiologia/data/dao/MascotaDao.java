@@ -1,5 +1,8 @@
 package com.utm.semiologia.data.dao;
 
+import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
+import com.utm.semiologia.firebase.FirebaseProfileSyncManager;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -51,6 +54,47 @@ public class MascotaDao {
         return db.insertOrThrow(DatabaseHelper.T_MASCOTA, null, toValues(m));
     }
 
+    /**
+     * Aplica la mascota descargada de Firestore sin volver a subirla.
+     * Mantiene el usuario_id local y hace upsert para soportar instalaciones
+     * que ya tengan (o todavía no tengan) la fila de mascota.
+     */
+    public void aplicarDesdeNube(long usuarioId, Mascota nube) {
+        if (usuarioId <= 0 || nube == null) return;
+
+        nube.setUsuarioId(usuarioId);
+        Mascota local = obtener(usuarioId);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        if (local == null) {
+            nube.setId(0L);
+            db.insertOrThrow(DatabaseHelper.T_MASCOTA, null, toValues(nube));
+            return;
+        }
+
+        ContentValues cv = new ContentValues();
+        cv.put("nombre", nube.getNombre());
+        cv.put("especie", nube.getEspecie());
+        cv.put("skin_id", nube.getSkinId());
+        cv.put("hambre", nube.getHambre());
+        cv.put("felicidad", nube.getFelicidad());
+        cv.put("energia", nube.getEnergia());
+        cv.put("estado", nube.getEstado());
+        if (nube.getAccesorioEquipadoId() == null) {
+            cv.putNull("accesorio_equipado_id");
+        } else {
+            cv.put("accesorio_equipado_id", nube.getAccesorioEquipadoId());
+        }
+        cv.put("hambre_actualizada_en", nube.getHambreActualizadaEn());
+
+        db.update(
+                DatabaseHelper.T_MASCOTA,
+                cv,
+                "usuario_id = ?",
+                new String[]{String.valueOf(usuarioId)}
+        );
+    }
+
     public void actualizarEstado(Mascota m) {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -64,6 +108,7 @@ public class MascotaDao {
         }
         db.update(DatabaseHelper.T_MASCOTA, cv, "usuario_id = ?",
                 new String[]{String.valueOf(m.getUsuarioId())});
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), m.getUsuarioId());
     }
 
     /** Gasta energía de la mascota (nunca falla; baja a 0 si no alcanza). */
@@ -91,8 +136,9 @@ public class MascotaDao {
         db.execSQL("INSERT INTO " + DatabaseHelper.T_INV_OBJETOS +
                         " (usuario_id, tipo, cantidad, obtenido_en) VALUES (?,?,?,?) " +
                         "ON CONFLICT(usuario_id, tipo) DO UPDATE SET " +
-                        "cantidad = cantidad + excluded.cantidad",
+                        "cantidad = cantidad + excluded.cantidad, obtenido_en = excluded.obtenido_en",
                 new Object[]{usuarioId, tipo, cantidad, System.currentTimeMillis()});
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
     }
 
     /** Cantidad disponible de un objeto. 0 si no tiene. */
@@ -111,6 +157,7 @@ public class MascotaDao {
         ContentValues cv = new ContentValues();
         cv.put("nombre", nuevoNombre);
         db.update(DatabaseHelper.T_MASCOTA, cv, "usuario_id = ?", new String[]{String.valueOf(usuarioId)});
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
 
     public void actualizarSkin(long usuarioId, int skinId) {
@@ -130,6 +177,7 @@ public class MascotaDao {
                 "usuario_id = ?",
                 new String[]{String.valueOf(usuarioId)}
         );
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
     public void equiparAccesorio(long usuarioId, Long accesorioId) {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -143,14 +191,16 @@ public class MascotaDao {
 
             // Sólo un accesorio equipado a la vez
             db.execSQL("UPDATE " + DatabaseHelper.T_INV_ACCESORIOS +
-                            " SET equipado = CASE WHEN accesorio_id = ? THEN 1 ELSE 0 END " +
+                            " SET equipado = CASE WHEN accesorio_id = ? THEN 1 ELSE 0 END, obtenido_en = ? " +
                             "WHERE usuario_id = ?",
-                    new Object[]{accesorioId == null ? -1L : accesorioId, usuarioId});
+                    new Object[]{accesorioId == null ? -1L : accesorioId, System.currentTimeMillis(), usuarioId});
 
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
+        FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
     }
 
     // ---- Inventario de comida ----
@@ -171,6 +221,7 @@ public class MascotaDao {
 
             ContentValues cv = new ContentValues();
             cv.put("cantidad", disponibles - 1);
+            cv.put("obtenido_en", System.currentTimeMillis());
             db.update(DatabaseHelper.T_INVENTARIO, cv,
                     "usuario_id = ? AND alimento_id = ?",
                     new String[]{String.valueOf(usuarioId), String.valueOf(alimentoId)});
@@ -185,6 +236,8 @@ public class MascotaDao {
                     new String[]{String.valueOf(usuarioId)});
 
             db.setTransactionSuccessful();
+            FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
+            FirebaseProfileSyncManager.programarSubidaDesdeSQLite(helper.getAppContext(), usuarioId);
             return true;
         } finally {
             db.endTransaction();
@@ -207,8 +260,9 @@ public class MascotaDao {
         db.execSQL("INSERT INTO " + DatabaseHelper.T_INVENTARIO +
                         " (usuario_id, alimento_id, cantidad, obtenido_en) VALUES (?,?,?,?) " +
                         "ON CONFLICT(usuario_id, alimento_id) DO UPDATE SET " +
-                        "cantidad = cantidad + excluded.cantidad",
+                        "cantidad = cantidad + excluded.cantidad, obtenido_en = excluded.obtenido_en",
                 new Object[]{usuarioId, alimentoId, cantidad, System.currentTimeMillis()});
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
     }
 
     public Cursor listarInventario(long usuarioId) {
@@ -239,6 +293,7 @@ public class MascotaDao {
         db.execSQL("INSERT OR IGNORE INTO " + DatabaseHelper.T_INV_ACCESORIOS +
                         " (usuario_id, accesorio_id, equipado, obtenido_en) VALUES (?,?,0,?)",
                 new Object[]{usuarioId, accesorioId, System.currentTimeMillis()});
+        FirebaseProgressSyncManager.programarSubida(helper.getAppContext(), usuarioId);
     }
 
     // ---- Mapeo ----
