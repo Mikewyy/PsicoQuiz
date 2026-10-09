@@ -8,6 +8,7 @@
 
 # IDE
 .idea/
+/.idea/caches/
 
 # Machine-specific: apunta al SDK de cada maquina
 local.properties
