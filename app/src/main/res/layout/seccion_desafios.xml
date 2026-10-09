@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_orange"
     android:orientation="vertical"
-    android:paddingTop="48dp"
-    android:paddingBottom="80dp">
+    android:paddingTop="38dp"
+    android:paddingBottom="100dp">
 
     <!-- 2. LA TARJETA BLANCA (Fija en la pantalla, no se mueve) -->
     <com.google.android.material.card.MaterialCardView

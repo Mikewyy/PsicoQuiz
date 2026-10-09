@@ -2,13 +2,24 @@
 <resources>
     <string name="app_name">PsicoQuiz</string>
     <string name="registro_titulo">Crear cuenta</string>
-    <string name="registro_subtitulo">Regístrate y recibe tu primera mascota</string>
+    <string name="registro_subtitulo">Regístrate y empieza esta gran aventura</string>
     <string name="btn_crear_cuenta">Crear cuenta</string>
     <string name="link_ya_tengo_cuenta">¿Ya tienes cuenta? Inicia sesión</string>
 
     <!-- Autenticación -->
     <string name="login_titulo">Bienvenido</string>
     <string name="login_subtitulo">Estudia semiología y cuida a tu mascota</string>
+    <string name="login_marca_psico">Psico</string>
+    <string name="login_marca_quiz">Quiz</string>
+    <string name="login_eslogan">Aprende, compite y potencia\ntus conocimientos</string>
+    <string name="login_form_titulo">Iniciar sesión</string>
+    <string name="login_form_subtitulo">Bienvenido de nuevo, ¿Listo para poner a prueba tus conocimientos?</string>
+    <string name="login_mascota_desc">Estudiante leyendo un libro de psicología</string>
+    <string name="registro_form_subtitulo">Completa tus datos y recibe tu primera mascota</string>
+    <string name="recordar_sesion">Recordar sesión</string>
+    <string name="olvide_contrasena">¿Olvidaste tu contraseña?</string>
+    <string name="olvide_contrasena_proximamente">La recuperación de contraseña estará disponible pronto</string>
+    <string name="btn_iniciar_sesion">Iniciar sesión →</string>
     <string name="hint_email">Correo electrónico</string>
     <string name="hint_password">Contraseña</string>
     <string name="hint_nombre">Nombre completo</string>

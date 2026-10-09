@@ -9,6 +9,9 @@ import android.content.SharedPreferences;
  * Se guarda sólo el id y el email: la contraseña nunca se persiste en claro
  * ni se relee de la base en cada arranque. Para una app real, conviene
  * migrar esto a un DataStore cifrado con EncryptedSharedPreferences.
+ *
+ * Si el usuario desmarca "Recordar sesión", la sesión solo vive en memoria:
+ * se pierde al cerrar la app pero sigue activa durante todo el proceso.
  */
 public class SesionManager {
 
@@ -19,29 +22,52 @@ public class SesionManager {
 
     private final SharedPreferences prefs;
 
+    private long sesionMemoriaId = -1L;
+    private String sesionMemoriaEmail = "";
+    private String sesionMemoriaSalt = "";
+
     public SesionManager(Context context) {
         this.prefs = context.getApplicationContext()
                 .getSharedPreferences(PREFS, Context.MODE_PRIVATE);
     }
 
+    /** Inicia sesión guardándola en memoria y en disco (comportamiento por defecto). */
     public void iniciarSesion(long usuarioId, String email, String salt) {
-        prefs.edit()
-                .putLong(K_USUARIO_ID, usuarioId)
-                .putString(K_EMAIL, email)
-                .putString(K_SALT, salt)
-                .apply();
+        iniciarSesion(usuarioId, email, salt, true);
+    }
+
+    /** Inicia sesión. Si {@code recordar} es false, no se persiste en disco. */
+    public void iniciarSesion(long usuarioId, String email, String salt,
+                              boolean recordar) {
+
+        sesionMemoriaId = usuarioId;
+        sesionMemoriaEmail = email;
+        sesionMemoriaSalt = salt;
+
+        if (recordar) {
+            prefs.edit()
+                    .putLong(K_USUARIO_ID, usuarioId)
+                    .putString(K_EMAIL, email)
+                    .putString(K_SALT, salt)
+                    .apply();
+        } else {
+            prefs.edit().clear().apply();
+        }
     }
 
     public long getUsuarioId() {
-        return prefs.getLong(K_USUARIO_ID, -1L);
+        long persistido = prefs.getLong(K_USUARIO_ID, -1L);
+        return persistido > 0 ? persistido : sesionMemoriaId;
     }
 
     public String getEmail() {
-        return prefs.getString(K_EMAIL, "");
+        String persistido = prefs.getString(K_EMAIL, "");
+        return !persistido.isEmpty() ? persistido : sesionMemoriaEmail;
     }
 
     public String getSalt() {
-        return prefs.getString(K_SALT, "");
+        String persistido = prefs.getString(K_SALT, "");
+        return !persistido.isEmpty() ? persistido : sesionMemoriaSalt;
     }
 
     public boolean haySesion() {
@@ -50,5 +76,8 @@ public class SesionManager {
 
     public void cerrarSesion() {
         prefs.edit().clear().apply();
+        sesionMemoriaId = -1L;
+        sesionMemoriaEmail = "";
+        sesionMemoriaSalt = "";
     }
 }

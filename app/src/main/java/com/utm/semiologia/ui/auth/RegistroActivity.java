@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.utm.semiologia.R;
@@ -85,6 +89,177 @@ public class RegistroActivity extends AppCompatActivity {
         enlazarVistas();
 
         setupListeners();
+
+        configurarTeclado();
+    }
+
+
+    /** Mantiene visible el campo que se escribe cuando el teclado se abre. */
+    private void configurarTeclado() {
+
+        ScrollView scroll =
+                findViewById(
+                        R.id.scrollRegistro
+                );
+
+        View contenido =
+                scroll.getChildAt(0);
+
+        final int paddingTopBase =
+                contenido.getPaddingTop();
+
+        final int paddingBottomBase =
+                contenido.getPaddingBottom();
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(
+                scroll,
+                (v, insets) -> {
+
+                    Insets ime =
+                            insets.getInsets(
+                                    WindowInsetsCompat.Type.ime()
+                            );
+
+                    Insets bars =
+                            insets.getInsets(
+                                    WindowInsetsCompat.Type.systemBars()
+                            );
+
+                    int top =
+                            paddingTopBase
+                                    + bars.top;
+
+                    int bottom =
+                            ime.bottom > 0
+                                    ? ime.bottom
+                                    : paddingBottomBase;
+
+                    contenido.setPadding(
+                            0,
+                            top,
+                            0,
+                            bottom
+                    );
+
+
+                    if (ime.bottom > 0) {
+
+                        revelarCampoEnfocado(
+                                scroll,
+                                ime.bottom
+                        );
+                    }
+
+                    return insets;
+                }
+        );
+
+
+        View.OnFocusChangeListener alEnfocar =
+                (v, hasFocus) -> {
+
+                    if (
+                            !hasFocus
+                                    ||
+                                    v.getRootWindowInsets() == null
+                    ) {
+
+                        return;
+                    }
+
+                    int ime =
+                            WindowInsetsCompat
+                                    .toWindowInsetsCompat(
+                                            v.getRootWindowInsets()
+                                    )
+                                    .getInsets(
+                                            WindowInsetsCompat.Type.ime()
+                                    )
+                                    .bottom;
+
+                    if (ime > 0) {
+
+                        revelarCampoEnfocado(
+                                scroll,
+                                ime
+                        );
+                    }
+                };
+
+
+        etNombre.setOnFocusChangeListener(
+                alEnfocar
+        );
+
+        etEmail.setOnFocusChangeListener(
+                alEnfocar
+        );
+
+        etPassword.setOnFocusChangeListener(
+                alEnfocar
+        );
+    }
+
+
+    private void revelarCampoEnfocado(
+            ScrollView scroll,
+            int alturaTeclado
+    ) {
+
+        View enfocado =
+                getCurrentFocus();
+
+        if (enfocado == null) {
+
+            return;
+        }
+
+
+        int[] pos =
+                new int[2];
+
+        enfocado.getLocationOnScreen(
+                pos
+        );
+
+        int campoAbajo =
+                pos[1]
+                        + enfocado.getHeight();
+
+
+        int[] posScroll =
+                new int[2];
+
+        scroll.getLocationOnScreen(
+                posScroll
+        );
+
+        int visibleAbajo =
+                posScroll[1]
+                        + scroll.getHeight()
+                        - alturaTeclado;
+
+
+        int margen =
+                (int) (
+                        16
+                                * getResources()
+                                .getDisplayMetrics()
+                                .density
+                );
+
+        int distancia =
+                (campoAbajo - visibleAbajo)
+                        + margen;
+
+        if (distancia > 0) {
+
+            scroll.smoothScrollBy(
+                    0,
+                    distancia
+            );
+        }
     }
 
 

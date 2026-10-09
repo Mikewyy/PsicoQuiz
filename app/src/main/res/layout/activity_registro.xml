@@ -1,162 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
-    android:fillViewport="true"
-    android:overScrollMode="never">
+    android:background="@drawable/bg_login">
 
-    <LinearLayout
+    <!-- Burbujas de decoración de fondo -->
+    <View
+        android:layout_width="195dp"
+        android:layout_height="195dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="-90dp"
+        android:layout_marginEnd="-55dp"
+        android:background="@drawable/bg_login_bubble" />
+
+    <View
+        android:layout_width="145dp"
+        android:layout_height="145dp"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="-85dp"
+        android:background="@drawable/bg_login_bubble" />
+
+    <View
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="-80dp"
+        android:layout_marginBottom="-85dp"
+        android:background="@drawable/bg_login_bubble" />
+
+    <!-- ScrollView: evita recortes en pantallas pequeñas y con el teclado abierto -->
+    <ScrollView
+        android:id="@+id/scrollRegistro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <!-- Encabezado -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="56dp"
-            android:paddingBottom="36dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="34dp">
 
-            <TextView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:background="@drawable/bg_circle"
-                android:gravity="center"
-                android:text="🐾"
-                android:textSize="44sp" />
+            <ImageView
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:contentDescription="@string/login_mascota_desc"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_registro" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/registro_titulo"
-                android:textColor="#FFFFFF"
-                android:textSize="32sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/login_marca_psico"
+                    android:textColor="#FFFFFF"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/login_marca_quiz"
+                    android:textColor="#BBCAFF"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="32dp"
-                android:alpha="0.85"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:lineSpacingExtra="1dp"
                 android:text="@string/registro_subtitulo"
                 android:textColor="#FFFFFF"
-                android:textSize="15sp" />
-        </LinearLayout>
+                android:textSize="13sp" />
 
-        <!-- Tarjeta -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_card"
-            android:minHeight="440dp"
-            android:orientation="vertical"
-            android:paddingStart="28dp"
-            android:paddingTop="36dp"
-            android:paddingEnd="28dp"
-            android:paddingBottom="24dp">
-
-            <EditText
-                android:id="@+id/etNombre"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/bg_input"
-                android:hint="@string/hint_nombre"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName|textCapWords"
-                android:maxLines="1"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:textColor="#1E1B4B"
-                android:textColorHint="#9CA3AF"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/etEmail"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_input"
-                android:hint="@string/hint_email"
-                android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:textColor="#1E1B4B"
-                android:textColorHint="#9CA3AF"
-                android:textSize="16sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="16dp">
-
-                <EditText
-                    android:id="@+id/etPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_input"
-                    android:hint="@string/hint_password"
-                    android:importantForAutofill="no"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="56dp"
-                    android:textColor="#1E1B4B"
-                    android:textColorHint="#9CA3AF"
-                    android:textSize="16sp" />
-
-                <ImageButton
-                    android:id="@+id/btnVerPassword"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="6dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/ver_contrasena"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_ojo" />
-            </FrameLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnCrear"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/bg_button"
-                android:elevation="6dp"
-                android:stateListAnimator="@null"
-                android:text="@string/btn_crear_cuenta"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/linkLogin"
+            <!-- Tarjeta del formulario -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:minHeight="48dp"
-                android:padding="8dp"
-                android:text="@string/link_ya_tengo_cuenta"
-                android:textColor="#4F46E5"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:background="@drawable/bg_login_card"
+                android:elevation="7dp"
+                android:orientation="vertical"
+                android:paddingStart="22dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="37dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/registro_titulo"
+                    android:textColor="#22204C"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/registro_form_subtitulo"
+                    android:textColor="#8982B4"
+                    android:textSize="13sp" />
+
+                <!-- Nombre -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/bg_login_field"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_login_user" />
+
+                    <EditText
+                        android:id="@+id/etNombre"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_nombre"
+                        android:importantForAutofill="no"
+                        android:inputType="textPersonName|textCapWords"
+                        android:singleLine="true"
+                        android:textColor="#22204C"
+                        android:textColorHint="#9892BF"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <!-- Correo -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_login_field"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_login_user" />
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:autofillHints="emailAddress"
+                        android:background="@null"
+                        android:hint="@string/hint_email"
+                        android:importantForAutofill="yes"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:textColor="#22204C"
+                        android:textColorHint="#9892BF"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <!-- Contraseña -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_login_field"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="12dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_login_lock" />
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:textColor="#22204C"
+                        android:textColorHint="#9892BF"
+                        android:textSize="15sp" />
+
+                    <ImageButton
+                        android:id="@+id/btnVerPassword"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/ver_contrasena"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_ojo" />
+                </LinearLayout>
+
+                <!-- Acción principal -->
+                <Button
+                    android:id="@+id/btnCrear"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_login_button"
+                    android:backgroundTint="@null"
+                    android:fontFamily="sans-serif-medium"
+                    android:stateListAnimator="@null"
+                    android:text="@string/btn_crear_cuenta"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/linkLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:minHeight="48dp"
+                    android:padding="8dp"
+                    android:text="@string/link_ya_tengo_cuenta"
+                    android:textColor="#5C40ED"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</FrameLayout>
