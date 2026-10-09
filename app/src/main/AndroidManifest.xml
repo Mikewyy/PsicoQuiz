@@ -2,8 +2,16 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- ========================================= -->
+    <!-- PERMISOS -->
+    <!-- ========================================= -->
+
+    <!-- Notificaciones Android 13+ -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Permite reprogramar alarmas al reiniciar el dispositivo -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:name=".SemiologiaApp"
@@ -14,6 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Semiologia">
 
+
+        <!-- ========================================= -->
+        <!-- MULTIJUGADOR -->
+        <!-- ========================================= -->
 
         <activity
             android:name=".ui.estudio.QuizMultijugadorActivity"
@@ -26,6 +38,8 @@
         <activity
             android:name=".ui.estudio.SalaActivity"
             android:exported="false" />
+
+
         <!-- ========================================= -->
         <!-- LOGIN -->
         <!-- ========================================= -->
@@ -35,9 +49,11 @@
             android:exported="true">
 
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
 
         </activity>
@@ -83,7 +99,6 @@
         <!-- EVALUACIÓN / JUEGO -->
         <!-- ========================================= -->
 
-
         <activity
             android:name=".ui.evaluacion.CaminoActivity"
             android:exported="false" />
@@ -96,24 +111,36 @@
             android:name=".ui.evaluacion.ResultadoActivity"
             android:exported="false" />
 
+
         <!-- ========================================= -->
-        <!-- NOTIFICACIONES DEL DESAFÍO DIARIO -->
+        <!-- NOTIFICACIÓN DEL DESAFÍO DIARIO -->
         <!-- ========================================= -->
 
         <receiver
             android:name=".receivers.AlarmaDesafioReceiver"
+            android:enabled="true"
             android:exported="false" />
+
+
+        <!-- ========================================= -->
+        <!-- REPROGRAMAR ALARMAS AL REINICIAR -->
+        <!-- ========================================= -->
 
         <receiver
             android:name=".receivers.ReinicioAlarmasReceiver"
+            android:enabled="true"
             android:exported="false">
 
             <intent-filter>
+
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
             </intent-filter>
 
         </receiver>
+
 
     </application>
 

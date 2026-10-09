@@ -6,7 +6,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.widget.SeekBar;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
-
+import com.utm.semiologia.util.NotificacionesUtil;
 import java.util.Locale;
 import android.Manifest;
 import android.content.Intent;
@@ -38,7 +38,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -57,7 +57,7 @@ import com.utm.semiologia.util.DesafioDiario;
 import com.utm.semiologia.util.FechaUtil;
 import com.utm.semiologia.util.Gamificacion;
 import com.utm.semiologia.util.HashUtil;
-import com.utm.semiologia.util.NotificacionesUtil;
+
 import com.utm.semiologia.util.PreferenciasManager;
 
 
@@ -200,22 +200,11 @@ public class MainActivity extends BaseActivity
     // =========================================================
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
 
-        if (!SemiologiaApp.getSesion().haySesion()) {
-
-            irAlLogin();
-
-            return;
-        }
-
-
-        setContentView(
-                R.layout.activity_main
-        );
 
         //Boton informacion Hambre
 
