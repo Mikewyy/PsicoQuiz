@@ -16,13 +16,11 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.button.MaterialButton;
 import com.utm.semiologia.R;
-import com.utm.semiologia.SemiologiaApp;
-import com.utm.semiologia.data.Repositorio;
-import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.firebase.SalaRepository;
 import com.utm.semiologia.firebase.model.SalaEstudio;
 import com.utm.semiologia.ui.common.BaseActivity;
 import com.utm.semiologia.ui.common.NavegacionInferior;
+import com.utm.semiologia.util.UiFeedback;
 
 import java.util.Locale;
 
@@ -221,28 +219,6 @@ public class MultijugadorActivity extends BaseActivity {
     }
 
 
-    /** Avatar visual del perfil local que se publica junto al participante. */
-    private String obtenerAvatarUsuario() {
-        try {
-            long usuarioId = SemiologiaApp.getSesion().getUsuarioId();
-            if (usuarioId <= 0) return "avatar_01";
-
-            Usuario usuario = Repositorio.get(this)
-                    .usuarios()
-                    .buscarPorId(usuarioId);
-
-            if (usuario == null) return "avatar_01";
-
-            String avatar = usuario.getAvatar();
-            if (avatar != null && avatar.trim().matches("avatar_0[1-6]")) {
-                return avatar.trim();
-            }
-        } catch (Exception ignored) {
-            // El avatar es decorativo: una falla aquí nunca debe bloquear la sala.
-        }
-        return "avatar_01";
-    }
-
     // =========================================================
     // CREAR SALA
     // =========================================================
@@ -268,9 +244,7 @@ public class MultijugadorActivity extends BaseActivity {
 
         if (nombreUsuario.isEmpty()) {
 
-            etNombreUsuario.setError(
-                    "Escribe tu nombre"
-            );
+            UiFeedback.mostrarErrorCampo(etNombreUsuario, "Escribe tu nombre");
 
 
             etNombreUsuario.requestFocus();
@@ -285,9 +259,7 @@ public class MultijugadorActivity extends BaseActivity {
 
         if (nombreSala.isEmpty()) {
 
-            etNombreSala.setError(
-                    "Escribe un nombre para la sala"
-            );
+            UiFeedback.mostrarErrorCampo(etNombreSala, "Escribe un nombre para la sala");
 
 
             etNombreSala.requestFocus();
@@ -312,7 +284,6 @@ public class MultijugadorActivity extends BaseActivity {
         salaRepository.crearSala(
                 nombreSala,
                 nombreUsuario,
-                obtenerAvatarUsuario(),
                 new SalaRepository.SalaCallback() {
 
 
@@ -393,9 +364,7 @@ public class MultijugadorActivity extends BaseActivity {
 
         if (nombreUsuario.isEmpty()) {
 
-            etNombreUsuario.setError(
-                    "Escribe tu nombre"
-            );
+            UiFeedback.mostrarErrorCampo(etNombreUsuario, "Escribe tu nombre");
 
 
             etNombreUsuario.requestFocus();
@@ -410,9 +379,7 @@ public class MultijugadorActivity extends BaseActivity {
 
         if (codigo.isEmpty()) {
 
-            etCodigoSala.setError(
-                    "Escribe el código de la sala"
-            );
+            UiFeedback.mostrarErrorCampo(etCodigoSala, "Escribe el código de la sala");
 
 
             etCodigoSala.requestFocus();
@@ -423,9 +390,7 @@ public class MultijugadorActivity extends BaseActivity {
 
         if (codigo.length() != 6) {
 
-            etCodigoSala.setError(
-                    "El código debe tener 6 caracteres"
-            );
+            UiFeedback.mostrarErrorCampo(etCodigoSala, "El código debe tener 6 caracteres");
 
 
             etCodigoSala.requestFocus();
@@ -450,7 +415,6 @@ public class MultijugadorActivity extends BaseActivity {
         salaRepository.unirseSala(
                 codigo,
                 nombreUsuario,
-                obtenerAvatarUsuario(),
                 new SalaRepository.SalaCallback() {
 
 

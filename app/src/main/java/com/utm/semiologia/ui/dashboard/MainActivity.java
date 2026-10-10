@@ -8,6 +8,7 @@ import android.widget.SeekBar;
 import android.widget.LinearLayout;
 import android.view.MotionEvent;
 import com.utm.semiologia.util.NotificacionesUtil;
+import com.utm.semiologia.util.UiFeedback;
 import java.util.Locale;
 import android.Manifest;
 import android.content.Intent;
@@ -2350,9 +2351,7 @@ public class MainActivity extends BaseActivity
 
                     if (nuevoNombre.isEmpty()) {
 
-                        inputNombre.setError(
-                                "Escribe un nombre"
-                        );
+                        UiFeedback.mostrarErrorCampo(inputNombre, "Escribe un nombre");
 
                         return;
                     }
@@ -2360,9 +2359,7 @@ public class MainActivity extends BaseActivity
 
                     if (nuevoNombre.length() > 20) {
 
-                        inputNombre.setError(
-                                "Máximo 20 caracteres"
-                        );
+                        UiFeedback.mostrarErrorCampo(inputNombre, "Máximo 20 caracteres");
 
                         return;
                     }
@@ -2935,9 +2932,7 @@ public class MainActivity extends BaseActivity
                     if (nuevoNombre.isEmpty()) {
 
 
-                        input.setError(
-                                "Escribe un nombre"
-                        );
+                        UiFeedback.mostrarErrorCampo(input, "Escribe un nombre");
 
 
                         return;
@@ -2947,9 +2942,7 @@ public class MainActivity extends BaseActivity
                     if (nuevoNombre.length() > 20) {
 
 
-                        input.setError(
-                                "Máximo 20 caracteres"
-                        );
+                        UiFeedback.mostrarErrorCampo(input, "Máximo 20 caracteres");
 
 
                         return;
@@ -3213,22 +3206,18 @@ public class MainActivity extends BaseActivity
 
                     if (nuevoNombre.isEmpty()) {
 
-                        input.setError(
-                                getString(
+                        UiFeedback.mostrarErrorCampo(input, getString(
                                         R.string.nombre_mascota_vacio
-                                )
-                        );
+                                ));
 
                         return;
                     }
 
                     if (nuevoNombre.length() > 20) {
 
-                        input.setError(
-                                getString(
+                        UiFeedback.mostrarErrorCampo(input, getString(
                                         R.string.nombre_mascota_largo
-                                )
-                        );
+                                ));
 
                         return;
                     }
@@ -4649,52 +4638,47 @@ public class MainActivity extends BaseActivity
 
     private void confirmarSalir() {
 
+        View contenido = getLayoutInflater().inflate(
+                R.layout.dialog_confirmar_cierre_sesion,
+                null,
+                false
+        );
 
-        /*
-         * Por ahora conservamos la confirmación existente.
-         * La lógica de cierre de sesión no cambia.
-         */
+        AlertDialog dialogo = new AlertDialog.Builder(this)
+                .setView(contenido)
+                .create();
 
-        new AlertDialog.Builder(
-                this
-        )
+        View btnCancelar = contenido.findViewById(R.id.btnCancelarCierreSesion);
+        View btnCerrarSesion = contenido.findViewById(R.id.btnConfirmarCierreSesion);
 
-                .setMessage(
-                        R.string.confirmar_salir
-                )
+        btnCancelar.setOnClickListener(v -> dialogo.dismiss());
 
-                .setPositiveButton(
-                        R.string.aceptar,
+        btnCerrarSesion.setOnClickListener(v -> {
+            dialogo.dismiss();
 
-                        (d, w) -> {
+            PomodoroManager
+                    .get()
+                    .cancelar();
 
+            long usuarioIdSync = SemiologiaApp.getSesion().getUsuarioId();
+            FirebaseProgressSyncManager.forzarSubida(this, usuarioIdSync);
+            FirebaseProfileSyncManager.forzarSubidaDesdeSQLite(this, usuarioIdSync);
 
-                            PomodoroManager
-                                    .get()
-                                    .cancelar();
+            SemiologiaApp
+                    .getSesion()
+                    .cerrarSesion();
 
+            new FirebaseAuthManager()
+                    .cerrarSesion();
 
-                            long usuarioIdSync = SemiologiaApp.getSesion().getUsuarioId();
-                            FirebaseProgressSyncManager.forzarSubida(this, usuarioIdSync);
-                            FirebaseProfileSyncManager.forzarSubidaDesdeSQLite(this, usuarioIdSync);
+            irAlLogin();
+        });
 
-                            SemiologiaApp
-                                    .getSesion()
-                                    .cerrarSesion();
+        dialogo.show();
 
-                            new FirebaseAuthManager()
-                                    .cerrarSesion();
-
-                            irAlLogin();
-                        }
-                )
-
-                .setNegativeButton(
-                        R.string.cancelar,
-                        null
-                )
-
-                .show();
+        if (dialogo.getWindow() != null) {
+            dialogo.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
     }
 
 

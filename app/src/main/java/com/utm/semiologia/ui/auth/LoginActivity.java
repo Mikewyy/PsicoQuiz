@@ -36,6 +36,7 @@ import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
 import com.utm.semiologia.firebase.FirebaseSecondarySyncManager;
 import com.utm.semiologia.ui.dashboard.MainActivity;
 import com.utm.semiologia.util.HashUtil;
+import com.utm.semiologia.util.UiFeedback;
 
 /**
  * Inicio de sesión de estudiantes.
@@ -518,18 +519,7 @@ public class LoginActivity extends AppCompatActivity {
                         .matches()
         ) {
 
-            Toast.makeText(
-                    this,
-                    R.string.error_email_invalido,
-                    Toast.LENGTH_SHORT
-            ).show();
-
-
-            etEmail.setError(
-                    getString(
-                            R.string.error_email_invalido
-                    )
-            );
+            UiFeedback.mostrarErrorCampo(etEmail, getString(R.string.error_email_invalido));
 
 
             return;
@@ -1004,18 +994,7 @@ public class LoginActivity extends AppCompatActivity {
                         instanceof FirebaseAuthInvalidUserException
         ) {
 
-            Toast.makeText(
-                    this,
-                    R.string.error_usuario_no_registrado,
-                    Toast.LENGTH_LONG
-            ).show();
-
-
-            etEmail.setError(
-                    getString(
-                            R.string.error_email_no_registrado
-                    )
-            );
+            UiFeedback.mostrarErrorCampo(etEmail, getString(R.string.error_email_no_registrado));
 
 
             return;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearance.Semiologia.Dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="ThemeOverlay.Semiologia.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/app_surface_elevated</item>
+        <item name="colorOnSurface">@color/app_text_primary</item>
+        <item name="colorPrimary">@color/app_primary_ui</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Semiologia.Dialog</item>
+    </style>
+
+</resources>

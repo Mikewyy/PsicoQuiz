@@ -152,7 +152,7 @@
                         android:inputType="textPersonName|textCapWords"
                         android:singleLine="true"
                         android:textColor="@color/auth_text_primary"
-                        android:textColorHint="#9892BF"
+                        android:textColorHint="@color/auth_text_hint"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -187,7 +187,7 @@
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:textColor="@color/auth_text_primary"
-                        android:textColorHint="#9892BF"
+                        android:textColorHint="@color/auth_text_hint"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -221,7 +221,7 @@
                         android:inputType="textPassword"
                         android:singleLine="true"
                         android:textColor="@color/auth_text_primary"
-                        android:textColorHint="#9892BF"
+                        android:textColorHint="@color/auth_text_hint"
                         android:textSize="15sp" />
 
                     <ImageButton

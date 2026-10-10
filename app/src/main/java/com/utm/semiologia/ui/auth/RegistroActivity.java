@@ -35,6 +35,7 @@ import com.utm.semiologia.firebase.FirebaseProgressSyncManager;
 import com.utm.semiologia.firebase.FirebaseSecondarySyncManager;
 import com.utm.semiologia.ui.dashboard.MainActivity;
 import com.utm.semiologia.util.HashUtil;
+import com.utm.semiologia.util.UiFeedback;
 
 /**
  * Registro de un estudiante nuevo.
@@ -361,9 +362,7 @@ public class RegistroActivity extends AppCompatActivity {
                 error
                         instanceof FirebaseAuthUserCollisionException
         ) {
-            etEmail.setError(
-                    "Este correo ya tiene una cuenta"
-            );
+            etEmail.setError(null);
             etEmail.requestFocus();
 
             mostrarSnackbarError(
@@ -376,9 +375,7 @@ public class RegistroActivity extends AppCompatActivity {
                 error
                         instanceof FirebaseAuthInvalidCredentialsException
         ) {
-            etEmail.setError(
-                    "Revisa el correo electrónico"
-            );
+            etEmail.setError(null);
             etEmail.requestFocus();
 
             mostrarSnackbarError(
@@ -457,25 +454,17 @@ public class RegistroActivity extends AppCompatActivity {
             String password
     ) {
         if (TextUtils.isEmpty(nombre)) {
-            etNombre.setError(
-                    "Ingresa tu nombre completo"
-            );
-            etNombre.requestFocus();
-
-            mostrarSnackbarError(
-                    getString(R.string.error_campos_vacios)
+            UiFeedback.mostrarErrorCampo(
+                    etNombre,
+                    "Ingresa tu nombre completo."
             );
             return false;
         }
 
         if (TextUtils.isEmpty(email)) {
-            etEmail.setError(
-                    "Ingresa tu correo electrónico"
-            );
-            etEmail.requestFocus();
-
-            mostrarSnackbarError(
-                    getString(R.string.error_campos_vacios)
+            UiFeedback.mostrarErrorCampo(
+                    etEmail,
+                    "Ingresa tu correo electrónico."
             );
             return false;
         }
@@ -485,12 +474,8 @@ public class RegistroActivity extends AppCompatActivity {
                         .matcher(email)
                         .matches()
         ) {
-            etEmail.setError(
-                    "Correo electrónico inválido"
-            );
-            etEmail.requestFocus();
-
-            mostrarSnackbarError(
+            UiFeedback.mostrarErrorCampo(
+                    etEmail,
                     getString(R.string.error_email_invalido)
             );
             return false;
@@ -501,15 +486,11 @@ public class RegistroActivity extends AppCompatActivity {
                         || password.length()
                         < MIN_PASSWORD_LENGTH
         ) {
-            etPassword.setError(
+            UiFeedback.mostrarErrorCampo(
+                    etPassword,
                     "La contraseña debe tener al menos "
                             + MIN_PASSWORD_LENGTH
-                            + " caracteres"
-            );
-            etPassword.requestFocus();
-
-            mostrarSnackbarError(
-                    getString(R.string.error_password_corta)
+                            + " caracteres."
             );
             return false;
         }
@@ -772,69 +753,11 @@ public class RegistroActivity extends AppCompatActivity {
         return vista;
     }
 
-    private void mostrarSnackbarError(
-            String mensaje
-    ) {
-        View vistaBase =
-                obtenerVistaAnchor();
-
-        Snackbar snackbar =
-                Snackbar.make(
-                        vistaBase,
-                        mensaje,
-                        Snackbar.LENGTH_LONG
-                );
-
-        View snackView =
-                snackbar.getView();
-
-        snackView.setBackgroundColor(
-                Color.parseColor("#EF4444")
-        );
-
-        TextView textView =
-                snackView.findViewById(
-                        com.google.android.material.R.id.snackbar_text
-                );
-
-        if (textView != null) {
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(14);
-        }
-
-        snackbar.show();
+    private void mostrarSnackbarError(String mensaje) {
+        UiFeedback.mostrarError(obtenerVistaAnchor(), mensaje);
     }
 
-    private void mostrarSnackbarExito(
-            String mensaje
-    ) {
-        View vistaBase =
-                obtenerVistaAnchor();
-
-        Snackbar snackbar =
-                Snackbar.make(
-                        vistaBase,
-                        mensaje,
-                        Snackbar.LENGTH_LONG
-                );
-
-        View snackView =
-                snackbar.getView();
-
-        snackView.setBackgroundColor(
-                Color.parseColor("#6366F1")
-        );
-
-        TextView textView =
-                snackView.findViewById(
-                        com.google.android.material.R.id.snackbar_text
-                );
-
-        if (textView != null) {
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(14);
-        }
-
-        snackbar.show();
+    private void mostrarSnackbarExito(String mensaje) {
+        UiFeedback.mostrarExito(obtenerVistaAnchor(), mensaje);
     }
 }

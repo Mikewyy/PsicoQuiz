@@ -64,4 +64,10 @@
     <color name="challenge_option_bg">#FFFFFF</color>
     <color name="challenge_option_text">#29263A</color>
     <color name="challenge_option_stroke">#6C5CE7</color>
+    <color name="feedback_error_bg">#3A202A</color>
+    <color name="feedback_on_error">#FFF4F6</color>
+    <color name="feedback_success_bg">#17382D</color>
+    <color name="feedback_on_success">#E9FFF5</color>
+    <color name="feedback_info_bg">#2B2143</color>
+    <color name="feedback_on_info">#F8F5FF</color>
 </resources>

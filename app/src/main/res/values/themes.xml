@@ -31,6 +31,8 @@
             <item name="colorSurfaceContainer">@color/app_surface_alt</item>
         <item name="colorSurfaceContainerHigh">@color/app_surface_elevated</item>
         <item name="colorOutline">@color/app_outline</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Semiologia.Dialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Semiologia.Dialog</item>
         <item name="android:navigationBarColor">@color/app_background</item>
         <item name="android:statusBarColor">@color/brand_start</item>
         <item name="android:windowLightNavigationBar">false</item>
