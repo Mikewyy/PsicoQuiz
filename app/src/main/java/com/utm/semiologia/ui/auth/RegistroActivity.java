@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -206,39 +207,34 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     private void confirmarSalida() {
-        View vistaBase = obtenerVistaAnchor();
-
-        Snackbar snackbar =
-                Snackbar.make(
-                                vistaBase,
-                                "¿Deseas salir del registro?",
-                                Snackbar.LENGTH_LONG
-                        )
-                        .setAction(
-                                "SÍ, SALIR",
-                                v -> finish()
-                        )
-                        .setActionTextColor(
-                                Color.parseColor("#FBBF24")
-                        );
-
-        View snackView = snackbar.getView();
-
-        snackView.setBackgroundColor(
-                Color.parseColor("#1E293B")
+        View contenido = getLayoutInflater().inflate(
+                R.layout.dialog_confirmar_salida_registro,
+                null,
+                false
         );
 
-        TextView textView =
-                snackView.findViewById(
-                        com.google.android.material.R.id.snackbar_text
-                );
+        AlertDialog dialogo = new AlertDialog.Builder(this)
+                .setView(contenido)
+                .create();
 
-        if (textView != null) {
-            textView.setTextColor(Color.WHITE);
-            textView.setTextSize(14);
+        if (dialogo.getWindow() != null) {
+            dialogo.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
-        snackbar.show();
+        View btnCancelar = contenido.findViewById(R.id.btnCancelarSalidaRegistro);
+        View btnSalir = contenido.findViewById(R.id.btnConfirmarSalidaRegistro);
+
+        btnCancelar.setOnClickListener(v -> dialogo.dismiss());
+        btnSalir.setOnClickListener(v -> {
+            dialogo.dismiss();
+            finish();
+        });
+
+        dialogo.show();
+
+        if (dialogo.getWindow() != null) {
+            dialogo.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
     }
 
     // =========================================================

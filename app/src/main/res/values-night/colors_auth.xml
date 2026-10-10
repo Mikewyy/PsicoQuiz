@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="auth_text_primary">#F7F4FF</color>
+    <color name="auth_text_secondary">#C8C0DE</color>
+    <color name="auth_text_hint">#9E95B7</color>
+    <color name="auth_text_on_gradient">#FAF8FF</color>
+    <color name="auth_brand_quiz">#CFC7FF</color>
+    <color name="auth_link">#C4B5FD</color>
+    <color name="auth_icon">#B9A7FF</color>
+    <color name="auth_icon_muted">#B5AEC7</color>
+</resources>

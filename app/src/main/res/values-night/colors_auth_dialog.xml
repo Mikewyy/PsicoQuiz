@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="auth_dialog_text_primary">#F7F3FF</color>
+    <color name="auth_dialog_text_secondary">#C8BEDD</color>
+    <color name="auth_dialog_cancel_text">#C7B7FF</color>
+    <color name="auth_dialog_exit_bg">#8D3045</color>
+    <color name="auth_dialog_exit_text">#FFF7FA</color>
+</resources>

@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/login_marca_psico"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/auth_text_on_gradient"
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/login_marca_quiz"
-                android:textColor="#BBCAFF"
+                android:textColor="@color/auth_brand_quiz"
                 android:textSize="26sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -87,7 +87,7 @@
             android:gravity="center"
             android:lineSpacingExtra="1dp"
             android:text="@string/login_eslogan"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/auth_text_on_gradient"
             android:textSize="13sp" />
 
         <!-- Tarjeta del formulario -->
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/login_form_titulo"
-                android:textColor="@color/app_text_primary"
+                android:textColor="@color/auth_text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/login_form_subtitulo"
-                android:textColor="@color/app_text_secondary"
+                android:textColor="@color/auth_text_secondary"
                 android:textSize="12sp" />
 
             <!-- Correo -->
@@ -137,7 +137,8 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_login_user" />
+                    android:src="@drawable/ic_login_user"
+                    android:tint="@color/auth_icon" />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -151,7 +152,7 @@
                     android:importantForAutofill="yes"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
-                    android:textColor="@color/app_text_primary"
+                    android:textColor="@color/auth_text_primary"
                     android:textColorHint="#9892BF"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -171,7 +172,8 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_login_lock" />
+                    android:src="@drawable/ic_login_lock"
+                    android:tint="@color/auth_icon" />
 
                 <EditText
                     android:id="@+id/etPassword"
@@ -184,7 +186,7 @@
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textColor="@color/app_text_primary"
+                    android:textColor="@color/auth_text_primary"
                     android:textColorHint="#9892BF"
                     android:textSize="15sp" />
 
@@ -195,7 +197,8 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/ver_contrasena"
                     android:padding="8dp"
-                    android:src="@drawable/ic_ojo_cerrado" />
+                    android:src="@drawable/ic_ojo_cerrado"
+                    android:tint="@color/auth_icon_muted" />
             </LinearLayout>
 
             <!-- Recordarme y recuperación -->
@@ -216,7 +219,7 @@
                     android:fontFamily="sans-serif"
                     android:padding="0dp"
                     android:text="@string/recordar_sesion"
-                    android:textColor="@color/app_text_secondary"
+                    android:textColor="@color/auth_text_secondary"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -233,7 +236,7 @@
                 android:stateListAnimator="@null"
                 android:text="@string/btn_iniciar_sesion"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/auth_text_on_gradient"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -251,7 +254,7 @@
             android:minHeight="40dp"
             android:padding="8dp"
             android:text="@string/link_registro"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/auth_text_on_gradient"
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
