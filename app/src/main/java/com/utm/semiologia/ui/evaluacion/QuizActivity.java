@@ -165,7 +165,10 @@ public class QuizActivity extends BaseActivity {
             feedbackContainer.setVisibility(View.VISIBLE);
             tvFeedback.setText(e.correcta ? R.string.quiz_correcto : R.string.quiz_incorrecto);
             tvFeedback.setTextColor(getColor(
-                    e.correcta ? R.color.secondary : R.color.hambre_bajo));
+                    e.correcta ? R.color.case_quiz_correct_text : R.color.case_quiz_incorrect_text));
+            feedbackContainer.setBackgroundResource(
+                    e.correcta ? R.drawable.bg_quiz_feedback_correct
+                            : R.drawable.bg_quiz_feedback_incorrect);
             String just = e.justificacion;
             if (just != null && !just.trim().isEmpty()) {
                 tvJustificacion.setVisibility(View.VISIBLE);
@@ -176,6 +179,7 @@ public class QuizActivity extends BaseActivity {
             btnAccion.setText(e.esUltima() ? R.string.quiz_terminar : R.string.quiz_continuar);
         } else {
             feedbackContainer.setVisibility(View.GONE);
+            feedbackContainer.setBackgroundResource(R.drawable.bg_quiz_feedback_neutral);
             btnAccion.setText(R.string.quiz_comprobar);
         }
     }
@@ -200,6 +204,9 @@ public class QuizActivity extends BaseActivity {
         for (Opcion o : e.opciones) {
             RadioButton rb = new RadioButton(this);
             rb.setText(o.getTexto());
+            rb.setTextColor(getColor(R.color.case_quiz_text_primary));
+            rb.setButtonTintList(getColorStateList(R.color.quiz_radio_tint));
+            rb.setPadding(0, 8, 0, 8);
             rb.setTag(o.getId());
             rb.setEnabled(!e.respondida);
             if (opcionSeleccionada != null && o.getId() == opcionSeleccionada) {
@@ -207,9 +214,9 @@ public class QuizActivity extends BaseActivity {
             }
             if (e.respondida) {
                 if (o.isCorrecta()) {
-                    rb.setTextColor(getColor(R.color.secondary));
+                    rb.setTextColor(getColor(R.color.case_quiz_correct_text));
                 } else if (opcionSeleccionada != null && o.getId() == opcionSeleccionada) {
-                    rb.setTextColor(getColor(R.color.hambre_bajo));
+                    rb.setTextColor(getColor(R.color.case_quiz_incorrect_text));
                 }
             }
             rb.setOnClickListener(v -> opcionSeleccionada = (Long) v.getTag());

@@ -90,7 +90,7 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="14dp"
                     android:paddingBottom="5dp"
-                    android:textColor="@color/app_primary_ui"
+                    android:textColor="@color/case_quiz_accent"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:lineSpacingExtra="4dp"
-                    android:textColor="@color/app_text_primary"
+                    android:textColor="@color/case_quiz_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/app_text_secondary"
+                    android:textColor="@color/case_quiz_text_secondary"
                     android:textSize="14sp"
                     android:textStyle="italic"
                     android:visibility="gone" />
@@ -126,15 +126,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_input"
+                    android:background="@drawable/bg_quiz_input_theme"
                     android:hint="@string/quiz_respuesta_hint"
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
-                    android:textColor="@color/app_text_primary"
-                    android:textColorHint="#9CA3AF"
+                    android:textColor="@color/case_quiz_text_primary"
+                    android:textColorHint="@color/case_quiz_text_hint"
                     android:textSize="16sp"
                     android:visibility="gone" />
 
@@ -143,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_pill"
+                    android:background="@drawable/bg_quiz_feedback_neutral"
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:visibility="gone">
@@ -161,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:lineSpacingExtra="2dp"
-                        android:textColor="@color/app_text_primary"
+                        android:textColor="@color/case_quiz_text_secondary"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>

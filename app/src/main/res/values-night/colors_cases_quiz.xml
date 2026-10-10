@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="case_quiz_text_primary">#F6F2FF</color>
+    <color name="case_quiz_text_secondary">#CEC5E7</color>
+    <color name="case_quiz_text_hint">#9E93BC</color>
+    <color name="case_quiz_accent">#A995FF</color>
+    <color name="case_quiz_input_bg">#25203A</color>
+    <color name="case_quiz_input_stroke">#665A8F</color>
+    <color name="case_quiz_feedback_bg">#242038</color>
+    <color name="case_quiz_feedback_stroke">#4F456B</color>
+    <color name="case_quiz_correct_bg">#16372F</color>
+    <color name="case_quiz_correct_stroke">#3F8F73</color>
+    <color name="case_quiz_correct_text">#8BE0BB</color>
+    <color name="case_quiz_incorrect_bg">#40232E</color>
+    <color name="case_quiz_incorrect_stroke">#9C4F68</color>
+    <color name="case_quiz_incorrect_text">#FF9DBA</color>
+</resources>
