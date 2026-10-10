@@ -16,6 +16,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.button.MaterialButton;
 import com.utm.semiologia.R;
+import com.utm.semiologia.SemiologiaApp;
+import com.utm.semiologia.data.Repositorio;
+import com.utm.semiologia.data.model.Usuario;
 import com.utm.semiologia.firebase.SalaRepository;
 import com.utm.semiologia.firebase.model.SalaEstudio;
 import com.utm.semiologia.ui.common.BaseActivity;
@@ -218,6 +221,28 @@ public class MultijugadorActivity extends BaseActivity {
     }
 
 
+    /** Avatar visual del perfil local que se publica junto al participante. */
+    private String obtenerAvatarUsuario() {
+        try {
+            long usuarioId = SemiologiaApp.getSesion().getUsuarioId();
+            if (usuarioId <= 0) return "avatar_01";
+
+            Usuario usuario = Repositorio.get(this)
+                    .usuarios()
+                    .buscarPorId(usuarioId);
+
+            if (usuario == null) return "avatar_01";
+
+            String avatar = usuario.getAvatar();
+            if (avatar != null && avatar.trim().matches("avatar_0[1-6]")) {
+                return avatar.trim();
+            }
+        } catch (Exception ignored) {
+            // El avatar es decorativo: una falla aquí nunca debe bloquear la sala.
+        }
+        return "avatar_01";
+    }
+
     // =========================================================
     // CREAR SALA
     // =========================================================
@@ -287,6 +312,7 @@ public class MultijugadorActivity extends BaseActivity {
         salaRepository.crearSala(
                 nombreSala,
                 nombreUsuario,
+                obtenerAvatarUsuario(),
                 new SalaRepository.SalaCallback() {
 
 
@@ -424,6 +450,7 @@ public class MultijugadorActivity extends BaseActivity {
         salaRepository.unirseSala(
                 codigo,
                 nombreUsuario,
+                obtenerAvatarUsuario(),
                 new SalaRepository.SalaCallback() {
 
 

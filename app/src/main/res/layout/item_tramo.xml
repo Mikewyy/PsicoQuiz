@@ -16,7 +16,7 @@
         android:id="@+id/ivConector"
         android:layout_width="4dp"
         android:layout_height="26dp"
-        android:background="#B8AEF6"
+        android:background="@color/app_primary_ui"
         android:contentDescription="@null" />
 
     <!-- NODO -->
@@ -24,10 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/app_surface_elevated"
+        app:cardCornerRadius="24dp"
         app:cardElevation="3dp"
-        app:strokeColor="#DDD7F7"
+        app:strokeColor="@color/app_outline"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="2"
                         android:text="Nivel 1"
-                        android:textColor="#201C33"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                         android:layout_marginTop="3dp"
                         android:maxLines="2"
                         android:text="Tema"
-                        android:textColor="#6B6678"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -93,7 +93,7 @@
                 android:layout_marginTop="12dp"
                 android:maxLines="3"
                 android:text="Contenido"
-                android:textColor="#3A3548"
+                android:textColor="@color/app_text_primary"
                 android:textSize="13sp" />
 
             <!-- ESTADO -->
@@ -102,13 +102,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="#EEEAFE"
+                android:background="@drawable/bg_status_chip"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 android:text="Disponible"
-                android:textColor="#5B4FE9"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
@@ -126,15 +126,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="☆☆☆"
-                    android:textColor="#6C5CE7"
+                    android:textColor="@color/app_primary_ui"
                     android:textSize="18sp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnTramo"
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:backgroundTint="#6C5CE7"
+                    android:background="@drawable/bg_tramo_button"
                     android:minWidth="96dp"
+                    android:stateListAnimator="@null"
                     android:text="Empezar"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"

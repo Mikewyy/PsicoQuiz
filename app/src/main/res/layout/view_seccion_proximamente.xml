@@ -35,7 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#211D3B"
+                android:textColor="@color/app_text_primary"
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
                 android:id="@+id/tvProxEtiqueta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#8B88A8"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
         </LinearLayout>
@@ -54,10 +54,10 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="18dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/app_surface_elevated"
             app:cardCornerRadius="24dp"
             app:cardElevation="2dp"
-            app:strokeColor="#EEEAF8"
+            app:strokeColor="@color/app_outline"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -86,7 +86,7 @@
                         android:id="@+id/tvProxMensaje"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#77738F"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="11sp" />
 
                     <TextView
@@ -99,7 +99,7 @@
                         android:paddingTop="5dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="5dp"
-                        android:textColor="#6C5CE7"
+                        android:textColor="@color/app_primary_ui"
                         android:textSize="11sp"
                         android:textStyle="bold" />
 

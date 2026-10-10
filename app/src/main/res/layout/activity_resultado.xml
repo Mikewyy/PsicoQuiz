@@ -64,7 +64,7 @@
                 android:id="@+id/tvPorcentaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#4F46E5"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="64sp"
                 android:textStyle="bold"
                 tools:text="87%" />
@@ -73,7 +73,7 @@
                 android:id="@+id/tvAciertos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#6B7280"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="16sp"
                 tools:text="13 de 15 correctas" />
 
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:textColor="#4F46E5"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone"
@@ -149,7 +149,7 @@
                 android:layout_marginTop="12dp"
                 android:text="@string/resultado_volver"
                 android:textAllCaps="false"
-                android:textColor="#4F46E5"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 app:cornerRadius="29dp"

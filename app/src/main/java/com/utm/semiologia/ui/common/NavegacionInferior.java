@@ -112,16 +112,16 @@ public final class NavegacionInferior {
 
         aplicarPaddingSistema(barra);
 
-        final int[] seleccionActual = {
-                Math.max(SECCION_INICIO,
-                        Math.min(SECCION_AYUDA, seccionActual))
-        };
+        int seleccionInicial = Math.max(
+                SECCION_INICIO,
+                Math.min(SECCION_AYUDA, seccionActual)
+        );
 
         actualizarSeleccion(
                 botones,
                 iconos,
                 textos,
-                seleccionActual[0]
+                seleccionInicial
         );
 
         for (int i = 0; i < botones.length; i++) {
@@ -134,11 +134,16 @@ public final class NavegacionInferior {
 
             botones[i].setOnClickListener(v -> {
 
-                if (seleccionActual[0] == seccion) {
+                /*
+                 * No mantenemos una segunda variable con la pestaña activa.
+                 * irASeccion()/actualizarSeccion() pueden cambiarla desde
+                 * onBackPressed, onNewIntent o al recrear la Activity por el
+                 * tema. El estado seleccionado de la propia vista es la fuente
+                 * de verdad y evita que un toque quede ignorado.
+                 */
+                if (v.isSelected()) {
                     return;
                 }
-
-                seleccionActual[0] = seccion;
 
                 actualizarSeleccion(
                         botones,

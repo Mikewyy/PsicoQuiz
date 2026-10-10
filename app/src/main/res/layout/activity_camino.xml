@@ -100,10 +100,10 @@
             android:layout_marginEnd="14dp"
             android:layout_marginBottom="14dp"
             android:layout_weight="1"
-            app:cardBackgroundColor="#F9F8FE"
+            app:cardBackgroundColor="@color/app_surface_elevated"
             app:cardCornerRadius="28dp"
             app:cardElevation="3dp"
-            app:strokeColor="#EEEAF8"
+            app:strokeColor="@color/app_outline"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Elige tu camino"
-                        android:textColor="#211D3B"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Completa los niveles en orden para desbloquear los siguientes."
-                        android:textColor="#77738A"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -147,34 +147,36 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="20dp"
-                    android:background="#ECE9FA"
+                    android:background="@drawable/bg_segmented_control"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="5dp">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnCaminoSintomas"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginEnd="3dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#6C5CE7"
+                        android:background="@drawable/bg_segment_selected"
+                        android:stateListAnimator="@null"
                         android:text="Síntomas"
                         android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/on_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnCaminoSindromes"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="3dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#ECE9FA"
+                        android:background="@drawable/bg_segment_unselected"
+                        android:stateListAnimator="@null"
                         android:text="Síndromes"
                         android:textAllCaps="false"
-                        android:textColor="#665F7A"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -197,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Niveles"
-                        android:textColor="#211D3B"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -205,7 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Progreso por camino"
-                        android:textColor="#8B86A0"
+                        android:textColor="@color/app_text_muted"
                         android:textSize="11sp" />
 
                 </LinearLayout>

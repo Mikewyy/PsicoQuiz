@@ -1,6 +1,7 @@
 package com.utm.semiologia.ui.dashboard;
 import com.utm.semiologia.ui.pomodoro.PomodoroManager;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.SeekBar;
@@ -38,6 +39,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -161,6 +163,14 @@ public class MainActivity extends BaseActivity
     private static final String ESTADO_POMODORO_X =
             "pomodoro_x_pestana";
 
+    private static final String ESTADO_POMODORO_MINIMIZADO =
+            "pomodoro_minimizado";
+
+    private static final String PREF_UI_TEMP =
+            "psicoquiz_ui_temp";
+
+    private static final String PREF_RESTAURAR_POMODORO_TEMA =
+            "restaurar_pomodoro_tema";
 
     // =========================================================
     // SECCIONES DE LA BARRA INFERIOR
@@ -269,6 +279,7 @@ public class MainActivity extends BaseActivity
 
         enlazarVistas();
         configurarPomodoro();
+        restaurarPomodoroTrasCambioTema();
         configurarListeners();
         configurarAyudaInteractiva();
 
@@ -799,15 +810,15 @@ public class MainActivity extends BaseActivity
             btn.setAlpha(1f);
             btn.setBackgroundTintList(
                     android.content.res.ColorStateList.valueOf(
-                            android.graphics.Color.WHITE
+                            androidx.core.content.ContextCompat.getColor(this, R.color.challenge_option_bg)
                     )
             );
             btn.setTextColor(
-                    android.graphics.Color.parseColor("#211D3B")
+                    androidx.core.content.ContextCompat.getColor(this, R.color.challenge_option_text)
             );
             btn.setStrokeColor(
                     android.content.res.ColorStateList.valueOf(
-                            android.graphics.Color.parseColor("#6C5CE7")
+                            androidx.core.content.ContextCompat.getColor(this, R.color.challenge_option_stroke)
                     )
             );
         }
@@ -914,7 +925,7 @@ public class MainActivity extends BaseActivity
                 );
                 btnsDesafio[i].setTextColor(android.graphics.Color.WHITE);
             } else {
-                btnsDesafio[i].setAlpha(0.35f);
+                btnsDesafio[i].setAlpha(0.62f);
             }
         }
 
@@ -1058,6 +1069,11 @@ public class MainActivity extends BaseActivity
                 ESTADO_SECCION,
                 seccionActual
         );
+
+        outState.putBoolean(
+                ESTADO_POMODORO_MINIMIZADO,
+                pomodoroMinimizado
+        );
     }
 
 
@@ -1090,6 +1106,13 @@ public class MainActivity extends BaseActivity
 
         pestanaPomodoro.setX(
                 state.getFloat(ESTADO_POMODORO_X, xAncladoPestana())
+        );
+
+        final boolean minimizado =
+                state.getBoolean(ESTADO_POMODORO_MINIMIZADO, true);
+
+        pestanaPomodoro.post(() ->
+                aplicarEstadoVisualPomodoroSinAnimacion(minimizado)
         );
     }
 
@@ -3303,6 +3326,16 @@ public class MainActivity extends BaseActivity
                 v -> mostrarCambiarContrasena()
         );
 
+        final TextView tvTemaValor =
+                vista.findViewById(R.id.tvConfigTemaValor);
+
+        tvTemaValor.setText(
+                PreferenciasManager.nombreTema(this)
+        );
+
+        vista.findViewById(R.id.filaConfigTema)
+                .setOnClickListener(v -> mostrarSelectorTema());
+
         final SwitchMaterial sw =
                 vista.findViewById(
                         R.id.swConfigNotificaciones
@@ -3323,6 +3356,148 @@ public class MainActivity extends BaseActivity
         );
 
         dialog.show();
+    }
+
+    private void mostrarSelectorTema() {
+
+        final String[] opciones = {
+                "Usar configuración del sistema",
+                "Claro",
+                "Oscuro"
+        };
+
+        int seleccionado = PreferenciasManager.temaApp(this);
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Apariencia")
+                .setSingleChoiceItems(
+                        opciones,
+                        seleccionado,
+                        (dialog, which) -> {
+                            guardarPomodoroAntesCambioTema();
+                            PreferenciasManager.setTemaApp(this, which);
+                            dialog.dismiss();
+                            AppCompatDelegate.setDefaultNightMode(
+                                    PreferenciasManager.modoNocheAppCompat(this)
+                            );
+                        }
+                )
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+
+    /**
+     * Guarda solamente el estado visual necesario para sobrevivir a la
+     * recreación de Activity que provoca AppCompatDelegate al cambiar tema.
+     * El temporizador real continúa viviendo en PomodoroManager.
+     */
+    private void guardarPomodoroAntesCambioTema() {
+
+        if (panelPomodoro == null || pestanaPomodoro == null) {
+            return;
+        }
+
+        getSharedPreferences(PREF_UI_TEMP, MODE_PRIVATE)
+                .edit()
+                .putBoolean(PREF_RESTAURAR_POMODORO_TEMA, true)
+                .putBoolean(ESTADO_POMODORO_MINIMIZADO, pomodoroMinimizado)
+                .putBoolean(ESTADO_POMODORO_IZQUIERDA, pomodoroEnBordeIzquierdo)
+                .putFloat(ESTADO_POMODORO_X, pestanaPomodoro.getX())
+                .putInt(ESTADO_SECCION, seccionActual)
+                .apply();
+    }
+
+
+    /**
+     * Restaura el Pomodoro después de cambiar Claro/Oscuro/Sistema.
+     * Se consume una sola vez para que un arranque normal de la app conserve
+     * el comportamiento habitual de iniciar minimizado.
+     */
+    private void restaurarPomodoroTrasCambioTema() {
+
+        final android.content.SharedPreferences prefs =
+                getSharedPreferences(PREF_UI_TEMP, MODE_PRIVATE);
+
+        if (!prefs.getBoolean(PREF_RESTAURAR_POMODORO_TEMA, false)) {
+            return;
+        }
+
+        final boolean minimizado =
+                prefs.getBoolean(ESTADO_POMODORO_MINIMIZADO, true);
+
+        final boolean izquierda =
+                prefs.getBoolean(ESTADO_POMODORO_IZQUIERDA, false);
+
+        final float xAnterior =
+                prefs.getFloat(ESTADO_POMODORO_X, Float.NaN);
+
+        final int seccionAnterior =
+                prefs.getInt(ESTADO_SECCION, seccionActual);
+
+        prefs.edit()
+                .putBoolean(PREF_RESTAURAR_POMODORO_TEMA, false)
+                .apply();
+
+        if (seccionAnterior != seccionActual) {
+            seccionActual = seccionAnterior;
+        }
+
+        pestanaPomodoro.post(() -> {
+
+            aplicarLadoPomodoro(izquierda);
+            aplicarFormaBordePestana(izquierda);
+
+            if (!Float.isNaN(xAnterior)) {
+                View padre = (View) pestanaPomodoro.getParent();
+                float maxX = Math.max(0f,
+                        padre.getWidth() - pestanaPomodoro.getWidth());
+                pestanaPomodoro.setX(
+                        Math.max(0f, Math.min(xAnterior, maxX))
+                );
+            } else {
+                pestanaPomodoro.setX(xAncladoPestana());
+            }
+
+            aplicarEstadoVisualPomodoroSinAnimacion(minimizado);
+            actualizarPomodoroUI();
+        });
+    }
+
+
+    /**
+     * Cambia panel/pestaña sin animación. Se usa exclusivamente al recrear la
+     * Activity para evitar que el Pomodoro parpadee o desaparezca al cambiar
+     * el tema.
+     */
+    private void aplicarEstadoVisualPomodoroSinAnimacion(boolean minimizado) {
+
+        if (panelPomodoro == null || pestanaPomodoro == null) {
+            return;
+        }
+
+        panelPomodoro.animate().cancel();
+        pestanaPomodoro.animate().cancel();
+
+        pomodoroMinimizado = minimizado;
+
+        if (minimizado) {
+            panelPomodoro.setVisibility(View.GONE);
+            panelPomodoro.setAlpha(1f);
+            panelPomodoro.setTranslationX(0f);
+
+            pestanaPomodoro.setVisibility(View.VISIBLE);
+            pestanaPomodoro.setAlpha(1f);
+            pestanaPomodoro.setScaleX(1f);
+            pestanaPomodoro.setScaleY(1f);
+        } else {
+            pestanaPomodoro.setVisibility(View.GONE);
+            pestanaPomodoro.setAlpha(1f);
+
+            panelPomodoro.setVisibility(View.VISIBLE);
+            panelPomodoro.setAlpha(1f);
+            panelPomodoro.setTranslationX(0f);
+        }
     }
 
 

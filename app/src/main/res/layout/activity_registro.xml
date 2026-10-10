@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/registro_titulo"
-                    android:textColor="#22204C"
+                    android:textColor="@color/app_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="@string/registro_form_subtitulo"
-                    android:textColor="#8982B4"
+                    android:textColor="@color/app_text_secondary"
                     android:textSize="13sp" />
 
                 <!-- Nombre -->
@@ -150,7 +150,7 @@
                         android:importantForAutofill="no"
                         android:inputType="textPersonName|textCapWords"
                         android:singleLine="true"
-                        android:textColor="#22204C"
+                        android:textColor="@color/app_text_primary"
                         android:textColorHint="#9892BF"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -184,7 +184,7 @@
                         android:importantForAutofill="yes"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
-                        android:textColor="#22204C"
+                        android:textColor="@color/app_text_primary"
                         android:textColorHint="#9892BF"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -217,7 +217,7 @@
                         android:importantForAutofill="no"
                         android:inputType="textPassword"
                         android:singleLine="true"
-                        android:textColor="#22204C"
+                        android:textColor="@color/app_text_primary"
                         android:textColorHint="#9892BF"
                         android:textSize="15sp" />
 

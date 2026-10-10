@@ -6,7 +6,7 @@
     android:id="@+id/scrollLector"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F3FF"
+    android:background="@color/app_background"
     android:fillViewport="true">
 
     <LinearLayout
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp">
 
@@ -115,7 +115,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3 min de estudio"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -125,7 +125,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="Lectura en progreso"
-                                android:textColor="#777386"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="12sp" />
 
                         </LinearLayout>
@@ -135,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0%"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -161,7 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:cardBackgroundColor="#F4F2FF"
+                        app:cardBackgroundColor="@color/app_surface_lavender"
                         app:cardCornerRadius="16dp"
                         app:cardElevation="0dp">
 
@@ -190,7 +190,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="TIEMPO DE ESTUDIO"
-                                    android:textColor="#777386"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="10sp"
                                     android:textStyle="bold" />
 
@@ -200,7 +200,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="03:00"
-                                    android:textColor="#6C5CE7"
+                                    android:textColor="@color/app_primary_ui"
                                     android:textSize="25sp"
                                     android:textStyle="bold" />
 
@@ -216,7 +216,7 @@
                                 android:paddingEnd="10dp"
                                 android:paddingBottom="6dp"
                                 android:text="Estudiando"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="11sp"
                                 android:textStyle="bold" />
 
@@ -251,7 +251,7 @@
                 android:paddingEnd="12dp"
                 android:paddingBottom="7dp"
                 android:text="MATERIAL DE ESTUDIO"
-                android:textColor="#6C5CE7"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
@@ -262,10 +262,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="22dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E8E5F2"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -281,7 +281,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Contenido del tema"
-                        android:textColor="#29263A"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -299,7 +299,7 @@
                         android:fontFamily="sans"
                         android:lineSpacingExtra="5dp"
                         android:text="El contenido del tema aparecerá aquí."
-                        android:textColor="#3C3949"
+                        android:textColor="@color/app_text_primary"
                         android:textIsSelectable="true"
                         android:textSize="16sp" />
 
@@ -314,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#EEEAFE"
+                app:cardBackgroundColor="@color/app_surface_alt"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp">
 
@@ -343,7 +343,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Recompensa de estudio"
-                            android:textColor="#423A78"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
@@ -352,7 +352,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Completa los 3 minutos y llega al final de la lectura para conseguir comida para tu mascota."
-                            android:textColor="#6C648E"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -385,7 +385,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="Tu progreso se guarda automáticamente."
-                android:textColor="#8A8697"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
         </LinearLayout>

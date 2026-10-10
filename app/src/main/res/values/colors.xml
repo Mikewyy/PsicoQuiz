@@ -43,4 +43,25 @@
     <color name="pet_dark">#F59E0B</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <!-- Colores semánticos para modo claro/oscuro -->
+    <color name="app_background">#F4F3FF</color>
+    <color name="app_surface">#FFFFFF</color>
+    <color name="app_surface_alt">#FAF9FD</color>
+    <color name="app_text_primary">#29263A</color>
+    <color name="app_text_secondary">#777386</color>
+    <color name="app_text_muted">#8B88A8</color>
+    <color name="app_outline">#E9E6F4</color>
+    <color name="app_primary_ui">#6C5CE7</color>
+    <color name="app_primary_soft">#EEEAFE</color>
+    <color name="app_surface_elevated">#FFFFFF</color>
+    <color name="app_scrim">#66000000</color>
+    <color name="app_surface_lavender">#F4F2FF</color>
+    <color name="app_surface_orange">#FFF1E7</color>
+    <color name="app_surface_blue">#EAF5FF</color>
+    <color name="app_surface_green">#EAF8F1</color>
+    <color name="guide_header_background">#6C5CE7</color>
+    <color name="challenge_option_bg">#FFFFFF</color>
+    <color name="challenge_option_text">#29263A</color>
+    <color name="challenge_option_stroke">#6C5CE7</color>
 </resources>

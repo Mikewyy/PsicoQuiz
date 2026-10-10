@@ -15,10 +15,10 @@
         android:layout_height="0dp"
         android:layout_margin="18dp"
         android:layout_weight="1"
-        app:cardBackgroundColor="#FFFFFF"
+        app:cardBackgroundColor="@color/app_surface_elevated"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
-        app:strokeColor="#EEEAF8"
+        app:strokeColor="@color/app_outline"
         app:strokeWidth="1dp">
 
         <!-- 3. EL SCROLL (Solo mueve lo de adentro) -->
@@ -61,7 +61,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/desafio_titulo_carta"
-                            android:textColor="#211D3B"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:lineSpacingExtra="3dp"
-                    android:textColor="#211D3B"
+                    android:textColor="@color/app_text_primary"
                     android:textSize="15sp" />
 
                 <!-- OPCIONES A / B / C -->
@@ -95,11 +95,11 @@
                     android:gravity="start|center_vertical"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
-                    android:textColor="#211D3B"
+                    android:textColor="@color/challenge_option_text"
                     android:textSize="14sp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/challenge_option_bg"
                     app:cornerRadius="14dp"
-                    app:strokeColor="#6C5CE7"
+                    app:strokeColor="@color/challenge_option_stroke"
                     app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -110,11 +110,11 @@
                     android:gravity="start|center_vertical"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
-                    android:textColor="#211D3B"
+                    android:textColor="@color/challenge_option_text"
                     android:textSize="14sp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/challenge_option_bg"
                     app:cornerRadius="14dp"
-                    app:strokeColor="#6C5CE7"
+                    app:strokeColor="@color/challenge_option_stroke"
                     app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -125,11 +125,11 @@
                     android:gravity="start|center_vertical"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
-                    android:textColor="#211D3B"
+                    android:textColor="@color/challenge_option_text"
                     android:textSize="14sp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/challenge_option_bg"
                     app:cornerRadius="14dp"
-                    app:strokeColor="#6C5CE7"
+                    app:strokeColor="@color/challenge_option_stroke"
                     app:strokeWidth="1dp" />
 
                 <!-- RESULTADO (se muestra al responder o si ya jugó hoy) -->
@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="2dp"
-                        android:textColor="#77738F"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="13sp" />
 
                     <TextView
@@ -162,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textColor="#211D3B"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="2dp"
-                        android:textColor="#77738F"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="13sp" />
 
                     <TextView
@@ -185,7 +185,7 @@
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:textColor="#6C5CE7"
+                        android:textColor="@color/app_primary_ui"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -195,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="@string/desafio_vuelve"
-                        android:textColor="#8B88A8"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="12sp" />
 
                 </LinearLayout>

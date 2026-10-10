@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:text="Elige tu avatar"
-        android:textColor="#211D3B"
+        android:textColor="@color/app_text_primary"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Escoge la imagen que te representará en PsicoQuiz."
-        android:textColor="#8B88A8"
+        android:textColor="@color/app_text_secondary"
         android:textSize="12sp" />
 
     <GridLayout
@@ -52,7 +52,7 @@
         android:stateListAnimator="@null"
         android:text="Cerrar"
         android:textAllCaps="false"
-        android:textColor="#5B4FE9"
+        android:textColor="@color/app_primary_ui"
         android:textSize="14sp"
         android:textStyle="bold" />
 

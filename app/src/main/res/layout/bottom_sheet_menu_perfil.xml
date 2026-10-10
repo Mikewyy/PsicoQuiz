@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Personalización"
-        android:textColor="#211D3B"
+        android:textColor="@color/app_text_primary"
         android:textSize="21sp"
         android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="20dp"
         android:text="Administra tu perfil y tu compañero"
-        android:textColor="#8B88A8"
+        android:textColor="@color/app_text_secondary"
         android:textSize="12sp" />
 
     <!-- EDITAR PERFIL -->
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Editar perfil"
-                android:textColor="#2D2942"
+                android:textColor="@color/app_text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Cambia tu avatar y tu nombre"
-                android:textColor="#918DA4"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
         </LinearLayout>
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="›"
-            android:textColor="#AAA6B9"
+            android:textColor="@color/app_text_secondary"
             android:textSize="28sp" />
 
     </LinearLayout>
@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Personalizar mascota"
-                android:textColor="#2D2942"
+                android:textColor="@color/app_text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Elige su apariencia"
-                android:textColor="#918DA4"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
         </LinearLayout>
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="›"
-            android:textColor="#AAA6B9"
+            android:textColor="@color/app_text_secondary"
             android:textSize="28sp" />
 
     </LinearLayout>
@@ -182,8 +182,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Configuracion"
-                android:textColor="#2D2942"
+                android:text="Configuración"
+                android:textColor="@color/app_text_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -191,8 +191,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Configuracion general de la aplicacion"
-                android:textColor="#918DA4"
+                android:text="Configuración general de la aplicación"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
         </LinearLayout>
@@ -201,7 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="›"
-            android:textColor="#AAA6B9"
+            android:textColor="@color/app_text_secondary"
             android:textSize="28sp" />
 
     </LinearLayout>
@@ -211,7 +211,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="9dp"
-        android:background="#EEEAF5" />
+        android:background="@color/app_outline" />
 
     <!-- CERRAR SESIÓN -->
 
@@ -233,7 +233,7 @@
             android:background="@drawable/bg_menu_icon_red"
             android:gravity="center"
             android:text="↪"
-            android:textColor="#EF4444"
+            android:textColor="#FF7A8D"
             android:textSize="21sp"
             android:textStyle="bold" />
 
@@ -243,7 +243,7 @@
             android:layout_marginStart="14dp"
             android:layout_weight="1"
             android:text="Cerrar sesión"
-            android:textColor="#DC3F4F"
+            android:textColor="#FF8A9B"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -251,7 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="›"
-            android:textColor="#EBA0A8"
+            android:textColor="#C98795"
             android:textSize="28sp" />
 
     </LinearLayout>

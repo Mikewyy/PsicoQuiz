@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F3FF"
+    android:background="@color/mp_background"
     android:fillViewport="true">
 
     <LinearLayout
@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#6C5CE7"
+            android:background="@drawable/bg_multiplayer_entry_header"
             android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingTop="28dp"
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/mp_surface"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp">
 
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="CÓDIGO DE SALA"
-                        android:textColor="#777386"
+                        android:textColor="@color/mp_text_secondary"
                         android:textSize="11sp"
                         android:textStyle="bold" />
 
@@ -128,7 +128,7 @@
                         android:layout_marginTop="6dp"
                         android:letterSpacing="0.18"
                         android:text="ABC123"
-                        android:textColor="#6C5CE7"
+                        android:textColor="@color/mp_accent"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -141,7 +141,7 @@
                         android:text="Copiar código"
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
-                        app:backgroundTint="#6C5CE7"
+                        app:backgroundTint="@color/mp_accent"
                         app:cornerRadius="14dp" />
 
 
@@ -180,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Participantes"
-                    android:textColor="#29263A"
+                    android:textColor="@color/mp_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -195,7 +195,7 @@
                     android:paddingEnd="12dp"
                     android:paddingBottom="7dp"
                     android:text="0 participantes"
-                    android:textColor="#6C5CE7"
+                    android:textColor="@color/mp_accent"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="La lista se actualiza automáticamente."
-                android:textColor="#777386"
+                android:textColor="@color/mp_text_secondary"
                 android:textSize="13sp" />
 
 
@@ -228,7 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:cardBackgroundColor="#EEEAFE"
+                app:cardBackgroundColor="@color/mp_surface_alt"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp">
 
@@ -244,7 +244,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sala en tiempo real"
-                        android:textColor="#423A78"
+                        android:textColor="@color/mp_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -254,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Se necesitan mínimo 2 jugadores y la sala admite máximo 5. Solo el anfitrión puede iniciar la partida."
-                        android:textColor="#6C648E"
+                        android:textColor="@color/mp_text_secondary"
                         android:textSize="12sp" />
 
 
@@ -276,7 +276,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:visibility="gone"
-                app:backgroundTint="#6C5CE7"
+                app:backgroundTint="@color/mp_accent"
                 app:cornerRadius="17dp" />
 
         </LinearLayout>

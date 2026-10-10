@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -438,7 +439,7 @@ public class SalaActivity extends BaseActivity {
         );
 
         fila.setBackgroundResource(
-                R.drawable.bg_etiqueta_suave
+                R.drawable.bg_multiplayer_participant
         );
 
         TextView icono =
@@ -457,9 +458,7 @@ public class SalaActivity extends BaseActivity {
         );
 
         icono.setTextColor(
-                android.graphics.Color.parseColor(
-                        "#6C5CE7"
-                )
+                ContextCompat.getColor(this, R.color.mp_accent)
         );
 
         TextView nombreView =
@@ -490,9 +489,7 @@ public class SalaActivity extends BaseActivity {
         );
 
         nombreView.setTextColor(
-                android.graphics.Color.parseColor(
-                        "#29263A"
-                )
+                ContextCompat.getColor(this, R.color.mp_text_primary)
         );
 
         nombreView.setTextSize(
@@ -511,11 +508,7 @@ public class SalaActivity extends BaseActivity {
         );
 
         estado.setTextColor(
-                android.graphics.Color.parseColor(
-                        esAnfitrion
-                                ? "#6C5CE7"
-                                : "#777386"
-                )
+                ContextCompat.getColor(this, esAnfitrion ? R.color.mp_accent : R.color.mp_text_secondary)
         );
 
         estado.setTextSize(

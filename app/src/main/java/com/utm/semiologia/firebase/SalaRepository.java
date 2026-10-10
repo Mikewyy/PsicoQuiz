@@ -38,6 +38,17 @@ public class SalaRepository {
             String nombreUsuario,
             SalaCallback callback
     ) {
+        crearSala(nombreSala, nombreUsuario, "avatar_01", callback);
+    }
+
+    public void crearSala(
+            String nombreSala,
+            String nombreUsuario,
+            String avatarId,
+            SalaCallback callback
+    ) {
+
+        final String avatarNormalizado = normalizarAvatarId(avatarId);
 
         authManager.iniciarSesionAnonima(
                 new FirebaseAuthManager.AuthCallback() {
@@ -49,6 +60,7 @@ public class SalaRepository {
                         intentarCrearSala(
                                 nombreSala,
                                 nombreUsuario,
+                                avatarNormalizado,
                                 usuario.getUid(),
                                 callback,
                                 0
@@ -68,6 +80,7 @@ public class SalaRepository {
     private void intentarCrearSala(
             String nombreSala,
             String nombreUsuario,
+            String avatarId,
             String uid,
             SalaCallback callback,
             int intento
@@ -94,6 +107,7 @@ public class SalaRepository {
                         intentarCrearSala(
                                 nombreSala,
                                 nombreUsuario,
+                                avatarId,
                                 uid,
                                 callback,
                                 intento + 1
@@ -112,7 +126,8 @@ public class SalaRepository {
                             new ParticipanteSala(
                                     uid,
                                     nombreUsuario,
-                                    true
+                                    true,
+                                    avatarId
                             );
 
                     db.runTransaction(transaction -> {
@@ -159,6 +174,7 @@ public class SalaRepository {
                                     intentarCrearSala(
                                             nombreSala,
                                             nombreUsuario,
+                                            avatarId,
                                             uid,
                                             callback,
                                             intento + 1
@@ -188,8 +204,18 @@ public class SalaRepository {
             String nombreUsuario,
             SalaCallback callback
     ) {
+        unirseSala(codigoIngresado, nombreUsuario, "avatar_01", callback);
+    }
+
+    public void unirseSala(
+            String codigoIngresado,
+            String nombreUsuario,
+            String avatarId,
+            SalaCallback callback
+    ) {
 
         String codigo = normalizarCodigo(codigoIngresado);
+        final String avatarNormalizado = normalizarAvatarId(avatarId);
 
         if (codigo.length() != LONGITUD_CODIGO) {
             callback.onError(
@@ -209,6 +235,7 @@ public class SalaRepository {
                         ejecutarUnionSala(
                                 codigo,
                                 nombreUsuario,
+                                avatarNormalizado,
                                 usuario.getUid(),
                                 callback
                         );
@@ -227,6 +254,7 @@ public class SalaRepository {
     private void ejecutarUnionSala(
             String codigo,
             String nombreUsuario,
+            String avatarId,
             String uid,
             SalaCallback callback
     ) {
@@ -269,6 +297,11 @@ public class SalaRepository {
                             // Ya pertenece a la sala.
                             // No volvemos a incrementar el contador.
                             if (participanteSnapshot.exists()) {
+                                transaction.update(
+                                        participanteRef,
+                                        "nombre", nombreUsuario,
+                                        "avatarId", avatarId
+                                );
                                 return sala;
                             }
 
@@ -288,7 +321,8 @@ public class SalaRepository {
                                     new ParticipanteSala(
                                             uid,
                                             nombreUsuario,
-                                            false
+                                            false,
+                                            avatarId
                                     );
 
                             transaction.set(
@@ -388,6 +422,13 @@ public class SalaRepository {
         }
 
         return codigo.toString();
+    }
+
+    private String normalizarAvatarId(String avatarId) {
+        if (avatarId == null) return "avatar_01";
+        String value = avatarId.trim();
+        if (!value.matches("avatar_0[1-6]")) return "avatar_01";
+        return value;
     }
 
     private String normalizarCodigo(

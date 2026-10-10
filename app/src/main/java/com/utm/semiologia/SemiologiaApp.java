@@ -3,6 +3,7 @@ package com.utm.semiologia;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
@@ -10,6 +11,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import com.utm.semiologia.data.Repositorio;
 import com.utm.semiologia.ui.pomodoro.PomodoroManager;
 import com.utm.semiologia.util.NotificacionesUtil;
+import com.utm.semiologia.util.PreferenciasManager;
 import com.utm.semiologia.util.SesionManager;
 
 /**
@@ -24,6 +26,12 @@ public class SemiologiaApp extends Application implements DefaultLifecycleObserv
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Aplicar el tema antes de inicializar la interfaz de cualquier Activity.
+        AppCompatDelegate.setDefaultNightMode(
+                PreferenciasManager.modoNocheAppCompat(this)
+        );
+
         repositorio = Repositorio.get(this);
         sesion = new SesionManager(this);
 

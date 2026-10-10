@@ -73,7 +73,7 @@
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="4dp"
-                app:strokeColor="#E3DAFF"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -128,7 +128,7 @@
                             android:layout_marginTop="12dp"
                             android:lineSpacingExtra="4dp"
                             android:text="¿Quieres dominar la teoría? Repasa síntomas, funciones y síndromes paso a paso."
-                            android:textColor="#211D3B"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="16sp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -158,7 +158,7 @@
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="4dp"
-                app:strokeColor="#E3DAFF"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -213,7 +213,7 @@
                             android:layout_marginTop="12dp"
                             android:lineSpacingExtra="4dp"
                             android:text="Crea o únete a una sala para estudiar con otros. Juega y compite para ver quien es el mejor de tu clase"
-                            android:textColor="#211D3B"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="16sp" />
 
                         <com.google.android.material.button.MaterialButton
@@ -243,7 +243,7 @@
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="4dp"
-                app:strokeColor="#E3DAFF"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -298,7 +298,7 @@
                             android:layout_marginTop="12dp"
                             android:lineSpacingExtra="4dp"
                             android:text="Pon a prueba lo aprendido resolviendo situaciones clínicas."
-                            android:textColor="#211D3B"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="16sp" />
 
                         <com.google.android.material.button.MaterialButton

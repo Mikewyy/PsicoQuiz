@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F4F3FF"
+        android:background="@color/app_background"
         android:fillViewport="true">
 
         <LinearLayout
@@ -31,7 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#6C5CE7"
+                android:background="@color/guide_header_background"
                 android:orientation="vertical"
                 android:paddingStart="20dp"
                 android:paddingTop="38dp"
@@ -100,7 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/app_surface_elevated"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp">
 
@@ -126,7 +126,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Tu progreso general"
-                                    android:textColor="#29263A"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
@@ -136,7 +136,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="0 de 22 temas completados"
-                                    android:textColor="#777386"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="13sp" />
 
                             </LinearLayout>
@@ -146,7 +146,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0%"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="22sp"
                                 android:textStyle="bold" />
 
@@ -188,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Caminos de estudio"
-                    android:textColor="#29263A"
+                    android:textColor="@color/app_text_primary"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="Selecciona el contenido que deseas estudiar"
-                    android:textColor="#777386"
+                    android:textColor="@color/app_text_secondary"
                     android:textSize="13sp" />
 
 
@@ -213,10 +213,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/app_surface_elevated"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="#E3DFFF"
+                    app:strokeColor="@color/app_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -252,7 +252,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Síntomas y funciones"
-                                    android:textColor="#29263A"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -261,7 +261,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="Semiología de los procesos y funciones psicológicas"
-                                    android:textColor="#777386"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="13sp" />
 
                             </LinearLayout>
@@ -271,7 +271,7 @@
                                 android:layout_height="40dp"
                                 android:gravity="center"
                                 android:text="›"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
 
@@ -295,7 +295,7 @@
                                 android:paddingEnd="12dp"
                                 android:paddingBottom="7dp"
                                 android:text="15 temas"
-                                android:textColor="#625E70"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -309,7 +309,7 @@
                                 android:paddingEnd="12dp"
                                 android:paddingBottom="7dp"
                                 android:text="Camino principal"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -331,7 +331,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0 de 15 temas completados"
-                                android:textColor="#777386"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="12sp" />
 
                             <TextView
@@ -339,7 +339,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0%"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -374,10 +374,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/app_surface_elevated"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="#E3DFFF"
+                    app:strokeColor="@color/app_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -413,7 +413,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Síndromes"
-                                    android:textColor="#29263A"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -422,7 +422,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="Principales síndromes psicopatológicos"
-                                    android:textColor="#777386"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="13sp" />
 
                             </LinearLayout>
@@ -432,7 +432,7 @@
                                 android:layout_height="40dp"
                                 android:gravity="center"
                                 android:text="›"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
 
@@ -456,7 +456,7 @@
                                 android:paddingEnd="12dp"
                                 android:paddingBottom="7dp"
                                 android:text="7 temas"
-                                android:textColor="#625E70"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -470,7 +470,7 @@
                                 android:paddingEnd="12dp"
                                 android:paddingBottom="7dp"
                                 android:text="Repaso clínico"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -492,7 +492,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="0 de 7 temas completados"
-                                android:textColor="#777386"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="12sp" />
 
                             <TextView
@@ -500,7 +500,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0%"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -530,10 +530,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/app_surface_elevated"
                     app:cardCornerRadius="24dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="#D7D2FF"
+                    app:strokeColor="@color/app_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -567,7 +567,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Multijugador"
-                                    android:textColor="#29263A"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -576,7 +576,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="Crea una sala o únete con un código para estudiar con otros"
-                                    android:textColor="#777386"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="13sp" />
 
                             </LinearLayout>
@@ -586,7 +586,7 @@
                                 android:layout_height="40dp"
                                 android:gravity="center"
                                 android:text="›"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="30sp"
                                 android:textStyle="bold" />
 
@@ -603,7 +603,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:cardBackgroundColor="#EEEAFE"
+                    app:cardBackgroundColor="@color/app_surface_alt"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp">
 
@@ -632,7 +632,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Estudia y consigue recompensas"
-                                android:textColor="#423A78"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -641,7 +641,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
                                 android:text="Completa temas para ganar comida para tu mascota."
-                                android:textColor="#6C648E"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="12sp" />
 
                         </LinearLayout>

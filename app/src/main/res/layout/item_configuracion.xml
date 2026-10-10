@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cambiar correo"
-            android:textColor="#2D2942"
+            android:textColor="@color/app_text_primary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="Actualiza tu correo electrónico"
-            android:textColor="#918DA4"
+            android:textColor="@color/app_text_secondary"
             android:textSize="11sp" />
 
     </LinearLayout>
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="›"
-        android:textColor="#AAA6B9"
+        android:textColor="@color/app_text_secondary"
         android:textSize="28sp" />
 
 </LinearLayout>

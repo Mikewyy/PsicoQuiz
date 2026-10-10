@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/login_form_titulo"
-                android:textColor="#22204C"
+                android:textColor="@color/app_text_primary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/login_form_subtitulo"
-                android:textColor="#8982B4"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="12sp" />
 
             <!-- Correo -->
@@ -151,7 +151,7 @@
                     android:importantForAutofill="yes"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
-                    android:textColor="#22204C"
+                    android:textColor="@color/app_text_primary"
                     android:textColorHint="#9892BF"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -184,7 +184,7 @@
                     android:importantForAutofill="no"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textColor="#22204C"
+                    android:textColor="@color/app_text_primary"
                     android:textColorHint="#9892BF"
                     android:textSize="15sp" />
 
@@ -216,7 +216,7 @@
                     android:fontFamily="sans-serif"
                     android:padding="0dp"
                     android:text="@string/recordar_sesion"
-                    android:textColor="#7A72AA"
+                    android:textColor="@color/app_text_secondary"
                     android:textSize="12sp" />
 
             </LinearLayout>

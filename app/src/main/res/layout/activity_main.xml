@@ -333,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Tu progreso"
-                        android:textColor="#211D3B"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -342,7 +342,7 @@
                         android:fontFamily="sans-serif"
                         android:layout_height="wrap_content"
                         android:text="Explora y avanza"
-                        android:textColor="#8B88A8"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="11sp" />
                 </LinearLayout>
 
@@ -356,7 +356,7 @@
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="28dp"
                     app:cardElevation="4dp"
-                    app:strokeColor="#E3DAFF"
+                    app:strokeColor="@color/app_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -406,7 +406,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Juega mientras aprendes"
-                                    android:textColor="#201A38"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="19sp"
                                     android:textStyle="bold" />
 
@@ -417,7 +417,7 @@
                                     android:layout_marginTop="6dp"
                                     android:lineSpacingExtra="2dp"
                                     android:text="Aprende síntomas, síndromes y refuerza tus conocimientos paso a paso."
-                                    android:textColor="#6F6A86"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="12sp" />
 
                                 <LinearLayout
@@ -464,7 +464,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Tu progreso"
-                                    android:textColor="#3B3358"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -499,7 +499,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:textColor="#827C99"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp"
                                 tools:text="45 min de estudio esta semana · 3 ciclos" />
                         </LinearLayout>
@@ -550,7 +550,7 @@
                         android:layout_weight="1"
                         android:fontFamily="sans-serif"
                         android:text="Tu compañero"
-                        android:textColor="#211D3B"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -559,7 +559,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:text="Cuídalo cada día"
-                        android:textColor="#8B88A8"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="11sp" />
 
                 </LinearLayout>
@@ -575,7 +575,7 @@
                     app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="30dp"
                     app:cardElevation="4dp"
-                    app:strokeColor="#DED8F8"
+                    app:strokeColor="@color/app_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -624,7 +624,7 @@
                                     android:fontFamily="sans-serif-medium"
                                     android:letterSpacing="0.10"
                                     android:text="TU MASCOTA"
-                                    android:textColor="#7566B0"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="9sp"
                                     android:textStyle="bold" />
 
@@ -634,7 +634,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="3dp"
                                     android:fontFamily="sans-serif"
-                                    android:textColor="#201A38"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="24sp"
                                     android:textStyle="bold"
                                     tools:text="Mateo Gato" />
@@ -650,7 +650,7 @@
                                     android:paddingTop="6dp"
                                     android:paddingEnd="12dp"
                                     android:paddingBottom="6dp"
-                                    android:textColor="#5B4FE9"
+                                    android:textColor="@color/app_primary_ui"
                                     android:textSize="11sp"
                                     android:textStyle="bold"
                                     tools:text="Muy feliz" />
@@ -691,7 +691,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="Alimento disponible"
-                                    android:textColor="#332B50"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
 
@@ -701,7 +701,7 @@
                                     android:layout_marginTop="2dp"
                                     android:fontFamily="sans-serif"
                                     android:text="Estudia para conseguir más"
-                                    android:textColor="#8A849F"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="10sp" />
 
                             </LinearLayout>
@@ -717,7 +717,7 @@
                                 android:paddingEnd="12dp"
                                 android:paddingBottom="7dp"
                                 android:text="x 0"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
 
@@ -762,7 +762,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="@string/etiqueta_hambre"
-                                    android:textColor="#433E5C"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -771,7 +771,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
-                                    android:textColor="#8A849F"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="11sp"
                                     tools:text="80/100" />
 
@@ -795,7 +795,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
                                 android:text="@string/hambre_consejo"
-                                android:textColor="#79748B"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="10sp" />
 
 
@@ -822,7 +822,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="@string/etiqueta_felicidad"
-                                    android:textColor="#433E5C"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -831,7 +831,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
-                                    android:textColor="#8A849F"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="11sp"
                                     tools:text="90/100" />
 
@@ -855,7 +855,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
                                 android:text="@string/felicidad_consejo"
-                                android:textColor="#79748B"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="10sp" />
 
 
@@ -882,7 +882,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="@string/etiqueta_energia"
-                                    android:textColor="#433E5C"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
 
@@ -891,7 +891,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="sans-serif"
-                                    android:textColor="#8A849F"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="11sp"
                                     tools:text="75/100" />
 
@@ -915,7 +915,7 @@
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="sans-serif"
                                 android:text="@string/energia_recuperacion"
-                                android:textColor="#79748B"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="10sp" />
 
                         </LinearLayout>
@@ -1007,7 +1007,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="POMODORO"
-                    android:textColor="#6C5CE7"
+                    android:textColor="@color/app_primary_ui"
                     android:textSize="11sp"
                     android:textStyle="bold" />
 
@@ -1020,7 +1020,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text="›"
-                    android:textColor="#5B4FE9"
+                    android:textColor="@color/app_primary_ui"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
@@ -1035,7 +1035,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="Tiempo de enfoque"
-                android:textColor="#8B88A8"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="12sp" />
 
 
@@ -1048,7 +1048,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="20:00"
-                android:textColor="#211D3B"
+                android:textColor="@color/app_text_primary"
                 android:textSize="48sp"
                 android:textStyle="bold" />
 
@@ -1061,7 +1061,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="20 min de enfoque"
-                android:textColor="#6C5CE7"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -1089,14 +1089,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="10 min"
-                    android:textColor="#AAA6B8"
+                    android:textColor="@color/app_text_secondary"
                     android:textSize="10sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="60 min"
-                    android:textColor="#AAA6B8"
+                    android:textColor="@color/app_text_secondary"
                     android:textSize="10sp" />
 
             </LinearLayout>
@@ -1110,7 +1110,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="Descanso automático · 5 min"
-                android:textColor="#8B88A8"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
 
@@ -1150,7 +1150,7 @@
                     android:stateListAnimator="@null"
                     android:text="Pausar"
                     android:textAllCaps="false"
-                    android:textColor="#5B4FE9"
+                    android:textColor="@color/app_primary_ui"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -1165,7 +1165,7 @@
                     android:stateListAnimator="@null"
                     android:text="Reiniciar"
                     android:textAllCaps="false"
-                    android:textColor="#5B4FE9"
+                    android:textColor="@color/app_primary_ui"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -1182,7 +1182,7 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:text="0 ciclos completados"
-                android:textColor="#8B88A8"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="11sp" />
 
         </LinearLayout>

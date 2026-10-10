@@ -1,16 +1,22 @@
 package com.utm.semiologia.ui.estudio;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -99,6 +105,10 @@ public class QuizMultijugadorActivity
     private TextView tvLecturasResultado;
     private TextView tvRevanchaEstado;
 
+    private ImageView imgPodioAvatar1;
+    private ImageView imgPodioAvatar2;
+    private ImageView imgPodioAvatar3;
+
     private TextView tvPodioNombre1;
     private TextView tvPodioPuntos1;
     private TextView tvPodioNombre2;
@@ -138,6 +148,10 @@ public class QuizMultijugadorActivity
     private LinearLayout contenedorAccionesFinales;
 
     private MaterialButton[] botonesOpciones;
+
+    // Animación ambiental del modo multijugador. No interviene en Firebase ni en la partida.
+    private final List<AnimatorSet> animacionesArena = new ArrayList<>();
+    private View vPulsoEspera;
 
     @Override
     protected void onCreate(
@@ -187,6 +201,7 @@ public class QuizMultijugadorActivity
         }
 
         enlazarVistas();
+        iniciarAnimacionesArena();
 
         tvCodigoPartida.setText(
                 "Sala " + codigoSala
@@ -198,7 +213,71 @@ public class QuizMultijugadorActivity
         escucharLecturasResultado();
     }
 
+
+    private void iniciarAnimacionesArena() {
+        animarBurbuja(findViewById(R.id.bubbleArena1), -24f, 34f, 7200L, 0L);
+        animarBurbuja(findViewById(R.id.bubbleArena2), 28f, -24f, 6100L, 350L);
+        animarBurbuja(findViewById(R.id.bubbleArena3), -16f, 26f, 5200L, 700L);
+        animarBurbuja(findViewById(R.id.bubbleArena4), 30f, -34f, 7600L, 200L);
+        animarBurbuja(findViewById(R.id.bubbleArena5), -18f, -22f, 5800L, 900L);
+
+        if (vPulsoEspera != null) {
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(vPulsoEspera, View.ALPHA, 0.35f, 1f);
+            alpha.setDuration(900L);
+            alpha.setRepeatCount(ObjectAnimator.INFINITE);
+            alpha.setRepeatMode(ObjectAnimator.REVERSE);
+
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(vPulsoEspera, View.SCALE_X, 0.85f, 1.18f);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(vPulsoEspera, View.SCALE_Y, 0.85f, 1.18f);
+            scaleX.setDuration(900L);
+            scaleY.setDuration(900L);
+            scaleX.setRepeatCount(ObjectAnimator.INFINITE);
+            scaleY.setRepeatCount(ObjectAnimator.INFINITE);
+            scaleX.setRepeatMode(ObjectAnimator.REVERSE);
+            scaleY.setRepeatMode(ObjectAnimator.REVERSE);
+
+            AnimatorSet pulso = new AnimatorSet();
+            pulso.playTogether(alpha, scaleX, scaleY);
+            pulso.start();
+            animacionesArena.add(pulso);
+        }
+    }
+
+    private void animarBurbuja(View vista, float dxDp, float dyDp, long duracion, long retraso) {
+        if (vista == null) return;
+
+        ObjectAnimator x = ObjectAnimator.ofFloat(vista, View.TRANSLATION_X, 0f, dpFloat(dxDp));
+        ObjectAnimator y = ObjectAnimator.ofFloat(vista, View.TRANSLATION_Y, 0f, dpFloat(dyDp));
+        ObjectAnimator rot = ObjectAnimator.ofFloat(vista, View.ROTATION, -2f, 2f);
+
+        for (ObjectAnimator animador : new ObjectAnimator[]{x, y, rot}) {
+            animador.setDuration(duracion);
+            animador.setStartDelay(retraso);
+            animador.setRepeatCount(ObjectAnimator.INFINITE);
+            animador.setRepeatMode(ObjectAnimator.REVERSE);
+            animador.setInterpolator(new AccelerateDecelerateInterpolator());
+        }
+
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(x, y, rot);
+        set.start();
+        animacionesArena.add(set);
+    }
+
+    private float dpFloat(float valorDp) {
+        return valorDp * getResources().getDisplayMetrics().density;
+    }
+
+    private void detenerAnimacionesArena() {
+        for (AnimatorSet set : animacionesArena) {
+            if (set != null) set.cancel();
+        }
+        animacionesArena.clear();
+    }
+
     private void enlazarVistas() {
+
+        vPulsoEspera = findViewById(R.id.vPulsoEspera);
 
         tvCodigoPartida =
                 findViewById(
@@ -283,6 +362,21 @@ public class QuizMultijugadorActivity
         podioPuesto3 =
                 findViewById(
                         R.id.podioPuesto3
+                );
+
+        imgPodioAvatar1 =
+                findViewById(
+                        R.id.imgPodioAvatar1
+                );
+
+        imgPodioAvatar2 =
+                findViewById(
+                        R.id.imgPodioAvatar2
+                );
+
+        imgPodioAvatar3 =
+                findViewById(
+                        R.id.imgPodioAvatar3
                 );
 
         tvPodioNombre1 =
@@ -451,7 +545,7 @@ public class QuizMultijugadorActivity
                     );
 
                     tvEstadoRespuesta.setText(
-                            "Respuesta registrada · esperando a los demás jugadores"
+                            "Respuesta registrada  •  Esperando a los demás"
                     );
                 }
         );
@@ -2224,8 +2318,10 @@ public class QuizMultijugadorActivity
                 View.GONE
         );
 
+        // En el resultado final ocultamos la tarjeta de justificación para evitar
+        // duplicar el título "Clasificación final" sobre el podio.
         panelResultado.setVisibility(
-                View.VISIBLE
+                View.GONE
         );
 
         panelPodioFinal.setVisibility(
@@ -2289,11 +2385,11 @@ public class QuizMultijugadorActivity
         );
 
         btnAceptarRevancha.setText(
-                "Sí, jugar otra vez"
+                "Jugar otra vez"
         );
 
         btnRechazarRevancha.setText(
-                "No por ahora"
+                "No"
         );
 
         /*
@@ -2308,6 +2404,64 @@ public class QuizMultijugadorActivity
         actualizarEstadoRevancha(
                 0,
                 0
+        );
+    }
+
+    /**
+     * Ajusta el ancho de las columnas del podio según el número real de
+     * jugadores. Evita huecos visuales cuando solo hay uno o dos puestos.
+     */
+    private void ajustarDistribucionPodio(int totalJugadores) {
+        if (podioPuesto1 == null || podioPuesto2 == null || podioPuesto3 == null) {
+            return;
+        }
+
+        if (totalJugadores <= 1) {
+            aplicarTamanoPodio(podioPuesto1, 158, 0f, 0, 0);
+            return;
+        }
+
+        if (totalJugadores == 2) {
+            aplicarTamanoPodio(podioPuesto2, 124, 0f, 0, 7);
+            aplicarTamanoPodio(podioPuesto1, 150, 0f, 7, 0);
+            return;
+        }
+
+        aplicarTamanoPodio(podioPuesto2, 0, 1f, 0, 6);
+        aplicarTamanoPodio(podioPuesto1, 0, 1.20f, 6, 6);
+        aplicarTamanoPodio(podioPuesto3, 0, 1f, 6, 0);
+    }
+
+    private void aplicarTamanoPodio(
+            View vista,
+            int anchoDp,
+            float peso,
+            int margenInicioDp,
+            int margenFinDp
+    ) {
+        LinearLayout.LayoutParams params =
+                (LinearLayout.LayoutParams) vista.getLayoutParams();
+
+        params.width = anchoDp == 0
+                ? 0
+                : dp(anchoDp);
+        params.weight = peso;
+        params.setMarginStart(dp(margenInicioDp));
+        params.setMarginEnd(dp(margenFinDp));
+        vista.setLayoutParams(params);
+    }
+
+    private int colorTema(int resId) {
+        return ContextCompat.getColor(this, resId);
+    }
+
+    private String colorHexTema(int resId) {
+        return String.format(Locale.US, "#%06X", 0xFFFFFF & colorTema(resId));
+    }
+
+    private int dp(int valorDp) {
+        return Math.round(
+                valorDp * getResources().getDisplayMetrics().density
         );
     }
 
@@ -2354,10 +2508,13 @@ public class QuizMultijugadorActivity
             );
         }
 
+        ajustarDistribucionPodio(totalJugadores);
+
         if (totalJugadores >= 1) {
             colocarJugadorPodio(
                     jugadores,
                     0,
+                    imgPodioAvatar1,
                     tvPodioNombre1,
                     tvPodioPuntos1
             );
@@ -2367,6 +2524,7 @@ public class QuizMultijugadorActivity
             colocarJugadorPodio(
                     jugadores,
                     1,
+                    imgPodioAvatar2,
                     tvPodioNombre2,
                     tvPodioPuntos2
             );
@@ -2376,6 +2534,7 @@ public class QuizMultijugadorActivity
             colocarJugadorPodio(
                     jugadores,
                     2,
+                    imgPodioAvatar3,
                     tvPodioNombre3,
                     tvPodioPuntos3
             );
@@ -2429,6 +2588,7 @@ public class QuizMultijugadorActivity
     private void colocarJugadorPodio(
             List<DocumentSnapshot> jugadores,
             int posicion,
+            ImageView imgAvatar,
             TextView tvNombre,
             TextView tvPuntos
     ) {
@@ -2437,6 +2597,11 @@ public class QuizMultijugadorActivity
 
             DocumentSnapshot jugador =
                     jugadores.get(posicion);
+
+            aplicarAvatarPodio(
+                    imgAvatar,
+                    jugador.getString("avatarId")
+            );
 
             tvNombre.setText(
                     nombreDe(jugador)
@@ -2456,6 +2621,8 @@ public class QuizMultijugadorActivity
 
         } else {
 
+            aplicarAvatarPodio(imgAvatar, "avatar_01");
+
             tvNombre.setText(
                     "—"
             );
@@ -2464,6 +2631,35 @@ public class QuizMultijugadorActivity
                     ""
             );
         }
+    }
+
+    /**
+     * Resuelve el avatar publicado por el participante contra los recursos locales.
+     * Firebase solo guarda avatar_01..avatar_06; la imagen sigue viviendo en la app.
+     */
+    private void aplicarAvatarPodio(
+            ImageView imageView,
+            String avatarId
+    ) {
+        if (imageView == null) return;
+
+        String normalizado = avatarId;
+        if (normalizado == null ||
+                !normalizado.trim().matches("avatar_0[1-6]")) {
+            normalizado = "avatar_01";
+        }
+
+        int recurso = getResources().getIdentifier(
+                normalizado.trim(),
+                "drawable",
+                getPackageName()
+        );
+
+        if (recurso == 0) {
+            recurso = R.drawable.avatar_01;
+        }
+
+        imageView.setImageResource(recurso);
     }
 
     private String nombreDe(
@@ -2792,16 +2988,16 @@ public class QuizMultijugadorActivity
         );
 
         tarjeta.setCardBackgroundColor(
-                Color.WHITE
+                colorTema(R.color.mp_surface)
         );
 
         tarjeta.setStrokeColor(
                 Color.parseColor(
                         correcta
-                                ? "#BFE8D0"
+                                ? colorHexTema(R.color.mp_review_correct_stroke)
                                 : respondida
-                                ? "#F3C8C8"
-                                : "#DED7FF"
+                                ? colorHexTema(R.color.mp_review_error_stroke)
+                                : colorHexTema(R.color.mp_outline)
                 )
         );
 
@@ -2848,7 +3044,7 @@ public class QuizMultijugadorActivity
                                 + " · "
                                 + pregunta,
                         14,
-                        "#29263A",
+                        colorHexTema(R.color.mp_text_primary),
                         true
                 );
 
@@ -2878,7 +3074,7 @@ public class QuizMultijugadorActivity
                                 ? "#218A57"
                                 : respondida
                                 ? "#C94A4A"
-                                : "#777386",
+                                : colorHexTema(R.color.mp_text_secondary),
                         false
                 );
 
@@ -2934,7 +3130,7 @@ public class QuizMultijugadorActivity
                                         : justificacion
                         ),
                         11,
-                        "#6C648E",
+                        colorHexTema(R.color.mp_text_secondary),
                         false
                 );
 
@@ -3005,16 +3201,6 @@ public class QuizMultijugadorActivity
         return vista;
     }
 
-    private int dp(
-            int valor
-    ) {
-        return Math.round(
-                valor *
-                        getResources()
-                                .getDisplayMetrics()
-                                .density
-        );
-    }
 
     private void escucharRevancha() {
 
@@ -3170,7 +3356,7 @@ public class QuizMultijugadorActivity
                                 );
 
                                 btnRechazarRevancha.setText(
-                                        "No por ahora"
+                                        "No"
                                 );
                             }
                         }
@@ -3660,6 +3846,7 @@ public class QuizMultijugadorActivity
                             )
                     )
             );
+            botonesOpciones[indiceCorrecto].setTextColor(Color.WHITE);
         }
 
         if (
@@ -3679,6 +3866,7 @@ public class QuizMultijugadorActivity
                             )
                     )
             );
+            botonesOpciones[indiceRespuestaUsuario].setTextColor(Color.WHITE);
         }
     }
 
@@ -3697,14 +3885,12 @@ public class QuizMultijugadorActivity
 
             boton.setBackgroundTintList(
                     ColorStateList.valueOf(
-                            Color.parseColor(
-                                    "#6C5CE7"
-                            )
+                            colorTema(R.color.mp_surface)
                     )
             );
 
             boton.setTextColor(
-                    Color.WHITE
+                    colorTema(R.color.mp_text_primary)
             );
         }
     }
@@ -3922,6 +4108,7 @@ public class QuizMultijugadorActivity
     @Override
     protected void onDestroy() {
 
+        detenerAnimacionesArena();
         cancelarTimerPregunta();
         cancelarTimerResultado();
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mp_podium_gold_text">#FFF1B8</color>
+    <color name="mp_podium_gold_subtext">#F7D56D</color>
+    <color name="mp_podium_gold_points">#FFD86B</color>
+    <color name="mp_podium_gold_chip_text">#5B3D00</color>
+    <color name="mp_podium_silver_text">#F4F7FF</color>
+    <color name="mp_podium_silver_subtext">#CDD5E7</color>
+    <color name="mp_podium_bronze_text">#FFE0CC</color>
+    <color name="mp_podium_bronze_points">#F1B797</color>
+</resources>

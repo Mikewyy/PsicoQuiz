@@ -12,10 +12,10 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="@color/app_surface_elevated"
     app:cardCornerRadius="20dp"
     app:cardElevation="2dp"
-    app:strokeColor="#E9E5F5"
+    app:strokeColor="@color/app_outline"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_height="52dp"
                 android:gravity="center"
                 android:text="01"
-                android:textColor="#6C5CE7"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:background="@drawable/bg_numero_seccion" />
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Introducción a la semiología"
-                    android:textColor="#252238"
+                    android:textColor="@color/app_text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:maxLines="2"
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Fundamentos"
-                    android:textColor="#777386"
+                    android:textColor="@color/app_text_secondary"
                     android:textSize="13sp"
                     android:maxLines="1"
                     android:ellipsize="end" />
@@ -120,8 +120,8 @@
                 android:paddingTop="6dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="6dp"
-                android:text="12 min"
-                android:textColor="#686277"
+                android:text="3 min"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -138,7 +138,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="6dp"
                 android:text="+20 pts"
-                android:textColor="#6C5CE7"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Sin comenzar"
-                android:textColor="#777386"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0%"
-                android:textColor="#6C5CE7"
+                android:textColor="@color/app_primary_ui"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 

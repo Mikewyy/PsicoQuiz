@@ -27,7 +27,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 17;
+    public static final int DB_VERSION = 18;
     public Context getAppContext() {
         return appContext;
     }
@@ -155,6 +155,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < 17) {
             migrarAV17(db);
         }
+        if (oldVersion < 18) {
+            migrarAV18(db);
+        }
+    }
+
+    // =========================================================
+    // V18 - DURACIÓN REAL DE LAS LECTURAS
+    // =========================================================
+
+    /**
+     * Las lecturas de la guía se completan con 3 minutos de estudio.
+     * Versiones anteriores mostraban estimaciones de 10-22 min, aunque
+     * LectorActivity ya exigía 3 min. Se unifica el dato para BD nuevas
+     * y existentes sin tocar progreso, puntos ni contenido.
+     */
+    private void migrarAV18(SQLiteDatabase db) {
+        db.execSQL(
+                "UPDATE " + T_SECCIONES +
+                        " SET duracion_estimada_min = 3"
+        );
     }
 
     // =========================================================
@@ -850,53 +870,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void sembrarGuiaCompleta(SQLiteDatabase db) {
-        insertarSeccion(db, "sintomas", "Conciencia", "Psicopatología de la conciencia", 1, 15, 20, contenidoGuia("sintomas_1"));
-        insertarSeccion(db, "sintomas", "Orientación", "Psicopatología de la orientación", 2, 12, 20, contenidoGuia("sintomas_2"));
-        insertarSeccion(db, "sintomas", "Atención y concentración", "Psicopatología de la atención y concentración", 3, 15, 20, contenidoGuia("sintomas_3"));
-        insertarSeccion(db, "sintomas", "Memoria", "Psicopatología de la memoria", 4, 18, 25, contenidoGuia("sintomas_4"));
-        insertarSeccion(db, "sintomas", "Percepción", "Percepción, imaginación y sensaciones", 5, 20, 25, contenidoGuia("sintomas_5"));
-        insertarSeccion(db, "sintomas", "Pensamiento", "Psicopatología del pensamiento", 6, 22, 30, contenidoGuia("sintomas_6"));
-        insertarSeccion(db, "sintomas", "Lenguaje", "Psicopatología del lenguaje", 7, 18, 25, contenidoGuia("sintomas_7"));
-        insertarSeccion(db, "sintomas", "Afectividad", "Psicopatología de la afectividad", 8, 20, 25, contenidoGuia("sintomas_8"));
-        insertarSeccion(db, "sintomas", "Psicomotricidad", "Psicopatología de la psicomotricidad", 9, 18, 25, contenidoGuia("sintomas_9"));
-        insertarSeccion(db, "sintomas", "Voluntad y conducta", "Alteraciones de la voluntad y conducta", 10, 16, 25, contenidoGuia("sintomas_10"));
-        insertarSeccion(db, "sintomas", "Funciones fisiológicas", "Alteraciones de las funciones fisiológicas", 11, 15, 20, contenidoGuia("sintomas_11"));
-        insertarSeccion(db, "sintomas", "Sueño", "Psicopatología del sueño", 12, 15, 20, contenidoGuia("sintomas_12"));
-        insertarSeccion(db, "sintomas", "Apetito e ingesta", "Alteraciones del apetito y la ingesta", 13, 12, 20, contenidoGuia("sintomas_13"));
-        insertarSeccion(db, "sintomas", "Sexualidad", "Psicopatología de la sexualidad", 14, 12, 20, contenidoGuia("sintomas_14"));
-        insertarSeccion(db, "sintomas", "Funciones de relación", "Alteraciones de las funciones de relación", 15, 15, 25, contenidoGuia("sintomas_15"));
-        insertarSeccion(db, "sindromes", "Síndromes orgánicos", "Síndromes cerebrales orgánicos agudos", 1, 12, 20, contenidoGuia("sindromes_1"));
-        insertarSeccion(db, "sindromes", "Síndromes orgánicos", "Síndromes cerebrales orgánicos crónicos", 2, 12, 20, contenidoGuia("sindromes_2"));
-        insertarSeccion(db, "sindromes", "Esquizofrenia", "Síndrome esquizofrénico", 3, 15, 25, contenidoGuia("sindromes_3"));
-        insertarSeccion(db, "sindromes", "Delirios", "Síndrome delirante", 4, 15, 25, contenidoGuia("sindromes_4"));
-        insertarSeccion(db, "sindromes", "Afectividad", "Síndromes afectivos", 5, 15, 25, contenidoGuia("sindromes_5"));
-        insertarSeccion(db, "sindromes", "Psicomotricidad", "Síndromes discinéticos", 6, 12, 20, contenidoGuia("sindromes_6"));
-        insertarSeccion(db, "sindromes", "Hipocondría", "Síndrome hipocondríaco", 7, 10, 20, contenidoGuia("sindromes_7"));
+        insertarSeccion(db, "sintomas", "Conciencia", "Psicopatología de la conciencia", 1, 3, 20, contenidoGuia("sintomas_1"));
+        insertarSeccion(db, "sintomas", "Orientación", "Psicopatología de la orientación", 2, 3, 20, contenidoGuia("sintomas_2"));
+        insertarSeccion(db, "sintomas", "Atención y concentración", "Psicopatología de la atención y concentración", 3, 3, 20, contenidoGuia("sintomas_3"));
+        insertarSeccion(db, "sintomas", "Memoria", "Psicopatología de la memoria", 4, 3, 25, contenidoGuia("sintomas_4"));
+        insertarSeccion(db, "sintomas", "Percepción", "Percepción, imaginación y sensaciones", 5, 3, 25, contenidoGuia("sintomas_5"));
+        insertarSeccion(db, "sintomas", "Pensamiento", "Psicopatología del pensamiento", 6, 3, 30, contenidoGuia("sintomas_6"));
+        insertarSeccion(db, "sintomas", "Lenguaje", "Psicopatología del lenguaje", 7, 3, 25, contenidoGuia("sintomas_7"));
+        insertarSeccion(db, "sintomas", "Afectividad", "Psicopatología de la afectividad", 8, 3, 25, contenidoGuia("sintomas_8"));
+        insertarSeccion(db, "sintomas", "Psicomotricidad", "Psicopatología de la psicomotricidad", 9, 3, 25, contenidoGuia("sintomas_9"));
+        insertarSeccion(db, "sintomas", "Voluntad y conducta", "Alteraciones de la voluntad y conducta", 10, 3, 25, contenidoGuia("sintomas_10"));
+        insertarSeccion(db, "sintomas", "Funciones fisiológicas", "Alteraciones de las funciones fisiológicas", 11, 3, 20, contenidoGuia("sintomas_11"));
+        insertarSeccion(db, "sintomas", "Sueño", "Psicopatología del sueño", 12, 3, 20, contenidoGuia("sintomas_12"));
+        insertarSeccion(db, "sintomas", "Apetito e ingesta", "Alteraciones del apetito y la ingesta", 13, 3, 20, contenidoGuia("sintomas_13"));
+        insertarSeccion(db, "sintomas", "Sexualidad", "Psicopatología de la sexualidad", 14, 3, 20, contenidoGuia("sintomas_14"));
+        insertarSeccion(db, "sintomas", "Funciones de relación", "Alteraciones de las funciones de relación", 15, 3, 25, contenidoGuia("sintomas_15"));
+        insertarSeccion(db, "sindromes", "Síndromes orgánicos", "Síndromes cerebrales orgánicos agudos", 1, 3, 20, contenidoGuia("sindromes_1"));
+        insertarSeccion(db, "sindromes", "Síndromes orgánicos", "Síndromes cerebrales orgánicos crónicos", 2, 3, 20, contenidoGuia("sindromes_2"));
+        insertarSeccion(db, "sindromes", "Esquizofrenia", "Síndrome esquizofrénico", 3, 3, 25, contenidoGuia("sindromes_3"));
+        insertarSeccion(db, "sindromes", "Delirios", "Síndrome delirante", 4, 3, 25, contenidoGuia("sindromes_4"));
+        insertarSeccion(db, "sindromes", "Afectividad", "Síndromes afectivos", 5, 3, 25, contenidoGuia("sindromes_5"));
+        insertarSeccion(db, "sindromes", "Psicomotricidad", "Síndromes discinéticos", 6, 3, 20, contenidoGuia("sindromes_6"));
+        insertarSeccion(db, "sindromes", "Hipocondría", "Síndrome hipocondríaco", 7, 3, 20, contenidoGuia("sindromes_7"));
     }
 
     private void actualizarContenidoGuiaCompleta(SQLiteDatabase db) {
-        actualizarSeccionGuia(db, "sintomas", 1, "Conciencia", "Psicopatología de la conciencia", 15, 20);
-        actualizarSeccionGuia(db, "sintomas", 2, "Orientación", "Psicopatología de la orientación", 12, 20);
-        actualizarSeccionGuia(db, "sintomas", 3, "Atención y concentración", "Psicopatología de la atención y concentración", 15, 20);
-        actualizarSeccionGuia(db, "sintomas", 4, "Memoria", "Psicopatología de la memoria", 18, 25);
-        actualizarSeccionGuia(db, "sintomas", 5, "Percepción", "Percepción, imaginación y sensaciones", 20, 25);
-        actualizarSeccionGuia(db, "sintomas", 6, "Pensamiento", "Psicopatología del pensamiento", 22, 30);
-        actualizarSeccionGuia(db, "sintomas", 7, "Lenguaje", "Psicopatología del lenguaje", 18, 25);
-        actualizarSeccionGuia(db, "sintomas", 8, "Afectividad", "Psicopatología de la afectividad", 20, 25);
-        actualizarSeccionGuia(db, "sintomas", 9, "Psicomotricidad", "Psicopatología de la psicomotricidad", 18, 25);
-        actualizarSeccionGuia(db, "sintomas", 10, "Voluntad y conducta", "Alteraciones de la voluntad y conducta", 16, 25);
-        actualizarSeccionGuia(db, "sintomas", 11, "Funciones fisiológicas", "Alteraciones de las funciones fisiológicas", 15, 20);
-        actualizarSeccionGuia(db, "sintomas", 12, "Sueño", "Psicopatología del sueño", 15, 20);
-        actualizarSeccionGuia(db, "sintomas", 13, "Apetito e ingesta", "Alteraciones del apetito y la ingesta", 12, 20);
-        actualizarSeccionGuia(db, "sintomas", 14, "Sexualidad", "Psicopatología de la sexualidad", 12, 20);
-        actualizarSeccionGuia(db, "sintomas", 15, "Funciones de relación", "Alteraciones de las funciones de relación", 15, 25);
-        actualizarSeccionGuia(db, "sindromes", 1, "Síndromes orgánicos", "Síndromes cerebrales orgánicos agudos", 12, 20);
-        actualizarSeccionGuia(db, "sindromes", 2, "Síndromes orgánicos", "Síndromes cerebrales orgánicos crónicos", 12, 20);
-        actualizarSeccionGuia(db, "sindromes", 3, "Esquizofrenia", "Síndrome esquizofrénico", 15, 25);
-        actualizarSeccionGuia(db, "sindromes", 4, "Delirios", "Síndrome delirante", 15, 25);
-        actualizarSeccionGuia(db, "sindromes", 5, "Afectividad", "Síndromes afectivos", 15, 25);
-        actualizarSeccionGuia(db, "sindromes", 6, "Psicomotricidad", "Síndromes discinéticos", 12, 20);
-        actualizarSeccionGuia(db, "sindromes", 7, "Hipocondría", "Síndrome hipocondríaco", 10, 20);
+        actualizarSeccionGuia(db, "sintomas", 1, "Conciencia", "Psicopatología de la conciencia", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 2, "Orientación", "Psicopatología de la orientación", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 3, "Atención y concentración", "Psicopatología de la atención y concentración", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 4, "Memoria", "Psicopatología de la memoria", 3, 25);
+        actualizarSeccionGuia(db, "sintomas", 5, "Percepción", "Percepción, imaginación y sensaciones", 3, 25);
+        actualizarSeccionGuia(db, "sintomas", 6, "Pensamiento", "Psicopatología del pensamiento", 3, 30);
+        actualizarSeccionGuia(db, "sintomas", 7, "Lenguaje", "Psicopatología del lenguaje", 3, 25);
+        actualizarSeccionGuia(db, "sintomas", 8, "Afectividad", "Psicopatología de la afectividad", 3, 25);
+        actualizarSeccionGuia(db, "sintomas", 9, "Psicomotricidad", "Psicopatología de la psicomotricidad", 3, 25);
+        actualizarSeccionGuia(db, "sintomas", 10, "Voluntad y conducta", "Alteraciones de la voluntad y conducta", 3, 25);
+        actualizarSeccionGuia(db, "sintomas", 11, "Funciones fisiológicas", "Alteraciones de las funciones fisiológicas", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 12, "Sueño", "Psicopatología del sueño", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 13, "Apetito e ingesta", "Alteraciones del apetito y la ingesta", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 14, "Sexualidad", "Psicopatología de la sexualidad", 3, 20);
+        actualizarSeccionGuia(db, "sintomas", 15, "Funciones de relación", "Alteraciones de las funciones de relación", 3, 25);
+        actualizarSeccionGuia(db, "sindromes", 1, "Síndromes orgánicos", "Síndromes cerebrales orgánicos agudos", 3, 20);
+        actualizarSeccionGuia(db, "sindromes", 2, "Síndromes orgánicos", "Síndromes cerebrales orgánicos crónicos", 3, 20);
+        actualizarSeccionGuia(db, "sindromes", 3, "Esquizofrenia", "Síndrome esquizofrénico", 3, 25);
+        actualizarSeccionGuia(db, "sindromes", 4, "Delirios", "Síndrome delirante", 3, 25);
+        actualizarSeccionGuia(db, "sindromes", 5, "Afectividad", "Síndromes afectivos", 3, 25);
+        actualizarSeccionGuia(db, "sindromes", 6, "Psicomotricidad", "Síndromes discinéticos", 3, 20);
+        actualizarSeccionGuia(db, "sindromes", 7, "Hipocondría", "Síndrome hipocondríaco", 3, 20);
     }
 
     private void actualizarSeccionGuia(SQLiteDatabase db,

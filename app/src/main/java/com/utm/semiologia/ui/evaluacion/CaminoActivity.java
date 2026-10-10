@@ -2,8 +2,6 @@ package com.utm.semiologia.ui.evaluacion;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -308,126 +306,56 @@ public class CaminoActivity extends BaseActivity
                         categoria
                 );
 
-
-        // -----------------------------------------------------
-        // TÍTULO
-        // -----------------------------------------------------
-
         tvTitulo.setText(
-
                 esSindromes
                         ? "Casos clínicos · Síndromes"
                         : "Casos clínicos · Síntomas"
-
         );
 
+        Button seleccionado = esSindromes
+                ? btnSindromes
+                : btnSintomas;
 
-        // -----------------------------------------------------
-        // SÍNTOMAS SELECCIONADO
-        // -----------------------------------------------------
+        Button noSeleccionado = esSindromes
+                ? btnSintomas
+                : btnSindromes;
 
-        if (!esSindromes) {
+        seleccionado.setBackgroundResource(
+                R.drawable.bg_segment_selected
+        );
 
-            btnSintomas.setBackgroundTintList(
+        seleccionado.setTextColor(
+                getColor(
+                        R.color.on_primary
+                )
+        );
 
-                    ColorStateList.valueOf(
-                            Color.parseColor(
-                                    "#6C5CE7"
-                            )
-                    )
+        noSeleccionado.setBackgroundResource(
+                R.drawable.bg_segment_unselected
+        );
 
-            );
-
-
-            btnSintomas.setTextColor(
-                    Color.WHITE
-            );
-
-
-            btnSindromes.setBackgroundTintList(
-
-                    ColorStateList.valueOf(
-                            Color.parseColor(
-                                    "#ECE9FA"
-                            )
-                    )
-
-            );
-
-
-            btnSindromes.setTextColor(
-
-                    Color.parseColor(
-                            "#665F7A"
-                    )
-
-            );
-
-        }
-
-        // -----------------------------------------------------
-        // SÍNDROMES SELECCIONADO
-        // -----------------------------------------------------
-
-        else {
-
-            btnSindromes.setBackgroundTintList(
-
-                    ColorStateList.valueOf(
-                            Color.parseColor(
-                                    "#6C5CE7"
-                            )
-                    )
-
-            );
-
-
-            btnSindromes.setTextColor(
-                    Color.WHITE
-            );
-
-
-            btnSintomas.setBackgroundTintList(
-
-                    ColorStateList.valueOf(
-                            Color.parseColor(
-                                    "#ECE9FA"
-                            )
-                    )
-
-            );
-
-
-            btnSintomas.setTextColor(
-
-                    Color.parseColor(
-                            "#665F7A"
-                    )
-
-            );
-        }
-
+        noSeleccionado.setTextColor(
+                getColor(
+                        R.color.app_text_secondary
+                )
+        );
 
         btnSintomas.setEnabled(
                 true
         );
 
-
         btnSindromes.setEnabled(
                 true
         );
-
 
         btnSintomas.setAlpha(
                 1f
         );
 
-
         btnSindromes.setAlpha(
                 1f
         );
     }
-
 
     // =========================================================
     // RECARGAR

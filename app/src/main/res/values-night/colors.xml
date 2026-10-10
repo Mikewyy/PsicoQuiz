@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PsicoQuiz Dark V5: carbón + ciruela + índigo, sin negro puro -->
+    <color name="brand_start">#2D2246</color>
+    <color name="brand_mid">#251C39</color>
+    <color name="brand_end">#1A2638</color>
+
+    <color name="primary">#A892FF</color>
+    <color name="primary_dark">#8067E8</color>
+    <color name="primary_light">#C7BAFF</color>
+    <color name="on_primary">#161021</color>
+    <color name="secondary">#67C7F5</color>
+    <color name="on_secondary">#08131B</color>
+
+    <color name="background">#0F0C17</color>
+    <color name="surface">#191423</color>
+    <color name="on_surface">#F8F5FF</color>
+    <color name="on_surface_variant">#D1C8E0</color>
+    <color name="outline">#4A3E61</color>
+    <color name="ink">#F8F5FF</color>
+    <color name="ink_soft">#D1C8E0</color>
+    <color name="lila">#2B2140</color>
+
+    <!-- Niveles semánticos para dar profundidad -->
+    <color name="app_background">#0F0C17</color>
+    <color name="app_surface">#191423</color>
+    <color name="app_surface_alt">#211A31</color>
+    <color name="app_surface_elevated">#2A2140</color>
+    <color name="app_surface_lavender">#302449</color>
+    <color name="app_surface_blue">#182A3A</color>
+    <color name="app_surface_green">#173226</color>
+    <color name="app_surface_orange">#39231D</color>
+
+    <color name="app_text_primary">#F8F5FF</color>
+    <color name="app_text_secondary">#D7CFE5</color>
+    <color name="app_text_muted">#AEA3BF</color>
+    <color name="app_outline">#4A3E61</color>
+    <color name="app_primary_ui">#B3A1FF</color>
+    <color name="app_primary_soft">#33284D</color>
+    <color name="app_scrim">#A0000000</color>
+
+    <!-- Gamificación -->
+    <color name="bar_hambre">#FF8B68</color>
+    <color name="bar_felicidad">#F46E9D</color>
+    <color name="bar_energia">#FFC857</color>
+    <color name="hambre_alto">#4ADE80</color>
+    <color name="hambre_medio">#FBBF24</color>
+    <color name="hambre_bajo">#F87171</color>
+    <color name="puntos">#F7C84B</color>
+    <color name="racha">#FB923C</color>
+
+    <color name="card_radius">#304A3E61</color>
+    <color name="pet_body">#FBBF24</color>
+    <color name="pet_dark">#F59E0B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="guide_header_background">#241B36</color>
+    <color name="challenge_option_bg">#251D36</color>
+    <color name="challenge_option_text">#F8F5FF</color>
+    <color name="challenge_option_stroke">#705DB0</color>
+</resources>

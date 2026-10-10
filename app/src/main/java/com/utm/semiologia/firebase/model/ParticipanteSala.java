@@ -5,6 +5,7 @@ public class ParticipanteSala {
     private String uid;
     private String nombre;
     private boolean anfitrion;
+    private String avatarId;
     private long unidoEn;
 
     public ParticipanteSala() {
@@ -15,9 +16,19 @@ public class ParticipanteSala {
             String nombre,
             boolean anfitrion
     ) {
+        this(uid, nombre, anfitrion, "avatar_01");
+    }
+
+    public ParticipanteSala(
+            String uid,
+            String nombre,
+            boolean anfitrion,
+            String avatarId
+    ) {
         this.uid = uid;
         this.nombre = nombre;
         this.anfitrion = anfitrion;
+        this.avatarId = normalizarAvatar(avatarId);
         this.unidoEn = System.currentTimeMillis();
     }
 
@@ -43,6 +54,22 @@ public class ParticipanteSala {
 
     public void setAnfitrion(boolean anfitrion) {
         this.anfitrion = anfitrion;
+    }
+
+
+    public String getAvatarId() {
+        return normalizarAvatar(avatarId);
+    }
+
+    public void setAvatarId(String avatarId) {
+        this.avatarId = normalizarAvatar(avatarId);
+    }
+
+    private static String normalizarAvatar(String avatarId) {
+        if (avatarId == null) return "avatar_01";
+        String value = avatarId.trim();
+        if (!value.matches("avatar_0[1-6]")) return "avatar_01";
+        return value;
     }
 
     public long getUnidoEn() {

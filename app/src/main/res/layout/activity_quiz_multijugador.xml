@@ -1,12 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F3FF"
-    android:fillViewport="true">
+    android:background="@drawable/bg_multiplayer_bubbles_base">
+
+    <!-- Burbujas ambientales: decorativas, suaves y animadas desde Java -->
+    <View
+        android:id="@+id/bubbleArena1"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="-80dp"
+        android:alpha="0.42"
+        android:background="@drawable/bg_multiplayer_bubble_purple"
+        android:importantForAccessibility="no" />
+
+    <View
+        android:id="@+id/bubbleArena2"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="315dp"
+        android:layout_marginStart="-45dp"
+        android:alpha="0.34"
+        android:background="@drawable/bg_multiplayer_bubble_blue"
+        android:importantForAccessibility="no" />
+
+    <View
+        android:id="@+id/bubbleArena3"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="18dp"
+        android:alpha="0.30"
+        android:background="@drawable/bg_multiplayer_bubble_pink"
+        android:importantForAccessibility="no" />
+
+    <View
+        android:id="@+id/bubbleArena4"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="-60dp"
+        android:layout_marginBottom="120dp"
+        android:alpha="0.30"
+        android:background="@drawable/bg_multiplayer_bubble_purple"
+        android:importantForAccessibility="no" />
+
+    <View
+        android:id="@+id/bubbleArena5"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="88dp"
+        android:alpha="0.28"
+        android:background="@drawable/bg_multiplayer_bubble_yellow"
+        android:importantForAccessibility="no" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,19 +78,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#6C5CE7"
+            android:background="@drawable/bg_multiplayer_arena_header"
             android:orientation="vertical"
             android:paddingStart="20dp"
-            android:paddingTop="35dp"
+            android:paddingTop="30dp"
             android:paddingEnd="20dp"
-            android:paddingBottom="22dp">
+            android:paddingBottom="26dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DESAFÍO CLÍNICO"
-                android:textColor="#DDD8FF"
-                android:textSize="12sp"
+                android:text="ARENA PSICOQUIZ  •  EN VIVO"
+                android:textColor="#DCD8FF"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -43,6 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Sala ABC123"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
@@ -52,13 +115,14 @@
                     android:id="@+id/tvTiempo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_etiqueta_suave"
+                    android:background="@drawable/bg_multiplayer_timer"
                     android:paddingStart="14dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="14dp"
                     android:paddingBottom="8dp"
+                    android:fontFamily="sans-serif-medium"
                     android:text="15 s"
-                    android:textColor="#6C5CE7"
+                    android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -79,19 +143,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="18dp">
+            android:paddingStart="18dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="28dp">
 
             <TextView
                 android:id="@+id/tvAreaPregunta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_etiqueta_suave"
+                android:background="@drawable/bg_multiplayer_chip"
                 android:paddingStart="12dp"
                 android:paddingTop="6dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="6dp"
                 android:text="Psicopatología"
-                android:textColor="#6C5CE7"
+                android:textColor="@color/mp_accent"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
@@ -99,19 +166,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="2dp">
+                app:cardBackgroundColor="@color/mp_surface"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="3dp"
+                app:strokeColor="#E4E0F7"
+                app:strokeWidth="1dp">
 
                 <TextView
                     android:id="@+id/tvPreguntaMultijugador"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:padding="22dp"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Cargando caso clínico..."
-                    android:textColor="#29263A"
-                    android:textSize="16sp"
-                    android:lineSpacingExtra="4dp" />
+                    android:textColor="@color/mp_text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="5dp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -126,56 +197,64 @@
                     android:id="@+id/btnOpcionA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="58dp"
+                    android:minHeight="62dp"
                     android:gravity="start|center_vertical"
                     android:text="A."
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/mp_text_primary"
                     android:textSize="14sp"
-                    app:backgroundTint="#6C5CE7"
-                    app:cornerRadius="16dp" />
+                    app:backgroundTint="@color/mp_surface"
+                    app:cornerRadius="18dp"
+                    app:strokeColor="@color/mp_outline"
+                    app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnOpcionB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:minHeight="58dp"
+                    android:minHeight="62dp"
                     android:gravity="start|center_vertical"
                     android:text="B."
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/mp_text_primary"
                     android:textSize="14sp"
-                    app:backgroundTint="#6C5CE7"
-                    app:cornerRadius="16dp" />
+                    app:backgroundTint="@color/mp_surface"
+                    app:cornerRadius="18dp"
+                    app:strokeColor="@color/mp_outline"
+                    app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnOpcionC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:minHeight="58dp"
+                    android:minHeight="62dp"
                     android:gravity="start|center_vertical"
                     android:text="C."
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/mp_text_primary"
                     android:textSize="14sp"
-                    app:backgroundTint="#6C5CE7"
-                    app:cornerRadius="16dp" />
+                    app:backgroundTint="@color/mp_surface"
+                    app:cornerRadius="18dp"
+                    app:strokeColor="@color/mp_outline"
+                    app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnOpcionD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:minHeight="58dp"
+                    android:minHeight="62dp"
                     android:gravity="start|center_vertical"
                     android:text="D."
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/mp_text_primary"
                     android:textSize="14sp"
-                    app:backgroundTint="#6C5CE7"
-                    app:cornerRadius="16dp" />
+                    app:backgroundTint="@color/mp_surface"
+                    app:cornerRadius="18dp"
+                    app:strokeColor="@color/mp_outline"
+                    app:strokeWidth="1dp" />
 
             </LinearLayout>
 
@@ -186,8 +265,9 @@
                 android:layout_marginTop="14dp"
                 android:gravity="center"
                 android:text="Elige una opción. ¡La rapidez cuenta!"
-                android:textColor="#777386"
-                android:textSize="13sp" />
+                android:textColor="@color/mp_text_secondary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
             <!-- PASO 11: continuar después de responder -->
             <com.google.android.material.button.MaterialButton
@@ -203,6 +283,10 @@
                 android:visibility="gone"
                 app:backgroundTint="#6C5CE7"
                 app:cornerRadius="16dp"
+                app:icon="@drawable/ic_arrow_forward_white"
+                app:iconGravity="textEnd"
+                app:iconPadding="10dp"
+                app:iconTint="#FFFFFF"
                 />
 
             <!-- JUGADORES QUE YA RESPONDIERON -->
@@ -211,10 +295,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                app:cardBackgroundColor="#FAF9FF"
+                app:cardBackgroundColor="@color/mp_surface_alt"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#DDD7FF"
+                app:strokeColor="@color/mp_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -273,7 +357,7 @@
                             android:paddingBottom="7dp"
                             android:text="0 de 0"
                             android:textColor="#5B4FE9"
-                            android:textSize="13sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -300,11 +384,12 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/vPulsoEspera"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="7dp"
                             android:text="●"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/mp_accent"
                             android:textSize="9sp" />
 
                         <TextView
@@ -314,8 +399,8 @@
                             android:layout_weight="1"
                             android:fontFamily="sans-serif"
                             android:text="Esperando a los demás jugadores..."
-                            android:textColor="#6F6A86"
-                            android:textSize="11sp" />
+                            android:textColor="@color/mp_text_secondary"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -328,9 +413,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_etiqueta_suave"
+                android:background="@drawable/bg_multiplayer_result"
                 android:orientation="vertical"
-                android:padding="18dp"
+                android:padding="20dp"
                 android:visibility="gone">
 
                 <TextView
@@ -338,7 +423,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Respuesta correcta"
-                    android:textColor="#423A78"
+                    android:textColor="@color/mp_success"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -347,7 +432,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textColor="#6C648E"
+                    android:textColor="@color/mp_text_primary"
                     android:textSize="13sp"
                     android:lineSpacingExtra="3dp" />
 
@@ -359,7 +444,7 @@
                     android:layout_marginTop="14dp"
                     android:gravity="center"
                     android:text="Esperando confirmación de los jugadores..."
-                    android:textColor="#777386"
+                    android:textColor="@color/mp_text_secondary"
                     android:textSize="11sp"
                     android:visibility="gone" />
 
@@ -374,87 +459,158 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:visibility="gone"
+                    app:icon="@drawable/ic_check_white"
+                    app:iconGravity="textStart"
+                    app:iconPadding="9dp"
+                    app:iconSize="18dp"
                     app:backgroundTint="#6C5CE7"
                     app:cornerRadius="16dp" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="CLASIFICACIÓN"
-                android:textColor="#29263A"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <!-- PODIO FINAL: solo se muestra cuando termina la partida -->
             <LinearLayout
                 android:id="@+id/panelPodioFinal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:gravity="bottom|center_horizontal"
-                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
                 android:visibility="gone">
 
-                <!-- 2.º LUGAR -->
-                <LinearLayout
-                    android:id="@+id/podioPuesto2"
-                    android:layout_width="0dp"
+                <!-- Encabezado final V5: una sola cabecera, clara y compacta -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="3dp">
+                    app:cardBackgroundColor="@color/mp_surface_soft"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/mp_outline"
+                    app:strokeWidth="1dp">
 
-                    <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_circle"
-                        android:gravity="center"
-                        android:text="2"
-                        android:textColor="#706C80"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvPodioNombre2"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:ellipsize="end"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="Jugador 2"
-                        android:textColor="#423A78"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="14dp">
 
-                    <TextView
-                        android:id="@+id/tvPodioPuntos2"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/bg_trophy_icon_light"
+                            android:contentDescription="Trofeo"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_trophy_purple" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="Clasificación final"
+                                android:textColor="#3F3478"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif"
+                                android:text="Los mejores de esta partida"
+                                android:textColor="#746D92"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Arena V5: avatares grandes, campeón protagonista y tarimas profesionales -->
+                <LinearLayout
+                    android:id="@+id/podioArenaContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_podium_stage_v5"
+                    android:gravity="center|bottom"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp">
+
+                    <!-- 2.º lugar -->
+                    <LinearLayout
+                        android:id="@+id/podioPuesto2"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="sans-serif"
-                        android:text="0 pts"
-                        android:textColor="#777386"
-                        android:textSize="10sp" />
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="108dp"
-                        android:layout_marginTop="9dp"
-                        app:cardBackgroundColor="#E2E1EA"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:strokeColor="#D3D1DD"
-                        app:strokeWidth="1dp">
+                        <FrameLayout
+                            android:layout_width="76dp"
+                            android:layout_height="76dp">
+
+                            <ImageView
+                                android:id="@+id/imgPodioAvatar2"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bg_avatar_ring_silver"
+                                android:contentDescription="Avatar segundo lugar"
+                                android:padding="5dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/avatar_01" />
+
+                            <TextView
+                                android:layout_width="27dp"
+                                android:layout_height="27dp"
+                                android:layout_gravity="bottom|end"
+                                android:background="@drawable/bg_rank_badge_silver_v5"
+                                android:gravity="center"
+                                android:text="2"
+                                android:textColor="#566070"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvPodioNombre2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Jugador 2"
+                            android:textColor="@color/mp_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvPodioPuntos2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="0 pts"
+                            android:textColor="@color/mp_text_secondary"
+                            android:textSize="11sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="124dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_podium_silver_v5"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -462,8 +618,211 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="2°"
-                                android:textColor="#5E596C"
+                                android:text="2.º"
+                                android:textColor="@color/mp_podium_silver_text"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:letterSpacing="0.09"
+                                android:text="SEGUNDO"
+                                android:textColor="@color/mp_podium_silver_subtext"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- 1.º lugar -->
+                    <LinearLayout
+                        android:id="@+id/podioPuesto1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1.22"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:layout_marginBottom="0dp"
+                            android:contentDescription="Corona del campeón"
+                            android:src="@drawable/ic_crown_gold" />
+
+                        <FrameLayout
+                            android:layout_width="104dp"
+                            android:layout_height="104dp"
+                            android:background="@drawable/bg_champion_glow_v5">
+
+                            <ImageView
+                                android:id="@+id/imgPodioAvatar1"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bg_avatar_ring_gold"
+                                android:contentDescription="Avatar campeón"
+                                android:padding="6dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/avatar_01" />
+
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="bottom|end"
+                                android:background="@drawable/bg_rank_badge_gold_v5"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="#6B4A00"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvPodioNombre1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Jugador 1"
+                            android:textColor="@color/mp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvPodioPuntos1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="0 pts"
+                            android:textColor="@color/mp_podium_gold_points"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/bg_champion_chip"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingStart="11dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="11dp"
+                            android:paddingBottom="4dp"
+                            android:text="CAMPEÓN"
+                            android:textColor="@color/mp_podium_gold_chip_text"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="168dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_podium_gold_v5"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="1.º"
+                                android:textColor="@color/mp_podium_gold_text"
+                                android:textSize="43sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:letterSpacing="0.10"
+                                android:text="CAMPEÓN"
+                                android:textColor="@color/mp_podium_gold_subtext"
+                                android:textSize="9sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- 3.º lugar -->
+                    <LinearLayout
+                        android:id="@+id/podioPuesto3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="76dp"
+                            android:layout_height="76dp">
+
+                            <ImageView
+                                android:id="@+id/imgPodioAvatar3"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bg_avatar_ring_bronze"
+                                android:contentDescription="Avatar tercer lugar"
+                                android:padding="5dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/avatar_01" />
+
+                            <TextView
+                                android:layout_width="27dp"
+                                android:layout_height="27dp"
+                                android:layout_gravity="bottom|end"
+                                android:background="@drawable/bg_rank_badge_bronze_v5"
+                                android:gravity="center"
+                                android:text="3"
+                                android:textColor="#744D37"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvPodioNombre3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Jugador 3"
+                            android:textColor="@color/mp_text_primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvPodioPuntos3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="0 pts"
+                            android:textColor="@color/mp_podium_bronze_points"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="108dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_podium_bronze_v5"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="3.º"
+                                android:textColor="@color/mp_podium_bronze_text"
                                 android:textSize="32sp"
                                 android:textStyle="bold" />
 
@@ -471,180 +830,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:letterSpacing="0.08"
-                                android:text="SEGUNDO"
-                                android:textColor="#777282"
-                                android:textSize="9sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
-
-                <!-- 1.er LUGAR -->
-                <LinearLayout
-                    android:id="@+id/podioPuesto1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="3dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="★"
-                        android:textColor="#F2B705"
-                        android:textSize="28sp" />
-
-                    <TextView
-                        android:id="@+id/tvPodioNombre1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="Jugador 1"
-                        android:textColor="#29263A"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvPodioPuntos1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="0 pts"
-                        android:textColor="#6C5CE7"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="9dp"
-                        app:cardBackgroundColor="#F7D66C"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="5dp"
-                        app:strokeColor="#E7BE3D"
-                        app:strokeWidth="1dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="1°"
-                                android:textColor="#5B4709"
-                                android:textSize="40sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:letterSpacing="0.08"
-                                android:text="CAMPEÓN"
-                                android:textColor="#6B5515"
-                                android:textSize="9sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
-
-                <!-- 3.er LUGAR -->
-                <LinearLayout
-                    android:id="@+id/podioPuesto3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="3dp">
-
-                    <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_circle"
-                        android:gravity="center"
-                        android:text="3"
-                        android:textColor="#8B5F40"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvPodioNombre3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:ellipsize="end"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="Jugador 3"
-                        android:textColor="#423A78"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvPodioPuntos3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="sans-serif"
-                        android:text="0 pts"
-                        android:textColor="#777386"
-                        android:textSize="10sp" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="84dp"
-                        android:layout_marginTop="9dp"
-                        app:cardBackgroundColor="#DFA777"
-                        app:cardCornerRadius="18dp"
-                        app:cardElevation="2dp"
-                        app:strokeColor="#C98F60"
-                        app:strokeWidth="1dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="3°"
-                                android:textColor="#62402A"
-                                android:textSize="28sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:letterSpacing="0.08"
+                                android:letterSpacing="0.09"
                                 android:text="TERCERO"
-                                android:textColor="#724C32"
+                                android:textColor="#93664D"
                                 android:textSize="9sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
             <!-- Ranking textual para posiciones restantes y durante la partida -->
@@ -653,7 +846,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/mp_surface"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="1dp">
 
@@ -663,7 +856,7 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:text="Esperando jugadores..."
-                    android:textColor="#423A78"
+                    android:textColor="@color/mp_success"
                     android:textSize="14sp"
                     android:lineSpacingExtra="6dp" />
 
@@ -681,13 +874,13 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRevisarRespuestas"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="58dp"
                     android:text="Revisar mis respuestas"
                     android:textAllCaps="false"
-                    android:textColor="#6C5CE7"
+                    android:textColor="@color/mp_accent"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    app:backgroundTint="#EEEAFE"
+                    app:backgroundTint="@color/mp_accent_soft"
                     app:cornerRadius="16dp" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -696,10 +889,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:visibility="gone"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/mp_surface"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="1dp"
-                    app:strokeColor="#DED7FF"
+                    app:strokeColor="@color/mp_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -713,7 +906,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
                             android:text="Revisión de la partida"
-                            android:textColor="#211D3B"
+                            android:textColor="@color/mp_text_primary"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
@@ -723,7 +916,7 @@
                             android:layout_marginTop="4dp"
                             android:fontFamily="sans-serif"
                             android:text="Aquí podrás ver qué respondiste, cuál era la respuesta correcta y la justificación de cada pregunta."
-                            android:textColor="#7C7693"
+                            android:textColor="@color/mp_text_secondary"
                             android:textSize="12sp"
                             android:lineSpacingExtra="2dp" />
 
@@ -743,10 +936,10 @@
                     android:id="@+id/cardRevancha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#F8F6FF"
+                    app:cardBackgroundColor="@color/mp_surface_alt"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#DED7FF"
+                    app:strokeColor="@color/mp_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -760,7 +953,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
                             android:text="¿Quieres volver a jugar?"
-                            android:textColor="#211D3B"
+                            android:textColor="@color/mp_text_primary"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
@@ -770,7 +963,7 @@
                             android:layout_marginTop="5dp"
                             android:fontFamily="sans-serif"
                             android:text="La nueva partida comenzará únicamente cuando todos los jugadores acepten."
-                            android:textColor="#7C7693"
+                            android:textColor="@color/mp_text_secondary"
                             android:textSize="12sp"
                             android:lineSpacingExtra="2dp" />
 
@@ -781,43 +974,75 @@
                             android:layout_marginTop="12dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="0 de 0 jugadores aceptaron"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/mp_accent"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="54dp"
                             android:layout_marginTop="14dp"
+                            android:baselineAligned="false"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnAceptarRevancha"
                                 android:layout_width="0dp"
-                                android:layout_height="52dp"
+                                android:layout_height="match_parent"
                                 android:layout_marginEnd="5dp"
                                 android:layout_weight="1"
-                                android:text="Sí, jugar otra vez"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:minHeight="0dp"
+                                android:minWidth="0dp"
+                                android:maxLines="1"
+                                android:paddingTop="0dp"
+                                android:paddingBottom="0dp"
+                                android:text="Jugar otra vez"
                                 android:textAllCaps="false"
                                 android:textColor="#FFFFFF"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 app:backgroundTint="#6C5CE7"
-                                app:cornerRadius="15dp" />
+                                app:cornerRadius="15dp"
+                                app:icon="@drawable/ic_replay_white"
+                                app:iconGravity="textStart"
+                                app:iconPadding="5dp"
+                                app:iconTint="#FFFFFF"
+                                app:iconSize="18dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"/>
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnRechazarRevancha"
                                 android:layout_width="0dp"
-                                android:layout_height="52dp"
+                                android:layout_height="match_parent"
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
-                                android:text="No por ahora"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:minHeight="0dp"
+                                android:minWidth="0dp"
+                                android:maxLines="1"
+                                android:paddingTop="0dp"
+                                android:paddingBottom="0dp"
+                                android:text="No"
                                 android:textAllCaps="false"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/mp_accent"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
-                                app:backgroundTint="#EEEAFE"
-                                app:cornerRadius="15dp" />
+                                app:backgroundTint="@color/mp_accent_soft"
+                                app:cornerRadius="15dp"
+                                app:icon="@drawable/ic_close_purple"
+                                app:iconGravity="textStart"
+                                app:iconPadding="5dp"
+                                app:iconTint="@color/mp_accent"
+                                app:iconSize="18dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"/>
 
                         </LinearLayout>
 
@@ -847,10 +1072,10 @@
                     android:layout_marginTop="10dp"
                     android:text="Salir"
                     android:textAllCaps="false"
-                    android:textColor="#6C5CE7"
+                    android:textColor="@color/mp_accent"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    app:backgroundTint="#EEEAFE"
+                    app:backgroundTint="@color/mp_accent_soft"
                     app:cornerRadius="16dp" />
 
             </LinearLayout>
@@ -859,3 +1084,5 @@
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

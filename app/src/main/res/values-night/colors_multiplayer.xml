@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mp_background">#0F0C17</color>
+    <color name="mp_surface">#191423</color>
+    <color name="mp_surface_alt">#211A31</color>
+    <color name="mp_surface_soft">#2A2140</color>
+    <color name="mp_text_primary">#F8F5FF</color>
+    <color name="mp_text_secondary">#D7CFE5</color>
+    <color name="mp_text_muted">#AAA0B9</color>
+    <color name="mp_accent">#B3A1FF</color>
+    <color name="mp_accent_soft">#33284D</color>
+    <color name="mp_outline">#514568</color>
+    <color name="mp_input_bg">#241D34</color>
+    <color name="mp_input_text">#FAF7FF</color>
+    <color name="mp_input_hint">#AFA4C0</color>
+    <color name="mp_success">#6EE7A6</color>
+    <color name="mp_error">#FF8F94</color>
+    <color name="mp_review_correct_stroke">#315F48</color>
+    <color name="mp_review_error_stroke">#6B3944</color>
+</resources>

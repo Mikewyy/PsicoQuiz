@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F4F3FF"
+        android:background="@color/app_background"
         android:fillViewport="true">
 
         <LinearLayout
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/app_surface_elevated"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp">
 
@@ -122,7 +122,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Progreso del camino"
-                                    android:textColor="#29263A"
+                                    android:textColor="@color/app_text_primary"
                                     android:textSize="15sp"
                                     android:textStyle="bold" />
 
@@ -132,7 +132,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="0 de 0 temas completados"
-                                    android:textColor="#777386"
+                                    android:textColor="@color/app_text_secondary"
                                     android:textSize="13sp" />
 
                             </LinearLayout>
@@ -142,7 +142,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0%"
-                                android:textColor="#6C5CE7"
+                                android:textColor="@color/app_primary_ui"
                                 android:textSize="22sp"
                                 android:textStyle="bold" />
 
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Temas"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="21sp"
                             android:textStyle="bold" />
 
@@ -207,7 +207,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="Selecciona un tema para comenzar a estudiar"
-                            android:textColor="#777386"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="13sp" />
 
                     </LinearLayout>
@@ -233,10 +233,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:visibility="gone"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="@color/app_surface_elevated"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E8E5F2"
+                    app:strokeColor="@color/app_outline"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -258,7 +258,7 @@
                             android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:text="No hay temas disponibles"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -268,7 +268,7 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="El contenido de este camino estará disponible próximamente."
-                            android:textColor="#777386"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                     </LinearLayout>

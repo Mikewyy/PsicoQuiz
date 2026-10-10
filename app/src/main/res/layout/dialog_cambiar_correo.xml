@@ -17,7 +17,7 @@
         android:layout_marginBottom="1dp"
         android:gravity="left"
         android:text="Cambiar Correo"
-        android:textColor="#211D3B"
+        android:textColor="@color/app_text_primary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="15dp"
         android:text="Utiliza este menú para cambiar el correo electronico"
-        android:textColor="#8B88A8"
+        android:textColor="@color/app_text_secondary"
         android:textSize="12sp" />
 
 
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CONTRASEÑA ACTUAL"
-            android:textColor="#6C5CE7"
+            android:textColor="@color/app_primary_ui"
             android:textSize="9sp"
             android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:padding="0dp"
-            android:textColor="#211D3B"
+            android:textColor="@color/app_text_primary"
             android:textColorHint="#B0ACBD"
             android:textSize="15sp" />
 
@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NUEVO CORREO"
-            android:textColor="#6C5CE7"
+            android:textColor="@color/app_primary_ui"
             android:textSize="9sp"
             android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:padding="0dp"
-            android:textColor="#211D3B"
+            android:textColor="@color/app_text_primary"
             android:textColorHint="#B0ACBD"
             android:textSize="15sp" />
 
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CONFIRMAR NUEVO CORREO"
-            android:textColor="#6C5CE7"
+            android:textColor="@color/app_primary_ui"
             android:textSize="9sp"
             android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:padding="0dp"
-            android:textColor="#211D3B"
+            android:textColor="@color/app_text_primary"
             android:textColorHint="#B0ACBD"
             android:textSize="15sp" />
 
@@ -171,7 +171,7 @@
             android:layout_marginEnd="16dp"
             android:padding="10dp"
             android:text="Cancelar"
-            android:textColor="#6C5CE7"
+            android:textColor="@color/app_primary_ui"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton

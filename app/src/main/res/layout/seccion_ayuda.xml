@@ -69,10 +69,10 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="-18dp"
             android:layout_marginEnd="18dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="@color/app_surface_elevated"
             app:cardCornerRadius="24dp"
             app:cardElevation="6dp"
-            app:strokeColor="#ECE9F7"
+            app:strokeColor="@color/app_outline"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -113,7 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Aprende con PsicoQuiz"
-                        android:textColor="#29263A"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -123,7 +123,7 @@
                         android:layout_marginTop="5dp"
                         android:lineSpacingExtra="2dp"
                         android:text="Explora cada herramienta a tu ritmo. Esta guía te acompaña paso a paso."
-                        android:textColor="#777386"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="12sp" />
 
                     <LinearLayout
@@ -135,13 +135,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#F0EDFF"
+                            android:background="@color/app_background"
                             android:paddingStart="8dp"
                             android:paddingTop="5dp"
                             android:paddingEnd="8dp"
                             android:paddingBottom="5dp"
                             android:text="Estudia"
-                            android:textColor="#5B4FE9"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="10sp"
                             android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:background="#EBF7F4"
+                            android:background="@color/app_background"
                             android:paddingStart="8dp"
                             android:paddingTop="5dp"
                             android:paddingEnd="8dp"
@@ -163,7 +163,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:background="#FFF8DE"
+                            android:background="@color/app_background"
                             android:paddingStart="8dp"
                             android:paddingTop="5dp"
                             android:paddingEnd="8dp"
@@ -198,10 +198,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="22dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -216,7 +216,7 @@
                         android:background="@drawable/bg_circle"
                         android:gravity="center"
                         android:text="?"
-                        android:textColor="#6C5CE7"
+                        android:textColor="@color/app_primary_ui"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
@@ -231,7 +231,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tu guía de PsicoQuiz"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
@@ -241,7 +241,7 @@
                             android:layout_marginTop="5dp"
                             android:lineSpacingExtra="2dp"
                             android:text="Toca cualquiera de las secciones de abajo para abrir una explicación detallada y clara."
-                            android:textColor="#777386"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -259,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
                 android:text="GUÍA RÁPIDA"
-                android:textColor="#29263A"
+                android:textColor="@color/app_text_primary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -273,10 +273,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -308,7 +308,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Primeros pasos"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -317,7 +317,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Conoce la pantalla principal"
-                                android:textColor="#8B88A8"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp" />
 
                         </LinearLayout>
@@ -328,7 +328,7 @@
                             android:layout_height="34dp"
                             android:gravity="center"
                             android:text="⌄"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -344,7 +344,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="¿Qué encontrarás en PsicoQuiz?"
-                            android:textColor="#4C42B8"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -354,7 +354,7 @@
                             android:layout_marginTop="7dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Al iniciar sesión llegarás a la pantalla principal. Allí puedes consultar tu nombre, avatar, puntos acumulados, nivel actual y racha de actividad."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -363,7 +363,7 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="También encontrarás a tu mascota junto con sus niveles de hambre, felicidad y energía. Estos valores cambian conforme interactúas con ella y utilizas algunas funciones de la aplicación."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -372,14 +372,14 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Usa la barra de navegación inferior para moverte entre Inicio, Explorar, Desafíos y Ayuda. Puedes regresar a Inicio en cualquier momento sin perder tu progreso."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:background="#F0EDFF"
+                            android:background="@color/app_background"
                             android:padding="12dp"
                             android:text="Consejo: revisa tu progreso y el estado de tu mascota antes de comenzar una sesión de estudio."
                             android:textColor="#5147B8"
@@ -400,10 +400,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -435,7 +435,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Estudio y evaluación"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -444,7 +444,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Aprende, practica y refuerza"
-                                android:textColor="#8B88A8"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp" />
 
                         </LinearLayout>
@@ -455,7 +455,7 @@
                             android:layout_height="34dp"
                             android:gravity="center"
                             android:text="⌄"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -471,7 +471,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Aprende antes de evaluarte"
-                            android:textColor="#4C42B8"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -481,7 +481,7 @@
                             android:layout_marginTop="7dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Desde Explorar puedes acceder a las herramientas de estudio disponibles en PsicoQuiz."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -489,7 +489,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Guías de estudio"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -499,7 +499,7 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Permiten repasar contenidos antes de realizar una evaluación y reforzar conceptos que todavía no dominas."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -507,7 +507,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Evaluaciones"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -517,7 +517,7 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Contienen preguntas para poner a prueba lo aprendido. Después de responder puedes revisar el resultado y la explicación correspondiente."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -525,7 +525,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Casos clínicos"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -535,14 +535,14 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Presentan situaciones de aplicación práctica para relacionar la teoría con escenarios similares a los de tu formación."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:background="#F0EDFF"
+                            android:background="@color/app_background"
                             android:padding="12dp"
                             android:text="Recomendación: no memorices solo la respuesta correcta. Lee siempre la justificación para comprender por qué una opción es adecuada."
                             android:textColor="#5147B8"
@@ -563,10 +563,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -598,7 +598,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Tu mascota"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -607,7 +607,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Cuídala y personalízala"
-                                android:textColor="#8B88A8"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp" />
                         </LinearLayout>
 
@@ -617,7 +617,7 @@
                             android:layout_height="34dp"
                             android:gravity="center"
                             android:text="⌄"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -633,7 +633,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Tu compañera de estudio"
-                            android:textColor="#4C42B8"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -643,7 +643,7 @@
                             android:layout_marginTop="7dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Tu mascota te acompaña durante tu progreso en PsicoQuiz y posee tres estados principales."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -651,7 +651,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Hambre"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -660,7 +660,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Indica cuándo necesita alimento. Puedes conseguir comida mediante determinadas actividades y recompensas."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -668,7 +668,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Felicidad"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -677,7 +677,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Representa su estado de ánimo. Interactuar y jugar con ella ayuda a mantenerla feliz."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -685,7 +685,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Energía"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -694,7 +694,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Muestra cuánto puede participar en determinadas actividades."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -702,7 +702,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="9dp"
                             android:text="Personalización"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -712,14 +712,14 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Toca la mascota para cambiar su apariencia. También puedes modificar su nombre y personalizar tu perfil."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:background="#FFF3E9"
+                            android:background="@color/app_background"
                             android:padding="12dp"
                             android:text="Consejo: si una actividad relacionada con tu mascota no está disponible, comprueba primero sus niveles de energía y alimento."
                             android:textColor="#A15C23"
@@ -740,10 +740,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -775,7 +775,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Pomodoro"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -784,7 +784,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Organiza tu concentración"
-                                android:textColor="#8B88A8"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp" />
                         </LinearLayout>
 
@@ -794,7 +794,7 @@
                             android:layout_height="34dp"
                             android:gravity="center"
                             android:text="⌄"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -810,7 +810,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Organiza tus sesiones de estudio"
-                            android:textColor="#4C42B8"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -820,7 +820,7 @@
                             android:layout_marginTop="7dp"
                             android:lineSpacingExtra="3dp"
                             android:text="El temporizador Pomodoro te permite elegir la duración del período de concentración antes de comenzar."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -829,7 +829,7 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Durante una sesión puedes iniciar, pausar, reanudar o reiniciar el temporizador."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -838,7 +838,7 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="El panel puede minimizarse y quedar como una pequeña pestaña en el borde de la pantalla. Puedes moverla y seguir usando PsicoQuiz mientras el tiempo continúa."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -847,14 +847,14 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Al terminar el período de enfoque recibirás un aviso para comenzar el descanso. Después podrás iniciar otro ciclo."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:background="#FDEBF1"
+                            android:background="@color/app_background"
                             android:padding="12dp"
                             android:text="Ejemplo: usa un ciclo para estudiar una guía, descansa y dedica el siguiente ciclo a resolver preguntas."
                             android:textColor="#A84E62"
@@ -875,10 +875,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -910,7 +910,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Multijugador"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -919,7 +919,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Estudia con otras personas"
-                                android:textColor="#8B88A8"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp" />
                         </LinearLayout>
 
@@ -929,7 +929,7 @@
                             android:layout_height="34dp"
                             android:gravity="center"
                             android:text="⌄"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -945,7 +945,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Estudia y compite en tiempo real"
-                            android:textColor="#4C42B8"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -954,7 +954,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="1. Crear o unirse"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -963,7 +963,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Un jugador crea una sala y comparte el código. Los demás utilizan ese código para entrar."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -971,7 +971,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="2. Responder"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -980,7 +980,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Todos reciben las preguntas de la partida y responden desde sus propios dispositivos."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -988,7 +988,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="3. Esperar a los demás"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -997,7 +997,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="PsicoQuiz sincroniza el progreso para que todos avancen juntos."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1005,7 +1005,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="4. Leer la justificación"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -1014,7 +1014,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Después de cada pregunta revisa la respuesta correcta y su explicación."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1022,7 +1022,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="5. Confirmar"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -1031,7 +1031,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="Pulsa “Listo · ya leí la justificación”. La partida continúa cuando todos hayan confirmado."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1039,7 +1039,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="6. Podio y revancha"
-                            android:textColor="#29263A"
+                            android:textColor="@color/app_text_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -1049,14 +1049,14 @@
                             android:layout_marginTop="3dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Al finalizar consulta la clasificación y decide si quieres jugar otra partida con el grupo."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:background="#EBF7F4"
+                            android:background="@color/app_background"
                             android:padding="12dp"
                             android:text="Importante: mantén conexión a Internet durante las partidas multijugador para conservar la sincronización."
                             android:textColor="#287861"
@@ -1077,10 +1077,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -1112,7 +1112,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Desafíos"
-                                android:textColor="#29263A"
+                                android:textColor="@color/app_text_primary"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -1121,7 +1121,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Practica cada día"
-                                android:textColor="#8B88A8"
+                                android:textColor="@color/app_text_secondary"
                                 android:textSize="11sp" />
                         </LinearLayout>
 
@@ -1131,7 +1131,7 @@
                             android:layout_height="34dp"
                             android:gravity="center"
                             android:text="⌄"
-                            android:textColor="#6C5CE7"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -1147,7 +1147,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Pon a prueba tus conocimientos"
-                            android:textColor="#4C42B8"
+                            android:textColor="@color/app_primary_ui"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -1157,7 +1157,7 @@
                             android:layout_marginTop="7dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Lee cuidadosamente la pregunta y selecciona la opción que consideres correcta."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1166,7 +1166,7 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Después de responder, PsicoQuiz señalará la alternativa correcta y mostrará una justificación para ayudarte a comprender el resultado."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1175,7 +1175,7 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Los desafíos forman parte de la gamificación. Resolverlos correctamente puede otorgarte recompensas y contribuir a mantener tu racha."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
@@ -1184,14 +1184,14 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="3dp"
                             android:text="Algunas recompensas obtenidas pueden utilizarse posteriormente para cuidar a tu mascota."
-                            android:textColor="#625D75"
+                            android:textColor="@color/app_text_secondary"
                             android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:background="#FFF8DE"
+                            android:background="@color/app_background"
                             android:padding="12dp"
                             android:text="Consejo: intenta resolver el desafío después de una sesión de estudio para comprobar cuánto recuerdas."
                             android:textColor="#896B12"
@@ -1209,7 +1209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
                 android:text="CONSEJOS"
-                android:textColor="#29263A"
+                android:textColor="@color/app_text_primary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -1217,7 +1217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:cardBackgroundColor="#F0EDFF"
+                app:cardBackgroundColor="@color/app_surface_alt"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp">
 
@@ -1231,7 +1231,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Estudia a tu ritmo"
-                        android:textColor="#4C42B8"
+                        android:textColor="@color/app_primary_ui"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -1241,7 +1241,7 @@
                         android:layout_marginTop="7dp"
                         android:lineSpacingExtra="3dp"
                         android:text="Lee las justificaciones, usa el Pomodoro para organizar tus sesiones y revisa tus errores. La constancia es más importante que avanzar rápido."
-                        android:textColor="#625A90"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -1253,7 +1253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"
                 android:text="ACERCA DE"
-                android:textColor="#29263A"
+                android:textColor="@color/app_text_primary"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -1265,10 +1265,10 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/app_surface_elevated"
                 app:cardCornerRadius="22dp"
                 app:cardElevation="1dp"
-                app:strokeColor="#E9E6F4"
+                app:strokeColor="@color/app_outline"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -1281,10 +1281,10 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="78dp"
                         android:layout_height="78dp"
-                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardBackgroundColor="@color/app_surface_elevated"
                         app:cardCornerRadius="22dp"
                         app:cardElevation="0dp"
-                        app:strokeColor="#E8E2FF"
+                        app:strokeColor="@color/app_outline"
                         app:strokeWidth="1dp">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -1302,7 +1302,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="PsicoQuiz"
-                        android:textColor="#29263A"
+                        android:textColor="@color/app_text_primary"
                         android:textSize="19sp"
                         android:textStyle="bold" />
 
@@ -1312,14 +1312,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="Aplicación educativa"
-                        android:textColor="#8B88A8"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="11sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="18dp"
-                        android:background="#EEEAF5" />
+                        android:background="@color/app_background" />
 
                     <TextView
                         android:id="@+id/tvCreditosAutores"
@@ -1329,7 +1329,7 @@
                         android:gravity="center"
                         android:lineSpacingExtra="3dp"
                         android:text="Créditos y autores&#10;Toca para ver más información"
-                        android:textColor="#625D75"
+                        android:textColor="@color/app_text_secondary"
                         android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
