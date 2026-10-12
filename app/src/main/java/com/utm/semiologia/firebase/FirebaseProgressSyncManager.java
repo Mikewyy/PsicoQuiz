@@ -147,19 +147,25 @@ public class FirebaseProgressSyncManager {
             return;
         }
 
-        firestore.collection("usuarios")
-                .document(uid)
-                .collection("sync")
-                .document("progreso")
-                .set(snapshot)
-                .addOnSuccessListener(unused -> {
-                    Log.d(TAG, "Fase 2: progreso sincronizado en Firestore. UID: " + uid);
-                    exito(callback);
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Fase 2: no se pudo subir el progreso. UID: " + uid, e);
-                    error(callback, e);
-                });
+        // Transacción: fusionar el snapshot local con el cloud más reciente.
+        // Evita que un dispositivo sobrescriba avances ya subidos por otro.
+        com.google.firebase.firestore.DocumentReference ref = firestore
+                .collection("usuarios").document(uid)
+                .collection("sync").document("progreso");
+        firestore.runTransaction(transaction -> {
+            DocumentSnapshot remoto = transaction.get(ref);
+            Map<String, Object> seguro = remoto.exists()
+                    ? fusionarSnapshots(snapshot, remoto.getData())
+                    : snapshot;
+            transaction.set(ref, seguro);
+            return null;
+        }).addOnSuccessListener(unused -> {
+            Log.d(TAG, "Progreso fusionado y sincronizado en Firestore. UID: " + uid);
+            exito(callback);
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "No se pudo subir el progreso; SQLite sigue siendo local. UID: " + uid, e);
+            error(callback, e);
+        });
     }
 
     /**

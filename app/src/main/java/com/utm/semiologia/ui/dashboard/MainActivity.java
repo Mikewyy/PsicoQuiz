@@ -3011,7 +3011,7 @@ public class MainActivity extends BaseActivity
                 "Conejo",
                 "Búho",
                 "Ajolote",
-                "Zorro"
+                "Pato"
         };
 
         final int[] resIds = {

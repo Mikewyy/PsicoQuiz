@@ -646,14 +646,12 @@ public class QuizMultijugadorActivity
                         "preguntasPartida"
                 );
 
-        if (
-                preguntasRaw instanceof
-                        List
-        ) {
-
-            preguntasPartida =
-                    (List<Map<String, Object>>)
-                            preguntasRaw;
+        if (preguntasRaw instanceof List) {
+            // No conservar preguntas de una partida anterior si Firestore
+            // publica un estado nuevo o una lista incompleta.
+            preguntasPartida = (List<Map<String, Object>>) preguntasRaw;
+        } else {
+            preguntasPartida = new ArrayList<>();
         }
 
         String estadoPartida =
@@ -706,14 +704,31 @@ public class QuizMultijugadorActivity
                         + "_"
                         + partidaId;
 
-        preguntaActual =
-                nuevoIndice;
+        preguntaActual = nuevoIndice;
 
-        if (
-                nuevaClave.equals(
-                        clavePantalla
-                )
-        ) {
+        // La fase y la pregunta pueden llegar mientras Firestore resuelve
+        // el documento. No bloquear la recarga con una clave de pantalla
+        // hasta que los datos necesarios estén completos.
+        if (nuevoIndice < 0 || nuevoIndice >= preguntasPartida.size()
+                || preguntasPartida.get(nuevoIndice) == null
+                || textoMapa(preguntasPartida.get(nuevoIndice), "pregunta").trim().isEmpty()
+                || opcionesDe(preguntasPartida.get(nuevoIndice)).size() != 4) {
+            clavePantalla = "";
+            if (timerPregunta != null) { timerPregunta.cancel(); timerPregunta = null; }
+            if (timerResultado != null) { timerResultado.cancel(); timerResultado = null; }
+            tvPregunta.setText("Esperando la pregunta de la sala...");
+            tvAreaPregunta.setText("Psicopatología");
+            for (int i = 0; i < botonesOpciones.length; i++) {
+                botonesOpciones[i].setText(new String[]{"A.", "B.", "C.", "D."}[i]);
+            }
+            restaurarColoresOpciones();
+            habilitarOpciones(false);
+            panelResultado.setVisibility(View.GONE);
+            tvEstadoRespuesta.setText("Sincronizando pregunta...");
+            return;
+        }
+
+        if (nuevaClave.equals(clavePantalla)) {
             return;
         }
 

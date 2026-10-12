@@ -1,0 +1,17 @@
+PATOTECTIVE — CORRECCIONES PROPUESTAS 12/10/2026
+
+CAMBIOS APLICADOS:
+1. Multijugador: no se reutiliza un banco de preguntas anterior cuando Firestore devuelve datos incompletos. Se validan el texto y las cuatro opciones antes de pintar la ronda y se permite volver a intentar mostrarla al recibir el snapshot válido.
+2. Multijugador: la pantalla de espera desactiva las opciones y limpia resultados/textos anteriores si faltan preguntas.
+3. Icono: retirado el uso incorrecto de la imagen a color como capa monocromática de launcher adaptable; Android mostrará el icono estándar a color en lugar de utilizar esa capa incorrecta. Algunos launchers temáticos pueden mostrar su propio tratamiento.
+4. Personalización: cambiado el sexto tipo de mascota de Zorro a Pato; no altera el nombre personalizado del usuario.
+5. Progreso: la subida del estado local a Firestore ahora utiliza una transacción que fusiona el progreso remoto y local para evitar un reemplazo simple con .set(snapshot).
+
+VERIFICACIÓN REQUERIDA:
+- La compilación NO ha podido completarse en este entorno porque no es posible descargar Gradle 9.6.0.
+- Las transacciones Firestore necesitan red; los fallos temporales deben reintentarse al volver a sincronizar. SQLite conserva el estado local.
+- Probar multijugador con al menos dos móviles, reconexión, cambio de preguntas y progreso en segundo dispositivo.
+- Si hay sesiones simultáneas, comprobar también la lógica de sincronizarAlEntrar que todavía realiza una escritura fuera de transacción.
+- Para dispositivos con iconos temáticos, verificar el launcher donde se produjo el icono negro.
+
+Abre PsicoQuiz en Android Studio, ejecuta Gradle Sync y compila app:assembleDebug.
