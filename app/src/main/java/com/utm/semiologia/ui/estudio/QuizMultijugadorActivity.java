@@ -6,6 +6,9 @@ import android.animation.ObjectAnimator;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import androidx.activity.OnBackPressedCallback;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -58,6 +61,22 @@ public class QuizMultijugadorActivity
             600,
             400,
             250
+    };
+
+    private static final long RECONEXION_MS = 60_000L;
+    private static final long LATIDO_MS = 15_000L;
+    private final Handler presenciaHandler = new Handler(Looper.getMainLooper());
+    private boolean abandonoVoluntario = false;
+    private final Runnable latido = new Runnable() {
+        @Override public void run() {
+            if (!abandonoVoluntario && firestore != null && auth != null
+                    && auth.getCurrentUser() != null && codigoSala != null) {
+                firestore.collection("salas").document(codigoSala)
+                        .collection("participantes").document(auth.getCurrentUser().getUid())
+                        .update("ultimoLatido", System.currentTimeMillis(), "estadoConexion", "activo");
+                presenciaHandler.postDelayed(this, LATIDO_MS);
+            }
+        }
     };
 
     private FirebaseFirestore firestore;
@@ -211,6 +230,9 @@ public class QuizMultijugadorActivity
         escucharSala();
         escucharRespuestas();
         escucharLecturasResultado();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override public void handleOnBackPressed() { confirmarSalida(); }
+        });
     }
 
 
@@ -572,9 +594,7 @@ public class QuizMultijugadorActivity
                 v -> alternarRevisionRespuestas()
         );
 
-        btnSalirPartida.setOnClickListener(
-                v -> finish()
-        );
+        btnSalirPartida.setOnClickListener(v -> confirmarSalida());
     }
 
     private void escucharSala() {
@@ -783,8 +803,11 @@ public class QuizMultijugadorActivity
                                         return;
                                     }
 
-                                    cantidadParticipantes =
-                                            snapshot.size();
+                                    cantidadParticipantes = 0;
+                                    for (DocumentSnapshot p : snapshot.getDocuments()) {
+                                        if (jugadorActivo(p)) cantidadParticipantes++;
+                                    }
+                                    verificarAnfitrion(snapshot.getDocuments());
 
                                     actualizarProgresoRespuestas(
                                             respuestasPreguntaActual
@@ -796,6 +819,7 @@ public class QuizMultijugadorActivity
                                                             .getDocuments()
                                             );
 
+                                    jugadores.removeIf(j -> "abandono".equals(j.getString("estadoConexion")));
                                     jugadores.sort(
                                             (a, b) -> {
 
@@ -894,9 +918,8 @@ public class QuizMultijugadorActivity
                                                 .append(
                                                         puntos
                                                 )
-                                                .append(
-                                                        " pts"
-                                                );
+                                                .append(" pts")
+                                                .append(jugadorActivo(jugador) ? "" : " · Inactivo");
 
                                         if (
                                                 i <
@@ -1956,6 +1979,9 @@ public class QuizMultijugadorActivity
                                 String uid =
                                         jugador.getId();
 
+                                if ("abandono".equals(jugador.getString("estadoConexion"))) {
+                                    continue;
+                                }
                                 int puntos =
                                         puntosPorUid.getOrDefault(
                                                 uid,
@@ -4120,9 +4146,95 @@ public class QuizMultijugadorActivity
         }
     }
 
+    private boolean jugadorActivo(DocumentSnapshot p) {
+        String estado = p.getString("estadoConexion");
+        if ("abandono".equals(estado)) return false;
+        Long latidoMs = p.getLong("ultimoLatido");
+        return latidoMs == null || System.currentTimeMillis() - latidoMs <= RECONEXION_MS;
+    }
+
+    private void confirmarSalida() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("¿Abandonar la partida?")
+                .setMessage("Perderás los puntos de esta partida. Los demás podrán continuar.")
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Abandonar", (dialog, which) -> abandonarPartida())
+                .show();
+    }
+
+    private void abandonarPartida() {
+        if (abandonoVoluntario || auth.getCurrentUser() == null) return;
+        abandonoVoluntario = true;
+        presenciaHandler.removeCallbacks(latido);
+        String uid = auth.getCurrentUser().getUid();
+        DocumentReference ref = firestore.collection("salas").document(codigoSala)
+                .collection("participantes").document(uid);
+        ref.update("estadoConexion", "abandono", "puntosPartida", 0,
+                        "aciertosPartida", 0, "ultimoPuntaje", 0,
+                        "anfitrion", false, "ultimoLatido", 0)
+                .addOnSuccessListener(unused -> {
+                    transferirAnfitrion(uid);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    abandonoVoluntario = false;
+                    presenciaHandler.post(latido);
+                    Toast.makeText(this, "No se pudo registrar la salida: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
+    }
+
+    private void verificarAnfitrion(List<DocumentSnapshot> participantes) {
+        if (anfitrionId == null || anfitrionId.isEmpty()) return;
+        DocumentSnapshot actual = null;
+        for (DocumentSnapshot p : participantes) {
+            if (anfitrionId.equals(p.getId())) { actual = p; break; }
+        }
+        if (actual != null && jugadorActivo(actual)) return;
+        transferirAnfitrion(anfitrionId);
+    }
+
+    private void transferirAnfitrion(String anteriorUid) {
+        DocumentReference sala = firestore.collection("salas").document(codigoSala);
+        sala.collection("participantes").get().addOnSuccessListener(snapshot -> {
+            DocumentSnapshot siguiente = null;
+            for (DocumentSnapshot candidato : snapshot.getDocuments()) {
+                if (candidato.getId().equals(anteriorUid) || !jugadorActivo(candidato)) continue;
+                if (siguiente == null || candidato.getLong("unidoEn") != null
+                        && (siguiente.getLong("unidoEn") == null
+                        || candidato.getLong("unidoEn") < siguiente.getLong("unidoEn"))) {
+                    siguiente = candidato;
+                }
+            }
+            if (siguiente == null) return;
+            DocumentReference nuevoRef = siguiente.getReference();
+            firestore.runTransaction(tx -> {
+                DocumentSnapshot salaActual = tx.get(sala);
+                DocumentSnapshot nuevo = tx.get(nuevoRef);
+                if (!anteriorUid.equals(salaActual.getString("anfitrionId"))
+                        || !jugadorActivo(nuevo)) return null;
+                tx.update(sala, "anfitrionId", nuevoRef.getId());
+                tx.update(nuevoRef, "anfitrion", true);
+                return null;
+            });
+        });
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        presenciaHandler.removeCallbacks(latido);
+        if (!abandonoVoluntario) presenciaHandler.post(latido);
+    }
+
+    @Override protected void onPause() {
+        presenciaHandler.removeCallbacks(latido);
+        super.onPause();
+    }
+
     @Override
     protected void onDestroy() {
 
+        presenciaHandler.removeCallbacks(latido);
         detenerAnimacionesArena();
         cancelarTimerPregunta();
         cancelarTimerResultado();
