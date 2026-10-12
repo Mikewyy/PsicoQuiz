@@ -1390,11 +1390,9 @@ public class MainActivity extends BaseActivity
                 View.GONE
         );
 
-        pestanaPomodoro.setVisibility(
-                View.VISIBLE
-        );
-
         pomodoroMinimizado = true;
+
+        aplicarVisibilidadBurbuja();
 
 
 // -----------------------------------------------------
@@ -1763,6 +1761,33 @@ public class MainActivity extends BaseActivity
         }
     }
     // =========================================================
+// VISIBILIDAD DE LA BURBUJA DEL POMODORO
+// =========================================================
+
+    /**
+     * Muestra u oculta la burbuja flotante del Pomodoro segun la preferencia
+     * del usuario. No altera el estado ni el funcionamiento del temporizador:
+     * solo controla su visibilidad.
+     */
+    private void aplicarVisibilidadBurbuja() {
+
+        if (pestanaPomodoro == null) {
+            return;
+        }
+
+        boolean visible =
+                PreferenciasManager.burbujaPomodoroActiva(this)
+                        && pomodoroMinimizado;
+
+        pestanaPomodoro.setVisibility(
+                visible
+                        ? View.VISIBLE
+                        : View.GONE
+        );
+    }
+
+
+    // =========================================================
 // MINIMIZAR POMODORO
 // =========================================================
 
@@ -1811,16 +1836,24 @@ public class MainActivity extends BaseActivity
                                     xEntradaPestanaPomodoro()
                             );
 
-                            pestanaPomodoro.setVisibility(
-                                    View.VISIBLE
-                            );
 
-                            pestanaPomodoro
-                                    .animate()
-                                    .x(xAncladoPestana())
-                                    .alpha(1f)
-                                    .setDuration(220)
-                                    .start();
+                            // Solo se asoma si el usuario tiene habilitada
+                            // la burbuja. El Pomodoro sigue funcionando igual.
+                            if (PreferenciasManager.burbujaPomodoroActiva(
+                                    MainActivity.this
+                            )) {
+
+                                pestanaPomodoro.setVisibility(
+                                        View.VISIBLE
+                                );
+
+                                pestanaPomodoro
+                                        .animate()
+                                        .x(xAncladoPestana())
+                                        .alpha(1f)
+                                        .setDuration(220)
+                                        .start();
+                            }
                         }
                 )
                 .start();
@@ -1945,11 +1978,8 @@ public class MainActivity extends BaseActivity
         // -----------------------------------------------------
 
         btnJugar.setOnClickListener(
-                v -> startActivity(
-                        new Intent(
-                                this,
-                                CaminoActivity.class
-                        )
+                v -> irASeccion(
+                        NavegacionInferior.SECCION_EXPLORAR
                 )
         );
 
@@ -3340,6 +3370,26 @@ public class MainActivity extends BaseActivity
                         gestionarNotificaciones(activado)
         );
 
+        final SwitchMaterial swBurbuja =
+                vista.findViewById(
+                        R.id.swConfigBurbuja
+                );
+
+        swBurbuja.setChecked(
+                PreferenciasManager
+                        .burbujaPomodoroActiva(this)
+        );
+
+        swBurbuja.setOnCheckedChangeListener(
+                (boton, activado) -> {
+                    PreferenciasManager.setBurbujaPomodoro(
+                            this,
+                            activado
+                    );
+                    aplicarVisibilidadBurbuja();
+                }
+        );
+
         prepararBottomSheetRedondeado(
                 dialog
         );
@@ -3475,7 +3525,11 @@ public class MainActivity extends BaseActivity
             panelPomodoro.setAlpha(1f);
             panelPomodoro.setTranslationX(0f);
 
-            pestanaPomodoro.setVisibility(View.VISIBLE);
+            pestanaPomodoro.setVisibility(
+                    PreferenciasManager.burbujaPomodoroActiva(this)
+                            ? View.VISIBLE
+                            : View.GONE
+            );
             pestanaPomodoro.setAlpha(1f);
             pestanaPomodoro.setScaleX(1f);
             pestanaPomodoro.setScaleY(1f);
@@ -4804,8 +4858,9 @@ public class MainActivity extends BaseActivity
 
 
                             float maxY =
-                                    padre.getHeight()
-                                            - view.getHeight();
+                                    topeInferiorBurbujaPomodoro(
+                                            padre
+                                    );
 
 
                             nuevaX =
@@ -4869,6 +4924,48 @@ public class MainActivity extends BaseActivity
                     return false;
                 }
         );
+    }
+
+
+    /**
+     * Tope inferior (coordenada Y respecto al padre) hasta el que se puede
+     * arrastrar la burbuja: justo por encima de la barra de navegacion. Asi
+     * nunca queda oculta detras de ella.
+     */
+    private float topeInferiorBurbujaPomodoro(View padre) {
+
+        float alturaBurbuja =
+                pestanaPomodoro.getHeight();
+
+        float topeNatural =
+                padre.getHeight() - alturaBurbuja;
+
+        if (
+                barraInferior != null
+                        && barraInferior.getVisibility() == View.VISIBLE
+        ) {
+
+            int[] navPos = new int[2];
+            barraInferior.getLocationOnScreen(navPos);
+
+            int[] padrePos = new int[2];
+            padre.getLocationOnScreen(padrePos);
+
+            float topeBarraInferior =
+                    navPos[1] - padrePos[1];
+
+            float topeConBarra =
+                    topeBarraInferior
+                            - alturaBurbuja
+                            - dpPomodoro(8);
+
+            return Math.min(
+                    topeConBarra,
+                    topeNatural
+            );
+        }
+
+        return topeNatural;
     }
 
 

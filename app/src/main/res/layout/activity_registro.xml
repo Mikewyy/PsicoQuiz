@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_login">
@@ -138,7 +139,7 @@
                         android:layout_height="22dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_login_user"
-                    android:tint="@color/auth_icon" />
+                    app:tint="@color/auth_icon" />
 
                     <EditText
                         android:id="@+id/etNombre"
@@ -172,7 +173,7 @@
                         android:layout_height="22dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_login_user"
-                    android:tint="@color/auth_icon" />
+                    app:tint="@color/auth_icon" />
 
                     <EditText
                         android:id="@+id/etEmail"
@@ -207,7 +208,7 @@
                         android:layout_height="22dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_login_lock"
-                    android:tint="@color/auth_icon" />
+                    app:tint="@color/auth_icon" />
 
                     <EditText
                         android:id="@+id/etPassword"
@@ -232,7 +233,7 @@
                         android:contentDescription="@string/ver_contrasena"
                         android:scaleType="centerInside"
                         android:src="@drawable/ic_ojo"
-                        android:tint="@color/auth_icon_muted" />
+                        app:tint="@color/auth_icon_muted" />
                 </LinearLayout>
 
                 <!-- Acción principal -->

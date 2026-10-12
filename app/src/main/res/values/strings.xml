@@ -9,8 +9,8 @@
     <!-- Autenticación -->
     <string name="login_titulo">Bienvenido</string>
     <string name="login_subtitulo">Estudia semiología y cuida a tu mascota</string>
-    <string name="login_marca_psico">Psico</string>
-    <string name="login_marca_quiz">Quiz</string>
+    <string name="login_marca_psico">Pato</string>
+    <string name="login_marca_quiz">Tective</string>
     <string name="login_eslogan">Aprende, compite y potencia\ntus conocimientos</string>
     <string name="login_form_titulo">Iniciar sesión</string>
     <string name="login_form_subtitulo">Bienvenido de nuevo, ¿Listo para poner a prueba tus conocimientos?</string>

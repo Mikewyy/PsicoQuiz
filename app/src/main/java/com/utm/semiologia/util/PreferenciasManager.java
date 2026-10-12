@@ -17,6 +17,8 @@ public final class PreferenciasManager {
 
     private static final String K_TEMA = "tema_app";
 
+    private static final String K_BURBUJA_POMODORO = "burbuja_pomodoro";
+
     public static final int TEMA_SISTEMA = 0;
     public static final int TEMA_CLARO = 1;
     public static final int TEMA_OSCURO = 2;
@@ -72,6 +74,18 @@ public final class PreferenciasManager {
             default:
                 return "Sistema";
         }
+    }
+
+    /**
+     * Visibilidad de la burbuja flotante del Pomodoro.
+     * Por defecto visible (comportamiento histórico).
+     */
+    public static boolean burbujaPomodoroActiva(Context context) {
+        return prefs(context).getBoolean(K_BURBUJA_POMODORO, true);
+    }
+
+    public static void setBurbujaPomodoro(Context context, boolean visible) {
+        prefs(context).edit().putBoolean(K_BURBUJA_POMODORO, visible).apply();
     }
 
     private static SharedPreferences prefs(Context context) {

@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
@@ -193,18 +194,20 @@ public class RegistroActivity extends AppCompatActivity {
                     }
                 }
         );
-    }
 
-    @Override
-    public void onBackPressed() {
-        if (registroEnProceso) {
-            mostrarSnackbarError(
-                    "Espera mientras se crea tu cuenta."
-            );
-            return;
-        }
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (registroEnProceso) {
+                    mostrarSnackbarError(
+                            "Espera mientras se crea tu cuenta."
+                    );
+                    return;
+                }
 
-        confirmarSalida();
+                confirmarSalida();
+            }
+        });
     }
 
     private void confirmarSalida() {

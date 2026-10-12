@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import com.utm.semiologia.ui.common.BaseActivity;
@@ -89,11 +90,13 @@ public class QuizActivity extends BaseActivity {
         btnAccion.setOnClickListener(v -> onAccion());
 
         vm.getEstado().observe(this, this::render);
-    }
 
-    @Override
-    public void onBackPressed() {
-        confirmarSalida();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                confirmarSalida();
+            }
+        });
     }
 
     private void confirmarSalida() {

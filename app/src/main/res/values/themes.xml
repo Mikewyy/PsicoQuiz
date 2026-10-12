@@ -13,29 +13,27 @@
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
-        <item name="colorOutline">@color/outline</item>
+        <item name="colorOutline">@color/app_outline</item>
+        <item name="colorSurfaceContainer">@color/app_surface_alt</item>
+        <item name="colorSurfaceContainerHigh">@color/app_surface_elevated</item>
 
         <!-- TIPOGRAFÍA MODERNA -->
         <item name="android:fontFamily">sans-serif</item>
         <item name="fontFamily">sans-serif</item>
 
         <!-- BARRAS DEL SISTEMA -->
-        <item name="android:navigationBarColor">@color/app_surface</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:navigationBarColor">@color/app_background</item>
+        <item name="android:windowLightNavigationBar"
+            tools:targetApi="27">false</item>
 
         <!-- BARRA DE ESTADO -->
         <item name="android:statusBarColor">@color/brand_start</item>
         <item name="android:windowLightStatusBar"
             tools:targetApi="m">false</item>
 
-            <item name="colorSurfaceContainer">@color/app_surface_alt</item>
-        <item name="colorSurfaceContainerHigh">@color/app_surface_elevated</item>
-        <item name="colorOutline">@color/app_outline</item>
+        <!-- DIÁLOGOS -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Semiologia.Dialog</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.Semiologia.Dialog</item>
-        <item name="android:navigationBarColor">@color/app_background</item>
-        <item name="android:statusBarColor">@color/brand_start</item>
-        <item name="android:windowLightNavigationBar">false</item>
     </style>
 
 </resources>
