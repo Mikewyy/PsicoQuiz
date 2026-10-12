@@ -67,6 +67,17 @@ public class QuizMultijugadorActivity
     private static final long LATIDO_MS = 15_000L;
     private final Handler presenciaHandler = new Handler(Looper.getMainLooper());
     private boolean abandonoVoluntario = false;
+    private boolean partidaEnCurso = false;
+    private boolean avisoSinCompetidorMostrado = false;
+    private List<DocumentSnapshot> ultimosParticipantes = new ArrayList<>();
+    private final Runnable verificarCompetidores = new Runnable() {
+        @Override public void run() {
+            comprobarCompetidorRestante(ultimosParticipantes);
+            if (!isFinishing() && !isDestroyed() && !avisoSinCompetidorMostrado) {
+                presenciaHandler.postDelayed(this, 5_000L);
+            }
+        }
+    };
     private final Runnable latido = new Runnable() {
         @Override public void run() {
             if (!abandonoVoluntario && firestore != null && auth != null
@@ -226,6 +237,7 @@ public class QuizMultijugadorActivity
                 "Sala " + codigoSala
         );
 
+        presenciaHandler.postDelayed(verificarCompetidores, 5_000L);
         escucharParticipantes();
         escucharSala();
         escucharRespuestas();
@@ -694,6 +706,8 @@ public class QuizMultijugadorActivity
                         ? indice.intValue()
                         : 0;
 
+        partidaEnCurso = "jugando".equalsIgnoreCase(estadoPartida);
+
         if (
                 "finalizada".equalsIgnoreCase(
                         estadoPartida
@@ -803,6 +817,9 @@ public class QuizMultijugadorActivity
                                         return;
                                     }
 
+                                    ultimosParticipantes = new ArrayList<>(snapshot.getDocuments());
+                                    comprobarCompetidorRestante(ultimosParticipantes);
+                                    if (avisoSinCompetidorMostrado) return;
                                     cantidadParticipantes = 0;
                                     for (DocumentSnapshot p : snapshot.getDocuments()) {
                                         if (jugadorActivo(p)) cantidadParticipantes++;
@@ -4153,10 +4170,40 @@ public class QuizMultijugadorActivity
         return latidoMs == null || System.currentTimeMillis() - latidoMs <= RECONEXION_MS;
     }
 
+    /** La arena necesita al menos dos jugadores activos durante una partida. */
+    private void comprobarCompetidorRestante(List<DocumentSnapshot> participantes) {
+        if (!partidaEnCurso || abandonoVoluntario || avisoSinCompetidorMostrado
+                || participantes == null || participantes.size() < 2 || isFinishing()) return;
+
+        int activos = 0;
+        boolean hayAbandonoODesconexion = false;
+        for (DocumentSnapshot participante : participantes) {
+            if (jugadorActivo(participante)) {
+                activos++;
+            } else {
+                hayAbandonoODesconexion = true;
+            }
+        }
+        if (!hayAbandonoODesconexion || activos >= 2) return;
+
+        avisoSinCompetidorMostrado = true;
+        presenciaHandler.removeCallbacks(verificarCompetidores);
+        cancelarTimerPregunta();
+        cancelarTimerResultado();
+        respuestaEnviada = true;
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Tu competidor salió de la partida")
+                .setMessage("Ya no hay suficientes jugadores para continuar. "
+                        + "Inicia una nueva partida e invita a tu competidor otra vez.")
+                .setCancelable(false)
+                .setPositiveButton("Volver e invitar", (dialog, which) -> finish())
+                .show();
+    }
+
     private void confirmarSalida() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("¿Abandonar la partida?")
-                .setMessage("Perderás los puntos de esta partida. Los demás podrán continuar.")
+                .setMessage("Perderás los puntos de esta partida. Si solo queda un jugador, la partida terminará para él.")
                 .setNegativeButton("Cancelar", null)
                 .setPositiveButton("Abandonar", (dialog, which) -> abandonarPartida())
                 .show();
@@ -4235,6 +4282,7 @@ public class QuizMultijugadorActivity
     protected void onDestroy() {
 
         presenciaHandler.removeCallbacks(latido);
+        presenciaHandler.removeCallbacks(verificarCompetidores);
         detenerAnimacionesArena();
         cancelarTimerPregunta();
         cancelarTimerResultado();
