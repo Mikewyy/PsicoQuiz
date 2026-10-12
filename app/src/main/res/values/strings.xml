@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PsicoQuiz</string>
+    <string name="app_name">Patotective</string>
     <string name="registro_titulo">Crear cuenta</string>
     <string name="registro_subtitulo">Regístrate y empieza esta gran aventura</string>
     <string name="btn_crear_cuenta">Crear cuenta</string>
@@ -190,7 +190,7 @@
 
     <!-- Primer ingreso: aviso de notificaciones -->
     <string name="notificaciones_aviso_titulo">¿Activar las notificaciones?</string>
-    <string name="notificaciones_aviso_mensaje">Te recordaremos todos los días a las 07:00 para que no te pierdas el desafío diario de PsicoQuiz.</string>
+    <string name="notificaciones_aviso_mensaje">Te recordaremos todos los días a las 07:00 para que no te pierdas el desafío diario de Patotective.</string>
     <string name="notificaciones_aviso_activar">Activar</string>
     <string name="notificaciones_aviso_ahora_no">Ahora no</string>
 </resources>

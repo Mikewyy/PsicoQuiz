@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class FirebaseSecondarySyncManager {
 
-    private static final String TAG = "PsicoQuizSync";
+    private static final String TAG = "PatotectiveSync";
     private static final int SCHEMA_VERSION = 4;
     private static volatile boolean restaurandoDesdeNube = false;
 

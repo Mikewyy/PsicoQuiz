@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity
             "pomodoro_minimizado";
 
     private static final String PREF_UI_TEMP =
-            "psicoquiz_ui_temp";
+            "patotective_ui_temp";
 
     private static final String PREF_RESTAURAR_POMODORO_TEMA =
             "restaurar_pomodoro_tema";
@@ -669,7 +669,7 @@ public class MainActivity extends BaseActivity
 
 
     // =========================================================
-    // ACERCA DE PSICOQUIZ
+    // ACERCA DE PATOTECTIVE
     // =========================================================
 
     private void mostrarAcercaDe() {

@@ -98,7 +98,7 @@ public class AlarmaDesafioReceiver extends BroadcastReceiver {
                 "6. Llamando a NotificacionesUtil.notificarDesafio()"
         );
 
-        // Mostrar la notificación real de PsicoQuiz
+        // Mostrar la notificación real de Patotective
         NotificacionesUtil.notificarDesafio(context);
 
         Log.e(

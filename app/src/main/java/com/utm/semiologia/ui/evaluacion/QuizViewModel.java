@@ -229,7 +229,21 @@ public class QuizViewModel extends AndroidViewModel {
                 out.siguienteNumero = desbloqueadoSiguiente(usuarioId, nivelId);
             }
         } else {
-            // La práctica no da puntos, pero sí cuenta como actividad del día.
+            /*
+             * Una repetición de un tramo ya aprobado se abre en modo práctica.
+             * Antes, ese modo NO actualizaba mejor_porcentaje/mejor_puntaje, por
+             * lo que un 80 % quedaba congelado aunque después se obtuviera 100 %.
+             *
+             * Guardamos el nuevo intento como posible mejor resultado, pero NO
+             * otorgamos otra vez puntos, comida ni el bonus de primera aprobación.
+             */
+            ProgresoNivel progresoPrevio = repo.niveles().obtenerProgreso(usuarioId, nivelId);
+            if (progresoPrevio != null) {
+                repo.niveles().actualizarProgresoTrasExamen(
+                        usuarioId, nivelId, out.porcentaje, puntos, out.aprobado);
+            }
+
+            // La práctica no da puntos extra, pero sí cuenta como actividad del día.
             repo.usuarios().registrarActividad(usuarioId, 0, 0, 0, repo.mascotas());
         }
         return out;

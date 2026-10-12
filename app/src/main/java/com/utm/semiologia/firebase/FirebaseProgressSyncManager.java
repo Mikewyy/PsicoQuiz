@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class FirebaseProgressSyncManager {
 
-    private static final String TAG = "PsicoQuizSync";
+    private static final String TAG = "PatotectiveSync";
     private static final int SCHEMA_VERSION = 4;
     private static final long DEBOUNCE_MS = 1800L;
 

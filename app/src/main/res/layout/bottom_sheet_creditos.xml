@@ -24,7 +24,7 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:text="PsicoQuiz" android:textColor="@color/app_text_primary" android:textSize="23sp" android:textStyle="bold" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:text="Patotective" android:textColor="@color/app_text_primary" android:textSize="23sp" android:textStyle="bold" />
 
     <TextView android:id="@+id/tvVersionCreditos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_marginTop="4dp" android:text="Versión" android:textColor="@color/app_text_secondary" android:textSize="12sp" />
 
@@ -33,7 +33,7 @@
     <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="22dp" android:background="@color/app_background" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="DESARROLLO" android:textColor="@color/app_primary_ui" android:textSize="11sp" android:textStyle="bold" />
-    <TextView android:id="@+id/tvAutoresCreditos" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:lineSpacingExtra="3dp" android:text="Autores del proyecto&#10;Información pendiente" android:textColor="@color/app_text_primary" android:textSize="14sp" />
+    <TextView android:id="@+id/tvAutoresCreditos" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:lineSpacingExtra="3dp" android:text="Sanyi Melissa Mendoza Santana&#10;Joe Edilson Sánchez Pincay&#10;Andrea Angelina Sánchez Véliz&#10;Iara Katherine Velez Macias&#10;Andres Mateo Vera Cano" android:textColor="@color/app_text_primary" android:textSize="14sp" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="INSTITUCIÓN" android:textColor="@color/app_primary_ui" android:textSize="11sp" android:textStyle="bold" />
     <TextView android:id="@+id/tvInstitucionCreditos" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Información pendiente" android:textColor="@color/app_text_primary" android:textSize="14sp" />

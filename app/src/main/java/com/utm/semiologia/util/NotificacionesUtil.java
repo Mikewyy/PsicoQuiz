@@ -47,7 +47,7 @@ public final class NotificacionesUtil {
     private static final int CODIGO_RECORDATORIO = 202;
 
     /**
-     * Código del PendingIntent que abre PsicoQuiz.
+     * Código del PendingIntent que abre Patotective.
      */
     private static final int CODIGO_ABRIR_APP = 203;
 
@@ -93,7 +93,7 @@ public final class NotificacionesUtil {
                 );
 
         canal.setDescription(
-                "Recordatorios del desafío diario de PsicoQuiz"
+                "Recordatorios del desafío diario de Patotective"
         );
 
         canal.enableVibration(true);
@@ -300,7 +300,7 @@ public final class NotificacionesUtil {
 
 
         // -----------------------------------------------------
-        // INTENT PARA ABRIR PSICOQUIZ
+        // INTENT PARA ABRIR PATOTECTIVE
         // -----------------------------------------------------
 
         Intent abrir =

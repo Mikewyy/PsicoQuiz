@@ -1,8 +1,8 @@
-PSICOQUIZ - FIREBASE FASE 4 FINAL
+PATOTECTIVE - FIREBASE FASE 4 FINAL
 =================================
 
 Instalar desde la raiz del proyecto:
-  unzip -o ~/Descargas/PsicoQuiz_Firebase_Fase4_FINAL.zip -d .
+  unzip -o ~/Descargas/Patotective_Firebase_Fase4_FINAL.zip -d .
   ./gradlew assembleDebug
   ./gradlew installDebug
 
@@ -48,7 +48,7 @@ LIMITACION DELIBERADA
 La fusion es conservadora, no un sistema bancario/event-sourcing. Si dos
 telefonos modifican exactamente al mismo tiempo la misma cantidad consumible,
 se prioriza la version con marca temporal mas reciente; no se suman snapshots,
-para evitar duplicar recompensas. Para PsicoQuiz universitario esta estrategia
+para evitar duplicar recompensas. Para Patotective universitario esta estrategia
 es apropiada y mantiene el plan simple/eficiente.
 
 PRUEBA 1 - MIGRACION A FASE 4
@@ -56,7 +56,7 @@ PRUEBA 1 - MIGRACION A FASE 4
 1. NO borres datos.
 2. Cierra sesion y vuelve a entrar.
 3. Ejecuta:
-   adb logcat -d | grep -E "PsicoQuizSync|PsicoQuizFirebase|PERMISSION_DENIED|FATAL EXCEPTION"
+   adb logcat -d | grep -E "PatotectiveSync|PatotectiveFirebase|PERMISSION_DENIED|FATAL EXCEPTION"
 
 Esperado:
   Fase 4: progreso local/cloud fusionado sin retrocesos.

@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Administrador central de Firebase Authentication para PsicoQuiz.
+ * Administrador central de Firebase Authentication para Patotective.
  *
  * Permite:
  * - Autenticación anónima.
@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class FirebaseAuthManager {
 
-    private static final String TAG = "PsicoQuizFirebase";
+    private static final String TAG = "PatotectiveFirebase";
 
     private final FirebaseAuth auth;
 

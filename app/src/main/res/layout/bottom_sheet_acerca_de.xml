@@ -45,10 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:contentDescription="Logo de PsicoQuiz"
+                android:contentDescription="Logo de Patotective"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/logo_psicoquiz" />
+                app:srcCompat="@drawable/logo_patotective" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:gravity="center"
-            android:text="PsicoQuiz"
+            android:text="Patotective"
             android:textColor="@color/app_text_primary"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -99,7 +99,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sobre PsicoQuiz"
+                    android:text="Sobre Patotective"
                     android:textColor="@color/app_text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="3dp"
-                    android:text="PsicoQuiz es una aplicación educativa diseñada para apoyar el aprendizaje mediante guías de estudio, evaluaciones, casos clínicos, desafíos, gamificación y experiencias multijugador."
+                    android:text="Patotective es una aplicación educativa diseñada para apoyar el aprendizaje mediante guías de estudio, evaluaciones, casos clínicos, desafíos, gamificación y experiencias multijugador."
                     android:textColor="@color/app_text_secondary"
                     android:textSize="12sp" />
 
@@ -264,7 +264,7 @@
                     android:id="@+id/tvAutoresAcerca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Equipo de desarrollo PsicoQuiz"
+                    android:text="Equipo de desarrollo Patotective"
                     android:textColor="@color/app_text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />

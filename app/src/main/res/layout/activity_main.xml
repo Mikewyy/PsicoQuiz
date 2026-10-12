@@ -111,7 +111,7 @@
                                     android:layout_height="wrap_content"
                                     android:alpha="0.80"
                                     android:letterSpacing="0.15"
-                                    android:text="PSICOQUIZ"
+                                    android:text="PATOTECTIVE"
                                     android:textColor="#FFFFFF"
                                     android:textSize="10sp"
                                     android:textStyle="bold" />

@@ -1,4 +1,4 @@
-PSICOQUIZ - FIREBASE FASE 2 COMPLETA
+PATOTECTIVE - FIREBASE FASE 2 COMPLETA
 
 Incluye:
 - puntos, nivel, experiencia y racha
@@ -27,14 +27,14 @@ IMPORTANTE:
 - Conflictos avanzados entre dos teléfonos usados simultáneamente se resolverán en Fase 4.
 
 Instalación desde la raíz del proyecto:
-unzip -o ~/Descargas/PsicoQuiz_Firebase_Fase2_COMPLETA.zip -d .
+unzip -o ~/Descargas/Patotective_Firebase_Fase2_COMPLETA.zip -d .
 ./gradlew assembleDebug
 ./gradlew installDebug
 
 Logs:
 adb logcat -c
 # usa la app unos segundos y luego:
-adb logcat -d | grep -E "PsicoQuizSync|PsicoQuizFirebase|PERMISSION_DENIED|FATAL EXCEPTION"
+adb logcat -d | grep -E "PatotectiveSync|PatotectiveFirebase|PERMISSION_DENIED|FATAL EXCEPTION"
 
 Prueba recomendada:
 1. Instalar sin borrar datos.

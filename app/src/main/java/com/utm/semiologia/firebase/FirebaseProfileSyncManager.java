@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 /**
- * Sincronización del perfil base de PsicoQuiz con Cloud Firestore.
+ * Sincronización del perfil base de Patotective con Cloud Firestore.
  *
  * Fase 1C:
  * - Sube perfil + mascota en una sola escritura.
@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class FirebaseProfileSyncManager {
 
-    private static final String TAG = "PsicoQuizSync";
+    private static final String TAG = "PatotectiveSync";
     private static final String COLECCION_USUARIOS = "usuarios";
     private static final int SCHEMA_VERSION = 4;
     private static final long DEBOUNCE_MS = 1800L;

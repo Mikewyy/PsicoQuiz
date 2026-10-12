@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         // -----------------------------------------------------
 
         /*
-         * La sesión principal de PsicoQuiz sigue utilizando
+         * La sesión principal de Patotective sigue utilizando
          * SesionManager porque el resto de la aplicación
          * necesita el usuarioId local.
          */

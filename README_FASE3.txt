@@ -1,4 +1,4 @@
-PSICOQUIZ - FIREBASE FASE 3 COMPLETA
+PATOTECTIVE - FIREBASE FASE 3 COMPLETA
 ====================================
 
 Incluye:
@@ -22,7 +22,7 @@ INSTALACION
 -----------
 Desde la raiz del proyecto:
 
-unzip -o ~/Descargas/PsicoQuiz_Firebase_Fase3_COMPLETA.zip -d .
+unzip -o ~/Descargas/Patotective_Firebase_Fase3_COMPLETA.zip -d .
 ./gradlew assembleDebug
 ./gradlew installDebug
 
@@ -31,7 +31,7 @@ PRIMERA PRUEBA
 1. NO borres datos locales todavia.
 2. Abre la app, cierra sesion e inicia sesion otra vez para ejecutar la migracion inicial.
 3. Revisa:
-   adb logcat -d | grep -E "PsicoQuizSync|PsicoQuizFirebase|PERMISSION_DENIED|FATAL EXCEPTION"
+   adb logcat -d | grep -E "PatotectiveSync|PatotectiveFirebase|PERMISSION_DENIED|FATAL EXCEPTION"
 4. Debe aparecer:
    Fase 3: no habia datos secundarios cloud; se migraran desde SQLite.
    Fase 3: datos secundarios sincronizados en Firestore.

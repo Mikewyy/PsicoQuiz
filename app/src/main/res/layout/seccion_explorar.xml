@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:lineSpacingExtra="2dp"
-                android:text="Conoce todas las posibilidades de estudio de PsicoQuiz. ¡Domina la teoria para alcanzar tus metas!"
+                android:text="Conoce todas las posibilidades de estudio de Patotective. ¡Domina la teoria para alcanzar tus metas!"
                 android:textColor="#E9E6FF"
                 android:textSize="13sp" />
         </LinearLayout>

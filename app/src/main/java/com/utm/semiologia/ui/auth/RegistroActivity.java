@@ -314,7 +314,7 @@ public class RegistroActivity extends AppCompatActivity {
                         /*
                          * Firebase ya confirmó la identidad.
                          * Ahora conservamos la estructura local
-                         * que utiliza el resto de PsicoQuiz.
+                         * que utiliza el resto de Patotective.
                          */
                         crearCuentaYRegistrarMascota(
                                 repo,
