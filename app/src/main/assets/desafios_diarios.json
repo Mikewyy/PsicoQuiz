@@ -145,14 +145,14 @@
   },
   {
     "id": 13,
-    "enunciado": "Según la teoría de James-Lange, primero sentimos la respuesta corporal y luego:",
+    "enunciado": "¿Qué sucede después de la respuesta corporal en el proceso emocional descrito por la teoría de James-Lange?",
     "opciones": {
       "A": "Expresamos la emoción con gestos",
       "B": "Interpretamos que estamos emocionados",
       "C": "La reprimimos"
     },
     "correcta": "B",
-    "justificacion": "James-Lange propone que la emoción es nuestra interpretación de la activación fisiológica: el cuerpo reacciona y la mente etiqueta ese estado.",
+    "justificacion": "La activación corporal ocurre primero y después se interpreta ese estado fisiológico como una emoción.",
     "fuente": "William James y Carl Lange, 1884"
   },
   {
@@ -229,26 +229,26 @@
   },
   {
     "id": 20,
-    "enunciado": "Según Piaget, el bebé que busca el objeto aunque esté escondido ya desarrolló la permanencia del objeto en la etapa:",
+    "enunciado": "¿En qué etapa del desarrollo aparece la permanencia del objeto, cuando el bebé busca un objeto que ya no ve?",
     "opciones": {
       "A": "Preoperacional",
       "B": "De las operaciones formales",
       "C": "Sensorio-motora"
     },
     "correcta": "C",
-    "justificacion": "La permanencia del objeto se consigue al final de la etapa sensorio-motora (0-2 años): el bebé sabe que el objeto existe aunque no lo vea.",
+    "justificacion": "La permanencia del objeto se desarrolla en la etapa sensoriomotora, aproximadamente durante los primeros dos años de vida.",
     "fuente": "Piaget; APA Dictionary of Psychology"
   },
   {
     "id": 21,
-    "enunciado": "Según Erikson, la crisis principal de la adolescencia es la identidad frente a:",
+    "enunciado": "En el desarrollo psicosocial de la adolescencia, ¿la identidad se contrapone a qué conflicto?",
     "opciones": {
       "A": "La intimidad",
       "B": "La confusión de roles",
       "C": "La generatividad"
     },
     "correcta": "B",
-    "justificacion": "Erikson ubica en la adolescencia la crisis 'identidad vs. confusión de roles', cuando se explora quién se es y qué se quiere ser.",
+    "justificacion": "Durante la adolescencia se desarrolla la identidad personal frente a la confusión de roles.",
     "fuente": "Erikson, 1968"
   },
   {
@@ -265,14 +265,14 @@
   },
   {
     "id": 23,
-    "enunciado": "El 'ello', según Freud, opera bajo el principio:",
+    "enunciado": "En el modelo psicoanalítico de la personalidad, ¿bajo qué principio funciona el ello?",
     "opciones": {
       "A": "De realidad",
       "B": "Del placer",
       "C": "De moralidad"
     },
     "correcta": "B",
-    "justificacion": "El ello busca la satisfacción inmediata del instinto siguiendo el principio del placer, sin considerar consecuencias ni normas.",
+    "justificacion": "El ello busca la satisfacción inmediata de las pulsiones mediante el principio del placer.",
     "fuente": "Freud; APA Dictionary of Psychology"
   },
   {

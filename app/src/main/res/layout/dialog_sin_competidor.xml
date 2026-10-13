@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        app:cardBackgroundColor="@color/dialog_competidor_card"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/dialog_competidor_stroke"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_competidor_card"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <FrameLayout
+                android:layout_width="92dp"
+                android:layout_height="92dp"
+                android:background="@drawable/bg_dialog_competidor_logo_wrap"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="Logo Patotective"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo_patotective" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvTituloSinCompetidor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:text="¡Tu competidor salió!"
+                android:textColor="@color/dialog_competidor_title"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMensajeSinCompetidor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:text="La partida terminó porque ya no hay suficientes jugadores activos.&#10;Crea una nueva sala y vuelve a invitarlo."
+                android:textColor="@color/dialog_competidor_body"
+                android:textSize="15sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNuevaPartidaSinCompetidor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="54dp"
+                android:text="Crear otra partida"
+                android:textAllCaps="false"
+                android:textColor="@color/dialog_competidor_button_text"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/dialog_competidor_button_bg"
+                app:cornerRadius="18dp"
+                app:elevation="0dp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

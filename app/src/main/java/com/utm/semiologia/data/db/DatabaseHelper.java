@@ -27,7 +27,7 @@ import com.utm.semiologia.data.dao.NivelesDao;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "semiologia.db";
-    public static final int DB_VERSION = 18;
+    public static final int DB_VERSION = 19;
     public Context getAppContext() {
         return appContext;
     }
@@ -157,6 +157,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         if (oldVersion < 18) {
             migrarAV18(db);
+        }
+        if (oldVersion < 19) {
+            com.utm.semiologia.data.dao.NivelesDao.actualizarTextosBanco(appContext, db);
         }
     }
 
@@ -978,7 +981,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             case "sintomas_5":
                 return "<h2>Percepción, imaginación y sensaciones</h2><p>La percepción organiza información sensorial y le atribuye significado. Sus alteraciones pueden modificar la intensidad, cualidad o interpretación de la experiencia.</p><h3>Distorsiones</h3><p>La sensibilidad puede aumentar o disminuir y también pueden cambiar cualidades de los estímulos percibidos.</p><h3>Ilusiones y alucinaciones</h3><p>En la ilusión existe un estímulo real interpretado incorrectamente. En la alucinación aparece una experiencia perceptiva sin el estímulo externo correspondiente.</p><h3>Desrealización</h3><p>El entorno se siente extraño o poco real aunque la persona pueda reconocer que sigue perteneciendo a la realidad.</p><h3>Despersonalización</h3><p>La extrañeza se centra en la propia identidad, pensamientos, sentimientos o acciones.</p>";
             case "sintomas_6":
-                return "<h2>Psicopatología del pensamiento</h2><p>El pensamiento permite elaborar ideas, planificar, evaluar y relacionar información. Se estudian su origen, velocidad, continuidad, estructura y contenido.</p><h3>Origen</h3><p>El material describe el pensamiento autista como un pensamiento fuertemente centrado en vivencias internas y apartado de la realidad compartida.</p><h3>Curso</h3><p>La bradipsiquia corresponde a una producción de ideas enlentecida. También puede existir aceleración, bloqueos, perseveración o cambios frecuentes del hilo asociativo.</p><h3>Organización</h3><p>Se valora si las ideas mantienen relaciones comprensibles, si el discurso llega al objetivo y si conserva continuidad.</p><h3>Contenido</h3><p>Se exploran los temas predominantes, el grado de convicción y la repercusión de las ideas sobre la conducta.</p>";
+                return "<h2>Psicopatología del pensamiento</h2><p>El pensamiento permite elaborar ideas, planificar, evaluar y relacionar información. Se estudian su origen, velocidad, continuidad, estructura y contenido.</p><h3>Origen</h3><p>El pensamiento autista se centra intensamente en las vivencias internas y se aparta de la realidad compartida.</p><h3>Curso</h3><p>La bradipsiquia corresponde a una producción de ideas enlentecida. También puede existir aceleración, bloqueos, perseveración o cambios frecuentes del hilo asociativo.</p><h3>Organización</h3><p>Se valora si las ideas mantienen relaciones comprensibles, si el discurso llega al objetivo y si conserva continuidad.</p><h3>Contenido</h3><p>Se exploran los temas predominantes, el grado de convicción y la repercusión de las ideas sobre la conducta.</p>";
             case "sintomas_7":
                 return "<h2>Psicopatología del lenguaje y habla</h2><p>Las alteraciones pueden afectar comprensión, producción, lectura, escritura, articulación o prosodia.</p><h3>Afasia</h3><p>Es una alteración adquirida del lenguaje asociada a lesión cerebral y puede comprometer producción o comprensión oral y escrita.</p><h3>Otros fenómenos</h3><p>El agramatismo dificulta organizar frases; la anomia dificulta encontrar palabras; la alexia afecta la lectura adquirida y la agrafia la escritura adquirida.</p><h3>Habla</h3><p>La disartria afecta la ejecución motora del habla; la dislalia compromete la articulación de sonidos; la aprosodia afecta entonación y musicalidad.</p><h3>Exploración</h3><p>Se observan lenguaje espontáneo, denominación, comprensión, repetición, lectura, escritura, ritmo y articulación.</p>";
             case "sintomas_8":

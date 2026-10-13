@@ -17,4 +17,12 @@
     <color name="mp_error">#FF8F94</color>
     <color name="mp_review_correct_stroke">#315F48</color>
     <color name="mp_review_error_stroke">#6B3944</color>
+
+    <color name="dialog_competidor_card">#FF171B2A</color>
+    <color name="dialog_competidor_stroke">#FF2B3350</color>
+    <color name="dialog_competidor_title">#FFF5F7FF</color>
+    <color name="dialog_competidor_body">#FFC4CCE1</color>
+    <color name="dialog_competidor_button_bg">#FF7A7AF8</color>
+    <color name="dialog_competidor_button_text">#FFFFFFFF</color>
+
 </resources>

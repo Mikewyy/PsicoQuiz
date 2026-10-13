@@ -283,6 +283,12 @@ public class SalaActivity extends BaseActivity {
                     "esperando";
         }
 
+        if ("cancelada".equalsIgnoreCase(estadoPartida)) {
+            iniciandoPartida = false;
+            abriendoPartida = false;
+            volverAlMultijugadorLimpio("La partida anterior terminó. Crea una sala nueva.");
+            return;
+        }
         if (
                 "jugando".equalsIgnoreCase(
                         estadoPartida
@@ -947,6 +953,39 @@ public class SalaActivity extends BaseActivity {
         startActivity(
                 intent
         );
+        // No conservar esta sala antigua detrás del cuestionario: impedía volver a crear otra.
+        finish();
+    }
+
+    private void volverAlMultijugadorLimpio(String mensaje) {
+
+        Toast.makeText(
+                this,
+                mensaje,
+                Toast.LENGTH_LONG
+        ).show();
+
+        Intent intent =
+                new Intent(
+                        this,
+                        MultijugadorActivity.class
+                );
+
+        intent.putExtra(
+                "extra_reiniciar_multijugador",
+                true
+        );
+
+        intent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+
+        startActivity(
+                intent
+        );
+
+        finishAffinity();
     }
 
     private void copiarCodigo() {

@@ -11,7 +11,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cuál es el síntoma cardinal de los síndromes cerebrales orgánicos agudos?",
           "pista": "Se relaciona con el estado de alerta.",
-          "justificacion": "El material señala que la afectación del nivel de vigilia es el síntoma cardinal de estos síndromes.",
+          "justificacion": "Se observa que la afectación del nivel de vigilia es el síntoma cardinal de estos síndromes.",
           "puntos": 15,
           "orden": 0,
           "opciones": [
@@ -63,7 +63,7 @@
         {
           "tema": "Síndrome de delirium",
           "tipo": "mcq",
-          "enunciado": "¿Qué característica de la orientación es típica del delirium según el material?",
+          "enunciado": "¿Qué característica de la orientación es típica del delirium?",
           "pista": "No permanece igual durante todo el cuadro.",
           "justificacion": "El delirium presenta orientación fluctuante: el paciente puede ubicarse por momentos y después mostrarse desorientado.",
           "puntos": 15,
@@ -92,7 +92,7 @@
           "tipo": "mcq",
           "enunciado": "En el síndrome oniroide, ¿qué tipo de orientación suele conservarse?",
           "pista": "Se refiere al reconocimiento de uno mismo.",
-          "justificacion": "El material indica que la orientación alopsíquica está afectada y la autopsíquica se conserva.",
+          "justificacion": "Se observa que la orientación alopsíquica está afectada y la autopsíquica se conserva.",
           "puntos": 15,
           "orden": 3,
           "opciones": [
@@ -153,7 +153,7 @@
           "tema": "Síndromes orgánicos crónicos",
           "tipo": "mcq",
           "enunciado": "¿Qué funciones se afectan de forma predominante en los síndromes orgánicos crónicos?",
-          "pista": "El material contrasta estos cuadros con los agudos.",
+          "pista": "Se diferencian por su evolución temporal y persistencia.",
           "justificacion": "En los síndromes orgánicos crónicos destacan la afectación de las capacidades intelectuales y del carácter.",
           "puntos": 15,
           "orden": 0,
@@ -179,9 +179,9 @@
         {
           "tema": "Síndrome oligofrénico",
           "tipo": "mcq",
-          "enunciado": "¿Qué tipo de pensamiento se describe en el síndrome oligofrénico?",
+          "enunciado": "¿Qué tipo de pensamiento caracteriza al síndrome oligofrénico?",
           "pista": "No es abstracto.",
-          "justificacion": "El material describe pensamiento concreto en el síndrome oligofrénico.",
+          "justificacion": "Se observa pensamiento concreto en el síndrome oligofrénico.",
           "puntos": 15,
           "orden": 1,
           "opciones": [
@@ -235,7 +235,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué fenómeno acompaña a la alteración de la memoria reciente en el síndrome amnésico-confabulatorio?",
           "pista": "La persona puede llenar vacíos de memoria con relatos.",
-          "justificacion": "El material describe alteración marcada de la memoria de fijación reciente junto con confabulaciones.",
+          "justificacion": "Se observa alteración marcada de la memoria de fijación reciente junto con confabulaciones.",
           "puntos": 15,
           "orden": 3,
           "opciones": [
@@ -262,7 +262,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué combinación caracteriza al síndrome apatoabúlico?",
           "pista": "Piensa en afectividad y voluntad.",
-          "justificacion": "El material destaca indiferencia afectiva, abulia e hipoquinesia.",
+          "justificacion": "Destaca indiferencia afectiva, abulia e hipoquinesia.",
           "puntos": 15,
           "orden": 4,
           "opciones": [
@@ -295,9 +295,9 @@
         {
           "tema": "Síndrome esquizofrénico",
           "tipo": "mcq",
-          "enunciado": "¿Cuál es la característica esencial del síndrome esquizofrénico según el material?",
+          "enunciado": "¿Cuál es la característica esencial del síndrome esquizofrénico?",
           "pista": "Se refiere a la organización global de las funciones psíquicas.",
-          "justificacion": "El material señala como característica esencial la desorganización de las funciones psíquicas.",
+          "justificacion": "La característica esencial es la desorganización de las funciones psíquicas.",
           "puntos": 15,
           "orden": 0,
           "opciones": [
@@ -322,9 +322,9 @@
         {
           "tema": "Síndrome esquizofrénico",
           "tipo": "mcq",
-          "enunciado": "¿Qué elemento cardinal se menciona en el síndrome esquizofrénico?",
+          "enunciado": "¿Cuál es un elemento cardinal del síndrome esquizofrénico?",
           "pista": "Relaciona ideas, afectividad y conducta.",
-          "justificacion": "El documento identifica la disociación ideoafectivoconativa como elemento cardinal.",
+          "justificacion": "Se identifica la disociación ideoafectivoconativa como elemento cardinal.",
           "puntos": 15,
           "orden": 1,
           "opciones": [
@@ -351,7 +351,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cómo suelen estar la vigilia y la orientación en el síndrome esquizofrénico descrito?",
           "pista": "Estas funciones de síntesis suelen conservarse.",
-          "justificacion": "El material describe vigilia normal y orientación conservada.",
+          "justificacion": "Se observa vigilia normal y orientación conservada.",
           "puntos": 15,
           "orden": 2,
           "opciones": [
@@ -377,8 +377,8 @@
           "tema": "Síndrome esquizofrénico",
           "tipo": "mcq",
           "enunciado": "¿Qué tipo de alteración perceptiva se destaca en el síndrome esquizofrénico?",
-          "pista": "El material menciona riqueza alucinatoria de una modalidad concreta.",
-          "justificacion": "Se describe riqueza alucinatoria, sobre todo auditiva.",
+          "pista": "Se presentan riqueza alucinatoria de una modalidad concreta.",
+          "justificacion": "Predominan las experiencias alucinatorias, especialmente las auditivas.",
           "puntos": 15,
           "orden": 3,
           "opciones": [
@@ -403,9 +403,9 @@
         {
           "tema": "Síndrome esquizofrénico",
           "tipo": "mcq",
-          "enunciado": "¿Qué alteraciones del pensamiento aparecen en el síndrome esquizofrénico del documento?",
+          "enunciado": "¿Qué alteraciones del pensamiento aparecen en el síndrome esquizofrénico?",
           "pista": "Se mencionan tres fenómenos del pensamiento.",
-          "justificacion": "El material menciona pensamiento autista, bloqueo y disgregación.",
+          "justificacion": "Se presentan pensamiento autista, bloqueo y disgregación.",
           "puntos": 15,
           "orden": 4,
           "opciones": [
@@ -440,7 +440,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cuál es la característica esencial del síndrome delirante?",
           "pista": "Se relaciona con el contenido del pensamiento.",
-          "justificacion": "El material identifica como rasgo esencial la presencia de ideas delirantes.",
+          "justificacion": "Se identifica como rasgo esencial la presencia de ideas delirantes.",
           "puntos": 15,
           "orden": 0,
           "opciones": [
@@ -467,7 +467,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cómo se describe el delirio en el síndrome paranoico?",
           "pista": "Es un delirio organizado.",
-          "justificacion": "El documento describe un delirio único con argumentación lógica.",
+          "justificacion": "Se observa un delirio único con argumentación lógica.",
           "puntos": 15,
           "orden": 1,
           "opciones": [
@@ -492,9 +492,9 @@
         {
           "tema": "Síndrome paranoide",
           "tipo": "mcq",
-          "enunciado": "¿Qué actitud general se describe en el síndrome paranoide?",
+          "enunciado": "¿Qué actitud general caracteriza al síndrome paranoide?",
           "pista": "Se relaciona con desconfianza.",
-          "justificacion": "El material describe aspecto descuidado y actitud recelosa.",
+          "justificacion": "Se observa aspecto descuidado y actitud recelosa.",
           "puntos": 15,
           "orden": 2,
           "opciones": [
@@ -520,7 +520,7 @@
           "tema": "Síndrome paranoide",
           "tipo": "mcq",
           "enunciado": "¿Qué alteraciones perceptivas pueden aparecer en el síndrome paranoide?",
-          "pista": "El documento menciona fenómenos auditivos.",
+          "pista": "Se describen fenómenos auditivos.",
           "justificacion": "Se describen alucinaciones e ilusiones auditivas y verbales.",
           "puntos": 15,
           "orden": 3,
@@ -546,9 +546,9 @@
         {
           "tema": "Automatismo psíquico",
           "tipo": "mcq",
-          "enunciado": "¿Cuál de estos fenómenos se menciona en el síndrome de automatismo psíquico?",
+          "enunciado": "¿Cuál de estos fenómenos caracteriza al síndrome de automatismo psíquico?",
           "pista": "Se relaciona con sentir que el pensamiento es influido desde fuera.",
-          "justificacion": "El material incluye delirio de influencia y delirio de robo del pensamiento.",
+          "justificacion": "Se incluyen delirio de influencia y delirio de robo del pensamiento.",
           "puntos": 15,
           "orden": 4,
           "opciones": [
@@ -581,9 +581,9 @@
         {
           "tema": "Síndromes afectivos",
           "tipo": "mcq",
-          "enunciado": "¿Cuál es la esencia de los síndromes afectivos según el documento?",
+          "enunciado": "¿Cuál es la esencia de los síndromes afectivos?",
           "pista": "Se relaciona con el estado emocional y las necesidades.",
-          "justificacion": "El material señala que predominan las manifestaciones afectivas y la toma global de las necesidades, sin afectación notable de las sensopercepciones.",
+          "justificacion": "Se observa que predominan las manifestaciones afectivas y la toma global de las necesidades, sin afectación notable de las sensopercepciones.",
           "puntos": 15,
           "orden": 0,
           "opciones": [
@@ -610,7 +610,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué alteración del pensamiento caracteriza al síndrome maníaco?",
           "pista": "El curso del pensamiento va más rápido.",
-          "justificacion": "El documento describe pensamiento acelerado y fuga de ideas.",
+          "justificacion": "Se observa pensamiento acelerado y fuga de ideas.",
           "puntos": 15,
           "orden": 1,
           "opciones": [
@@ -637,7 +637,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué combinación afectiva aparece en el síndrome maníaco?",
           "pista": "Incluye aumento del tono afectivo.",
-          "justificacion": "El material señala hipertimia, labilidad afectiva y disforia.",
+          "justificacion": "Las manifestaciones afectivas incluyen hipertimia, labilidad afectiva y disforia.",
           "puntos": 15,
           "orden": 2,
           "opciones": [
@@ -664,7 +664,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cómo se describe el curso del pensamiento en el síndrome depresivo?",
           "pista": "Va más despacio.",
-          "justificacion": "El documento describe pensamiento de curso lento en el síndrome depresivo.",
+          "justificacion": "Se observa pensamiento de curso lento en el síndrome depresivo.",
           "puntos": 15,
           "orden": 3,
           "opciones": [
@@ -690,7 +690,7 @@
           "tema": "Síndrome afectivo ansioso",
           "tipo": "mcq",
           "enunciado": "¿Qué manifestaciones físicas pueden acompañar al síndrome afectivo ansioso?",
-          "pista": "El documento menciona signos vegetativos.",
+          "pista": "Se describen signos vegetativos.",
           "justificacion": "Se describen manifestaciones vegetativas como taquicardia, palpitaciones e hiperhidrosis palmar.",
           "puntos": 15,
           "orden": 4,
@@ -726,7 +726,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cuál es la manifestación esencial de los síndromes discinéticos?",
           "pista": "Se relaciona con la actividad motora.",
-          "justificacion": "El documento señala que la alteración de los movimientos, aumentados o disminuidos, es la manifestación esencial.",
+          "justificacion": "La alteración de los movimientos, aumentados o disminuidos, es la manifestación esencial.",
           "puntos": 15,
           "orden": 0,
           "opciones": [
@@ -753,7 +753,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué dos características fundamentales se destacan en el síndrome estuporoso?",
           "pista": "Se relacionan con movimiento y habla.",
-          "justificacion": "El material destaca inmovilidad y mutismo como características fundamentales del estupor.",
+          "justificacion": "Destaca inmovilidad y mutismo como características fundamentales del estupor.",
           "puntos": 15,
           "orden": 1,
           "opciones": [
@@ -778,7 +778,7 @@
         {
           "tema": "Síndrome estuporoso",
           "tipo": "mcq",
-          "enunciado": "¿Qué diferencia al estupor del coma según el documento?",
+          "enunciado": "¿Qué diferencia al estupor del coma?",
           "pista": "Piensa en la claridad de conciencia.",
           "justificacion": "En el estupor puede mantenerse un grado variable de claridad de conciencia, mientras que en el coma está abolida.",
           "puntos": 15,
@@ -805,9 +805,9 @@
         {
           "tema": "Estupor catatónico",
           "tipo": "mcq",
-          "enunciado": "¿Cuál de estos signos se menciona en el estupor catatónico?",
+          "enunciado": "¿Cuál de estos signos puede presentarse en el estupor catatónico?",
           "pista": "Se relaciona con mantener posturas impuestas.",
-          "justificacion": "El documento menciona flexibilidad cérea, inmovilidad, negativismo y mutismo en el estupor catatónico.",
+          "justificacion": "Se describen flexibilidad cérea, inmovilidad, negativismo y mutismo en el estupor catatónico.",
           "puntos": 15,
           "orden": 3,
           "opciones": [
@@ -834,7 +834,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué caracteriza al síndrome hipercinético?",
           "pista": "La actividad motora está aumentada.",
-          "justificacion": "El material describe aumento de la actividad motora y marcada afectación de la adaptación al medio.",
+          "justificacion": "Se observa aumento de la actividad motora y marcada afectación de la adaptación al medio.",
           "puntos": 15,
           "orden": 4,
           "opciones": [
@@ -869,7 +869,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cuál es uno de los elementos esenciales del síndrome hipocondríaco?",
           "pista": "Se relaciona con la salud.",
-          "justificacion": "El documento señala la excesiva preocupación por la salud como elemento esencial.",
+          "justificacion": "La preocupación excesiva por la salud es el elemento esencial.",
           "puntos": 15,
           "orden": 0,
           "opciones": [
@@ -896,7 +896,7 @@
           "tipo": "mcq",
           "enunciado": "¿Hacia dónde se dirige principalmente la atención en el síndrome hipocondríaco?",
           "pista": "Se centra en el propio cuerpo.",
-          "justificacion": "El material describe atención dirigida hacia las funciones corporales con hiperconcentración.",
+          "justificacion": "Se observa atención dirigida hacia las funciones corporales con hiperconcentración.",
           "puntos": 15,
           "orden": 1,
           "opciones": [
@@ -923,7 +923,7 @@
           "tipo": "mcq",
           "enunciado": "¿Cómo suelen estar la vigilia y la orientación en el síndrome hipocondríaco?",
           "pista": "Son funciones que permanecen conservadas.",
-          "justificacion": "El documento describe vigilia normal y orientación conservada.",
+          "justificacion": "Se observa vigilia normal y orientación conservada.",
           "puntos": 15,
           "orden": 2,
           "opciones": [
@@ -948,9 +948,9 @@
         {
           "tema": "Síndrome hipocondríaco",
           "tipo": "mcq",
-          "enunciado": "¿Qué alteración afectiva se menciona en el síndrome hipocondríaco?",
+          "enunciado": "¿Qué alteración afectiva puede presentarse en el síndrome hipocondríaco?",
           "pista": "Se relaciona con preocupación y temor.",
-          "justificacion": "El material menciona ansiedad y también hipotimia.",
+          "justificacion": "Se presentan ansiedad y también hipotimia.",
           "puntos": 15,
           "orden": 3,
           "opciones": [
@@ -977,7 +977,7 @@
           "tipo": "mcq",
           "enunciado": "¿Qué conducta se describe como frecuente en el síndrome hipocondríaco?",
           "pista": "Se relaciona con búsqueda repetida de atención médica.",
-          "justificacion": "El documento menciona reiteradas visitas al médico sin justificación objetiva.",
+          "justificacion": "Se describen reiteradas visitas al médico sin justificación objetiva.",
           "puntos": 15,
           "orden": 4,
           "opciones": [

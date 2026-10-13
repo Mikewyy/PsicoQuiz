@@ -30,7 +30,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "Según el documento, la somnolencia, letargia o sopor es un deterioro progresivo donde el paciente 'se quedará dormido si se queda sin estimulación sensorial', muestra lentitud, reflejos reducidos e intenta evitar estímulos dolorosos.",
+          "justificacion": "La somnolencia, letargia o sopor es un deterioro progresivo donde el paciente 'se quedará dormido si se queda sin estimulación sensorial', muestra lentitud, reflejos reducidos e intenta evitar estímulos dolorosos.",
           "puntos": 15
         },
         {
@@ -55,7 +55,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El texto define que en el estupor 'es posible alcanzar un ligero estado de alerta mediante estímulos muy potentes', mientras que el coma es una suspensión global en la que 'resulta imposible despertar al paciente a pesar de una estimulación intensa'.",
+          "justificacion": "Se considera que en el estupor 'es posible alcanzar un ligero estado de alerta mediante estímulos muy potentes', mientras que el coma es una suspensión global en la que 'resulta imposible despertar al paciente a pesar de una estimulación intensa'.",
           "puntos": 15
         },
         {
@@ -80,7 +80,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento señala explícitamente que los estados crepusculares son 'estados transitorios de inicio y fin súbitos' con conductas automáticas y que este término 'se restringe a alteraciones producidas por la epilepsia (fundamentalmente del lóbulo temporal)'.",
+          "justificacion": "Los estados crepusculares son 'estados transitorios de inicio y fin súbitos' con conductas automáticas y que este término 'se restringe a alteraciones producidas por la epilepsia (fundamentalmente del lóbulo temporal)'.",
           "puntos": 15
         },
         {
@@ -105,7 +105,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El texto menciona que el Delirium implica un deterioro cognitivo global de curso agudo, con alteraciones sensoperceptuales (ilusiones/alucinaciones) y es común verlo en el 'Delirium Tremens del alcoholismo', donde el paciente se sacude creyendo tener bichos.",
+          "justificacion": "Se caracteriza porque el Delirium implica un deterioro cognitivo global de curso agudo, con alteraciones sensoperceptuales (ilusiones/alucinaciones) y es común verlo en el 'Delirium Tremens del alcoholismo', donde el paciente se sacude creyendo tener bichos.",
           "puntos": 15
         },
         {
@@ -130,7 +130,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento indica que un automatismo 'implica una acción que tiene lugar en ausencia de conciencia', es involuntario, no dirigido con juicio, y posteriormente el individuo 'puede no tener ningún recuerdo'.",
+          "justificacion": "Un automatismo 'implica una acción que tiene lugar en ausencia de conciencia', es involuntario, no dirigido con juicio, y posteriormente el individuo 'puede no tener ningún recuerdo'.",
           "puntos": 15
         },
         {
@@ -155,7 +155,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El texto establece que en la obnubilación, aunque la conciencia está limitada, 'no se pierde por completo la capacidad de reconocimiento', de tal modo que el paciente 'puede entender y ejecutar lentamente órdenes sencillas'.",
+          "justificacion": "Se observa que en la obnubilación, aunque la conciencia está limitada, 'no se pierde por completo la capacidad de reconocimiento', de tal modo que el paciente 'puede entender y ejecutar lentamente órdenes sencillas'.",
           "puntos": 15
         },
         {
@@ -180,7 +180,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "Los estados oniroides, según el documento, son alteraciones donde se experimentan alucinaciones escénicas 'como si estuviera viviendo una película', mezclando realidad y fantasía, y tienen gran relación con vivencias oníricas (sueños).",
+          "justificacion": "Los estados oniroides son alteraciones donde se experimentan alucinaciones escénicas 'como si estuviera viviendo una película', mezclando realidad y fantasía, y tienen gran relación con vivencias oníricas (sueños).",
           "puntos": 15
         },
         {
@@ -205,13 +205,13 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento define literalmente la hiperfrenia como un 'Estado de hipervigilancia máxima; consciencia exagerada', dentro de las alteraciones por elevación del nivel de conciencia.",
+          "justificacion": "Se define la hiperfrenia como un 'Estado de hipervigilancia máxima; consciencia exagerada', dentro de las alteraciones por elevación del nivel de conciencia.",
           "puntos": 15
         },
         {
           "tipo": "escrita",
           "tema": "Alteraciones Cuantitativas",
-          "enunciado": "¿Cuál es el término que hace referencia a una búsqueda constante de amenazas en el entorno, sensibilidad sensorial aumentada y se da por exceso del estado de conciencia?",
+          "enunciado": "¿Cuál es el término que describe una búsqueda constante de amenazas en el entorno, sensibilidad sensorial aumentada y se da por exceso del estado de conciencia?",
           "respuestas_validas": "hipervigilancia|hipervigilante",
           "pista": "Empieza con 'hiper' y termina con 'vigilancia'.",
           "justificacion": "La hipervigilancia es la alteración por elevación del nivel de conciencia donde el individuo está en 'búsqueda constante de posibles amenazas', volviéndose irritable y agotado.",
@@ -257,7 +257,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "La desorientación alopsíquica en tiempo ocurre cuando el sujeto 'no es capaz de reconocer la hora, el día, el mes o el año en que estamos', según el documento base.",
+          "justificacion": "La desorientación alopsíquica en tiempo ocurre cuando el sujeto 'no es capaz de reconocer la hora, el día, el mes o el año en que estamos'.",
           "puntos": 15
         },
         {
@@ -332,7 +332,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento especifica en su introducción que la orientación 'permite situarnos a nosotros mismos en relación con determinadas referencias del contexto y personales (tiempo, lugar, y persona).'",
+          "justificacion": "La orientación 'permite situarnos a nosotros mismos en relación con determinadas referencias del contexto y personales (tiempo, lugar, y persona).'",
           "puntos": 15
         },
         {
@@ -382,7 +382,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "Al fallar en la identidad propia (autopsíquica) y en el lugar y época histórica (alopsíquica espacial y temporal), la desorientación abarca todos los dominios descritos en el manual.",
+          "justificacion": "Al fallar en la identidad propia (autopsíquica) y en el lugar y época histórica (alopsíquica espacial y temporal), la desorientación abarca todos los dominios.",
           "puntos": 15
         },
         {
@@ -736,7 +736,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento menciona explícitamente: 'La «Ley de Ribot» dice que aquellos recuerdos más recientes, menos organizados y automatizados, son más vulnerables a que se pierdan'.",
+          "justificacion": "'La «Ley de Ribot» dice que aquellos recuerdos más recientes, menos organizados y automatizados, son más vulnerables a que se pierdan'.",
           "puntos": 15
         },
         {
@@ -1038,7 +1038,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento detalla: 'las imágenes hipnapómpicas se originan cuando la persona sale del sueño', mientras que las hipnagógicas ocurren al entrar al sueño.",
+          "justificacion": "Las imágenes hipnapómpicas aparecen al despertar, mientras que las hipnagógicas ocurren al quedarse dormido.",
           "puntos": 15
         },
         {
@@ -1271,7 +1271,7 @@
         {
           "tipo": "mcq",
           "tema": "Contenido del Pensamiento",
-          "enunciado": "¿Qué es la rumiación según el texto?",
+          "enunciado": "¿Qué es la rumiación?",
           "opciones": [
             {
               "texto": "Cadena de pensamientos sobre un problema con alta probabilidad futura de fallar (preocupación).",
@@ -1567,7 +1567,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El texto explica que en las parafasias, 'Si el paciente cambia una palabra por otra (por ejemplo, «guante» por «zapato») nos hallamos ante una parafasia verbal'.",
+          "justificacion": "La sustitución de una palabra por otra, como decir «zapato» en lugar de «guante», corresponde a una parafasia verbal.",
           "puntos": 15
         },
         {
@@ -1576,7 +1576,7 @@
           "enunciado": "¿Qué término médico designa la incapacidad para encontrar palabras que designen objetos o personas (una falta de nombres o sustantivos)?",
           "respuestas_validas": "anomia",
           "pista": "Empieza por 'a' y contiene 'nomia' (de nombre).",
-          "justificacion": "La anomia es textualmente la 'Dificultad para encontrar palabras que designen objetos o personas', asociada a cuadros afásicos.",
+          "justificacion": "La anomia es la 'Dificultad para encontrar palabras que designen objetos o personas', asociada a cuadros afásicos.",
           "puntos": 20
         },
         {
@@ -1619,7 +1619,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "La eutimia se define textualmente en la psicopatología de la afectividad como el 'Estado de ánimo equilibrado, caracterizado por una sensación de bienestar y tranquilidad'.",
+          "justificacion": "La eutimia se define en la psicopatología de la afectividad como el 'Estado de ánimo equilibrado, caracterizado por una sensación de bienestar y tranquilidad'.",
           "puntos": 15
         },
         {
@@ -1644,7 +1644,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El documento define la moria como 'un estado de alegría insulsa, sosa... una alegría estúpida, tonta... en pacientes con tumoraciones cerebrales o retrasos'.",
+          "justificacion": "Se define la moria como 'un estado de alegría insulsa, sosa... una alegría estúpida, tonta... en pacientes con tumoraciones cerebrales o retrasos'.",
           "puntos": 15
         },
         {
@@ -1675,7 +1675,7 @@
         {
           "tipo": "mcq",
           "tema": "Ansiedad",
-          "enunciado": "La sudoración de manos, los escalofríos, el enrojecimiento facial y el temblor que se producen en un cuadro de pánico son, de acuerdo con el texto:",
+          "enunciado": "La sudoración de manos, los escalofríos, el enrojecimiento facial y el temblor que se producen en un cuadro de pánico son:",
           "opciones": [
             {
               "texto": "Manifestaciones subjetivas de la ansiedad",
@@ -1694,7 +1694,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El manual divide la ansiedad: las manifestaciones OBJETIVAS 'están dadas por todas las alteraciones del sistema neurovegetativo que podemos observar' (temblor, sudoración, palidez).",
+          "justificacion": "Se divide la ansiedad: las manifestaciones OBJETIVAS 'están dadas por todas las alteraciones del sistema neurovegetativo que podemos observar' (temblor, sudoración, palidez).",
           "puntos": 15
         },
         {
@@ -1744,7 +1744,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "La alexitimia significa literalmente 'falta de palabras para los afectos' e implica la incapacidad para identificar y comunicar las propias emociones.",
+          "justificacion": "La alexitimia significa 'falta de palabras para los afectos' e implica la incapacidad para identificar y comunicar las propias emociones.",
           "puntos": 15
         },
         {
@@ -1769,7 +1769,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "La anhedonia hace referencia a la 'pérdida de la capacidad para experimentar alegría y placer... incapacidad total de disfrutar de la vida'.",
+          "justificacion": "La anhedonia consiste en la 'pérdida de la capacidad para experimentar alegría y placer... incapacidad total de disfrutar de la vida'.",
           "puntos": 15
         },
         {
@@ -1871,7 +1871,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "La cataplejía 'hace referencia a la pérdida súbita y reversible del tono muscular durante la vigilia (sin alteración de conciencia)... desencadenada por emociones intensas como la risa'.",
+          "justificacion": "La cataplejía 'consiste en la pérdida súbita y reversible del tono muscular durante la vigilia (sin alteración de conciencia)... desencadenada por emociones intensas como la risa'.",
           "puntos": 15
         },
         {
@@ -2021,7 +2021,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "Las compulsiones de orden y simetría ocurren cuando las personas intentan activamente que las cosas a su alrededor 'estén de acuerdo con un orden o distribución determinada o simétrica'.",
+          "justificacion": "Las compulsiones de orden y simetría implican la necesidad de organizar los objetos de una manera determinada, frecuentemente simétrica.",
           "puntos": 15
         },
         {
@@ -2300,7 +2300,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "De acuerdo con el documento, la exploración se divide textualmente en tres parámetros: 'Relaciones consigo mismo', 'Relaciones con las demás personas' y 'Relaciones con las cosas'.",
+          "justificacion": "La exploración se divide en tres parámetros: 'Relaciones consigo mismo', 'Relaciones con las demás personas' y 'Relaciones con las cosas'.",
           "puntos": 15
         },
         {
@@ -2325,7 +2325,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "El apartado 'Relaciones consigo mismo' incluye las preguntas para valorar la autoapreciación, entre ellas literalmente: '¿Le gusta ser como es o prefiere ser como otra persona?'.",
+          "justificacion": "El apartado 'Relaciones consigo mismo' incluye las preguntas para valorar la autoapreciación, entre ellas: '¿Le gusta ser como es o prefiere ser como otra persona?'.",
           "puntos": 15
         },
         {
@@ -2431,7 +2431,7 @@
         {
           "tipo": "mcq",
           "tema": "Aspectos intrapersonales vs interpersonales",
-          "enunciado": "La interrogante que hace el psiquiatra: '¿Qué piensan los demás sobre usted?' se cataloga, según el manual, como una forma de evaluar las relaciones:",
+          "enunciado": "La interrogante que hace el psiquiatra: '¿Qué piensan los demás sobre usted?' se cataloga, en esta clasificación, como una forma de evaluar las relaciones:",
           "opciones": [
             {
               "texto": "Con los demás",
@@ -2450,7 +2450,7 @@
               "correcta": false
             }
           ],
-          "justificacion": "Sorprendentemente (y según el manual), '¿Qué piensan los demás de él?' está listado como una exploración de la sección 'Relaciones consigo mismo' porque refleja cómo se proyecta el propio autoconcepto ante el mundo.",
+          "justificacion": "Sorprendentemente (y en esta clasificación), '¿Qué piensan los demás de él?' está listado como una exploración de la sección 'Relaciones consigo mismo' porque refleja cómo se proyecta el propio autoconcepto ante el mundo.",
           "puntos": 15
         },
         {

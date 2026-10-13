@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,6 +34,9 @@ public class MultijugadorActivity extends BaseActivity {
     // =========================================================
 
     private SalaRepository salaRepository;
+
+    private static final String PREFS_MULTIJUGADOR = "patotective_multijugador";
+    private static final String KEY_NOMBRE_JUGADOR = "nombre_jugador";
 
 
     // =========================================================
@@ -94,8 +98,10 @@ public class MultijugadorActivity extends BaseActivity {
 
 
         enlazarVistas();
+        cargarNombreGuardado();
 
         configurarListeners();
+        aplicarReinicioSiCorresponde();
     }
 
 
@@ -170,6 +176,52 @@ public class MultijugadorActivity extends BaseActivity {
                 findViewById(
                         R.id.progressFirebase
                 );
+    }
+
+
+    /** Recuerda el nombre del jugador entre sesiones y nuevas salas. */
+    private void cargarNombreGuardado() {
+        SharedPreferences preferencias = getSharedPreferences(PREFS_MULTIJUGADOR, MODE_PRIVATE);
+        String nombre = preferencias.getString(KEY_NOMBRE_JUGADOR, "");
+        if (nombre != null && !nombre.isEmpty() && etNombreUsuario != null) {
+            etNombreUsuario.setText(nombre);
+            etNombreUsuario.setSelection(nombre.length());
+        }
+    }
+
+    private void guardarNombreJugador(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) return;
+        getSharedPreferences(PREFS_MULTIJUGADOR, MODE_PRIVATE)
+                .edit()
+                .putString(KEY_NOMBRE_JUGADOR, nombre.trim())
+                .apply();
+    }
+
+    private void aplicarReinicioSiCorresponde() {
+
+        if (!getIntent().getBooleanExtra("extra_reiniciar_multijugador", false)) {
+            return;
+        }
+
+        if (etCodigoSala != null) {
+            etCodigoSala.setText("");
+        }
+
+        if (etNombreSala != null) {
+            etNombreSala.setText("");
+        }
+
+        if (panelResultado != null) {
+            panelResultado.setVisibility(View.GONE);
+        }
+
+        if (tvEstado != null) {
+            tvEstado.setText("Crea una nueva sala o únete con un código.");
+        }
+
+        if (progressFirebase != null) {
+            progressFirebase.setVisibility(View.GONE);
+        }
     }
 
 
@@ -267,6 +319,9 @@ public class MultijugadorActivity extends BaseActivity {
             return;
         }
 
+
+        // Guardar el nombre elegido para próximas partidas.
+        guardarNombreJugador(nombreUsuario);
 
         // -----------------------------------------------------
         // MOSTRAR CARGANDO
@@ -398,6 +453,9 @@ public class MultijugadorActivity extends BaseActivity {
             return;
         }
 
+
+        // Guardar el nombre elegido para próximas partidas.
+        guardarNombreJugador(nombreUsuario);
 
         // -----------------------------------------------------
         // MOSTRAR CARGANDO

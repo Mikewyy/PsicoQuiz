@@ -61,6 +61,63 @@ public class NivelesDao {
         sembrarBanco(ctx, db, Nivel.CAT_SINDROMES, "sindromes.json");
     }
 
+    /**
+     * Actualiza solo el contenido textual de los bancos instalados previamente.
+     * Conserva IDs de niveles, preguntas y opciones para no alterar intentos
+     * ni claves foráneas del progreso académico.
+     */
+    public static void actualizarTextosBanco(Context ctx, SQLiteDatabase db) {
+        actualizarTextosCategoria(ctx, db, Nivel.CAT_SINTOMAS, "preguntas.json");
+        actualizarTextosCategoria(ctx, db, Nivel.CAT_SINDROMES, "sindromes.json");
+    }
+
+    private static void actualizarTextosCategoria(Context ctx, SQLiteDatabase db,
+                                                 String categoria, String asset) {
+        String json = leerAsset(ctx, asset);
+        if (json == null || json.isEmpty()) return;
+        try {
+            JSONArray niveles = new JSONObject(json).optJSONArray("niveles");
+            if (niveles == null) return;
+            try (Cursor cn = db.rawQuery("SELECT id FROM " + DatabaseHelper.T_NIVELES
+                    + " WHERE categoria = ? ORDER BY orden ASC",
+                    new String[]{categoria})) {
+                for (int i = 0; i < niveles.length() && cn.moveToNext(); i++) {
+                    long nivelId = cn.getLong(0);
+                    JSONArray preguntas = niveles.getJSONObject(i).optJSONArray("preguntas");
+                    if (preguntas == null) continue;
+                    try (Cursor cp = db.rawQuery("SELECT id FROM " + DatabaseHelper.T_PREGUNTAS
+                            + " WHERE nivel_id = ? ORDER BY orden ASC, id ASC",
+                            new String[]{String.valueOf(nivelId)})) {
+                        for (int j = 0; j < preguntas.length() && cp.moveToNext(); j++) {
+                            long preguntaId = cp.getLong(0);
+                            JSONObject pregunta = preguntas.getJSONObject(j);
+                            ContentValues values = new ContentValues();
+                            values.put("enunciado", pregunta.optString("enunciado"));
+                            values.put("justificacion", pregunta.optString("justificacion"));
+                            values.put("pista", pregunta.optString("pista", null));
+                            db.update(DatabaseHelper.T_PREGUNTAS, values, "id = ?",
+                                    new String[]{String.valueOf(preguntaId)});
+                            JSONArray opciones = pregunta.optJSONArray("opciones");
+                            if (opciones == null) continue;
+                            try (Cursor co = db.rawQuery("SELECT id FROM " + DatabaseHelper.T_OPCIONES
+                                    + " WHERE pregunta_id = ? ORDER BY orden ASC, id ASC",
+                                    new String[]{String.valueOf(preguntaId)})) {
+                                for (int k = 0; k < opciones.length() && co.moveToNext(); k++) {
+                                    ContentValues option = new ContentValues();
+                                    option.put("texto", opciones.getJSONObject(k).optString("texto"));
+                                    db.update(DatabaseHelper.T_OPCIONES, option, "id = ?",
+                                            new String[]{String.valueOf(co.getLong(0))});
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            android.util.Log.e("NivelesDao", "Error actualizando textos de " + asset, e);
+        }
+    }
+
     private static void sembrarBanco(Context ctx, SQLiteDatabase db,
                                      String categoria, String asset) {
         if (contarFilasCategoria(db, categoria) > 0) {
