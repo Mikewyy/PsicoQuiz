@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.slider.Slider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,7 +38,9 @@ public class SalaActivity extends BaseActivity {
 
     private static final int MIN_PARTICIPANTES = 2;
     private static final int MAX_PARTICIPANTES = 5;
-    private static final int PREGUNTAS_POR_PARTIDA = 10;
+    private static final int MIN_PREGUNTAS = 5;
+    private static final int MAX_PREGUNTAS = 50;
+    private static final int PREGUNTAS_POR_PARTIDA_DEFAULT = 10;
 
     private FirebaseFirestore firestore;
     private FirebaseAuth auth;
@@ -61,6 +64,10 @@ public class SalaActivity extends BaseActivity {
 
     private MaterialButton btnCopiarCodigo;
     private MaterialButton btnIniciarSesion;
+
+    private View cardConfigPartida;
+    private Slider sliderPreguntas;
+    private TextView tvCantidadPreguntas;
 
     @Override
     protected void onCreate(
@@ -154,6 +161,32 @@ public class SalaActivity extends BaseActivity {
                 findViewById(
                         R.id.btnIniciarSesion
                 );
+
+        cardConfigPartida =
+                findViewById(
+                        R.id.cardConfigPartida
+                );
+
+        sliderPreguntas =
+                findViewById(
+                        R.id.sliderPreguntas
+                );
+
+        tvCantidadPreguntas =
+                findViewById(
+                        R.id.tvCantidadPreguntas
+                );
+
+        if (sliderPreguntas != null) {
+
+            sliderPreguntas.setValue(
+                    PREGUNTAS_POR_PARTIDA_DEFAULT
+            );
+
+            actualizarEtiquetaPreguntas(
+                    PREGUNTAS_POR_PARTIDA_DEFAULT
+            );
+        }
     }
 
     private void configurarListeners() {
@@ -171,6 +204,46 @@ public class SalaActivity extends BaseActivity {
         btnIniciarSesion.setOnClickListener(
                 v -> iniciarPartida()
         );
+
+        if (sliderPreguntas != null) {
+
+            sliderPreguntas.addOnChangeListener(
+                    (slider, value, fromUser) ->
+                            actualizarEtiquetaPreguntas(
+                                    Math.round(value)
+                            )
+            );
+        }
+    }
+
+    private void actualizarEtiquetaPreguntas(
+            int cantidad
+    ) {
+
+        if (tvCantidadPreguntas != null) {
+
+            tvCantidadPreguntas.setText(
+                    String.valueOf(cantidad)
+            );
+        }
+    }
+
+    private int preguntasPorPartida() {
+
+        if (sliderPreguntas != null) {
+
+            int valor =
+                    Math.round(
+                            sliderPreguntas.getValue()
+                    );
+
+            return Math.max(
+                    MIN_PREGUNTAS,
+                    Math.min(MAX_PREGUNTAS, valor)
+            );
+        }
+
+        return PREGUNTAS_POR_PARTIDA_DEFAULT;
     }
 
     private void escucharSala() {
@@ -539,6 +612,20 @@ public class SalaActivity extends BaseActivity {
                 );
     }
 
+    private void mostrarConfigPartida(
+            boolean visible
+    ) {
+
+        if (cardConfigPartida != null) {
+
+            cardConfigPartida.setVisibility(
+                    visible
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+    }
+
     private void actualizarBotonAnfitrion() {
 
         if (
@@ -550,6 +637,10 @@ public class SalaActivity extends BaseActivity {
                     View.GONE
             );
 
+            mostrarConfigPartida(
+                    false
+            );
+
             return;
         }
 
@@ -559,6 +650,10 @@ public class SalaActivity extends BaseActivity {
                                 .getCurrentUser()
                                 .getUid()
                 );
+
+        mostrarConfigPartida(
+                soyAnfitrion
+        );
 
         if (!soyAnfitrion) {
 
@@ -715,7 +810,7 @@ public class SalaActivity extends BaseActivity {
                     BancoPreguntasMultijugador
                             .seleccionarPreguntas(
                                     this,
-                                    PREGUNTAS_POR_PARTIDA
+                                    preguntasPorPartida()
                             );
 
         } catch (Exception error) {
@@ -871,6 +966,11 @@ public class SalaActivity extends BaseActivity {
 
         datos.put(
                 "totalPreguntas",
+                preguntas.size()
+        );
+
+        datos.put(
+                "cantidadPreguntas",
                 preguntas.size()
         );
 

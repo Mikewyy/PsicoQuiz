@@ -264,6 +264,91 @@
             </com.google.android.material.card.MaterialCardView>
 
 
+            <!-- CONFIGURACIÓN DE LA PARTIDA (solo anfitrión) -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardConfigPartida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/mp_surface_alt"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Configuración de la partida"
+                        android:textColor="@color/mp_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Número de preguntas"
+                            android:textColor="@color/mp_text_primary"
+                            android:textSize="15sp" />
+
+
+                        <TextView
+                            android:id="@+id/tvCantidadPreguntas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textColor="@color/mp_accent"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/sliderPreguntas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:stepSize="1"
+                        android:value="10"
+                        android:valueFrom="5"
+                        android:valueTo="50" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Elige entre 5 y 50 preguntas para la partida."
+                        android:textColor="@color/mp_text_secondary"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
             <!-- INICIAR -->
 
             <com.google.android.material.button.MaterialButton

@@ -122,6 +122,8 @@ public class QuizMultijugadorActivity
     private List<Map<String, Object>> preguntasPartida =
             new ArrayList<>();
 
+    private int cantidadPreguntasPartida = 10;
+
     private CountDownTimer timerPregunta;
     private CountDownTimer timerResultado;
 
@@ -688,6 +690,27 @@ public class QuizMultijugadorActivity
             preguntasPartida = (List<Map<String, Object>>) preguntasRaw;
         } else {
             preguntasPartida = new ArrayList<>();
+        }
+
+        Long cantidadGuardada =
+                snapshot.getLong(
+                        "cantidadPreguntas"
+                );
+
+        if (cantidadGuardada == null) {
+            cantidadGuardada =
+                    snapshot.getLong(
+                            "totalPreguntas"
+                    );
+        }
+
+        if (
+                cantidadGuardada != null &&
+                        cantidadGuardada > 0
+        ) {
+
+            cantidadPreguntasPartida =
+                    cantidadGuardada.intValue();
         }
 
         String estadoPartida =
@@ -3668,7 +3691,7 @@ public class QuizMultijugadorActivity
                     BancoPreguntasMultijugador
                             .seleccionarPreguntas(
                                     this,
-                                    10
+                                    Math.max(5, Math.min(50, cantidadPreguntasPartida))
                             );
 
         } catch (Exception error) {

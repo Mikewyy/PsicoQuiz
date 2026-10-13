@@ -104,8 +104,10 @@ public class ResultadoActivity extends BaseActivity {
         btnReintentar.setText(aprobado ? R.string.tramo_practicar : R.string.resultado_reintentar);
         btnReintentar.setOnClickListener(v -> {
             String modo = aprobado ? Intento.MODO_PRACTICA : Intento.MODO_EXAMEN;
-            startActivity(QuizActivity.nuevoIntent(this, nivelId, nivelNumero, nivelNombre, modo));
-            finish();
+            ConfigQuiz.confirmarConPistas(this, () -> {
+                startActivity(QuizActivity.nuevoIntent(this, nivelId, nivelNumero, nivelNombre, modo));
+                finish();
+            });
         });
 
         findViewById(R.id.btnVolver).setOnClickListener(v -> finish());

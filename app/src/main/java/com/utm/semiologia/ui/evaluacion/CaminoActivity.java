@@ -410,11 +410,17 @@ public class CaminoActivity extends BaseActivity
         }
 
 
-        startActivity(
+        ConfigQuiz.confirmarConPistas(
 
-                QuizActivity.nuevoIntent(
-                        this,
-                        tramo
+                this,
+
+                () -> startActivity(
+
+                        QuizActivity.nuevoIntent(
+                                this,
+                                tramo
+                        )
+
                 )
 
         );

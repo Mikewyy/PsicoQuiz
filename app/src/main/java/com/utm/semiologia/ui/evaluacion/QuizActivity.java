@@ -23,6 +23,7 @@ import com.utm.semiologia.R;
 import com.utm.semiologia.data.model.Intento;
 import com.utm.semiologia.data.model.Opcion;
 import com.utm.semiologia.data.model.ProgresoNivel;
+import com.utm.semiologia.util.PreferenciasManager;
 
 /** Pantalla de un intento: muestra preguntas MCQ o escritas y da feedback. */
 public class QuizActivity extends BaseActivity {
@@ -41,6 +42,8 @@ public class QuizActivity extends BaseActivity {
 
     private EstadoQuiz ultimo;
     private Long opcionSeleccionada;
+
+    private boolean pistasActivadas;
 
     public static Intent nuevoIntent(Context ctx, ProgresoNivel tramo) {
         return nuevoIntent(ctx, tramo.getNivelId(), tramo.getOrden(), tramo.getNombre(),
@@ -85,6 +88,8 @@ public class QuizActivity extends BaseActivity {
 
         vm = new ViewModelProvider(this).get(QuizViewModel.class);
         vm.iniciar(nivelId, numero, nombre, modo);
+
+        pistasActivadas = PreferenciasManager.pistasActivas(this);
 
         findViewById(R.id.btnCerrar).setOnClickListener(v -> confirmarSalida());
         btnAccion.setOnClickListener(v -> onAccion());
@@ -154,7 +159,7 @@ public class QuizActivity extends BaseActivity {
         tvTema.setText(e.pregunta.getTema());
         tvEnunciado.setText(e.pregunta.getEnunciado());
 
-        String pista = e.pregunta.getPista();
+        String pista = pistasActivadas ? e.pregunta.getPista() : null;
         if (pista != null && !pista.trim().isEmpty()) {
             tvPista.setVisibility(View.VISIBLE);
             tvPista.setText(getString(R.string.quiz_pista, pista));

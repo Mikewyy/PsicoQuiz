@@ -19,6 +19,8 @@ public final class PreferenciasManager {
 
     private static final String K_BURBUJA_POMODORO = "burbuja_pomodoro";
 
+    private static final String K_PISTAS = "pistas_escritura";
+
     public static final int TEMA_SISTEMA = 0;
     public static final int TEMA_CLARO = 1;
     public static final int TEMA_OSCURO = 2;
@@ -86,6 +88,18 @@ public final class PreferenciasManager {
 
     public static void setBurbujaPomodoro(Context context, boolean visible) {
         prefs(context).edit().putBoolean(K_BURBUJA_POMODORO, visible).apply();
+    }
+
+    /**
+     * Pistas en las preguntas de escritura del quiz individual.
+     * Por defecto activadas (comportamiento histórico).
+     */
+    public static boolean pistasActivas(Context context) {
+        return prefs(context).getBoolean(K_PISTAS, true);
+    }
+
+    public static void setPistas(Context context, boolean activas) {
+        prefs(context).edit().putBoolean(K_PISTAS, activas).apply();
     }
 
     private static SharedPreferences prefs(Context context) {
