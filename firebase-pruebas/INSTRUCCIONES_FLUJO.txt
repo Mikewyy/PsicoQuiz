@@ -1,0 +1,10 @@
+Pato Detective - Prueba complementaria de cierre y revancha (EMULADOR SOLAMENTE)
+
+1. Descarga y extrae el ZIP en ~/AndroidStudioProjects/PsicoQuiz/firebase-pruebas
+2. Deja Firebase Emulator abierto con --project demo-patotective
+3. Ejecuta: node prueba-flujo-pendiente.cjs
+4. Envia el resultado completo si hay algun fallo.
+
+No reemplaza firestore.rules: usa exactamente las reglas que ya instalaron las 16 pruebas.
+No valida puntuaciones contra una APK modificada ni garantiza todas las operaciones de Android.
+No publiques reglas en Firebase Console por haber superado esta prueba.

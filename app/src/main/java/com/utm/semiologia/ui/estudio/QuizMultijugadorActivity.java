@@ -37,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.WriteBatch;
 import com.utm.semiologia.R;
+import com.utm.semiologia.firebase.SalaRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,11 +65,16 @@ public class QuizMultijugadorActivity
             800,
             600,
             400,
-            250
+            250,
+            200,
+            160,
+            120,
+            80,
+            50
     };
 
-    private static final long RECONEXION_MS = 60_000L;
-    private static final long LATIDO_MS = 15_000L;
+    private static final long RECONEXION_MS = 90_000L;
+    private static final long LATIDO_MS = 30_000L;
     private final Handler presenciaHandler = new Handler(Looper.getMainLooper());
     private boolean abandonoVoluntario = false;
     private boolean partidaEnCurso = false;
@@ -828,6 +834,7 @@ public class QuizMultijugadorActivity
                     correcta,
                     retro
             );
+            iniciarLimiteLectura(snapshot);
         }
     }
 
@@ -1622,9 +1629,9 @@ public class QuizMultijugadorActivity
                                     );
                         }
 
-                        if (soyAnfitrion) {
-                            finalizarPregunta();
-                        }
+                        // Cualquier participante conectado puede cerrar la ronda vencida.
+                        // La transacción en Firestore impide cierre y puntos duplicados.
+                        finalizarPregunta();
                     }
                 };
 
@@ -1832,92 +1839,109 @@ public class QuizMultijugadorActivity
                 );
     }
 
+    /**
+     * Cierre resistente a desconexión del anfitrión.
+     * Todos los puntos y el estado "resultado" se guardan en una misma transacción;
+     * si dos clientes intentan cerrar la misma pregunta, solo uno puede hacerlo.
+     */
     private void finalizarPregunta() {
+        if (finalizandoPregunta || abandonoVoluntario || preguntaActual < 0
+                || preguntaActual >= preguntasPartida.size() || partidaId.isEmpty()) return;
 
-        if (
-                !soyAnfitrion ||
-                        finalizandoPregunta ||
-                        preguntaActual < 0 ||
-                        preguntaActual >=
-                                preguntasPartida.size() ||
-                        partidaId.isEmpty()
-        ) {
-            return;
-        }
-
-        finalizandoPregunta =
-                true;
-
+        final String idCierre = partidaId;
+        final int indiceCierre = preguntaActual;
+        finalizandoPregunta = true;
         cancelarTimerPregunta();
+        final DocumentReference salaRef = firestore.collection("salas").document(codigoSala);
 
-        firestore
-                .collection("salas")
-                .document(codigoSala)
-                .collection("respuestas")
-                .get()
-                .addOnSuccessListener(
-                        respuestasSnapshot -> {
+        salaRef.collection("respuestas").get()
+                .addOnSuccessListener(respuestasSnapshot -> {
+                    List<DocumentSnapshot> respuestas = new ArrayList<>();
+                    for (DocumentSnapshot documento : respuestasSnapshot.getDocuments()) {
+                        Long indice = documento.getLong("preguntaIndex");
+                        if (idCierre.equals(documento.getString("partidaId"))
+                                && indice != null && indice.intValue() == indiceCierre) {
+                            respuestas.add(documento);
+                        }
+                    }
+                    respuestas.sort(Comparator.comparingLong(this::momentoRespuesta));
 
-                            List<DocumentSnapshot> respuestas =
-                                    new ArrayList<>();
+                    final Map<String, Integer> puntos = new HashMap<>();
+                    final Map<String, Boolean> correctas = new HashMap<>();
+                    int orden = 0;
+                    for (DocumentSnapshot respuesta : respuestas) {
+                        String uid = respuesta.getString("uid");
+                        if (uid == null || puntos.containsKey(uid)) continue;
+                        boolean correcta = Boolean.TRUE.equals(respuesta.getBoolean("correcta"));
+                        int valor = correcta && orden < PUNTOS_POR_LUGAR.length
+                                ? PUNTOS_POR_LUGAR[orden] : 0;
+                        puntos.put(uid, valor);
+                        correctas.put(uid, correcta);
+                        if (correcta) orden++;
+                    }
 
-                            for (
-                                    DocumentSnapshot documento :
-                                    respuestasSnapshot
-                                            .getDocuments()
-                            ) {
-
-                                String partida =
-                                        documento.getString(
-                                                "partidaId"
-                                        );
-
-                                Long indice =
-                                        documento.getLong(
-                                                "preguntaIndex"
-                                        );
-
-                                if (
-                                        partidaId.equals(
-                                                partida
-                                        )
-                                                &&
-                                                indice != null
-                                                &&
-                                                indice.intValue()
-                                                        ==
-                                                        preguntaActual
-                                ) {
-
-                                    respuestas.add(
-                                            documento
-                                    );
+                    salaRef.collection("participantes").get()
+                            .addOnSuccessListener(participantesSnapshot -> {
+                                List<DocumentReference> miembros = new ArrayList<>();
+                                for (DocumentSnapshot miembro : participantesSnapshot.getDocuments()) {
+                                    miembros.add(miembro.getReference());
                                 }
-                            }
+                                Map<String, Object> pregunta = preguntasPartida.get(indiceCierre);
+                                List<String> opciones = opcionesDe(pregunta);
+                                int correcta = enteroMapa(pregunta, "indiceCorrecto");
+                                String respuestaTexto = correcta >= 0 && correcta < opciones.size()
+                                        ? opciones.get(correcta) : "";
+                                String retro = textoMapa(pregunta, "retroalimentacion");
 
-                            respuestas.sort(
-                                    Comparator.comparingLong(
-                                            this::momentoRespuesta
-                                    )
-                            );
-
-                            calcularYGuardarPuntos(
-                                    respuestas
-                            );
-                        }
-                )
-                .addOnFailureListener(
-                        error -> {
-                            finalizandoPregunta =
-                                    false;
-
-                            Toast.makeText(
-                                    this,
-                                    "No se pudieron calcular los resultados.",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                        }
-                );
+                                firestore.runTransaction(tx -> {
+                                    DocumentSnapshot sala = tx.get(salaRef);
+                                    if (!sala.exists() || !idCierre.equals(sala.getString("partidaId"))
+                                            || !"pregunta".equals(sala.getString("fasePartida"))) return false;
+                                    Long actual = sala.getLong("preguntaActual");
+                                    if (actual == null || actual.intValue() != indiceCierre) return false;
+                                    // Invitados solo cierran preguntas cuyo tiempo ya venció.
+                                    if (!soyAnfitrion) {
+                                        Timestamp inicio = sala.getTimestamp("inicioPregunta");
+                                        if (inicio == null || System.currentTimeMillis()
+                                                - inicio.toDate().getTime() < TIEMPO_PREGUNTA_MS) return false;
+                                    }
+                                    // Firestore exige que todas las lecturas precedan las escrituras.
+                                    List<DocumentSnapshot> fichas = new ArrayList<>();
+                                    for (DocumentReference miembro : miembros) fichas.add(tx.get(miembro));
+                                    for (DocumentSnapshot ficha : fichas) {
+                                        if (!ficha.exists() || "abandono".equals(ficha.getString("estadoConexion"))) continue;
+                                        String uid = ficha.getId();
+                                        int valor = puntos.getOrDefault(uid, 0);
+                                        boolean acierto = correctas.getOrDefault(uid, false);
+                                        Map<String, Object> cambio = new HashMap<>();
+                                        cambio.put("puntosPartida", FieldValue.increment(valor));
+                                        cambio.put("ultimoPuntaje", valor);
+                                        cambio.put("ultimaCorrecta", acierto);
+                                        if (acierto) cambio.put("aciertosPartida", FieldValue.increment(1));
+                                        tx.update(ficha.getReference(), cambio);
+                                    }
+                                    Map<String, Object> datos = new HashMap<>();
+                                    datos.put("fasePartida", "resultado");
+                                    datos.put("inicioResultado", FieldValue.serverTimestamp());
+                                    datos.put("respuestaCorrectaTexto", respuestaTexto);
+                                    datos.put("retroalimentacionActual", retro);
+                                    tx.update(salaRef, datos);
+                                    return true;
+                                }).addOnSuccessListener(cerrada -> {
+                                    finalizandoPregunta = false;
+                                    if (!cerrada) android.util.Log.d("PatotectiveTiempo", "Ronda ya cerrada o todavía no vencida");
+                                }).addOnFailureListener(error -> {
+                                    finalizandoPregunta = false;
+                                    android.util.Log.e("PatotectiveTiempo", "Error al cerrar la pregunta", error);
+                                });
+                            }).addOnFailureListener(error -> {
+                                finalizandoPregunta = false;
+                                android.util.Log.e("PatotectiveTiempo", "No se pudieron leer participantes", error);
+                            });
+                }).addOnFailureListener(error -> {
+                    finalizandoPregunta = false;
+                    android.util.Log.e("PatotectiveTiempo", "No se pudieron leer respuestas", error);
+                });
     }
 
     private long momentoRespuesta(
@@ -2138,6 +2162,9 @@ public class QuizMultijugadorActivity
                 "resultado"
         );
 
+        // Marca de tiempo compartida para evitar esperas infinitas.
+        datos.put("inicioResultado", FieldValue.serverTimestamp());
+
         datos.put(
                 "respuestaCorrectaTexto",
                 respuestaCorrecta
@@ -2257,42 +2284,59 @@ public class QuizMultijugadorActivity
         // Avanza únicamente cuando TODOS confirman que leyeron la justificación.
     }
 
-    private void iniciarTimerResultado() {
-
+    /** Límite de lectura compartido. El avance no depende de un jugador sin internet. */
+    private void iniciarLimiteLectura(DocumentSnapshot sala) {
         cancelarTimerResultado();
+        Timestamp inicio = sala.getTimestamp("inicioResultado");
+        long transcurrido = inicio == null ? 0L
+                : Math.max(0L, System.currentTimeMillis() - inicio.toDate().getTime());
+        // Los documentos antiguos no tienen inicioResultado: damos un plazo local completo.
+        long restante = Math.max(1L, TIEMPO_RESULTADO_MS - transcurrido);
+        final String idPartida = partidaId;
+        final int indice = preguntaActual;
+        timerResultado = new CountDownTimer(restante, 250L) {
+            @Override public void onTick(long ms) {
+                if (tvLecturasResultado != null && tvLecturasResultado.getVisibility() == View.VISIBLE) {
+                    tvLecturasResultado.setText("Tiempo para leer: " + ((ms + 999L) / 1000L)
+                            + " s · avance automático al terminar");
+                }
+            }
+            @Override public void onFinish() {
+                if (idPartida.equals(partidaId) && indice == preguntaActual && !abandonoVoluntario) {
+                    avanzarPorTiempoCompartido(idPartida, indice);
+                }
+            }
+        }.start();
+    }
 
-        timerResultado =
-                new CountDownTimer(
-                        TIEMPO_RESULTADO_MS,
-                        1000L
-                ) {
-
-                    @Override
-                    public void onTick(
-                            long millisUntilFinished
-                    ) {
-
-                        long segundos =
-                                (
-                                        millisUntilFinished
-                                                + 999L
-                                )
-                                        / 1000L;
-
-                        tvTiempo.setText(
-                                "Siguiente en "
-                                        + segundos
-                                        + " s"
-                        );
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        avanzarPregunta();
-                    }
-                };
-
-        timerResultado.start();
+    /** Cualquier cliente conectado puede destrabar un resultado vencido. */
+    private void avanzarPorTiempoCompartido(String idPartida, int indice) {
+        DocumentReference ref = firestore.collection("salas").document(codigoSala);
+        firestore.runTransaction(tx -> {
+            DocumentSnapshot actual = tx.get(ref);
+            if (!actual.exists() || !idPartida.equals(actual.getString("partidaId"))
+                    || !"resultado".equals(actual.getString("fasePartida"))) return false;
+            Long actualIndice = actual.getLong("preguntaActual");
+            if (actualIndice == null || actualIndice.intValue() != indice) return false;
+            Timestamp inicio = actual.getTimestamp("inicioResultado");
+            if (inicio == null || System.currentTimeMillis() - inicio.toDate().getTime()
+                    < TIEMPO_RESULTADO_MS) return false;
+            int siguiente = indice + 1;
+            Map<String, Object> cambios = new HashMap<>();
+            if (siguiente >= preguntasPartida.size()) {
+                cambios.put("estadoPartida", "finalizada");
+                cambios.put("fasePartida", "final");
+            } else {
+                cambios.put("preguntaActual", siguiente);
+                cambios.put("fasePartida", "pregunta");
+                cambios.put("inicioPregunta", FieldValue.serverTimestamp());
+                cambios.put("respuestaCorrectaTexto", "");
+                cambios.put("retroalimentacionActual", "");
+            }
+            tx.update(ref, cambios);
+            return true;
+        }).addOnFailureListener(e -> android.util.Log.w(
+                "PatotectiveTiempo", "No se pudo avanzar tras el plazo", e));
     }
 
     private void avanzarPregunta() {
@@ -4319,12 +4363,8 @@ public class QuizMultijugadorActivity
         abandonoVoluntario = true;
         presenciaHandler.removeCallbacks(latido);
         String uid = auth.getCurrentUser().getUid();
-        DocumentReference ref = firestore.collection("salas").document(codigoSala)
-                .collection("participantes").document(uid);
-        ref.update("estadoConexion", "abandono", "puntosPartida", 0,
-                        "aciertosPartida", 0, "ultimoPuntaje", 0,
-                        "anfitrion", false, "ultimoLatido", 0)
-                .addOnSuccessListener(unused -> {
+        new SalaRepository().abandonarSala(codigoSala, uid, new SalaRepository.OperacionCallback() {
+            @Override public void onSuccess() {
                     transferirAnfitrion(uid);
                     firestore.collection("salas").document(codigoSala)
                             .collection("participantes").get().addOnSuccessListener(jugadores -> {
@@ -4343,13 +4383,15 @@ public class QuizMultijugadorActivity
                                 }
                             });
                     volverAlMultijugador();
-                })
-                .addOnFailureListener(e -> {
+            }
+            @Override public void onError(String mensaje) {
+
                     abandonoVoluntario = false;
                     presenciaHandler.post(latido);
-                    Toast.makeText(this, "No se pudo registrar la salida: " + e.getMessage(),
+                    Toast.makeText(QuizMultijugadorActivity.this, "No se pudo registrar la salida: " + mensaje,
                             Toast.LENGTH_LONG).show();
-                });
+            }
+        });
     }
 
     private void verificarAnfitrion(List<DocumentSnapshot> participantes) {

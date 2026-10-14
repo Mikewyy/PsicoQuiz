@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.activity.OnBackPressedCallback;
+import com.utm.semiologia.firebase.SalaRepository;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
@@ -37,7 +39,7 @@ public class SalaActivity extends BaseActivity {
             "extra_codigo_sala";
 
     private static final int MIN_PARTICIPANTES = 2;
-    private static final int MAX_PARTICIPANTES = 5;
+    private static final int MAX_PARTICIPANTES = 10;
     private static final int MIN_PREGUNTAS = 5;
     private static final int MAX_PREGUNTAS = 50;
     private static final int PREGUNTAS_POR_PARTIDA_DEFAULT = 10;
@@ -116,6 +118,9 @@ public class SalaActivity extends BaseActivity {
 
         enlazarVistas();
         configurarListeners();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override public void handleOnBackPressed() { salirDeSala(); }
+        });
 
         tvCodigoSala.setText(
                 codigoSala
@@ -189,12 +194,29 @@ public class SalaActivity extends BaseActivity {
         }
     }
 
+    private boolean saliendoSala = false;
+
+    private void salirDeSala() {
+        if (saliendoSala) return;
+        if (auth.getCurrentUser() == null) { finish(); return; }
+        saliendoSala = true;
+        new SalaRepository().abandonarSala(codigoSala, auth.getCurrentUser().getUid(),
+                new SalaRepository.OperacionCallback() {
+                    @Override public void onSuccess() { finish(); }
+                    @Override public void onError(String mensaje) {
+                        saliendoSala = false;
+                        Toast.makeText(SalaActivity.this,
+                                "No se pudo liberar la plaza: " + mensaje, Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
     private void configurarListeners() {
 
         findViewById(
                 R.id.btnVolver
         ).setOnClickListener(
-                v -> finish()
+                v -> salirDeSala()
         );
 
         btnCopiarCodigo.setOnClickListener(
@@ -421,8 +443,11 @@ public class SalaActivity extends BaseActivity {
                                     contenedorParticipantes
                                             .removeAllViews();
 
-                                    cantidadParticipantesActual =
-                                            snapshot.size();
+                                    cantidadParticipantesActual = 0;
+                                    for (DocumentSnapshot participante : snapshot.getDocuments()) {
+                                        if (!"abandono".equals(participante.getString("estadoConexion")))
+                                            cantidadParticipantesActual++;
+                                    }
 
                                     tvCantidadParticipantes
                                             .setText(
@@ -440,9 +465,9 @@ public class SalaActivity extends BaseActivity {
                                             DocumentSnapshot documento :
                                             snapshot.getDocuments()
                                     ) {
-                                        agregarParticipante(
-                                                documento
-                                        );
+                                        if (!"abandono".equals(documento.getString("estadoConexion"))) {
+                                            agregarParticipante(documento);
+                                        }
                                     }
 
                                     actualizarBotonAnfitrion();
@@ -472,10 +497,7 @@ public class SalaActivity extends BaseActivity {
                     "Participante";
         }
 
-        boolean esAnfitrion =
-                Boolean.TRUE.equals(
-                        anfitrion
-                );
+        boolean esAnfitrion = documento.getId().equals(anfitrionUid);
 
         LinearLayout fila =
                 new LinearLayout(
@@ -791,7 +813,7 @@ public class SalaActivity extends BaseActivity {
 
             Toast.makeText(
                     this,
-                    "La sala admite máximo 5 jugadores.",
+                    "La sala admite máximo 10 jugadores.",
                     Toast.LENGTH_SHORT
             ).show();
 
@@ -845,8 +867,10 @@ public class SalaActivity extends BaseActivity {
                 .addOnSuccessListener(
                         participantes -> {
 
-                            int cantidadReal =
-                                    participantes.size();
+                            int cantidadReal = 0;
+                            for (DocumentSnapshot p : participantes.getDocuments()) {
+                                if (!"abandono".equals(p.getString("estadoConexion"))) cantidadReal++;
+                            }
 
                             if (
                                     cantidadReal <
@@ -879,7 +903,7 @@ public class SalaActivity extends BaseActivity {
 
                                 Toast.makeText(
                                         this,
-                                        "La sala admite máximo 5 jugadores.",
+                                        "La sala admite máximo 10 jugadores.",
                                         Toast.LENGTH_SHORT
                                 ).show();
 
@@ -893,6 +917,7 @@ public class SalaActivity extends BaseActivity {
                                     DocumentSnapshot participante :
                                     participantes.getDocuments()
                             ) {
+                                if ("abandono".equals(participante.getString("estadoConexion"))) continue;
 
                                 Map<String, Object> reinicio =
                                         new HashMap<>();

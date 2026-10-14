@@ -37,7 +37,7 @@ public class SalaEstudio {
         this.nombre = nombre;
         this.anfitrionId = anfitrionId;
 
-        this.maxParticipantes = 5;
+        this.maxParticipantes = 10;
         this.cantidadParticipantes = 1;
 
         this.estadoPomodoro = "detenido";

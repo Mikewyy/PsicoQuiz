@@ -1,0 +1,1 @@
+Parche V4 sobre la Guia V3. Corrige temporizador con reloj monotónico y agrega iconos vectoriales, tarjeta y respuestas visuales. No afecta Firebase ni multijugador. Respaldar app/src/main antes de extraer.

@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function validRoomLimits() {
+      return request.resource.data.maxParticipantes is int
+        && request.resource.data.maxParticipantes >= 2
+        && request.resource.data.maxParticipantes <= 10
+        && request.resource.data.cantidadParticipantes is int
+        && request.resource.data.cantidadParticipantes >= 0
+        && request.resource.data.cantidadParticipantes <= request.resource.data.maxParticipantes;
+    }
+    match /salas/{salaId} {
+      allow read: if signedIn();
+      // Compatible con el cliente actual. No impide manipular puntos ni asegura capacidad
+      // por sí sola: requiere operaciones de servidor para seguridad antifraude completa.
+      allow create, update: if signedIn() && validRoomLimits();
+      allow delete: if signedIn();
+      match /participantes/{participanteId} {
+        allow read, write: if signedIn();
+      }
+      match /respuestas/{respuestaId} {
+        allow read, write: if signedIn();
+      }
+      match /lecturasResultado/{confirmacionId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn() && request.resource.data.uid == request.auth.uid;
+        allow delete: if signedIn();
+      }
+      match /revancha/{usuarioId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn()
+          && request.resource.data.uid == request.auth.uid
+          && usuarioId == request.auth.uid;
+        allow delete: if signedIn() && usuarioId == request.auth.uid;
+      }
+    }
+    match /usuarios/{usuarioId} {
+      allow read, create, update, delete: if signedIn() && request.auth.uid == usuarioId;
+      match /{documento=**} {
+        allow read, create, update, delete: if signedIn() && request.auth.uid == usuarioId;
+      }
+    }
+  }
+}

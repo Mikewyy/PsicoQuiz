@@ -1,0 +1,1 @@
+V2 EXPERIMENTAL. Copiar respaldo antes de instalar. No publicar en Firebase real. Ejecutar node prueba-puntuaciones-v2.cjs && node ejecutar-refuerzo.cjs && node ejecutar-pruebas.cjs. Cambios en score solo durante transicion pregunta->resultado; reinicio propio por abandono. Las trampas siguen posibles con APK modificada.

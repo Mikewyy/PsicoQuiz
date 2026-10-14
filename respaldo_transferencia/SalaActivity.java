@@ -11,9 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.activity.OnBackPressedCallback;
+import com.utm.semiologia.firebase.SalaRepository;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.slider.Slider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,8 +39,10 @@ public class SalaActivity extends BaseActivity {
             "extra_codigo_sala";
 
     private static final int MIN_PARTICIPANTES = 2;
-    private static final int MAX_PARTICIPANTES = 5;
-    private static final int PREGUNTAS_POR_PARTIDA = 10;
+    private static final int MAX_PARTICIPANTES = 10;
+    private static final int MIN_PREGUNTAS = 5;
+    private static final int MAX_PREGUNTAS = 50;
+    private static final int PREGUNTAS_POR_PARTIDA_DEFAULT = 10;
 
     private FirebaseFirestore firestore;
     private FirebaseAuth auth;
@@ -61,6 +66,10 @@ public class SalaActivity extends BaseActivity {
 
     private MaterialButton btnCopiarCodigo;
     private MaterialButton btnIniciarSesion;
+
+    private View cardConfigPartida;
+    private Slider sliderPreguntas;
+    private TextView tvCantidadPreguntas;
 
     @Override
     protected void onCreate(
@@ -109,6 +118,9 @@ public class SalaActivity extends BaseActivity {
 
         enlazarVistas();
         configurarListeners();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override public void handleOnBackPressed() { salirDeSala(); }
+        });
 
         tvCodigoSala.setText(
                 codigoSala
@@ -154,6 +166,49 @@ public class SalaActivity extends BaseActivity {
                 findViewById(
                         R.id.btnIniciarSesion
                 );
+
+        cardConfigPartida =
+                findViewById(
+                        R.id.cardConfigPartida
+                );
+
+        sliderPreguntas =
+                findViewById(
+                        R.id.sliderPreguntas
+                );
+
+        tvCantidadPreguntas =
+                findViewById(
+                        R.id.tvCantidadPreguntas
+                );
+
+        if (sliderPreguntas != null) {
+
+            sliderPreguntas.setValue(
+                    PREGUNTAS_POR_PARTIDA_DEFAULT
+            );
+
+            actualizarEtiquetaPreguntas(
+                    PREGUNTAS_POR_PARTIDA_DEFAULT
+            );
+        }
+    }
+
+    private boolean saliendoSala = false;
+
+    private void salirDeSala() {
+        if (saliendoSala) return;
+        if (auth.getCurrentUser() == null) { finish(); return; }
+        saliendoSala = true;
+        new SalaRepository().abandonarSala(codigoSala, auth.getCurrentUser().getUid(),
+                new SalaRepository.OperacionCallback() {
+                    @Override public void onSuccess() { finish(); }
+                    @Override public void onError(String mensaje) {
+                        saliendoSala = false;
+                        Toast.makeText(SalaActivity.this,
+                                "No se pudo liberar la plaza: " + mensaje, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private void configurarListeners() {
@@ -161,7 +216,7 @@ public class SalaActivity extends BaseActivity {
         findViewById(
                 R.id.btnVolver
         ).setOnClickListener(
-                v -> finish()
+                v -> salirDeSala()
         );
 
         btnCopiarCodigo.setOnClickListener(
@@ -171,6 +226,46 @@ public class SalaActivity extends BaseActivity {
         btnIniciarSesion.setOnClickListener(
                 v -> iniciarPartida()
         );
+
+        if (sliderPreguntas != null) {
+
+            sliderPreguntas.addOnChangeListener(
+                    (slider, value, fromUser) ->
+                            actualizarEtiquetaPreguntas(
+                                    Math.round(value)
+                            )
+            );
+        }
+    }
+
+    private void actualizarEtiquetaPreguntas(
+            int cantidad
+    ) {
+
+        if (tvCantidadPreguntas != null) {
+
+            tvCantidadPreguntas.setText(
+                    String.valueOf(cantidad)
+            );
+        }
+    }
+
+    private int preguntasPorPartida() {
+
+        if (sliderPreguntas != null) {
+
+            int valor =
+                    Math.round(
+                            sliderPreguntas.getValue()
+                    );
+
+            return Math.max(
+                    MIN_PREGUNTAS,
+                    Math.min(MAX_PREGUNTAS, valor)
+            );
+        }
+
+        return PREGUNTAS_POR_PARTIDA_DEFAULT;
     }
 
     private void escucharSala() {
@@ -283,6 +378,12 @@ public class SalaActivity extends BaseActivity {
                     "esperando";
         }
 
+        if ("cancelada".equalsIgnoreCase(estadoPartida)) {
+            iniciandoPartida = false;
+            abriendoPartida = false;
+            volverAlMultijugadorLimpio("La partida anterior terminó. Crea una sala nueva.");
+            return;
+        }
         if (
                 "jugando".equalsIgnoreCase(
                         estadoPartida
@@ -533,6 +634,20 @@ public class SalaActivity extends BaseActivity {
                 );
     }
 
+    private void mostrarConfigPartida(
+            boolean visible
+    ) {
+
+        if (cardConfigPartida != null) {
+
+            cardConfigPartida.setVisibility(
+                    visible
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+        }
+    }
+
     private void actualizarBotonAnfitrion() {
 
         if (
@@ -544,6 +659,10 @@ public class SalaActivity extends BaseActivity {
                     View.GONE
             );
 
+            mostrarConfigPartida(
+                    false
+            );
+
             return;
         }
 
@@ -553,6 +672,10 @@ public class SalaActivity extends BaseActivity {
                                 .getCurrentUser()
                                 .getUid()
                 );
+
+        mostrarConfigPartida(
+                soyAnfitrion
+        );
 
         if (!soyAnfitrion) {
 
@@ -690,7 +813,7 @@ public class SalaActivity extends BaseActivity {
 
             Toast.makeText(
                     this,
-                    "La sala admite máximo 5 jugadores.",
+                    "La sala admite máximo 10 jugadores.",
                     Toast.LENGTH_SHORT
             ).show();
 
@@ -709,7 +832,7 @@ public class SalaActivity extends BaseActivity {
                     BancoPreguntasMultijugador
                             .seleccionarPreguntas(
                                     this,
-                                    PREGUNTAS_POR_PARTIDA
+                                    preguntasPorPartida()
                             );
 
         } catch (Exception error) {
@@ -778,7 +901,7 @@ public class SalaActivity extends BaseActivity {
 
                                 Toast.makeText(
                                         this,
-                                        "La sala admite máximo 5 jugadores.",
+                                        "La sala admite máximo 10 jugadores.",
                                         Toast.LENGTH_SHORT
                                 ).show();
 
@@ -869,6 +992,11 @@ public class SalaActivity extends BaseActivity {
         );
 
         datos.put(
+                "cantidadPreguntas",
+                preguntas.size()
+        );
+
+        datos.put(
                 "partidaId",
                 partidaId
         );
@@ -947,6 +1075,39 @@ public class SalaActivity extends BaseActivity {
         startActivity(
                 intent
         );
+        // No conservar esta sala antigua detrás del cuestionario: impedía volver a crear otra.
+        finish();
+    }
+
+    private void volverAlMultijugadorLimpio(String mensaje) {
+
+        Toast.makeText(
+                this,
+                mensaje,
+                Toast.LENGTH_LONG
+        ).show();
+
+        Intent intent =
+                new Intent(
+                        this,
+                        MultijugadorActivity.class
+                );
+
+        intent.putExtra(
+                "extra_reiniciar_multijugador",
+                true
+        );
+
+        intent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+
+        startActivity(
+                intent
+        );
+
+        finishAffinity();
     }
 
     private void copiarCodigo() {

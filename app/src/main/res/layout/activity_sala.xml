@@ -253,7 +253,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Se necesitan mínimo 2 jugadores y la sala admite máximo 5. Solo el anfitrión puede iniciar la partida."
+                        android:text="Se necesitan mínimo 2 jugadores y la sala admite máximo 10. Solo el anfitrión puede iniciar la partida."
                         android:textColor="@color/mp_text_secondary"
                         android:textSize="12sp" />
 

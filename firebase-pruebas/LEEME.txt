@@ -1,0 +1,9 @@
+PATO DETECTIVE — AUDITORÍA DE PUNTUACIONES
+
+El archivo firestore.rules del piloto permite que un usuario autenticado cambie puntosPartida, aciertosPartida, ultimoPuntaje y ultimaCorrecta de cualquier participante. El código Android en QuizMultijugadorActivity.java calcula los puntos con PUNTOS_POR_LUGAR = [1000,800,600,400,250,200,160,120,80,50] y actualiza fichas de todos los jugadores durante el cierre de pregunta. Además guarda correcta, calculada por el cliente, en respuestas.
+
+El script diagnostico-puntos.cjs demuestra estos dos riesgos; NO corrige las reglas. Corre solamente contra Firebase Emulator y restaura datos del emulador mediante clearFirestore; no lo ejecutes en un emulador cuyos datos desees conservar.
+
+Instalar: copiar diagnostico-puntos.cjs a firebase-pruebas y ejecutar node diagnostico-puntos.cjs con emulador activo.
+
+Para proteger los marcadores de manera robusta hace falta mover la determinación de corrección, orden y puntuación a una autoridad confiable (por ejemplo Cloud Functions, Cloud Run o backend propio con Firebase Admin SDK; revisar cuotas y costes). Las reglas Firestore pueden mitigar formas simples de fraude y limitar campos, pero no sustituir un cálculo confiable de puntajes. Mantener reglas reales publicadas sin cambios por ahora.

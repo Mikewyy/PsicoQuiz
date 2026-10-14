@@ -1,0 +1,1 @@
+Guía premium V3. Realiza respaldo antes de extraer. Sobrepone los archivos en la raíz del proyecto Android. Incluye el lector V2 extendido, contenido JSON de 22 temas, colores diurnos y nocturnos. No modifica Firebase ni multijugador. Compilar: ./gradlew assembleDebug. Pendiente validación en dispositivo.

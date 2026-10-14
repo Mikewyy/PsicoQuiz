@@ -1,0 +1,368 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+
+    function recuperacionValida(salaId) {
+      let nuevoUid = request.auth.uid;
+      let anteriorUid = resource.data.anfitrionId;
+      let anterior = get(
+        /databases/$(database)/documents/salas/$(salaId)/participantes/$(anteriorUid)
+      );
+      let nuevo = getAfter(
+        /databases/$(database)/documents/salas/$(salaId)/participantes/$(nuevoUid)
+      );
+
+      return resource.data.estadoPartida == 'esperando'
+        && exists(
+          /databases/$(database)/documents/salas/$(salaId)/participantes/$(anteriorUid)
+        )
+        && anterior.data.estadoConexion == 'abandono'
+        && request.resource.data.anfitrionId == nuevoUid
+        && nuevo.data.uid == nuevoUid
+        && nuevo.data.anfitrion == true
+        && nuevo.data.estadoConexion == 'activo'
+        && nuevo.data.plaza is string
+        && getAfter(
+          /databases/$(database)/documents/salas/$(salaId)/plazas/$(nuevo.data.plaza)
+        ).data.uid == nuevoUid;
+    }
+
+
+    function sucesorValido(salaId, participanteId) {
+      let rutaSala = /databases/$(database)/documents/salas/$(salaId);
+      let salaAntes = get(rutaSala);
+      let salaDespues = getAfter(rutaSala);
+
+      return request.auth.uid == salaAntes.data.anfitrionId
+        && salaDespues.data.anfitrionId == participanteId
+        && salaAntes.data.anfitrionId != participanteId
+        && resource.data.anfitrion == false
+        && request.resource.data.anfitrion == true;
+    }
+
+    // PILOTO: restricciones por transicion. NO es antitrampas.
+    function hostActual() {
+      return signedIn() && request.auth.uid == resource.data.anfitrionId;
+    }
+
+    function soloCampos(campos) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(campos);
+    }
+
+    function inicioPartidaValido() {
+      return hostActual()
+        && resource.data.estadoPartida == 'esperando'
+        && request.resource.data.estadoPartida == 'jugando'
+        && request.resource.data.fasePartida == 'pregunta'
+        && request.resource.data.preguntaActual == 0
+        && request.resource.data.inicioPregunta == request.time
+        && request.resource.data.inicioPartida == request.time
+        && request.resource.data.totalPreguntas is int
+        && request.resource.data.totalPreguntas >= 1
+        && request.resource.data.totalPreguntas <= 100
+        && soloCampos(['estadoPartida','fasePartida','preguntaActual',
+          'totalPreguntas','cantidadPreguntas','partidaId','preguntasPartida',
+          'inicioPartida','inicioPregunta','respuestaCorrectaTexto',
+          'retroalimentacionActual']);
+    }
+
+    function cerrarPreguntaValido() {
+      return signedIn()
+        && resource.data.estadoPartida == 'jugando'
+        && resource.data.fasePartida == 'pregunta'
+        && request.resource.data.fasePartida == 'resultado'
+        && request.resource.data.inicioResultado == request.time
+        && (hostActual() ||
+          (resource.data.inicioPregunta is timestamp
+           && request.time >= resource.data.inicioPregunta + duration.value(30, 's')))
+        && soloCampos(['fasePartida','inicioResultado',
+          'respuestaCorrectaTexto','retroalimentacionActual']);
+    }
+
+    function avanzarResultadoValido() {
+      return signedIn()
+        && resource.data.estadoPartida == 'jugando'
+        && resource.data.fasePartida == 'resultado'
+        && (
+          (request.resource.data.fasePartida == 'pregunta'
+           && request.resource.data.preguntaActual == resource.data.preguntaActual + 1
+           && request.resource.data.inicioPregunta == request.time
+           && soloCampos(['preguntaActual','fasePartida','inicioPregunta',
+             'respuestaCorrectaTexto','retroalimentacionActual']))
+          ||
+          (request.resource.data.estadoPartida == 'finalizada'
+           && request.resource.data.fasePartida == 'final'
+           && soloCampos(['estadoPartida','fasePartida']))
+        )
+        // El anfitrion puede avanzar con las confirmaciones; otros esperan el plazo.
+        && (hostActual() ||
+          (resource.data.inicioResultado is timestamp
+           && request.time >= resource.data.inicioResultado + duration.value(10, 's')));
+    }
+
+    function cancelarPartidaValido() {
+      return hostActual()
+        && request.resource.data.estadoPartida == 'cancelada'
+        && request.resource.data.fasePartida == 'cancelada'
+        && soloCampos(['estadoPartida','fasePartida']);
+    }
+
+
+    // V2: valida forma y limites, NO autentica el calculo de puntuacion.
+    function camposPuntos() {
+      return ['puntosPartida','aciertosPartida','ultimoPuntaje','ultimaCorrecta'];
+    }
+
+    function cambioPuntos() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasAny(camposPuntos());
+    }
+
+    function puntuacionLimitada(salaId) {
+      let salaAntes = get(/databases/$(database)/documents/salas/$(salaId));
+      let salaDespues = getAfter(/databases/$(database)/documents/salas/$(salaId));
+      let valor = request.resource.data.ultimoPuntaje;
+      return signedIn()
+        && salaAntes.data.estadoPartida == 'jugando'
+        && salaAntes.data.fasePartida == 'pregunta'
+        && salaDespues.data.fasePartida == 'resultado'
+        && salaDespues.data.inicioResultado == request.time
+        && resource.data.estadoConexion == 'activo'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(camposPuntos())
+        && request.resource.data.puntosPartida is int
+        && resource.data.puntosPartida is int
+        && request.resource.data.get('aciertosPartida', 0) is int
+        && resource.data.get('aciertosPartida', 0) is int
+        && valor is int
+        && valor in [0,50,80,120,160,200,250,400,600,800,1000]
+        && request.resource.data.ultimaCorrecta is bool
+        && request.resource.data.puntosPartida == resource.data.puntosPartida + valor
+        && request.resource.data.get('aciertosPartida', 0) == resource.data.get('aciertosPartida', 0) + (request.resource.data.ultimaCorrecta ? 1 : 0)
+        && (request.resource.data.ultimaCorrecta || valor == 0)
+        && request.resource.data.get('aciertosPartida', 0) <= salaAntes.data.preguntaActual + 1;
+    }
+
+    // Reinicio de puntajes: solo durante el inicio ATOMICO de la partida.
+    function reinicioPorInicio(salaId) {
+      let salaAntes = get(/databases/$(database)/documents/salas/$(salaId));
+      let salaDespues = getAfter(/databases/$(database)/documents/salas/$(salaId));
+      return signedIn()
+        && request.auth.uid == salaAntes.data.anfitrionId
+        && salaAntes.data.estadoPartida == 'esperando'
+        && salaDespues.data.estadoPartida == 'jugando'
+        && salaDespues.data.fasePartida == 'pregunta'
+        && salaDespues.data.preguntaActual == 0
+        && salaDespues.data.partidaId is string
+        && salaDespues.data.inicioPartida == request.time
+        && salaDespues.data.inicioPregunta == request.time
+        && resource.data.estadoConexion == 'activo'
+        && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['puntosPartida','ultimoPuntaje','ultimaCorrecta'])
+        && request.resource.data.puntosPartida == 0
+        && request.resource.data.ultimoPuntaje == 0
+        && request.resource.data.ultimaCorrecta == false;
+    }
+
+    function reinicioPorAbandono() {
+      return request.auth.uid == resource.data.uid
+        && resource.data.estadoConexion != 'abandono'
+        && request.resource.data.estadoConexion == 'abandono'
+        && request.resource.data.puntosPartida == 0
+        && request.resource.data.aciertosPartida == 0
+        && request.resource.data.ultimoPuntaje == 0;
+    }
+
+    match /salas/{salaId} {
+
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.anfitrionId == request.auth.uid
+        && request.resource.data.maxParticipantes == 10
+        && request.resource.data.cantidadParticipantes is int
+        && request.resource.data.cantidadParticipantes >= 0
+        && request.resource.data.cantidadParticipantes <= 10
+        && getAfter(
+          /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+        ).data.uid == request.auth.uid
+        && getAfter(
+          /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+        ).data.anfitrion == true
+        && getAfter(
+          /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+        ).data.plaza == '0'
+        && getAfter(
+          /databases/$(database)/documents/salas/$(salaId)/plazas/0
+        ).data.uid == request.auth.uid;
+      allow update: if signedIn()
+        && request.resource.data.diff(resource.data)
+             .affectedKeys().hasOnly(['anfitrionId'])
+        && request.resource.data.anfitrionId is string
+        && request.resource.data.anfitrionId != resource.data.anfitrionId
+        && (
+          (
+            request.auth.uid == resource.data.anfitrionId
+            && getAfter(
+              /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+            ).data.estadoConexion == 'abandono'
+            && get(
+              /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+            ).data.plaza is string
+            && get(
+              /databases/$(database)/documents/salas/$(salaId)/plazas/$(get(
+                /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+              ).data.plaza)
+            ).data.uid == request.auth.uid
+            && !existsAfter(
+              /databases/$(database)/documents/salas/$(salaId)/plazas/$(get(
+                /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)
+              ).data.plaza)
+            )
+            && exists(
+              /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.resource.data.anfitrionId)
+            )
+            && getAfter(
+              /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.resource.data.anfitrionId)
+            ).data.estadoConexion != 'abandono'
+            && getAfter(
+              /databases/$(database)/documents/salas/$(salaId)/participantes/$(request.resource.data.anfitrionId)
+            ).data.anfitrion == true
+          )
+          ||
+          recuperacionValida(salaId)
+        )
+        || inicioPartidaValido()
+        || cerrarPreguntaValido()
+        || avanzarResultadoValido()
+        || cancelarPartidaValido();
+      allow delete: if false;
+
+      
+      
+      match /plazas/{numero} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+          && numero.matches('^[0-9]$')
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.numero == numero;
+        allow update: if false;
+        allow delete: if signedIn()
+          && resource.data.uid == request.auth.uid;
+      }
+
+      match /participantes/{participanteId} {
+
+        allow read: if signedIn();
+
+        allow create: if signedIn()
+          && participanteId == request.auth.uid
+          && request.resource.data.uid == request.auth.uid;
+
+        allow update: if signedIn()
+          && resource.data.uid == participanteId
+          && request.resource.data.uid == resource.data.uid
+          && (
+            (
+              participanteId == request.auth.uid
+              && (!cambioPuntos() || reinicioPorAbandono())
+              && (
+                !request.resource.data.diff(resource.data)
+                  .affectedKeys().hasAny(['anfitrion'])
+                || (
+                  resource.data.anfitrion == false
+                  && request.resource.data.anfitrion == true
+                  && getAfter(
+                    /databases/$(database)/documents/salas/$(salaId)
+                  ).data.anfitrionId == participanteId
+                )
+                || (
+                  resource.data.anfitrion == true
+                  && request.resource.data.anfitrion == false
+                  && request.resource.data.estadoConexion == 'abandono'
+                )
+              )
+            )
+            || puntuacionLimitada(salaId)
+            || reinicioPorInicio(salaId)
+          );
+
+        allow update: if signedIn()
+          && participanteId != request.auth.uid
+          && resource.data.uid == participanteId
+          && request.resource.data.uid == participanteId
+          && request.resource.data.diff(resource.data)
+               .affectedKeys().hasOnly(['anfitrion'])
+          && sucesorValido(salaId, participanteId);
+
+        allow delete: if signedIn()
+          && participanteId == request.auth.uid;
+      }
+
+match /respuestas/{respuestaId} {
+
+        allow read: if signedIn();
+
+        // Endurecimiento: solamente una respuesta propia, activa y vinculada a su sala.
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly([
+            'uid', 'partidaId', 'preguntaIndex', 'opcionIndex', 'correcta', 'respondidoEn'
+          ])
+          && request.resource.data.keys().hasAll([
+            'uid', 'partidaId', 'preguntaIndex', 'opcionIndex', 'correcta', 'respondidoEn'
+          ])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.partidaId is string
+          && request.resource.data.preguntaIndex is int
+          && request.resource.data.opcionIndex is int
+          && request.resource.data.opcionIndex >= 0
+          && request.resource.data.correcta is bool
+          && request.resource.data.respondidoEn == request.time
+          && respuestaId == request.resource.data.partidaId + '_' +
+             string(request.resource.data.preguntaIndex) + '_' + request.auth.uid
+          && exists(/databases/$(database)/documents/salas/$(salaId))
+          && get(/databases/$(database)/documents/salas/$(salaId)).data.estadoPartida == 'jugando'
+          && get(/databases/$(database)/documents/salas/$(salaId)).data.fasePartida == 'pregunta'
+          && get(/databases/$(database)/documents/salas/$(salaId)).data.partidaId == request.resource.data.partidaId
+          && get(/databases/$(database)/documents/salas/$(salaId)).data.preguntaActual == request.resource.data.preguntaIndex
+          && exists(/databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid))
+          && get(/databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)).data.uid == request.auth.uid
+          && get(/databases/$(database)/documents/salas/$(salaId)/participantes/$(request.auth.uid)).data.estadoConexion == 'activo';
+
+        allow update, delete: if false;
+      }
+
+      match /lecturasResultado/{confirmacionId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn()
+          && request.resource.data.uid == request.auth.uid
+          && confirmacionId.matches('^.+_[0-9]+_' + request.auth.uid + '$')
+          && request.resource.data.keys().hasAll([
+            'uid','partidaId','preguntaIndex','listo','confirmadoEn'])
+          && request.resource.data.listo == true;
+        allow delete: if false;
+      }
+
+      match /revancha/{usuarioId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn()
+          && usuarioId == request.auth.uid
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.acepta is bool;
+        allow delete: if signedIn() && usuarioId == request.auth.uid;
+      }
+    }
+
+    match /usuarios/{usuarioId} {
+      allow read, create, update, delete: if signedIn()
+        && request.auth.uid == usuarioId;
+      match /{documento=**} {
+        allow read, create, update, delete: if signedIn()
+          && request.auth.uid == usuarioId;
+      }
+    }
+  }
+}

@@ -3,13 +3,17 @@ package com.utm.semiologia.ui.estudio;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import androidx.appcompat.app.AlertDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.activity.OnBackPressedCallback;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
@@ -60,11 +64,16 @@ public class QuizMultijugadorActivity
             800,
             600,
             400,
-            250
+            250,
+            200,
+            160,
+            120,
+            80,
+            50
     };
 
-    private static final long RECONEXION_MS = 60_000L;
-    private static final long LATIDO_MS = 15_000L;
+    private static final long RECONEXION_MS = 90_000L;
+    private static final long LATIDO_MS = 30_000L;
     private final Handler presenciaHandler = new Handler(Looper.getMainLooper());
     private boolean abandonoVoluntario = false;
     private boolean partidaEnCurso = false;
@@ -117,6 +126,8 @@ public class QuizMultijugadorActivity
 
     private List<Map<String, Object>> preguntasPartida =
             new ArrayList<>();
+
+    private int cantidadPreguntasPartida = 10;
 
     private CountDownTimer timerPregunta;
     private CountDownTimer timerResultado;
@@ -686,6 +697,27 @@ public class QuizMultijugadorActivity
             preguntasPartida = new ArrayList<>();
         }
 
+        Long cantidadGuardada =
+                snapshot.getLong(
+                        "cantidadPreguntas"
+                );
+
+        if (cantidadGuardada == null) {
+            cantidadGuardada =
+                    snapshot.getLong(
+                            "totalPreguntas"
+                    );
+        }
+
+        if (
+                cantidadGuardada != null &&
+                        cantidadGuardada > 0
+        ) {
+
+            cantidadPreguntasPartida =
+                    cantidadGuardada.intValue();
+        }
+
         String estadoPartida =
                 snapshot.getString(
                         "estadoPartida"
@@ -707,6 +739,10 @@ public class QuizMultijugadorActivity
                         : 0;
 
         partidaEnCurso = "jugando".equalsIgnoreCase(estadoPartida);
+        if ("cancelada".equalsIgnoreCase(estadoPartida)) {
+            mostrarAvisoSinCompetidor();
+            return;
+        }
 
         if (
                 "finalizada".equalsIgnoreCase(
@@ -3660,7 +3696,7 @@ public class QuizMultijugadorActivity
                     BancoPreguntasMultijugador
                             .seleccionarPreguntas(
                                     this,
-                                    10
+                                    Math.max(5, Math.min(50, cantidadPreguntasPartida))
                             );
 
         } catch (Exception error) {
@@ -4186,27 +4222,101 @@ public class QuizMultijugadorActivity
         }
         if (!hayAbandonoODesconexion || activos >= 2) return;
 
+        cancelarPartidaSinRival();
+    }
+
+    // El cambio en Firestore también detiene la partida en otros dispositivos.
+    private void cancelarPartidaSinRival() {
+        mostrarAvisoSinCompetidor();
+        if (codigoSala == null || partidaId == null || partidaId.isEmpty()) return;
+        DocumentReference sala = firestore.collection("salas").document(codigoSala);
+        final String partidaActual = partidaId;
+        firestore.runTransaction(tx -> {
+            DocumentSnapshot doc = tx.get(sala);
+            if (doc.exists() && partidaActual.equals(doc.getString("partidaId"))
+                    && "jugando".equalsIgnoreCase(doc.getString("estadoPartida"))) {
+                tx.update(sala, "estadoPartida", "cancelada", "fasePartida", "cancelada");
+            }
+            return null;
+        });
+    }
+
+    private void mostrarAvisoSinCompetidor() {
+        if (avisoSinCompetidorMostrado || isFinishing() || isDestroyed()) return;
         avisoSinCompetidorMostrado = true;
+        partidaEnCurso = false;
         presenciaHandler.removeCallbacks(verificarCompetidores);
+        presenciaHandler.removeCallbacks(latido);
         cancelarTimerPregunta();
         cancelarTimerResultado();
         respuestaEnviada = true;
-        new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("Tu competidor salió de la partida")
-                .setMessage("Ya no hay suficientes jugadores para continuar. "
-                        + "Inicia una nueva partida e invita a tu competidor otra vez.")
+
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_sin_competidor, null, false);
+        TextView tvTitulo = view.findViewById(R.id.tvTituloSinCompetidor);
+        TextView tvMensaje = view.findViewById(R.id.tvMensajeSinCompetidor);
+        MaterialButton btnNueva = view.findViewById(R.id.btnNuevaPartidaSinCompetidor);
+        tvTitulo.setText("¡Tu competidor salió!");
+        tvMensaje.setText("La partida terminó porque ya no hay suficientes jugadores activos.\nCrea una nueva sala y vuelve a invitarlo.");
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view)
                 .setCancelable(false)
-                .setPositiveButton("Volver e invitar", (dialog, which) -> finish())
-                .show();
+                .create();
+        dialog.setOnShowListener(d -> {
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
+        });
+        btnNueva.setOnClickListener(v -> {
+            dialog.dismiss();
+            volverAlMultijugador();
+        });
+        dialog.show();
+    }
+
+    private void volverAlMultijugador() {
+        Intent intent = new Intent(this, MultijugadorActivity.class);
+        intent.putExtra("extra_reiniciar_multijugador", true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finishAffinity();
     }
 
     private void confirmarSalida() {
-        new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("¿Abandonar la partida?")
-                .setMessage("Perderás los puntos de esta partida. Si solo queda un jugador, la partida terminará para él.")
-                .setNegativeButton("Cancelar", null)
-                .setPositiveButton("Abandonar", (dialog, which) -> abandonarPartida())
-                .show();
+        boolean terminada = panelPodioFinal != null
+                && panelPodioFinal.getVisibility() == View.VISIBLE;
+
+        View vista = LayoutInflater.from(this).inflate(R.layout.dialog_salida_multijugador, null, false);
+        TextView titulo = vista.findViewById(R.id.tvTituloSalidaMultijugador);
+        TextView descripcion = vista.findViewById(R.id.tvMensajeSalidaMultijugador);
+        MaterialButton confirmar = vista.findViewById(R.id.btnConfirmarSalidaMultijugador);
+        MaterialButton cancelar = vista.findViewById(R.id.btnCancelarSalidaMultijugador);
+
+        if (terminada) {
+            titulo.setText("¡Partida completada!");
+            descripcion.setText("¡Buen trabajo! Tus resultados ya están registrados. Puedes volver a jugar cuando quieras.");
+            confirmar.setText("Volver al multijugador");
+            cancelar.setText("Ver resultados");
+        } else {
+            titulo.setText("¿Abandonar la partida?");
+            descripcion.setText("Si sales ahora, perderás los puntos obtenidos en esta partida. Si solo queda un competidor, la partida terminará para él.");
+            confirmar.setText("Sí, abandonar");
+            cancelar.setText("Continuar jugando");
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(vista).setCancelable(false).create();
+        dialog.setOnShowListener(d -> {
+            if (dialog.getWindow() != null)
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        });
+        cancelar.setOnClickListener(v -> dialog.dismiss());
+        confirmar.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (terminada) volverAlMultijugador();
+            else abandonarPartida();
+        });
+        dialog.show();
     }
 
     private void abandonarPartida() {
@@ -4221,7 +4331,23 @@ public class QuizMultijugadorActivity
                         "anfitrion", false, "ultimoLatido", 0)
                 .addOnSuccessListener(unused -> {
                     transferirAnfitrion(uid);
-                    finish();
+                    firestore.collection("salas").document(codigoSala)
+                            .collection("participantes").get().addOnSuccessListener(jugadores -> {
+                                int restantes = 0;
+                                for (DocumentSnapshot j : jugadores.getDocuments()) {
+                                    if (jugadorActivo(j)) restantes++;
+                                }
+                                if (restantes < 2) {
+                                    DocumentReference sala = firestore.collection("salas").document(codigoSala);
+                                    firestore.runTransaction(tx -> {
+                                        DocumentSnapshot doc = tx.get(sala);
+                                        if ("jugando".equalsIgnoreCase(doc.getString("estadoPartida")))
+                                            tx.update(sala, "estadoPartida", "cancelada", "fasePartida", "cancelada");
+                                        return null;
+                                    });
+                                }
+                            });
+                    volverAlMultijugador();
                 })
                 .addOnFailureListener(e -> {
                     abandonoVoluntario = false;

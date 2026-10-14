@@ -1,0 +1,6 @@
+<resources>
+    <color name="guia_exito_fondo">#193A2D</color>
+    <color name="guia_exito_texto">#91E3B4</color>
+    <color name="guia_error_fondo">#422327</color>
+    <color name="guia_error_texto">#FFB4B4</color>
+</resources>

@@ -1,0 +1,10 @@
+PATO DETECTIVE — GUÍA INTERACTIVA
+
+Se amplían 22 temas existentes con contenido complementario, acordeón y pregunta fácil con retroalimentación.
+Se mantiene el texto básico original, progreso, temporizador, recompensas y todas las demás pantallas.
+Los fondos y textos utilizan colores semánticos de la app para modo claro y oscuro; se incluyen variantes de color para respuestas correctas.
+
+INSTALACIÓN: realizar respaldo del proyecto. Copiar el contenido de la carpeta app/ del ZIP sobre app/ del proyecto (sobrescribir solo los archivos incluidos). Abrir Android Studio y compilar assembleDebug.
+No se modifica DatabaseHelper, SQLite, Firebase ni el multijugador.
+Las nuevas preguntas son de práctica, sin consecuencias sobre puntos ni recompensas.
+No se ha compilado este parche en el entorno del usuario; compilar localmente antes de distribuir.

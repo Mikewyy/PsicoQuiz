@@ -1,0 +1,772 @@
+{
+  "Psicopatología de la conciencia": {
+    "titulo": "Vigilia y claridad",
+    "ampliacion": "Las alteraciones cuantitativas modifican el nivel de alerta; las cualitativas afectan la organización de la experiencia consciente. Obnubilación, sopor, estupor y coma no son equivalentes. El delirium suele comenzar de forma aguda y compromete la atención.",
+    "pregunta": "¿Qué fenómeno implica una reducción del nivel de alerta?",
+    "opciones": [
+      "Hipermnesia",
+      "Obnubilación",
+      "Hiperprosexia"
+    ],
+    "correcta": 1,
+    "explicacion": "La obnubilación implica una disminución del estado de alerta.",
+    "bloques": [
+      {
+        "titulo": "Conceptos y clasificación",
+        "texto": "La conciencia integra el estado de vigilia y la capacidad de reconocer y responder a la experiencia propia y del entorno. Las alteraciones cuantitativas se ordenan por elevación o disminución del nivel de alerta. Las cualitativas afectan la claridad, la organización de la experiencia y, en ocasiones, el campo de conciencia."
+      },
+      {
+        "titulo": "Alteraciones cuantitativas",
+        "texto": "Por elevación: hipervigilancia (alerta excesiva ante estímulos y posibles amenazas) e hiperfrenia (conciencia exageradamente elevada). Por disminución: obnubilación (respuesta lenta y necesidad de estimulación), somnolencia o sopor (tendencia marcada al sueño), estupor (respuesta muy limitada a estímulos intensos) y coma (ausencia de despertar ante estimulación intensa)."
+      },
+      {
+        "titulo": "Alteraciones cualitativas",
+        "texto": "Delirium: alteración aguda de la atención y de otras capacidades cognitivas, con fluctuación y posibles ilusiones o alucinaciones. Estado crepuscular: estrechamiento de conciencia y conducta automática, a menudo con amnesia posterior. Estado oniroide: vivencias escénicas semejantes a un sueño, con experiencias perceptivas vívidas. Los automatismos son acciones ejecutadas sin plena conciencia de ellas."
+      },
+      {
+        "titulo": "Diferencias para memorizar",
+        "texto": "Obnubilación: alerta reducida, pero aún pueden comprenderse órdenes sencillas. Estupor: respuestas intencionales extremadamente limitadas. Coma: no se logra despertar a la persona. Delirium no equivale a un delirio aislado: implica alteración global y aguda del funcionamiento mental."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la conciencia»?",
+    "flashReverso": "La conciencia integra el estado de vigilia y la capacidad de reconocer y responder a la experiencia propia y del entorno. Las alteraciones cuantitativas se ordenan por elevación o disminución del nivel de alerta. Las cualitativas afectan la claridad, la organización de la experiencia y, en ocasiones, el campo de conciencia.",
+    "comparacion": "Obnubilación: alerta reducida, pero aún pueden comprenderse órdenes sencillas. Estupor: respuestas intencionales extremadamente limitadas. Coma: no se logra despertar a la persona. Delirium no equivale a un delirio aislado: implica alteración global y aguda del funcionamiento mental.",
+    "caso": "Una persona necesita estímulos intensos para mantenerse alerta y ejecuta órdenes sencillas con lentitud. ¿Qué alteración de la conciencia destaca?",
+    "casoRespuesta": "Obnubilación: hay disminución de la alerta, pero aún puede responder a órdenes sencillas. No equivale a coma."
+  },
+  "Psicopatología de la orientación": {
+    "titulo": "Tiempo, espacio y persona",
+    "ampliacion": "La orientación temporal ubica fecha y momento; la espacial, el lugar; la personal, la identidad. La desorientación alopsíquica afecta referencias externas y la autopsíquica, la propia persona.",
+    "pregunta": "No reconocer la ciudad donde se está indica desorientación…",
+    "opciones": [
+      "Espacial",
+      "Autopsíquica",
+      "De memoria"
+    ],
+    "correcta": 0,
+    "explicacion": "La orientación espacial permite reconocer el lugar en el que nos encontramos.",
+    "bloques": [
+      {
+        "titulo": "Concepto fundamental",
+        "texto": "La orientación permite reconocer el momento actual, el lugar y la identidad propia o de otras personas. Se explora mediante preguntas sobre fecha, localización e identidad."
+      },
+      {
+        "titulo": "Tipos de desorientación",
+        "texto": "Desorientación alopsíquica temporal: dificultad para identificar día, mes, año u hora aproximada. Desorientación alopsíquica espacial: dificultad para reconocer ciudad, edificio o lugar. Desorientación autopsíquica: alteración del reconocimiento de la identidad personal."
+      },
+      {
+        "titulo": "Ejemplos sencillos",
+        "texto": "Quien no sabe en qué hospital está puede presentar desorientación espacial. Quien confunde el año puede presentar desorientación temporal. No identificar quién es uno mismo corresponde a desorientación personal."
+      },
+      {
+        "titulo": "Claves de comparación",
+        "texto": "Orientación temporal = cuándo; espacial = dónde; autopsíquica = quién soy. La desorientación debe interpretarse en el contexto del nivel de conciencia, memoria y atención."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la orientación»?",
+    "flashReverso": "La orientación permite reconocer el momento actual, el lugar y la identidad propia o de otras personas. Se explora mediante preguntas sobre fecha, localización e identidad.",
+    "comparacion": "Orientación temporal = cuándo; espacial = dónde; autopsíquica = quién soy. La desorientación debe interpretarse en el contexto del nivel de conciencia, memoria y atención.",
+    "caso": "Una persona reconoce quién es, pero desconoce el día y el lugar en que se encuentra. ¿Qué dimensiones están comprometidas?",
+    "casoRespuesta": "Desorientación alopsíquica temporal y espacial; la orientación autopsíquica se conserva."
+  },
+  "Psicopatología de la atención y concentración": {
+    "titulo": "Intensidad y dirección de la atención",
+    "ampliacion": "La hipoprosexia reduce la capacidad de concentración; la hiperprosexia concentra la atención de manera excesiva; la aprosexia supone ausencia marcada de atención. La distraibilidad es dificultad para mantener el foco.",
+    "pregunta": "¿Cómo se llama la disminución de la capacidad atencional?",
+    "opciones": [
+      "Hipermnesia",
+      "Hipoprosexia",
+      "Ecmnesia"
+    ],
+    "correcta": 1,
+    "explicacion": "Hipoprosexia significa atención disminuida.",
+    "bloques": [
+      {
+        "titulo": "Conceptos básicos",
+        "texto": "La atención selecciona información relevante e inhibe otros estímulos. Permite concentrarse de forma sostenida, cambiar de foco y responder al ambiente."
+      },
+      {
+        "titulo": "Disminución y aumento",
+        "texto": "Aprosexia: ausencia extrema de atención. Hipoprosexia: disminución de la capacidad de atender. Hiperprosexia: concentración excesiva o estrechamiento del foco atencional. Pseudoaprosexia: aparente ausencia de atención pese a que se mantiene dirigida hacia otros contenidos."
+      },
+      {
+        "titulo": "Otras alteraciones",
+        "texto": "Paraprosexia: dirección anómala de la atención. Distraibilidad: dificultad para mantener el foco. Hipervigilancia: escudriñamiento constante de estímulos. Fatigabilidad: caída del rendimiento atencional con el esfuerzo. Apatía atencional: escaso interés por estímulos habituales. Perplejidad: dificultad para integrar lo atendido."
+      },
+      {
+        "titulo": "Diferencia importante",
+        "texto": "Estar distraído no es lo mismo que carecer totalmente de atención. La hipervigilancia puede dar la impresión de mucha atención, aunque dificulta concentrarse en una sola tarea."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la atención y concentración»?",
+    "flashReverso": "La atención selecciona información relevante e inhibe otros estímulos. Permite concentrarse de forma sostenida, cambiar de foco y responder al ambiente.",
+    "comparacion": "Estar distraído no es lo mismo que carecer totalmente de atención. La hipervigilancia puede dar la impresión de mucha atención, aunque dificulta concentrarse en una sola tarea.",
+    "caso": "Durante una conversación la persona abandona repetidamente el tema porque cualquier estímulo interrumpe su concentración. ¿Qué manifestación destaca?",
+    "casoRespuesta": "Distraibilidad: dificultad para sostener voluntariamente el foco atencional."
+  },
+  "Psicopatología de la memoria": {
+    "titulo": "Fijación, conservación y evocación",
+    "ampliacion": "La memoria permite registrar, conservar y recuperar información. La amnesia anterógrada dificulta adquirir nuevos recuerdos; la retrógrada compromete recuerdos previos. La confabulación consiste en relatar recuerdos inexactos sin intención consciente de engañar.",
+    "pregunta": "¿Cuál dificultad afecta a la adquisición de nuevos recuerdos?",
+    "opciones": [
+      "Amnesia anterógrada",
+      "Hipermnesia",
+      "Déjà vu"
+    ],
+    "correcta": 0,
+    "explicacion": "La amnesia anterógrada afecta al aprendizaje de información nueva.",
+    "bloques": [
+      {
+        "titulo": "Funciones y procesos",
+        "texto": "La memoria permite registrar o fijar, conservar y evocar información. Distinguir estos procesos ayuda a comprender el tipo de dificultad que presenta una persona."
+      },
+      {
+        "titulo": "Disminución y pérdida",
+        "texto": "Hipomnesia: reducción de la capacidad de recordar. Amnesia: pérdida significativa de recuerdos. Amnesia de fijación o anterógrada: problemas para consolidar recuerdos nuevos. Amnesia de evocación o retrógrada: dificultad para recuperar recuerdos previos. Amnesia lacunar: pérdida delimitada a un período."
+      },
+      {
+        "titulo": "Excesos y distorsiones",
+        "texto": "Hipermnesia: evocación exagerada de recuerdos. Ecmnesia: vivencia de un hecho pasado como si ocurriera ahora. Paramnesia: recuerdo deformado o falso reconocimiento. Confabulación: producción de relatos inexactos que pueden llenar lagunas mnésicas sin intención deliberada de engañar."
+      },
+      {
+        "titulo": "Falsos reconocimientos",
+        "texto": "Déjà vu: impresión de familiaridad ante una experiencia nueva. Jamais vu: pérdida subjetiva de familiaridad ante algo conocido. Las parapraxias abarcan errores cotidianos como olvidar temporalmente nombres o palabras."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la memoria»?",
+    "flashReverso": "La memoria permite registrar o fijar, conservar y evocar información. Distinguir estos procesos ayuda a comprender el tipo de dificultad que presenta una persona.",
+    "comparacion": "Déjà vu: impresión de familiaridad ante una experiencia nueva. Jamais vu: pérdida subjetiva de familiaridad ante algo conocido. Las parapraxias abarcan errores cotidianos como olvidar temporalmente nombres o palabras.",
+    "caso": "Alguien relata episodios que no ocurrieron para cubrir lagunas de memoria, sin intención consciente de engañar. ¿Qué fenómeno puede ilustrar?",
+    "casoRespuesta": "Confabulación: producción de recuerdos inexactos o falsos en el contexto de alteraciones de memoria."
+  },
+  "Percepción, imaginación y sensaciones": {
+    "titulo": "Ilusión y alucinación",
+    "ampliacion": "La ilusión interpreta erróneamente un estímulo que existe; la alucinación es una experiencia perceptiva sin el estímulo correspondiente. Las hiperestesias y las hipoestesias modifican la intensidad percibida.",
+    "pregunta": "Una interpretación equivocada de un estímulo real es…",
+    "opciones": [
+      "Alucinación",
+      "Ilusión",
+      "Amnesia"
+    ],
+    "correcta": 1,
+    "explicacion": "La ilusión se produce ante un estímulo presente.",
+    "bloques": [
+      {
+        "titulo": "Conceptos esenciales",
+        "texto": "La sensación registra estímulos y la percepción les otorga significado. La imaginación evoca o construye representaciones mentales; no equivale por sí misma a una alteración perceptiva."
+      },
+      {
+        "titulo": "Distorsiones sensoriales",
+        "texto": "Hiperestesia: intensidad sensorial percibida exageradamente. Hipoestesia: sensibilidad disminuida. Las distorsiones pueden afectar intensidad, cualidad o reconocimiento de estímulos."
+      },
+      {
+        "titulo": "Ilusiones y alucinaciones",
+        "texto": "Ilusión: interpretación errónea de un estímulo real. Alucinación: experiencia perceptiva sin estímulo externo correspondiente. Pueden describirse modalidades visuales, auditivas, táctiles, olfativas y gustativas."
+      },
+      {
+        "titulo": "Ejemplos y diferencias",
+        "texto": "Confundir una sombra con una persona es una ilusión, porque existe un estímulo. Escuchar una voz sin fuente sonora externa sería un ejemplo de experiencia alucinatoria. No son equivalentes ni establecen un diagnóstico por sí solas."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Percepción, imaginación y sensaciones»?",
+    "flashReverso": "La sensación registra estímulos y la percepción les otorga significado. La imaginación evoca o construye representaciones mentales; no equivale por sí misma a una alteración perceptiva.",
+    "comparacion": "Confundir una sombra con una persona es una ilusión, porque existe un estímulo. Escuchar una voz sin fuente sonora externa sería un ejemplo de experiencia alucinatoria. No son equivalentes ni establecen un diagnóstico por sí solas.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Confundir una sombra con una persona es una ilusión, porque existe un estímulo. Escuchar una voz sin fuente sonora externa sería un ejemplo de experiencia alucinatoria. No son equivalentes ni establecen un diagnóstico por sí solas."
+  },
+  "Psicopatología del pensamiento": {
+    "titulo": "Curso y contenido",
+    "ampliacion": "El pensamiento puede alterarse en velocidad, continuidad, asociación y contenido. La fuga de ideas suele acompañarse de rapidez y asociaciones cambiantes; el bloqueo implica interrupción del curso; la idea delirante se sostiene con convicción pese a pruebas contrarias.",
+    "pregunta": "La interrupción repentina del pensamiento se llama…",
+    "opciones": [
+      "Bloqueo",
+      "Hiperprosexia",
+      "Paramnesia"
+    ],
+    "correcta": 0,
+    "explicacion": "El bloqueo interrumpe el curso del pensamiento.",
+    "bloques": [
+      {
+        "titulo": "Organización del pensamiento",
+        "texto": "El pensamiento se examina por su curso, forma y contenido. Se observa cómo se conectan las ideas, su velocidad, continuidad y pertinencia."
+      },
+      {
+        "titulo": "Alteraciones del curso",
+        "texto": "Aceleración o taquipsiquia: ideas rápidas. Lentificación o bradipsiquia: curso lento. Fuga de ideas: sucesión rápida con asociaciones cambiantes. Bloqueo: interrupción súbita del pensamiento. Perseveración: repetición persistente de una misma idea."
+      },
+      {
+        "titulo": "Alteraciones del contenido",
+        "texto": "Ideas delirantes: creencias sostenidas con gran convicción pese a evidencia contraria, dentro de un contexto clínico. Ideas obsesivas: pensamientos intrusivos repetitivos que generan malestar. Las ideas sobrevaloradas ocupan un lugar dominante sin ser necesariamente delirantes."
+      },
+      {
+        "titulo": "Diferencias útiles",
+        "texto": "Bloqueo = interrupción; perseveración = repetición; fuga de ideas = cambios rápidos de asociación. Una idea extraña por sí sola no basta para identificar una idea delirante."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología del pensamiento»?",
+    "flashReverso": "El pensamiento se examina por su curso, forma y contenido. Se observa cómo se conectan las ideas, su velocidad, continuidad y pertinencia.",
+    "comparacion": "Bloqueo = interrupción; perseveración = repetición; fuga de ideas = cambios rápidos de asociación. Una idea extraña por sí sola no basta para identificar una idea delirante.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Bloqueo = interrupción; perseveración = repetición; fuga de ideas = cambios rápidos de asociación. Una idea extraña por sí sola no basta para identificar una idea delirante."
+  },
+  "Psicopatología del lenguaje": {
+    "titulo": "Forma, producción y comprensión",
+    "ampliacion": "Explorar lenguaje supone observar fluidez, ritmo, organización, comprensión y denominación. La taquilalia es habla acelerada; la bradilalia, enlentecida. La ecolalia consiste en repetir palabras o frases de otros.",
+    "pregunta": "¿Qué es la ecolalia?",
+    "opciones": [
+      "Olvido de nombres",
+      "Repetición de palabras ajenas",
+      "Aumento de la memoria"
+    ],
+    "correcta": 1,
+    "explicacion": "La ecolalia implica repetir expresiones escuchadas.",
+    "bloques": [
+      {
+        "titulo": "Qué observar",
+        "texto": "La exploración del lenguaje incluye producción, ritmo, fluidez, articulación, comprensión y coherencia. Es importante distinguir alteraciones lingüísticas de alteraciones del pensamiento."
+      },
+      {
+        "titulo": "Ritmo y producción",
+        "texto": "Taquilalia: velocidad de habla aumentada. Bradilalia: habla enlentecida. Mutismo: ausencia o reducción marcada de expresión verbal. Logorrea: producción verbal abundante."
+      },
+      {
+        "titulo": "Repeticiones y organización",
+        "texto": "Ecolalia: repetición de palabras o frases oídas. Palilalia: repetición de expresiones propias. Neologismo: producción de palabras nuevas o de significados idiosincráticos."
+      },
+      {
+        "titulo": "Ejemplo breve",
+        "texto": "Repetir automáticamente la última frase del interlocutor orienta hacia ecolalia; hablar muy rápido no significa necesariamente que exista fuga de ideas."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología del lenguaje»?",
+    "flashReverso": "La exploración del lenguaje incluye producción, ritmo, fluidez, articulación, comprensión y coherencia. Es importante distinguir alteraciones lingüísticas de alteraciones del pensamiento.",
+    "comparacion": "Repetir automáticamente la última frase del interlocutor orienta hacia ecolalia; hablar muy rápido no significa necesariamente que exista fuga de ideas.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Repetir automáticamente la última frase del interlocutor orienta hacia ecolalia; hablar muy rápido no significa necesariamente que exista fuga de ideas."
+  },
+  "Psicopatología de la afectividad": {
+    "titulo": "Tono, intensidad y congruencia",
+    "ampliacion": "La afectividad reúne estados emocionales y su expresión. Hipotimia designa disminución del tono afectivo; hipertimia, elevación. Labilidad es variación rápida de expresiones afectivas y ambivalencia la coexistencia de sentimientos contrapuestos.",
+    "pregunta": "Los cambios rápidos del estado afectivo se relacionan con…",
+    "opciones": [
+      "Labilidad afectiva",
+      "Amnesia",
+      "Aprosexia"
+    ],
+    "correcta": 0,
+    "explicacion": "La labilidad se asocia a oscilaciones emocionales rápidas.",
+    "bloques": [
+      {
+        "titulo": "Concepto general",
+        "texto": "La afectividad comprende emociones, sentimientos, estado de ánimo y su expresión. Se valora intensidad, duración, estabilidad y adecuación al contexto."
+      },
+      {
+        "titulo": "Tono afectivo",
+        "texto": "Hipotimia: descenso del tono afectivo. Hipertimia: elevación. Disforia: estado afectivo desagradable con irritabilidad o malestar. Anhedonia: disminución de la capacidad de experimentar placer."
+      },
+      {
+        "titulo": "Variaciones de la expresión",
+        "texto": "Labilidad afectiva: cambios emocionales rápidos. Ambivalencia afectiva: sentimientos contrapuestos coexistentes. Incongruencia afectiva: expresión emocional que no corresponde a la situación o al contenido relatado."
+      },
+      {
+        "titulo": "Diferenciar",
+        "texto": "La tristeza transitoria no equivale por sí sola a un síndrome depresivo. La elevación pasajera del ánimo tampoco basta para identificar un síndrome maníaco."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la afectividad»?",
+    "flashReverso": "La afectividad comprende emociones, sentimientos, estado de ánimo y su expresión. Se valora intensidad, duración, estabilidad y adecuación al contexto.",
+    "comparacion": "La tristeza transitoria no equivale por sí sola a un síndrome depresivo. La elevación pasajera del ánimo tampoco basta para identificar un síndrome maníaco.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: La tristeza transitoria no equivale por sí sola a un síndrome depresivo. La elevación pasajera del ánimo tampoco basta para identificar un síndrome maníaco."
+  },
+  "Psicopatología de la psicomotricidad": {
+    "titulo": "Cantidad y calidad del movimiento",
+    "ampliacion": "La actividad psicomotora integra acción y expresión emocional. La hipoquinesia reduce los movimientos; la hiperquinesia los aumenta. Estereotipias son movimientos repetitivos relativamente uniformes.",
+    "pregunta": "La disminución de movimientos se denomina…",
+    "opciones": [
+      "Hiperquinesia",
+      "Hipoquinesia",
+      "Hipermnesia"
+    ],
+    "correcta": 1,
+    "explicacion": "Hipoquinesia significa reducción de actividad motora.",
+    "bloques": [
+      {
+        "titulo": "Conceptos de movimiento",
+        "texto": "La psicomotricidad integra movimiento, iniciativa, postura y expresión emocional. Su evaluación observa cantidad de actividad, coordinación, finalidad y respuestas a indicaciones."
+      },
+      {
+        "titulo": "Cambios de intensidad",
+        "texto": "Hipoquinesia: movimientos disminuidos. Acinesia: ausencia o gran reducción del movimiento. Hiperquinesia: actividad motora aumentada. Agitación psicomotora: actividad intensa, a menudo desorganizada."
+      },
+      {
+        "titulo": "Cambios de forma",
+        "texto": "Estereotipias: movimientos repetitivos de forma relativamente fija. Manierismos: gestos o movimientos afectados. Catalepsia y flexibilidad cérea describen fenómenos posturales asociados a algunos cuadros catatónicos."
+      },
+      {
+        "titulo": "Ejemplo breve",
+        "texto": "Una persona que repite sin finalidad el mismo movimiento muestra una conducta distinta de quien simplemente camina mucho por inquietud."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la psicomotricidad»?",
+    "flashReverso": "La psicomotricidad integra movimiento, iniciativa, postura y expresión emocional. Su evaluación observa cantidad de actividad, coordinación, finalidad y respuestas a indicaciones.",
+    "comparacion": "Una persona que repite sin finalidad el mismo movimiento muestra una conducta distinta de quien simplemente camina mucho por inquietud.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Una persona que repite sin finalidad el mismo movimiento muestra una conducta distinta de quien simplemente camina mucho por inquietud."
+  },
+  "Alteraciones de la voluntad y conducta": {
+    "titulo": "Iniciativa y ejecución",
+    "ampliacion": "La voluntad participa en iniciar, mantener y dirigir actos. La abulia es una disminución importante de iniciativa; la hipobulia indica una reducción de la actividad volitiva. La conducta debe interpretarse junto con el contexto.",
+    "pregunta": "¿Qué término indica pérdida marcada de iniciativa?",
+    "opciones": [
+      "Abulia",
+      "Hipervigilancia",
+      "Hiperestesia"
+    ],
+    "correcta": 0,
+    "explicacion": "La abulia se relaciona con falta importante de iniciativa.",
+    "bloques": [
+      {
+        "titulo": "Qué es la voluntad",
+        "texto": "La voluntad se relaciona con iniciativa, decisión y persistencia de conductas dirigidas a metas. Se valora la capacidad para comenzar y mantener actividades cotidianas."
+      },
+      {
+        "titulo": "Alteraciones principales",
+        "texto": "Abulia: pérdida marcada de iniciativa. Hipobulia: disminución de voluntad o impulso para actuar. Hiperbulia: aumento de iniciativa, que puede no ser eficaz. Negativismo: resistencia a solicitudes o indicaciones."
+      },
+      {
+        "titulo": "Manifestaciones conductuales",
+        "texto": "La conducta puede presentar impulsividad, automatismos, desinhibición, perseveración o pérdida de hábitos. Conviene diferenciar la conducta observada de la intención que se atribuye a la persona."
+      },
+      {
+        "titulo": "Ejemplo práctico",
+        "texto": "No comenzar actividades pese a conocer su importancia puede reflejar dificultades de iniciativa; no significa automáticamente falta de interés voluntaria."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Alteraciones de la voluntad y conducta»?",
+    "flashReverso": "La voluntad se relaciona con iniciativa, decisión y persistencia de conductas dirigidas a metas. Se valora la capacidad para comenzar y mantener actividades cotidianas.",
+    "comparacion": "No comenzar actividades pese a conocer su importancia puede reflejar dificultades de iniciativa; no significa automáticamente falta de interés voluntaria.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: No comenzar actividades pese a conocer su importancia puede reflejar dificultades de iniciativa; no significa automáticamente falta de interés voluntaria."
+  },
+  "Alteraciones de las funciones fisiológicas": {
+    "titulo": "Exploración integrada",
+    "ampliacion": "Sueño, apetito, sexualidad y otras funciones fisiológicas se exploran atendiendo a cambios en cantidad, calidad y repercusión funcional. Un síntoma aislado no basta para identificar un síndrome.",
+    "pregunta": "¿Qué debe valorarse al estudiar una función fisiológica?",
+    "opciones": [
+      "Solo la duración",
+      "Cambios y repercusión funcional",
+      "Solo el nombre del síntoma"
+    ],
+    "correcta": 1,
+    "explicacion": "Es necesario valorar cambios y su impacto en la vida cotidiana.",
+    "bloques": [
+      {
+        "titulo": "Enfoque de estudio",
+        "texto": "Las funciones fisiológicas incluyen necesidades básicas y ritmos corporales cuya alteración puede acompañar distintos estados psicopatológicos."
+      },
+      {
+        "titulo": "Áreas de observación",
+        "texto": "Explorar sueño y vigilia, apetito, ingesta, variaciones de peso, actividad general y sexualidad. Se registran cambios respecto al funcionamiento habitual."
+      },
+      {
+        "titulo": "Importancia clínica",
+        "texto": "Las alteraciones fisiológicas no pertenecen a un solo síndrome. Pueden estar relacionadas con condiciones físicas, consumo de sustancias, medicamentos y cambios emocionales."
+      },
+      {
+        "titulo": "Ejemplo práctico",
+        "texto": "Una reducción del sueño junto con cambios del ánimo se interpreta junto con otros signos; el insomnio aislado no define por sí solo un síndrome."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Alteraciones de las funciones fisiológicas»?",
+    "flashReverso": "Las funciones fisiológicas incluyen necesidades básicas y ritmos corporales cuya alteración puede acompañar distintos estados psicopatológicos.",
+    "comparacion": "Una reducción del sueño junto con cambios del ánimo se interpreta junto con otros signos; el insomnio aislado no define por sí solo un síndrome.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Una reducción del sueño junto con cambios del ánimo se interpreta junto con otros signos; el insomnio aislado no define por sí solo un síndrome."
+  },
+  "Psicopatología del sueño": {
+    "titulo": "Cantidad, inicio y continuidad",
+    "ampliacion": "El sueño se evalúa por conciliación, mantenimiento, despertar y calidad percibida. Insomnio y somnolencia diurna describen problemas distintos; las parasomnias incluyen comportamientos o experiencias anómalas durante el sueño.",
+    "pregunta": "¿Qué característica corresponde al insomnio?",
+    "opciones": [
+      "Dificultad para iniciar o mantener sueño",
+      "Aumento de memoria",
+      "Desorientación personal"
+    ],
+    "correcta": 0,
+    "explicacion": "El insomnio comprende dificultades de conciliación o mantenimiento del sueño.",
+    "bloques": [
+      {
+        "titulo": "Sueño y vigilia",
+        "texto": "El sueño es un proceso fisiológico cíclico; para estudiarlo se exploran duración, inicio, mantenimiento, horarios y descanso percibido."
+      },
+      {
+        "titulo": "Alteraciones frecuentes",
+        "texto": "Insomnio: dificultades de conciliación, mantenimiento o despertar temprano. Hipersomnia: somnolencia o necesidad excesiva de dormir. Parasomnias: conductas o experiencias anómalas relacionadas con el sueño."
+      },
+      {
+        "titulo": "Manifestaciones y causas",
+        "texto": "El sueño puede alterarse por estrés, afecciones médicas, consumo de sustancias y trastornos emocionales. Hay que distinguir hábitos de sueño irregulares de alteraciones persistentes."
+      },
+      {
+        "titulo": "Repaso",
+        "texto": "Conciliar = quedarse dormido; mantener = seguir dormido; despertar temprano = despertar antes de lo deseado sin poder retomar el sueño."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología del sueño»?",
+    "flashReverso": "El sueño es un proceso fisiológico cíclico; para estudiarlo se exploran duración, inicio, mantenimiento, horarios y descanso percibido.",
+    "comparacion": "Conciliar = quedarse dormido; mantener = seguir dormido; despertar temprano = despertar antes de lo deseado sin poder retomar el sueño.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Conciliar = quedarse dormido; mantener = seguir dormido; despertar temprano = despertar antes de lo deseado sin poder retomar el sueño."
+  },
+  "Alteraciones del apetito y la ingesta": {
+    "titulo": "Cambios en hambre y alimentación",
+    "ampliacion": "El apetito es la tendencia o deseo de comer; conviene distinguirlo de la necesidad nutricional. Hiporexia alude a reducción del apetito e hiperorexia a su aumento. Deben considerarse hábitos y contexto clínico.",
+    "pregunta": "La reducción del apetito se llama…",
+    "opciones": [
+      "Hiperorexia",
+      "Hiporexia",
+      "Hipermnesia"
+    ],
+    "correcta": 1,
+    "explicacion": "Hiporexia es disminución del apetito.",
+    "bloques": [
+      {
+        "titulo": "Conceptos",
+        "texto": "Apetito es el deseo de comer; ingesta es el acto y patrón de alimentación. Pueden variar juntos o por separado."
+      },
+      {
+        "titulo": "Cambios de apetito",
+        "texto": "Anorexia como síntoma: disminución o ausencia de apetito. Bulimia como término semiológico: aumento excesivo del impulso a ingerir alimentos. Estos términos no equivalen automáticamente a los trastornos alimentarios del mismo nombre."
+      },
+      {
+        "titulo": "Observación",
+        "texto": "Se valoran frecuencia, cantidad, patrones de alimentación, cambios recientes y repercusiones corporales. La interpretación requiere considerar enfermedades físicas y contexto emocional."
+      },
+      {
+        "titulo": "Diferencias",
+        "texto": "Disminución del apetito no siempre implica imposibilidad de comer; aumento del apetito no confirma por sí solo un trastorno alimentario."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Alteraciones del apetito y la ingesta»?",
+    "flashReverso": "Apetito es el deseo de comer; ingesta es el acto y patrón de alimentación. Pueden variar juntos o por separado.",
+    "comparacion": "Disminución del apetito no siempre implica imposibilidad de comer; aumento del apetito no confirma por sí solo un trastorno alimentario.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Disminución del apetito no siempre implica imposibilidad de comer; aumento del apetito no confirma por sí solo un trastorno alimentario."
+  },
+  "Psicopatología de la sexualidad": {
+    "titulo": "Exploración sin juicios",
+    "ampliacion": "La exploración clínica considera deseo, respuesta sexual, malestar e impacto funcional, respetando consentimiento, privacidad y diversidad. Una variación individual no constituye por sí sola un trastorno.",
+    "pregunta": "¿Qué es imprescindible en una exploración respetuosa?",
+    "opciones": [
+      "Imponer juicios",
+      "Privacidad y consentimiento",
+      "Suponer diagnósticos"
+    ],
+    "correcta": 1,
+    "explicacion": "La privacidad y el consentimiento son esenciales.",
+    "bloques": [
+      {
+        "titulo": "Exploración respetuosa",
+        "texto": "Se consideran cambios persistentes del deseo, excitación, respuesta y conductas sexuales, siempre con respeto a la autonomía y al contexto personal."
+      },
+      {
+        "titulo": "Cambios de impulso",
+        "texto": "Hipoerotismo: disminución del deseo o impulso sexual. Hipererotismo: incremento marcado. Su relevancia clínica depende del malestar, el funcionamiento y el contexto."
+      },
+      {
+        "titulo": "Factores relacionados",
+        "texto": "Las variaciones pueden vincularse con causas físicas, farmacológicas, relacionales, emocionales o socioculturales."
+      },
+      {
+        "titulo": "Idea esencial",
+        "texto": "La diversidad individual de preferencias o comportamientos consensuados no constituye en sí misma una alteración psicopatológica."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Psicopatología de la sexualidad»?",
+    "flashReverso": "Se consideran cambios persistentes del deseo, excitación, respuesta y conductas sexuales, siempre con respeto a la autonomía y al contexto personal.",
+    "comparacion": "La diversidad individual de preferencias o comportamientos consensuados no constituye en sí misma una alteración psicopatológica.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: La diversidad individual de preferencias o comportamientos consensuados no constituye en sí misma una alteración psicopatológica."
+  },
+  "Alteraciones de las funciones de relación": {
+    "titulo": "Interacción y adaptación",
+    "ampliacion": "Las funciones de relación incluyen el intercambio con otras personas y el entorno. Es útil observar comunicación, contacto social, iniciativa y adaptación; valorar cambios respecto al funcionamiento habitual.",
+    "pregunta": "¿Qué dato ayuda a valorar la interacción social?",
+    "opciones": [
+      "Cambio respecto al funcionamiento habitual",
+      "Una única respuesta aislada",
+      "Solo el aspecto físico"
+    ],
+    "correcta": 0,
+    "explicacion": "El funcionamiento habitual ofrece un punto de comparación.",
+    "bloques": [
+      {
+        "titulo": "Concepto",
+        "texto": "Las funciones de relación permiten vincularse con el entorno y con otras personas, comprender interacciones y responder socialmente."
+      },
+      {
+        "titulo": "Áreas observables",
+        "texto": "Se examinan comunicación, interacción, reciprocidad, adecuación de la conducta y respuesta a estímulos del medio."
+      },
+      {
+        "titulo": "Cambios frecuentes",
+        "texto": "Pueden aparecer aislamiento, retraimiento, desinhibición, suspicacia o dificultades de adaptación. Estos signos se interpretan junto con pensamiento, afectividad y conducta."
+      },
+      {
+        "titulo": "Ejemplo",
+        "texto": "Evitar el contacto social puede acompañar estados ansiosos, depresivos o psicóticos, pero no permite identificar una causa única."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Alteraciones de las funciones de relación»?",
+    "flashReverso": "Las funciones de relación permiten vincularse con el entorno y con otras personas, comprender interacciones y responder socialmente.",
+    "comparacion": "Evitar el contacto social puede acompañar estados ansiosos, depresivos o psicóticos, pero no permite identificar una causa única.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Evitar el contacto social puede acompañar estados ansiosos, depresivos o psicóticos, pero no permite identificar una causa única."
+  },
+  "Síndromes cerebrales orgánicos agudos": {
+    "titulo": "Inicio brusco y compromiso de vigilia",
+    "ampliacion": "Los síndromes orgánicos agudos pueden presentar inicio relativamente brusco, alteraciones de vigilia, atención, orientación y percepción. Entre ellos se describen obnubilación, delirium, estado oniroide, estado crepuscular y confusión mental.",
+    "pregunta": "¿Qué característica orienta hacia un síndrome orgánico agudo?",
+    "opciones": [
+      "Comienzo brusco",
+      "Evolución siempre de décadas",
+      "Vigilia siempre intacta"
+    ],
+    "correcta": 0,
+    "explicacion": "El comienzo brusco es frecuente en los cuadros agudos.",
+    "bloques": [
+      {
+        "titulo": "Características comunes",
+        "texto": "Los cuadros orgánicos agudos suelen comenzar de forma brusca, afectan la vigilia y comprometen la integración cognitiva y la adaptación al entorno."
+      },
+      {
+        "titulo": "Obnubilación y delirium",
+        "texto": "Síndrome de obnubilación: baja vigilia, atención distraíble, memoria disminuida y pensamiento lento. Síndrome de delirium: fluctuación de orientación y atención, experiencias perceptivas intensas, agitación y posibles manifestaciones autonómicas."
+      },
+      {
+        "titulo": "Oniroide y crepuscular",
+        "texto": "Síndrome oniroide: vivencias escénicas, a menudo visuales, con actitud contemplativa. Estado crepuscular: marcada restricción de conciencia, desorientación, automatismos y amnesia posterior."
+      },
+      {
+        "titulo": "Confusión mental",
+        "texto": "La confusión mental intensa compromete comprensión, orientación y memoria; puede acompañarse de perplejidad, movimientos sin propósito y pensamiento incoherente. Estos cuadros requieren valoración clínica urgente."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndromes cerebrales orgánicos agudos»?",
+    "flashReverso": "Los cuadros orgánicos agudos suelen comenzar de forma brusca, afectan la vigilia y comprometen la integración cognitiva y la adaptación al entorno.",
+    "comparacion": "La confusión mental intensa compromete comprensión, orientación y memoria; puede acompañarse de perplejidad, movimientos sin propósito y pensamiento incoherente. Estos cuadros requieren valoración clínica urgente.",
+    "caso": "Una persona presenta inicio brusco de desorientación fluctuante, inquietud y experiencias visuales irreales. ¿Qué síndrome merece consideración?",
+    "casoRespuesta": "El síndrome de delirium puede cursar con alteraciones fluctuantes de atención, conciencia y percepción. La situación requiere evaluación profesional."
+  },
+  "Síndromes cerebrales orgánicos crónicos": {
+    "titulo": "Memoria e intelecto",
+    "ampliacion": "En los síndromes orgánicos crónicos destacan alteraciones persistentes del funcionamiento cognitivo y adaptativo; la vigilia puede mantenerse. Incluyen cuadros demenciales y amnésicos confabulatorios, entre otros.",
+    "pregunta": "¿Qué función suele comprometerse en el síndrome amnésico confabulatorio?",
+    "opciones": [
+      "Memoria",
+      "Agudeza visual exclusivamente",
+      "Tono muscular exclusivamente"
+    ],
+    "correcta": 0,
+    "explicacion": "La alteración de memoria es central.",
+    "bloques": [
+      {
+        "titulo": "Características generales",
+        "texto": "Predominan alteraciones persistentes de memoria, capacidades intelectuales, hábitos y funcionamiento cotidiano, con la vigilia relativamente preservada en comparación con los cuadros agudos."
+      },
+      {
+        "titulo": "Síndrome demencial",
+        "texto": "Destacan alteraciones progresivas de memoria y otras capacidades cognitivas, con afectación de autonomía y hábitos. La desorientación puede aparecer en etapas avanzadas."
+      },
+      {
+        "titulo": "Amnésico confabulatorio",
+        "texto": "Predomina el trastorno de memoria reciente y pueden presentarse confabulaciones; la orientación puede mantenerse relativamente conservada pese a la amnesia."
+      },
+      {
+        "titulo": "Apatoabúlico y otros",
+        "texto": "El síndrome apatoabúlico muestra apatía, falta de iniciativa y disminución de actividad. El material también describe el síndrome oligofrénico con limitaciones intelectuales y adaptativas; conviene emplear terminología clínica actual y respetuosa cuando se use fuera del temario."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndromes cerebrales orgánicos crónicos»?",
+    "flashReverso": "Predominan alteraciones persistentes de memoria, capacidades intelectuales, hábitos y funcionamiento cotidiano, con la vigilia relativamente preservada en comparación con los cuadros agudos.",
+    "comparacion": "El síndrome apatoabúlico muestra apatía, falta de iniciativa y disminución de actividad. El material también describe el síndrome oligofrénico con limitaciones intelectuales y adaptativas; conviene emplear terminología clínica actual y respetuosa cuando se use fuera del temario.",
+    "caso": "Una persona tiene marcada dificultad para fijar recuerdos recientes y completa lagunas con relatos inexactos. ¿Qué cuadro se relaciona?",
+    "casoRespuesta": "Síndrome amnésico confabulatorio: compromiso prominente de la fijación de memoria y confabulaciones."
+  },
+  "Síndrome esquizofrénico": {
+    "titulo": "Organización de funciones psíquicas",
+    "ampliacion": "Puede presentar disgregación del pensamiento, trastornos perceptivos —frecuentemente auditivos— y cambios en afectividad y conducta. La presencia de un síntoma aislado no define el síndrome.",
+    "pregunta": "¿Qué alteración del pensamiento puede observarse?",
+    "opciones": [
+      "Disgregación",
+      "Hipermnesia exclusivamente",
+      "Orientación espacial aumentada"
+    ],
+    "correcta": 0,
+    "explicacion": "La disgregación afecta la organización del pensamiento.",
+    "bloques": [
+      {
+        "titulo": "Rasgo central",
+        "texto": "Se caracteriza por desorganización relevante de funciones psíquicas y alteraciones en la relación entre pensamiento, afectividad y conducta."
+      },
+      {
+        "titulo": "Funciones cognitivas",
+        "texto": "Pueden observarse alucinaciones auditivas, pensamiento disgregado, bloqueos y formas de pensamiento poco conectadas con la realidad compartida."
+      },
+      {
+        "titulo": "Afectividad y conducta",
+        "texto": "Se describen ambivalencia o disociación afectiva, aislamiento, dificultades comunicativas y abulia, con orientación y vigilia en ocasiones conservadas."
+      },
+      {
+        "titulo": "Claves de estudio",
+        "texto": "Una alucinación aislada no define un síndrome esquizofrénico; se considera el conjunto de manifestaciones y su evolución."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndrome esquizofrénico»?",
+    "flashReverso": "Se caracteriza por desorganización relevante de funciones psíquicas y alteraciones en la relación entre pensamiento, afectividad y conducta.",
+    "comparacion": "Una alucinación aislada no define un síndrome esquizofrénico; se considera el conjunto de manifestaciones y su evolución.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Una alucinación aislada no define un síndrome esquizofrénico; se considera el conjunto de manifestaciones y su evolución."
+  },
+  "Síndrome delirante": {
+    "titulo": "Convicción y contenido",
+    "ampliacion": "La idea delirante ocupa un lugar central. En la descripción sindrómica pueden diferenciarse cuadros paranoicos, paranoides y de automatismo psíquico según características asociadas y organización del pensamiento.",
+    "pregunta": "¿Cuál es la característica central del síndrome delirante?",
+    "opciones": [
+      "Ideas delirantes",
+      "Amnesia total obligatoria",
+      "Coma"
+    ],
+    "correcta": 0,
+    "explicacion": "Las ideas delirantes son el elemento esencial.",
+    "bloques": [
+      {
+        "titulo": "Rasgo general",
+        "texto": "Predominan las ideas delirantes, con repercusión variable en la forma de interpretar el entorno y relacionarse."
+      },
+      {
+        "titulo": "Síndrome paranoico",
+        "texto": "Puede predominar una idea delirante sistematizada, con apariencia de razonamiento coherente y funciones cognitivas relativamente conservadas fuera del tema delirante."
+      },
+      {
+        "titulo": "Síndrome paranoide",
+        "texto": "Pueden coexistir ideas persecutorias o de referencia, suspicacia y alucinaciones auditivas, con una repercusión más amplia en el funcionamiento."
+      },
+      {
+        "titulo": "Automatismo psíquico",
+        "texto": "Se describen vivencias de influencia externa sobre el pensamiento, experiencias de robo del pensamiento, despersonalización o pseudoalucinaciones. La descripción de estas experiencias debe ser cuidadosa y no suponerse en una persona sin exploración clínica."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndrome delirante»?",
+    "flashReverso": "Predominan las ideas delirantes, con repercusión variable en la forma de interpretar el entorno y relacionarse.",
+    "comparacion": "Se describen vivencias de influencia externa sobre el pensamiento, experiencias de robo del pensamiento, despersonalización o pseudoalucinaciones. La descripción de estas experiencias debe ser cuidadosa y no suponerse en una persona sin exploración clínica.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Se describen vivencias de influencia externa sobre el pensamiento, experiencias de robo del pensamiento, despersonalización o pseudoalucinaciones. La descripción de estas experiencias debe ser cuidadosa y no suponerse en una persona sin exploración clínica."
+  },
+  "Síndromes afectivos": {
+    "titulo": "Tono emocional y actividad",
+    "ampliacion": "En los síndromes maníacos puede haber aumento de actividad y aceleración del pensamiento; en los depresivos, disminución de energía e intereses; en los ansiosos, preocupación y manifestaciones autonómicas.",
+    "pregunta": "¿Qué se relaciona con el síndrome maníaco?",
+    "opciones": [
+      "Fuga de ideas",
+      "Coma",
+      "Abolición constante de vigilia"
+    ],
+    "correcta": 0,
+    "explicacion": "La aceleración y fuga de ideas pueden aparecer en cuadros maníacos.",
+    "bloques": [
+      {
+        "titulo": "Qué los caracteriza",
+        "texto": "Predominan las manifestaciones emocionales, los cambios del estado de ánimo y las necesidades básicas, sin que deban aparecer necesariamente trastornos perceptivos."
+      },
+      {
+        "titulo": "Síndrome maníaco",
+        "texto": "Elevación del estado de ánimo, pensamiento acelerado, fuga de ideas, actividad aumentada, desinhibición y alteraciones del sueño o del comportamiento social."
+      },
+      {
+        "titulo": "Síndrome depresivo",
+        "texto": "Ánimo bajo, lentificación del pensamiento y de la actividad, disminución de intereses, alteraciones del sueño y del apetito. En cuadros graves pueden aparecer ideas de muerte o suicidio, que necesitan atención profesional."
+      },
+      {
+        "titulo": "Síndrome afectivo ansioso",
+        "texto": "Ansiedad, temor anticipatorio, inquietud, irritabilidad y manifestaciones corporales como palpitaciones, sudoración y dificultad para dormir."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndromes afectivos»?",
+    "flashReverso": "Predominan las manifestaciones emocionales, los cambios del estado de ánimo y las necesidades básicas, sin que deban aparecer necesariamente trastornos perceptivos.",
+    "comparacion": "Ansiedad, temor anticipatorio, inquietud, irritabilidad y manifestaciones corporales como palpitaciones, sudoración y dificultad para dormir.",
+    "caso": "Una persona presenta ánimo bajo persistente, intereses reducidos, lentitud y dificultad para iniciar actividades. ¿Qué grupo de manifestaciones predomina?",
+    "casoRespuesta": "Predominan síntomas afectivos depresivos y alteraciones de la actividad; una viñeta aislada no basta para un diagnóstico."
+  },
+  "Síndromes discinéticos": {
+    "titulo": "Movimiento y mutismo",
+    "ampliacion": "Se distinguen formas estuporosas —con inmovilidad y mutismo variables— e hipercinéticas, con aumento destacado de actividad motora. El estupor no debe confundirse automáticamente con coma.",
+    "pregunta": "¿Qué predomina en el síndrome hipercinético?",
+    "opciones": [
+      "Actividad motora aumentada",
+      "Falta absoluta de reflejos",
+      "Amnesia total obligatoria"
+    ],
+    "correcta": 0,
+    "explicacion": "Hipercinesia implica aumento de actividad motora.",
+    "bloques": [
+      {
+        "titulo": "Rasgo central",
+        "texto": "Se caracterizan por alteraciones relevantes de la cantidad o forma del movimiento, desde inmovilidad hasta agitación intensa."
+      },
+      {
+        "titulo": "Síndrome estuporoso",
+        "texto": "Puede haber inmovilidad y mutismo con grados variables de conciencia. Se describen estupores catatónico, depresivo, situacional, histriónico y orgánico, cada uno con características clínicas distintas."
+      },
+      {
+        "titulo": "Síndrome hipercinético",
+        "texto": "Existe actividad motora incrementada que puede ser desorganizada. Se describen agitación catatónica, excitación maníaca, excitación histérica y estados de agitación asociados a epilepsia."
+      },
+      {
+        "titulo": "Diferencia crucial",
+        "texto": "Estupor no equivale automáticamente a coma: en el primero puede conservarse cierta conciencia, mientras que en el coma el nivel de vigilia está gravemente abolido."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndromes discinéticos»?",
+    "flashReverso": "Se caracterizan por alteraciones relevantes de la cantidad o forma del movimiento, desde inmovilidad hasta agitación intensa.",
+    "comparacion": "Estupor no equivale automáticamente a coma: en el primero puede conservarse cierta conciencia, mientras que en el coma el nivel de vigilia está gravemente abolido.",
+    "caso": "Una persona permanece inmóvil y no habla, pero la ausencia de respuesta no implica necesariamente pérdida completa de conciencia. ¿Qué síndrome se estudia?",
+    "casoRespuesta": "Síndrome estuporoso; se diferencia del coma por la posible conservación variable de la claridad de conciencia."
+  },
+  "Síndrome hipocondríaco": {
+    "titulo": "Preocupación por la salud",
+    "ampliacion": "Se caracteriza por preocupación intensa y persistente sobre la propia salud, autoobservación corporal y temor a padecer una enfermedad. Deben valorarse el sufrimiento y la interferencia funcional.",
+    "pregunta": "¿Qué aspecto es característico?",
+    "opciones": [
+      "Preocupación excesiva por la salud",
+      "Aumento de vigilia obligatorio",
+      "Pérdida total de lenguaje"
+    ],
+    "correcta": 0,
+    "explicacion": "La preocupación persistente por la salud es central.",
+    "bloques": [
+      {
+        "titulo": "Características principales",
+        "texto": "Preocupación intensa y persistente por la salud, vigilancia reiterada de sensaciones corporales y temor a padecer enfermedades graves."
+      },
+      {
+        "titulo": "Manifestaciones",
+        "texto": "Interpretación alarmante de cambios corporales habituales, búsqueda repetida de seguridad y malestar importante asociado a la incertidumbre sobre la salud."
+      },
+      {
+        "titulo": "Distinciones",
+        "texto": "La preocupación por la salud puede ser comprensible; se convierte en un problema clínico cuando es desproporcionada, persistente y afecta la vida cotidiana."
+      },
+      {
+        "titulo": "Ejemplo",
+        "texto": "Interpretar sensaciones corporales menores como signos inequívocos de una enfermedad grave, pese a evaluaciones tranquilizadoras, puede orientar a este patrón de preocupación."
+      }
+    ],
+    "flashFrente": "¿Qué debes recordar de «Síndrome hipocondríaco»?",
+    "flashReverso": "Preocupación intensa y persistente por la salud, vigilancia reiterada de sensaciones corporales y temor a padecer enfermedades graves.",
+    "comparacion": "Interpretar sensaciones corporales menores como signos inequívocos de una enfermedad grave, pese a evaluaciones tranquilizadoras, puede orientar a este patrón de preocupación.",
+    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
+    "casoRespuesta": "Clave para el análisis: Interpretar sensaciones corporales menores como signos inequívocos de una enfermedad grave, pese a evaluaciones tranquilizadoras, puede orientar a este patrón de preocupación."
+  }
+}

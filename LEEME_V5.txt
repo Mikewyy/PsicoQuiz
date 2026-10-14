@@ -1,0 +1,1 @@
+V5 visual únicamente sobre el ZIP 055009. Conserva contador, recompensas y multijugador. Crear respaldo app/src/main, luego unzip -o ZIP -d . y ./gradlew assembleDebug. No compilado en Android Studio.

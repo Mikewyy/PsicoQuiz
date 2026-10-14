@@ -12,3 +12,12 @@
 
 # Machine-specific: apunta al SDK de cada maquina
 local.properties
+# Respaldos del proyecto
+*.bak
+*.bak-*
+*.respaldo
+*.respaldo-*
+*.antes-*
+*.emulator-desactivado-*
+app/src/main.respaldo-*/
+app/src/main.respaldo*/

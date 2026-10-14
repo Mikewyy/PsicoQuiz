@@ -10,11 +10,16 @@ import com.utm.semiologia.firebase.model.ParticipanteSala;
 import com.utm.semiologia.firebase.model.SalaEstudio;
 
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SalaRepository {
 
     private static final String COLECCION_SALAS = "salas";
     private static final String SUBCOLECCION_PARTICIPANTES = "participantes";
+    private static final String SUBCOLECCION_PLAZAS = "plazas";
+    private static final int CAPACIDAD_PLAZAS = 10;
+
 
     private static final String CARACTERES = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     private static final int LONGITUD_CODIGO = 6;
@@ -123,12 +128,8 @@ public class SalaRepository {
                     );
 
                     ParticipanteSala participante =
-                            new ParticipanteSala(
-                                    uid,
-                                    nombreUsuario,
-                                    true,
-                                    avatarId
-                            );
+                            new ParticipanteSala(uid, nombreUsuario, true, avatarId);
+                    sala.setMaxParticipantes(CAPACIDAD_PLAZAS);
 
                     db.runTransaction(transaction -> {
 
@@ -153,10 +154,20 @@ public class SalaRepository {
                                                 )
                                                 .document(uid);
 
-                                transaction.set(
-                                        participanteRef,
-                                        participante
-                                );
+                                Map<String, Object> datosHost = new HashMap<>();
+                                datosHost.put("uid", uid);
+                                datosHost.put("numero", "0");
+                                Map<String, Object> fichaHost = new HashMap<>();
+                                fichaHost.put("uid", uid);
+                                fichaHost.put("nombre", nombreUsuario);
+                                fichaHost.put("anfitrion", true);
+                                fichaHost.put("avatarId", avatarId);
+                                fichaHost.put("unidoEn", participante.getUnidoEn());
+                                fichaHost.put("plaza", "0");
+                                fichaHost.put("puntosPartida", 0);
+                                fichaHost.put("estadoConexion", "activo");
+                                transaction.set(participanteRef, fichaHost);
+                                transaction.set(salaRef.collection(SUBCOLECCION_PLAZAS).document("0"), datosHost);
 
                                 return null;
 
@@ -251,106 +262,164 @@ public class SalaRepository {
         );
     }
 
-    private void ejecutarUnionSala(
-            String codigo,
-            String nombreUsuario,
-            String avatarId,
-            String uid,
-            SalaCallback callback
-    ) {
+    private void ejecutarUnionSala(String codigo, String nombreUsuario,
+                                  String avatarId, String uid, SalaCallback callback) {
+        // Las nuevas salas utilizan plazas. No se modifican las salas legadas.
+        int inicio = random.nextInt(CAPACIDAD_PLAZAS);
+        intentarReservarPlaza(codigo, nombreUsuario, avatarId, uid,
+                callback, inicio, 0);
+    }
 
-        DocumentReference salaRef =
-                db.collection(COLECCION_SALAS)
-                        .document(codigo);
+    private void intentarReservarPlaza(String codigo, String nombreUsuario,
+                                     String avatarId, String uid,
+                                     SalaCallback callback, int inicio, int intento) {
+        if (intento >= CAPACIDAD_PLAZAS) {
+            callback.onError("La sala está llena o no se pudo reservar una plaza.");
+            return;
+        }
+        String numero = String.valueOf((inicio + intento) % CAPACIDAD_PLAZAS);
+        DocumentReference salaRef = db.collection(COLECCION_SALAS).document(codigo);
+        DocumentReference participanteRef = salaRef.collection(SUBCOLECCION_PARTICIPANTES).document(uid);
+        DocumentReference plazaRef = salaRef.collection(SUBCOLECCION_PLAZAS).document(numero);
 
-        DocumentReference participanteRef =
-                salaRef
-                        .collection(SUBCOLECCION_PARTICIPANTES)
-                        .document(uid);
+        db.runTransaction((Transaction.Function<String>) transaction -> {
+            // Todas las lecturas ocurren antes de las escrituras.
+            DocumentSnapshot salaDoc = transaction.get(salaRef);
+            DocumentSnapshot fichaDoc = transaction.get(participanteRef);
+            DocumentSnapshot plazaDoc = transaction.get(plazaRef);
+            if (!salaDoc.exists()) throw new IllegalStateException("La sala no existe.");
+            SalaEstudio sala = salaDoc.toObject(SalaEstudio.class);
+            if (sala == null) throw new IllegalStateException("No se pudo leer la sala.");
+            if (sala.getMaxParticipantes() != CAPACIDAD_PLAZAS) {
+                throw new IllegalStateException("Esta sala utiliza un formato anterior; crea una sala nueva.");
+            }
+            // Una conexión ya activa solo se reutiliza si conserva una plaza propia.
+            // Si existe una ficha antigua sin plaza, se trata como reingreso en espera.
+            if (fichaDoc.exists() && !"abandono".equals(fichaDoc.getString("estadoConexion"))) {
+                String plazaAnterior = fichaDoc.getString("plaza");
+                if (plazaAnterior != null && !plazaAnterior.isEmpty()) {
+                    DocumentSnapshot reservaAnterior = plazaAnterior.equals(numero)
+                            ? plazaDoc
+                            : transaction.get(salaRef.collection(SUBCOLECCION_PLAZAS).document(plazaAnterior));
+                    if (reservaAnterior.exists() && uid.equals(reservaAnterior.getString("uid"))) return "already";
+                }
+            }
+            if (!"esperando".equals(sala.getEstadoPartida()))
+                throw new IllegalStateException("La partida ya comenzó. No puedes volver a una partida cerrada.");
+            if (plazaDoc.exists()) return "occupied";
+            DocumentReference anfitrionRef = salaRef.collection(SUBCOLECCION_PARTICIPANTES)
+                    .document(sala.getAnfitrionId());
+            DocumentSnapshot fichaAnfitrion = transaction.get(anfitrionRef);
+            boolean transferirAlEntrante = !fichaAnfitrion.exists()
+                    || "abandono".equals(fichaAnfitrion.getString("estadoConexion"));
 
-        db.runTransaction(
-                        (Transaction.Function<SalaEstudio>) transaction -> {
+            Map<String, Object> plaza = new HashMap<>();
+            plaza.put("uid", uid);
+            plaza.put("numero", numero);
+            Map<String, Object> ficha = new HashMap<>();
+            ficha.put("uid", uid);
+            ficha.put("nombre", nombreUsuario);
+            ficha.put("anfitrion", transferirAlEntrante);
+            ficha.put("avatarId", avatarId);
+            ficha.put("unidoEn", System.currentTimeMillis());
+            ficha.put("plaza", numero);
+            ficha.put("puntosPartida", 0);
+            ficha.put("estadoConexion", "activo");
+            transaction.set(plazaRef, plaza);
+            if (fichaDoc.exists()) {
+                // Una ficha abandonada conserva su identidad; se restablece solo en espera.
+                transaction.update(participanteRef, ficha);
+            } else {
+                transaction.set(participanteRef, ficha);
+            }
+            // Si el anfitrión abandonó y nadie tomó su lugar, el que vuelve
+            // puede recuperar el control sin impedir ingresos concurrentes.
+            if (transferirAlEntrante) transaction.update(salaRef, "anfitrionId", uid);
+            // NO se actualiza cantidadParticipantes: evita el documento caliente.
+            return "joined";
+        }).addOnSuccessListener(resultado -> {
+            if ("occupied".equals(resultado)) {
+                intentarReservarPlaza(codigo, nombreUsuario, avatarId,
+                        uid, callback, inicio, intento + 1);
+            } else {
+                obtenerSala(codigo, callback);
+            }
+        }).addOnFailureListener(error -> callback.onError(mensajeError(error)));
+    }
 
-                            DocumentSnapshot salaSnapshot =
-                                    transaction.get(salaRef);
-
-                            if (!salaSnapshot.exists()) {
-                                throw new IllegalStateException(
-                                        "La sala no existe."
-                                );
+    // Abandono: buscar la plaza también por UID para fichas antiguas sin campo "plaza".
+    // El contador legado cantidadParticipantes no representa la ocupación real en salas
+    // por plazas. La ocupación se calcula contando los documentos /plazas.
+    public void abandonarSala(String codigoIngresado, String uid, OperacionCallback callback) {
+        String codigo = normalizarCodigo(codigoIngresado);
+        if (uid == null || uid.isEmpty() || codigo.length() != LONGITUD_CODIGO) {
+            callback.onError("Identidad o código de sala inválido.");
+            return;
+        }
+        DocumentReference salaRef = db.collection(COLECCION_SALAS).document(codigo);
+        DocumentReference fichaRef = salaRef.collection(SUBCOLECCION_PARTICIPANTES).document(uid);
+        // Elegimos un sucesor activo fuera de la transacción. La transacción
+        // comprueba de nuevo su estado antes de transferir el anfitrión.
+        salaRef.collection(SUBCOLECCION_PARTICIPANTES).get()
+                .addOnSuccessListener(participantes -> {
+                    DocumentReference candidatoRef = null;
+                    long primeraEntrada = Long.MAX_VALUE;
+                    for (DocumentSnapshot p : participantes.getDocuments()) {
+                        if (uid.equals(p.getId()) || "abandono".equals(p.getString("estadoConexion"))) continue;
+                        Long ingreso = p.getLong("unidoEn");
+                        long orden = ingreso == null ? Long.MAX_VALUE - 1 : ingreso;
+                        if (candidatoRef == null || orden < primeraEntrada) {
+                            primeraEntrada = orden;
+                            candidatoRef = p.getReference();
+                        }
+                    }
+                    final DocumentReference sucesorRef = candidatoRef;
+                    db.runTransaction(transaction -> {
+                        DocumentSnapshot salaDoc = transaction.get(salaRef);
+                        DocumentSnapshot fichaDoc = transaction.get(fichaRef);
+                        if (!salaDoc.exists() || !fichaDoc.exists()) return null;
+                        DocumentSnapshot sucesorDoc = sucesorRef == null ? null : transaction.get(sucesorRef);
+                        // Todas las lecturas ANTES de las escrituras.
+                        DocumentReference reservaPropia = null;
+                        String numeroFicha = fichaDoc.getString("plaza");
+                        for (int i = 0; i < CAPACIDAD_PLAZAS; i++) {
+                            String numero = String.valueOf(i);
+                            DocumentReference ref = salaRef.collection(SUBCOLECCION_PLAZAS).document(numero);
+                            DocumentSnapshot plaza = transaction.get(ref);
+                            if (plaza.exists() && uid.equals(plaza.getString("uid"))) {
+                                if (reservaPropia != null) throw new IllegalStateException("Reservas duplicadas.");
+                                reservaPropia = ref;
+                            } else if (plaza.exists() && numero.equals(numeroFicha)) {
+                                throw new IllegalStateException("La plaza ya pertenece a otro jugador.");
                             }
+                        }
+                        if (!"abandono".equals(fichaDoc.getString("estadoConexion"))) {
+                            Map<String, Object> cambios = new HashMap<>();
+                            cambios.put("estadoConexion", "abandono");
+                            cambios.put("puntosPartida", 0);
+                            cambios.put("aciertosPartida", 0);
+                            cambios.put("ultimoPuntaje", 0);
+                            cambios.put("anfitrion", false);
+                            cambios.put("ultimoLatido", 0);
+                            transaction.update(fichaRef, cambios);
+                        }
+                        if (reservaPropia != null) transaction.delete(reservaPropia);
+                        if (uid.equals(salaDoc.getString("anfitrionId")) && sucesorDoc != null
+                                && sucesorDoc.exists()
+                                && !"abandono".equals(sucesorDoc.getString("estadoConexion"))) {
+                            transaction.update(salaRef, "anfitrionId", sucesorRef.getId());
+                            transaction.update(sucesorRef, "anfitrion", true);
+                        }
+                        return null;
+                    }).addOnSuccessListener(unused -> callback.onSuccess())
+                      .addOnFailureListener(error -> callback.onError(mensajeError(error)));
+                })
+                .addOnFailureListener(error -> callback.onError(mensajeError(error)));
+    }
 
-                            SalaEstudio sala =
-                                    salaSnapshot.toObject(
-                                            SalaEstudio.class
-                                    );
-
-                            if (sala == null) {
-                                throw new IllegalStateException(
-                                        "No se pudo leer la sala."
-                                );
-                            }
-
-                            DocumentSnapshot participanteSnapshot =
-                                    transaction.get(participanteRef);
-
-                            // Ya pertenece a la sala.
-                            // No volvemos a incrementar el contador.
-                            if (participanteSnapshot.exists()) {
-                                transaction.update(
-                                        participanteRef,
-                                        "nombre", nombreUsuario,
-                                        "avatarId", avatarId
-                                );
-                                return sala;
-                            }
-
-                            int cantidad =
-                                    sala.getCantidadParticipantes();
-
-                            int maximo =
-                                    sala.getMaxParticipantes();
-
-                            if (cantidad >= maximo) {
-                                throw new IllegalStateException(
-                                        "La sala está llena."
-                                );
-                            }
-
-                            ParticipanteSala participante =
-                                    new ParticipanteSala(
-                                            uid,
-                                            nombreUsuario,
-                                            false,
-                                            avatarId
-                                    );
-
-                            transaction.set(
-                                    participanteRef,
-                                    participante
-                            );
-
-                            transaction.update(
-                                    salaRef,
-                                    "cantidadParticipantes",
-                                    cantidad + 1
-                            );
-
-                            sala.setCantidadParticipantes(
-                                    cantidad + 1
-                            );
-
-                            return sala;
-
-                        })
-                .addOnSuccessListener(
-                        callback::onSuccess
-                )
-                .addOnFailureListener(error ->
-                        callback.onError(
-                                mensajeError(error)
-                        )
-                );
+    public interface OperacionCallback {
+        void onSuccess();
+        void onError(String mensaje);
     }
 
     // ============================================================

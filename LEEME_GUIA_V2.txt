@@ -1,0 +1,15 @@
+PATO DETECTIVE — GUÍA INTERACTIVA V2
+
+Incluye teoría ampliada en 22 temas (4 paneles cada uno), botones desplegables auténticos y preguntas de repaso.
+Conserva todo el contenido original de la guía, el progreso, recompensas y temporizador.
+Los recursos semánticos de color incluyen modos claro y oscuro. No modifica Firebase ni el multijugador.
+
+INSTALAR
+1. Respaldar el proyecto Android Studio.
+2. Descomprimir este ZIP en la raíz ~/AndroidStudioProjects/PsicoQuiz (la carpeta donde está app/).
+3. ./gradlew assembleDebug
+4. Ejecutar la app nueva; ver una sección de Guía de estudio y desplazarse tras el texto original.
+
+Si el texto antiguo no cambia, es intencional: los paneles son contenido adicional.
+Los paneles se presentan tras la explicación principal.
+La guía es educativa; los ejemplos no constituyen diagnóstico clínico.
