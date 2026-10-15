@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp" android:height="64dp" android:viewportWidth="64" android:viewportHeight="64">
+    <path android:fillColor="@color/app_primary_soft" android:strokeColor="@color/app_primary_ui" android:strokeWidth="2" android:strokeLineJoin="round"
+        android:pathData="M8,16 L25,16 L30,21 L52,21 L52,51 L8,51 Z" />
+    <path android:fillColor="@color/app_surface" android:strokeColor="@color/app_primary_ui" android:strokeWidth="2" android:strokeLineJoin="round"
+        android:pathData="M16,10 L38,10 L45,17 L45,44 L16,44 Z M38,10 L38,18 L45,18" />
+    <path android:fillColor="@android:color/transparent" android:strokeColor="@color/app_primary_ui" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M22,23 L35,23 M22,29 L31,29 M22,35 L28,35" />
+    <path android:fillColor="@color/app_surface" android:strokeColor="@color/lector_illustration_teal" android:strokeWidth="3"
+        android:pathData="M53,38 A10,10 0,1 1,33 38 A10,10 0,1 1,53 38" />
+    <path android:fillColor="@android:color/transparent" android:strokeColor="@color/lector_illustration_teal" android:strokeWidth="5" android:strokeLineCap="round"
+        android:pathData="M50,46 L57,54" />
+    <path android:fillColor="@color/lector_illustration_gold" android:pathData="M43,32 A3,3 0,1 1,43 38 A3,3 0,1 1,43 32 M38,43 Q43,37 48,43 Z" />
+</vector>

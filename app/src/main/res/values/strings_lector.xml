@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lector_volver">Volver a los temas</string>
+    <string name="lector_tema_placeholder">Tema de estudio</string>
+    <string name="lector_categoria_placeholder">Guía de estudio</string>
+    <string name="lector_duracion">%1$d min de estudio</string>
+    <string name="lector_estado_inicial">Lectura en progreso</string>
+    <string name="lector_tiempo_inicial">03:00</string>
+    <string name="lector_porcentaje_inicial" formatted="false">0%</string>
+    <string name="lector_definicion">Definición del tema</string>
+    <string name="lector_lectura_subtitulo">Lee a tu ritmo y conoce los conceptos esenciales.</string>
+    <string name="lector_contenido_placeholder">El contenido del tema aparecerá aquí.</string>
+    <string name="lector_centro">Centro de aprendizaje</string>
+    <string name="lector_centro_subtitulo">Repasa lo leído. Toca una de las 5 secciones para comenzar.</string>
+    <string name="lector_favorito">Guardar tema</string>
+    <string name="lector_favorito_guardado">Tema guardado</string>
+    <string name="lector_favorito_accion">Guardar o quitar tema de favoritos</string>
+    <string name="lector_practicas">Prácticas completadas: %1$d de 3</string>
+    <string name="lector_practicas_ayuda">Memoria, situación y cuestionario</string>
+    <string name="lector_paso">SECCIÓN %1$02d</string>
+    <string name="lector_explora">Explora y comprende</string>
+    <string name="lector_explora_detalle">Profundiza en los conceptos</string>
+    <string name="lector_memoria">Tarjeta de memoria</string>
+    <string name="lector_memoria_detalle">Recuerda antes de revelar</string>
+    <string name="lector_compara">Compara y diferencia</string>
+    <string name="lector_compara_detalle">Reconoce las diferencias clave</string>
+    <string name="lector_caso">Situación para analizar</string>
+    <string name="lector_caso_detalle">Aplica lo que has leído</string>
+    <string name="lector_quiz">Comprueba lo aprendido</string>
+    <string name="lector_quiz_detalle">Responde y recibe una explicación</string>
+    <string name="lector_abierta">Expandida</string>
+    <string name="lector_cerrada">Contraída</string>
+    <string name="lector_recordar">Piensa tu respuesta antes de revelarla.</string>
+    <string name="lector_revelar">Revelar respuesta</string>
+    <string name="lector_ocultar_respuesta">Ocultar respuesta</string>
+    <string name="lector_interpretar">Mostrar interpretación</string>
+    <string name="lector_ocultar_interpretacion">Ocultar interpretación</string>
+    <string name="lector_opcion">%1$d. %2$s</string>
+    <string name="lector_quiz_ayuda">Elige una opción para comprobar tu respuesta.</string>
+    <string name="lector_recompensa">Tu recompensa de estudio</string>
+    <string name="lector_recompensa_icono" translatable="false">🍪</string>
+    <string name="lector_recompensa_detalle">Completa los 3 minutos y llega al final de la lectura para conseguir comida para tu mascota.</string>
+    <string name="lector_continuar">Continúa estudiando · 03:00</string>
+    <string name="lector_autoguardado">Tu progreso se guarda automáticamente.</string>
+</resources>

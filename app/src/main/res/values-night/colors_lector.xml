@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lector_header_start">#241B36</color>
+    <color name="lector_header_end">#32264B</color>
+    <color name="lector_header_text">#F8F5FF</color>
+    <color name="lector_header_secondary">#D7CFE5</color>
+    <color name="lector_illustration_teal">#74D4D7</color>
+    <color name="lector_illustration_gold">#F4BC72</color>
+</resources>

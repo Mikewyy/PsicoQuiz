@@ -3,13 +3,22 @@ package com.utm.semiologia.ui.estudio;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.widget.ProgressBar;
 import android.util.TypedValue;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.OneShotPreDrawListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import com.google.android.material.card.MaterialCardView;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -18,14 +27,15 @@ import java.nio.charset.StandardCharsets;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.Spanned;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.button.MaterialButton;
@@ -47,6 +57,8 @@ public class LectorActivity extends BaseActivity {
 
     private static final int PROGRESO_INICIAL = 10;
     private static final int PROGRESO_PARA_COMPLETAR = 95;
+    private static final String ESTADO_ACTIVIDADES = "lector_actividades_abiertas";
+    private boolean[] actividadesAbiertas = new boolean[5];
 
     private Repositorio repo;
 
@@ -64,7 +76,6 @@ public class LectorActivity extends BaseActivity {
     private TextView tvProgresoLectura;
     private TextView tvEstado;
     private TextView tvTemporizador;
-    private TextView tvEstadoTiempo;
 
     private LinearProgressIndicator barLectura;
 
@@ -115,6 +126,16 @@ public class LectorActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            boolean[] abiertas = savedInstanceState.getBooleanArray(ESTADO_ACTIVIDADES);
+            if (abiertas != null && abiertas.length == actividadesAbiertas.length) {
+                actividadesAbiertas = abiertas;
+            }
+        }
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
         setContentView(
                 R.layout.activity_lector
         );
@@ -201,11 +222,6 @@ public class LectorActivity extends BaseActivity {
                         R.id.tvTemporizador
                 );
 
-        tvEstadoTiempo =
-                findViewById(
-                        R.id.tvEstadoTiempo
-                );
-
         barLectura =
                 findViewById(
                         R.id.barLectura
@@ -215,6 +231,17 @@ public class LectorActivity extends BaseActivity {
                 findViewById(
                         R.id.btnCompletarLectura
                 );
+        ViewCompat.setAccessibilityHeading(tvTitulo, true);
+        ViewCompat.setAccessibilityHeading(findViewById(R.id.tituloDefinicionLector), true);
+        View contenedor = findViewById(R.id.contenedorLector);
+        ViewCompat.setOnApplyWindowInsetsListener(contenedor, (v, windowInsets) -> {
+            Insets barras = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()
+                    | WindowInsetsCompat.Type.displayCutout());
+            contenedor.setPadding(barras.left, barras.top, barras.right, 0);
+            scrollLector.setPadding(0, 0, 0, barras.bottom);
+            return windowInsets;
+        });
+        ViewCompat.requestApplyInsets(contenedor);
     }
 
 
@@ -278,6 +305,7 @@ public class LectorActivity extends BaseActivity {
         registrarLecturaInicial();
 
         prepararTemporizador();
+        OneShotPreDrawListener.add(scrollLector, this::calcularProgresoScroll);
     }
 
 
@@ -302,7 +330,7 @@ public class LectorActivity extends BaseActivity {
         );
 
         tvDuracion.setText(
-                MINUTOS_ESTUDIO + " min de estudio"
+                getString(R.string.lector_duracion, MINUTOS_ESTUDIO)
         );
 
         mostrarContenidoHTML();
@@ -333,11 +361,19 @@ public class LectorActivity extends BaseActivity {
             return;
         }
 
-        Spanned texto =
-                Html.fromHtml(
-                        contenido,
-                        Html.FROM_HTML_MODE_LEGACY
-                );
+        // Conserva el HTML y sus énfasis, con encabezados menos desproporcionados.
+        SpannableStringBuilder texto = new SpannableStringBuilder(
+                Html.fromHtml(contenido, Html.FROM_HTML_MODE_LEGACY));
+        for (RelativeSizeSpan encabezado : texto.getSpans(0, texto.length(), RelativeSizeSpan.class)) {
+            if (encabezado.getSizeChange() > 1f) {
+                int inicio = texto.getSpanStart(encabezado);
+                int fin = texto.getSpanEnd(encabezado);
+                int flags = texto.getSpanFlags(encabezado);
+                texto.removeSpan(encabezado);
+                float proporcion = 1f + (encabezado.getSizeChange() - 1f) * 0.5f;
+                texto.setSpan(new RelativeSizeSpan(proporcion), inicio, fin, flags);
+            }
+        }
 
         tvContenido.setText(
                 texto
@@ -371,33 +407,54 @@ public class LectorActivity extends BaseActivity {
         return d;
     }
 
-    private TextView etiquetaGuia(String etiqueta) {
-        TextView t = textoRepaso(etiqueta, 11, true);
-        t.setTextColor(colorGuia(R.color.app_primary_ui));
-        t.setPadding(dp(12), dp(8), dp(12), dp(8));
-        t.setBackground(fondoGuia(R.color.guia_acordeon_fondo, R.color.app_outline, 14));
-        return t;
-    }
-
-    private MaterialCardView tarjetaGuia(LinearLayout parent) {
-        MaterialCardView card = new MaterialCardView(this);
-        card.setRadius(dp(23));
-        card.setCardElevation(dp(2));
-        card.setCardBackgroundColor(colorGuia(R.color.app_surface_elevated));
-        card.setStrokeWidth(dp(1));
-        card.setStrokeColor(colorGuia(R.color.app_outline));
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
-        lp.topMargin = dp(18);
-        parent.addView(card, lp);
-        return card;
-    }
-
-    private LinearLayout contenidoTarjeta(MaterialCardView card) {
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(dp(20),dp(21),dp(20),dp(22));
-        card.addView(layout);
-        return layout;
+    private LinearLayout actividadDesplegable(LinearLayout parent, int indice,
+                                              int tituloId, int detalleId, int ilustracionId) {
+        MaterialCardView card = (MaterialCardView) getLayoutInflater().inflate(
+                R.layout.item_lector_actividad, parent, false);
+        // Los IDs internos se reutilizan; la apertura se restaura explícitamente.
+        card.setSaveFromParentEnabled(false);
+        LinearLayout cabecera = card.findViewById(R.id.cabeceraActividadLector);
+        LinearLayout contenido = card.findViewById(R.id.contenidoActividadLector);
+        ImageView ilustracion = card.findViewById(R.id.ilustracionActividadLector);
+        ImageView flecha = card.findViewById(R.id.flechaActividadLector);
+        TextView paso = card.findViewById(R.id.pasoActividadLector);
+        TextView titulo = card.findViewById(R.id.tituloActividadLector);
+        TextView detalle = card.findViewById(R.id.detalleActividadLector);
+        paso.setText(getString(R.string.lector_paso, indice + 1));
+        titulo.setText(tituloId);
+        detalle.setText(detalleId);
+        ilustracion.setImageResource(ilustracionId);
+        cabecera.setContentDescription(paso.getText() + ". " + getString(tituloId)
+                + ". " + getString(detalleId));
+        ViewCompat.setAccessibilityDelegate(cabecera, new AccessibilityDelegateCompat() {
+            @Override
+            public void onInitializeAccessibilityNodeInfo(@NonNull View host,
+                                                         @NonNull AccessibilityNodeInfoCompat info) {
+                super.onInitializeAccessibilityNodeInfo(host, info);
+                info.setClassName(android.widget.Button.class.getName());
+            }
+        });
+        Runnable mostrarEstado = () -> {
+            boolean abierta = actividadesAbiertas[indice];
+            contenido.setVisibility(abierta ? View.VISIBLE : View.GONE);
+            card.setStrokeColor(colorGuia(abierta ? R.color.app_primary_ui : R.color.app_outline));
+            ViewCompat.setStateDescription(cabecera,
+                    getString(abierta ? R.string.lector_abierta : R.string.lector_cerrada));
+        };
+        mostrarEstado.run();
+        flecha.setRotation(actividadesAbiertas[indice] ? 180f : 0f);
+        cabecera.setOnClickListener(v -> {
+            actividadesAbiertas[indice] = !actividadesAbiertas[indice];
+            mostrarEstado.run();
+            flecha.animate().rotation(actividadesAbiertas[indice] ? 180f : 0f)
+                    .setDuration(180).start();
+            if (actividadesAbiertas[indice]) {
+                contenido.setAlpha(0f);
+                contenido.animate().alpha(1f).setDuration(160).start();
+            }
+        });
+        parent.addView(card);
+        return contenido;
     }
 
     private MaterialButton botonGuia(String nombre) {
@@ -408,8 +465,11 @@ public class LectorActivity extends BaseActivity {
         b.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
         b.setCornerRadius(dp(15));
         b.setMinHeight(dp(54));
+        b.setPadding(dp(14), dp(12), dp(14), dp(12));
+        b.setInsetTop(dp(4));
+        b.setInsetBottom(dp(4));
         b.setTextColor(colorGuia(R.color.app_text_primary));
-        b.setBackgroundTintList(ColorStateList.valueOf(colorGuia(R.color.guia_acordeon_fondo)));
+        b.setBackgroundTintList(ColorStateList.valueOf(colorGuia(R.color.app_surface_alt)));
         b.setStrokeColor(ColorStateList.valueOf(colorGuia(R.color.app_outline)));
         b.setStrokeWidth(dp(1));
         return b;
@@ -422,18 +482,11 @@ public class LectorActivity extends BaseActivity {
         boton.setIconPadding(dp(10));
     }
 
-    private TextView encabezadoConIcono(String nombre, int drawableId) {
-        TextView titulo = textoRepaso(nombre, 18, true);
-        Drawable icono = ContextCompat.getDrawable(this, drawableId);
-        if (icono != null) {
-            icono = icono.mutate();
-            icono.setTint(colorGuia(R.color.app_primary_ui));
-            icono.setBounds(0, 0, dp(23), dp(23));
-            titulo.setCompoundDrawables(icono, null, null, null);
-            titulo.setCompoundDrawablePadding(dp(11));
-        }
-        titulo.setPadding(0, dp(3), 0, dp(3));
-        return titulo;
+    private void accionPrincipal(MaterialButton boton) {
+        boton.setBackgroundTintList(ColorStateList.valueOf(colorGuia(R.color.primary)));
+        boton.setTextColor(colorGuia(R.color.on_primary));
+        boton.setStrokeWidth(0);
+        boton.setGravity(Gravity.CENTER);
     }
 
     private void espacio(LinearLayout destino, int arriba) {
@@ -442,21 +495,24 @@ public class LectorActivity extends BaseActivity {
     }
 
     private void bloqueDesplegable(LinearLayout parent, String titulo, String texto) {
-        MaterialButton boton = botonGuia("Explorar  ·  " + titulo);
-        iconoEnBoton(boton,R.drawable.ic_guia_expand,R.color.app_primary_ui);
+        MaterialButton boton = botonGuia(titulo);
+        iconoEnBoton(boton,R.drawable.ic_lector_chevron,R.color.app_primary_ui);
+        boton.setIconGravity(MaterialButton.ICON_GRAVITY_END);
         parent.addView(boton, new LinearLayout.LayoutParams(-1,-2));
         TextView contenido = textoRepaso(texto,14,false);
-        contenido.setBackground(fondoGuia(R.color.guia_acordeon_fondo, R.color.app_outline, 16));
+        contenido.setBackground(fondoGuia(R.color.app_surface_alt, R.color.app_outline, 16));
         contenido.setPadding(dp(14),dp(16),dp(14),dp(17));
         contenido.setVisibility(View.GONE);
         contenido.setTextIsSelectable(true);
         parent.addView(contenido);
+        ViewCompat.setStateDescription(boton, getString(R.string.lector_cerrada));
         boton.setOnClickListener(v -> {
             boolean mostrar = contenido.getVisibility()!=View.VISIBLE;
             contenido.setVisibility(mostrar?View.VISIBLE:View.GONE);
-            boton.setText((mostrar ? "Ocultar  ·  " : "Explorar  ·  ") + titulo);
-            iconoEnBoton(boton,mostrar?R.drawable.ic_guia_collapse:R.drawable.ic_guia_expand,R.color.app_primary_ui);
-            boton.setContentDescription((mostrar?"Cerrar ":"Abrir ")+titulo);
+            iconoEnBoton(boton,mostrar?R.drawable.ic_guia_collapse:R.drawable.ic_lector_chevron,R.color.app_primary_ui);
+            boton.setIconGravity(MaterialButton.ICON_GRAVITY_END);
+            ViewCompat.setStateDescription(boton,
+                    getString(mostrar ? R.string.lector_abierta : R.string.lector_cerrada));
         });
         espacio(parent, 9);
     }
@@ -468,83 +524,66 @@ public class LectorActivity extends BaseActivity {
             java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
             byte[] buf = new byte[8192]; int n;
             while((n=stream.read(buf))!=-1) out.write(buf,0,n);
-            JSONObject indice = new JSONObject(out.toString("UTF-8"));
+            JSONObject indice = new JSONObject(out.toString(StandardCharsets.UTF_8.name()));
             JSONObject tema = indice.optJSONObject(seccion.getTitulo());
             if(tema==null) return;
             final String temaKey = "guia_"+seccionId;
             final android.content.SharedPreferences prefs = getSharedPreferences(
                     "pato_guia_premium_"+usuarioId, MODE_PRIVATE);
 
-            LinearLayout cabecera = contenidoTarjeta(tarjetaGuia(destino));
-            TextView marcador = textoRepaso("CENTRO DE APRENDIZAJE  ·  ESTUDIO GUIADO",11,true);
-            marcador.setTextColor(colorGuia(R.color.app_primary_ui));
-            cabecera.addView(marcador);
-            espacio(cabecera, 12);
-            cabecera.addView(etiquetaGuia("LECTURA  •  MEMORIZACIÓN  •  PRÁCTICA"));
-            espacio(cabecera,8);
-            cabecera.addView(textoRepaso(tema.optString("titulo",seccion.getTitulo()),21,true));
-            espacio(cabecera,7);
-            TextView introduccion = textoRepaso(tema.optString("ampliacion"),14,false);
-            introduccion.setTextColor(colorGuia(R.color.app_text_secondary));
-            cabecera.addView(introduccion);
-            espacio(cabecera,14);
-            MaterialButton favorito = botonGuia(prefs.getBoolean(temaKey+"_fav",false)
-                    ? "★  Guardado en favoritos" : "☆  Guardar en favoritos");
-            favorito.setContentDescription("Marcar o desmarcar tema favorito");
-            cabecera.addView(favorito);
-            iconoEnBoton(favorito,R.drawable.ic_guia_star,R.color.app_primary_ui);
+            View cabecera = getLayoutInflater().inflate(R.layout.lector_centro_aprendizaje, destino, false);
+            destino.addView(cabecera);
+            ViewCompat.setAccessibilityHeading(cabecera.findViewById(R.id.tituloCentroLector), true);
+            MaterialButton favorito = cabecera.findViewById(R.id.favoritoLector);
+            Runnable actualizarFavorito = () -> {
+                boolean guardado = prefs.getBoolean(temaKey+"_fav",false);
+                favorito.setText(guardado ? R.string.lector_favorito_guardado : R.string.lector_favorito);
+                ViewCompat.setStateDescription(favorito, getString(guardado
+                        ? R.string.lector_favorito_guardado : R.string.lector_favorito));
+            };
+            actualizarFavorito.run();
             favorito.setOnClickListener(v -> {
                 boolean nuevo=!prefs.getBoolean(temaKey+"_fav",false);
                 prefs.edit().putBoolean(temaKey+"_fav",nuevo).apply();
-                favorito.setText(nuevo?"★  Guardado en favoritos":"☆  Guardar en favoritos");
+                actualizarFavorito.run();
             });
-            espacio(cabecera,8);
-            TextView avance = textoRepaso("",12,true);
-            avance.setTextColor(colorGuia(R.color.app_primary_ui));
-            cabecera.addView(avance);
-            espacio(cabecera, 8);
-            ProgressBar progresoActividades = new ProgressBar(this, null,
-                    android.R.attr.progressBarStyleHorizontal);
-            progresoActividades.setMax(3);
-            progresoActividades.setProgressTintList(ColorStateList.valueOf(colorGuia(R.color.app_primary_ui)));
-            progresoActividades.setProgressBackgroundTintList(ColorStateList.valueOf(colorGuia(R.color.guia_acordeon_fondo)));
-            cabecera.addView(progresoActividades, new LinearLayout.LayoutParams(-1, dp(9)));
+            TextView avance = cabecera.findViewById(R.id.avancePracticasLector);
+            LinearProgressIndicator progresoActividades = cabecera.findViewById(R.id.progresoPracticasLector);
             Runnable actualizar = () -> {
                 int valor=(prefs.getBoolean(temaKey+"_flash",false)?1:0)
                         +(prefs.getBoolean(temaKey+"_quiz",false)?1:0)
                         +(prefs.getBoolean(temaKey+"_caso",false)?1:0);
-                avance.setText("Tu progreso de práctica  ·  " + valor + " de 3  ·  " +(valor*100/3)+"%");
+                avance.setText(getString(R.string.lector_practicas, valor));
                 progresoActividades.setProgress(valor);
+                progresoActividades.setContentDescription(avance.getText());
             };
             actualizar.run();
 
-            LinearLayout teoria = contenidoTarjeta(tarjetaGuia(destino));
-            teoria.addView(encabezadoConIcono("01  ·  Explora y comprende",R.drawable.ic_guia_book));
-            espacio(teoria,9);
-            TextView ayuda = textoRepaso("Abre los apartados para profundizar. Los conceptos esenciales de la lectura original siguen disponibles arriba.",13,false);
-            ayuda.setTextColor(colorGuia(R.color.app_text_secondary));
-            teoria.addView(ayuda);
-            espacio(teoria,13);
+            LinearLayout teoria = actividadDesplegable(destino, 0, R.string.lector_explora,
+                    R.string.lector_explora_detalle, R.drawable.il_lector_explora);
+            TextView introduccion = textoRepaso(tema.optString("ampliacion"),15,false);
+            teoria.addView(introduccion);
+            espacio(teoria,14);
             JSONArray bloques=tema.optJSONArray("bloques");
             if(bloques!=null) for(int i=0;i<bloques.length();i++) {
                 JSONObject bloque=bloques.optJSONObject(i);
                 if(bloque!=null) bloqueDesplegable(teoria,bloque.optString("titulo"),bloque.optString("texto"));
             }
 
-            LinearLayout memoriza=contenidoTarjeta(tarjetaGuia(destino));
-            memoriza.addView(encabezadoConIcono("02  ·  Tarjeta de memoria",R.drawable.ic_guia_flash));
-            espacio(memoriza,10);
+            LinearLayout memoriza = actividadDesplegable(destino, 1, R.string.lector_memoria,
+                    R.string.lector_memoria_detalle, R.drawable.il_lector_memoria);
             TextView pista=textoRepaso(tema.optString("flashFrente",tema.optString("titulo")),16,true);
             pista.setGravity(Gravity.CENTER);
             pista.setPadding(dp(12),dp(20),dp(12),dp(12));
             pista.setBackground(fondoGuia(R.color.guia_acordeon_fondo, R.color.app_outline, 20));
-            pista.setCompoundDrawablePadding(dp(10));
-            memoriza.addView(etiquetaGuia("PIENSA ANTES DE REVELAR"));
+            TextView instruccionMemoria = textoRepaso(getString(R.string.lector_recordar),13,false);
+            instruccionMemoria.setTextColor(colorGuia(R.color.app_text_secondary));
+            memoriza.addView(instruccionMemoria);
             espacio(memoriza, 12);
             memoriza.addView(pista);
-            MaterialButton voltear=botonGuia("Revelar respuesta  ↻");
+            MaterialButton voltear=botonGuia(getString(R.string.lector_revelar));
+            accionPrincipal(voltear);
             memoriza.addView(voltear);
-            iconoEnBoton(voltear,R.drawable.ic_guia_flash,R.color.app_primary_ui);
             TextView trasera=textoRepaso(tema.optString("flashReverso",tema.optString("ampliacion")),14,false);
             trasera.setPadding(dp(10),dp(14),dp(10),dp(14));
             trasera.setVisibility(View.GONE);
@@ -552,26 +591,26 @@ public class LectorActivity extends BaseActivity {
             voltear.setOnClickListener(v -> {
                 boolean ver=trasera.getVisibility()!=View.VISIBLE;
                 trasera.setVisibility(ver?View.VISIBLE:View.GONE);
-                voltear.setText(ver?"Ocultar respuesta  ↻":"Revelar respuesta  ↻");
+                voltear.setText(ver ? R.string.lector_ocultar_respuesta : R.string.lector_revelar);
                 if(ver) {prefs.edit().putBoolean(temaKey+"_flash",true).apply();actualizar.run();}
             });
 
-            LinearLayout compara=contenidoTarjeta(tarjetaGuia(destino));
-            compara.addView(encabezadoConIcono("03  ·  Compara y diferencia",R.drawable.ic_guia_compare));
-            espacio(compara,12);
-            bloqueDesplegable(compara,"Ver las diferencias importantes",tema.optString("comparacion",tema.optString("ampliacion")));
+            LinearLayout compara = actividadDesplegable(destino, 2, R.string.lector_compara,
+                    R.string.lector_compara_detalle, R.drawable.il_lector_compara);
+            TextView comparacion = textoRepaso(tema.optString("comparacion",tema.optString("ampliacion")),15,false);
+            comparacion.setTextIsSelectable(true);
+            compara.addView(comparacion);
 
-            LinearLayout caso=contenidoTarjeta(tarjetaGuia(destino));
-            caso.addView(encabezadoConIcono("04  ·  Situación para analizar",R.drawable.ic_guia_case));
-            espacio(caso,8);
+            LinearLayout caso = actividadDesplegable(destino, 3, R.string.lector_caso,
+                    R.string.lector_caso_detalle, R.drawable.il_lector_caso);
             TextView escenario = textoRepaso(tema.optString("caso"), 14, false);
             escenario.setPadding(dp(16),dp(17),dp(16),dp(17));
-            escenario.setBackground(fondoGuia(R.color.guia_acordeon_fondo, R.color.app_outline, 16));
+            escenario.setBackground(fondoGuia(R.color.app_surface_alt, R.color.app_outline, 16));
             caso.addView(escenario);
             espacio(caso,12);
-            MaterialButton verCaso=botonGuia("Mostrar interpretación  ↓");
+            MaterialButton verCaso=botonGuia(getString(R.string.lector_interpretar));
+            accionPrincipal(verCaso);
             caso.addView(verCaso);
-            iconoEnBoton(verCaso,R.drawable.ic_guia_case,R.color.app_primary_ui);
             TextView solucionCaso=textoRepaso(tema.optString("casoRespuesta"),14,false);
             solucionCaso.setPadding(dp(10),dp(12),dp(10),dp(10));
             solucionCaso.setVisibility(View.GONE);
@@ -579,27 +618,25 @@ public class LectorActivity extends BaseActivity {
             verCaso.setOnClickListener(v -> {
                 boolean abrir=solucionCaso.getVisibility()!=View.VISIBLE;
                 solucionCaso.setVisibility(abrir?View.VISIBLE:View.GONE);
-                verCaso.setText(abrir?"Ocultar interpretación  ↑":"Mostrar interpretación  ↓");
+                verCaso.setText(abrir ? R.string.lector_ocultar_interpretacion : R.string.lector_interpretar);
                 if(abrir) {prefs.edit().putBoolean(temaKey+"_caso",true).apply();actualizar.run();}
             });
 
-            LinearLayout cuestionario=contenidoTarjeta(tarjetaGuia(destino));
-            cuestionario.addView(encabezadoConIcono("05  ·  Comprueba lo aprendido",R.drawable.ic_guia_quiz));
-            espacio(cuestionario,10);
+            LinearLayout cuestionario = actividadDesplegable(destino, 4, R.string.lector_quiz,
+                    R.string.lector_quiz_detalle, R.drawable.il_lector_quiz);
             cuestionario.addView(textoRepaso(tema.optString("pregunta"),15,true));
             espacio(cuestionario,10);
             JSONArray opciones=tema.optJSONArray("opciones");
             if(opciones==null) return;
             java.util.ArrayList<MaterialButton> botones=new java.util.ArrayList<>();
-            TextView comentario=textoRepaso("Elige una opción para comprobar tu respuesta.",13,false);
+            TextView comentario=textoRepaso(getString(R.string.lector_quiz_ayuda),13,false);
             comentario.setTextColor(colorGuia(R.color.app_text_secondary));
             int correcta=tema.optInt("correcta",-1);
             for(int i=0;i<opciones.length();i++) {
                 final int j=i;
-                MaterialButton boton=botonGuia((i+1)+".  "+opciones.optString(i));
+                MaterialButton boton=botonGuia(getString(R.string.lector_opcion, i+1, opciones.optString(i)));
                 botones.add(boton);
                 cuestionario.addView(boton);
-                iconoEnBoton(boton,R.drawable.ic_guia_quiz,R.color.app_primary_ui);
                 espacio(cuestionario,8);
                 boton.setOnClickListener(v -> {
                     for(int k=0;k<botones.size();k++) {
@@ -613,11 +650,13 @@ public class LectorActivity extends BaseActivity {
                         actual.setStrokeColor(ColorStateList.valueOf(colorGuia(
                                 k==correcta?R.color.guia_exito_texto:
                                 k==j?R.color.guia_error_texto:R.color.app_outline)));
-                        actual.setText((k+1)+".  "+opciones.optString(k));
-                        iconoEnBoton(actual, k==correcta?R.drawable.ic_guia_check:
-                                k==j?R.drawable.ic_guia_wrong:R.drawable.ic_guia_quiz,
-                                k==correcta?R.color.guia_exito_texto:
-                                k==j?R.color.guia_error_texto:R.color.app_primary_ui);
+                        actual.setText(getString(R.string.lector_opcion, k+1, opciones.optString(k)));
+                        if (k==correcta || k==j) {
+                            iconoEnBoton(actual, k==correcta?R.drawable.ic_guia_check:R.drawable.ic_guia_wrong,
+                                    k==correcta?R.color.guia_exito_texto:R.color.guia_error_texto);
+                        } else {
+                            actual.setIcon(null);
+                        }
                     }
                     boolean bien=j==correcta;
                     comentario.setText((bien?"¡Correcto!  ":"Respuesta incorrecta.  ")+tema.optString("explicacion"));
@@ -652,10 +691,6 @@ public class LectorActivity extends BaseActivity {
                     "00:00"
             );
 
-            tvEstadoTiempo.setText(
-                    "Completado"
-            );
-
             actualizarEstadoVisual();
 
             return;
@@ -682,7 +717,6 @@ public class LectorActivity extends BaseActivity {
         }
         // Reloj monotónico: no depende de que Android entregue un onTick cada segundo.
         finTemporizadorElapsedMs = SystemClock.elapsedRealtime() + tiempoRestanteMs;
-        tvEstadoTiempo.setText("Estudiando");
         mostrarTiempo(tiempoRestanteMs);
         actualizarEstadoVisual();
         countDownTimer = new CountDownTimer(tiempoRestanteMs, 250) {
@@ -707,10 +741,6 @@ public class LectorActivity extends BaseActivity {
 
         tvTemporizador.setText(
                 "00:00"
-        );
-
-        tvEstadoTiempo.setText(
-                "Completado"
         );
 
         actualizarEstadoVisual();
@@ -809,32 +839,31 @@ public class LectorActivity extends BaseActivity {
             return;
         }
 
-        View contenidoScroll =
-                scrollLector.getChildAt(0);
+        ViewGroup contenidoScroll = (ViewGroup) scrollLector.getChildAt(0);
 
         if (contenidoScroll == null) {
             return;
         }
 
-        int alturaContenido =
-                contenidoScroll.getHeight();
+        int alturaVisible = scrollLector.getHeight()
+                - scrollLector.getPaddingTop() - scrollLector.getPaddingBottom();
+        if (alturaVisible <= 0) {
+            return;
+        }
 
-        int alturaVisible =
-                scrollLector.getHeight();
+        // El repaso es desplegable: su altura no debe adelantar ni bloquear la lectura.
+        View definicion = findViewById(R.id.cardDefinicionLector);
+        Rect limitesLectura = new Rect();
+        definicion.getDrawingRect(limitesLectura);
+        contenidoScroll.offsetDescendantRectToMyCoords(definicion, limitesLectura);
 
         int desplazamiento =
                 scrollLector.getScrollY();
 
-        int desplazamientoMaximo =
-                alturaContenido - alturaVisible;
-
-        if (desplazamientoMaximo <= 0) {
-            return;
-        }
-
-        float proporcion =
-                desplazamiento
-                        / (float) desplazamientoMaximo;
+        int desplazamientoMaximo = limitesLectura.bottom - alturaVisible;
+        // Si la definición cabe completa, ya está visible sin necesidad de desplazar.
+        float proporcion = desplazamientoMaximo <= 0 ? 1f
+                : desplazamiento / (float) desplazamientoMaximo;
 
         proporcion =
                 Math.max(
@@ -961,7 +990,7 @@ public class LectorActivity extends BaseActivity {
 
             Toast.makeText(
                     this,
-                    "Completa primero los 5 minutos de estudio.",
+                    "Completa primero los " + MINUTOS_ESTUDIO + " minutos de estudio.",
                     Toast.LENGTH_SHORT
             ).show();
 
@@ -1161,6 +1190,12 @@ public class LectorActivity extends BaseActivity {
     // =========================================================
     // PAUSA
     // =========================================================
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBooleanArray(ESTADO_ACTIVIDADES, actividadesAbiertas);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onPause() {
