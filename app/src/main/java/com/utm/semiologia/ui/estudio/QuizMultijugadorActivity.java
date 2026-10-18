@@ -58,7 +58,7 @@ public class QuizMultijugadorActivity
             30_000L;
 
     private static final long TIEMPO_RESULTADO_MS =
-            10_000L;
+            90_000L;
 
     private static final int[] PUNTOS_POR_LUGAR = {
             1000,
@@ -73,8 +73,8 @@ public class QuizMultijugadorActivity
             50
     };
 
-    private static final long RECONEXION_MS = 90_000L;
-    private static final long LATIDO_MS = 30_000L;
+    private static final long RECONEXION_MS = 30_000L;
+    private static final long LATIDO_MS = 10_000L;
     private final Handler presenciaHandler = new Handler(Looper.getMainLooper());
     private boolean abandonoVoluntario = false;
     private boolean partidaEnCurso = false;
@@ -118,6 +118,7 @@ public class QuizMultijugadorActivity
     private boolean finalizandoPregunta = false;
     private boolean avanzandoTrasLecturas = false;
 
+    private final java.util.Set<String> uidsConfirmadosLectura = new java.util.HashSet<>();
     private int cantidadParticipantes = 0;
     private int respuestasPreguntaActual = 0;
     private int preguntaActual = -1;
@@ -863,6 +864,7 @@ public class QuizMultijugadorActivity
                                         if (jugadorActivo(p)) cantidadParticipantes++;
                                     }
                                     verificarAnfitrion(snapshot.getDocuments());
+                                    actualizarLecturasResultado(contarConfirmadosActivos());
 
                                     actualizarProgresoRespuestas(
                                             respuestasPreguntaActual
@@ -1112,41 +1114,19 @@ public class QuizMultijugadorActivity
                                         return;
                                     }
 
-                                    int confirmados = 0;
-
-                                    for (
-                                            DocumentSnapshot documento :
-                                            snapshot.getDocuments()
-                                    ) {
-
-                                        String partida =
-                                                documento.getString(
-                                                        "partidaId"
-                                                );
-
-                                        Long indice =
-                                                documento.getLong(
-                                                        "preguntaIndex"
-                                                );
-
-                                        Boolean listo =
-                                                documento.getBoolean(
-                                                        "listo"
-                                                );
-
-                                        if (
-                                                partidaId.equals(partida) &&
-                                                        indice != null &&
-                                                        indice.intValue() == preguntaActual &&
-                                                        Boolean.TRUE.equals(listo)
-                                        ) {
-                                            confirmados++;
+                                    uidsConfirmadosLectura.clear();
+                                    for (DocumentSnapshot documento : snapshot.getDocuments()) {
+                                        String partida = documento.getString("partidaId");
+                                        Long indice = documento.getLong("preguntaIndex");
+                                        Boolean listo = documento.getBoolean("listo");
+                                        String uid = documento.getString("uid");
+                                        if (partidaId.equals(partida)
+                                                && indice != null && indice.intValue() == preguntaActual
+                                                && Boolean.TRUE.equals(listo) && uid != null) {
+                                            uidsConfirmadosLectura.add(uid);
                                         }
                                     }
-
-                                    actualizarLecturasResultado(
-                                            confirmados
-                                    );
+                                    actualizarLecturasResultado(contarConfirmadosActivos());
                                 }
                         );
     }
@@ -1227,6 +1207,18 @@ public class QuizMultijugadorActivity
                             ).show();
                         }
                 );
+    }
+
+    /** Solo cuentan confirmaciones de participantes actualmente activos. */
+    private int contarConfirmadosActivos() {
+        int total = 0;
+        for (DocumentSnapshot participante : ultimosParticipantes) {
+            if (jugadorActivo(participante)
+                    && uidsConfirmadosLectura.contains(participante.getId())) {
+                total++;
+            }
+        }
+        return total;
     }
 
     private void actualizarLecturasResultado(
@@ -2280,8 +2272,7 @@ public class QuizMultijugadorActivity
          */
         cargarResultadoDelJugador();
 
-        // La siguiente pregunta ya no avanza por tiempo.
-        // Avanza únicamente cuando TODOS confirman que leyeron la justificación.
+        // Se avanza con confirmación de participantes activos o al vencer 90 segundos.
     }
 
     /** Límite de lectura compartido. El avance no depende de un jugador sin internet. */
@@ -2290,15 +2281,15 @@ public class QuizMultijugadorActivity
         Timestamp inicio = sala.getTimestamp("inicioResultado");
         long transcurrido = inicio == null ? 0L
                 : Math.max(0L, System.currentTimeMillis() - inicio.toDate().getTime());
-        // Los documentos antiguos no tienen inicioResultado: damos un plazo local completo.
+        // Para documentos antiguos sin inicioResultado se usa un plazo local completo.
         long restante = Math.max(1L, TIEMPO_RESULTADO_MS - transcurrido);
         final String idPartida = partidaId;
         final int indice = preguntaActual;
         timerResultado = new CountDownTimer(restante, 250L) {
             @Override public void onTick(long ms) {
                 if (tvLecturasResultado != null && tvLecturasResultado.getVisibility() == View.VISIBLE) {
-                    tvLecturasResultado.setText("Tiempo para leer: " + ((ms + 999L) / 1000L)
-                            + " s · avance automático al terminar");
+                    tvLecturasResultado.setText("Lectura: " + ((ms + 999L) / 1000L) + " s restantes\n"
+                            + contarConfirmadosActivos() + "/" + Math.max(0, cantidadParticipantes) + " jugadores listos");
                 }
             }
             @Override public void onFinish() {

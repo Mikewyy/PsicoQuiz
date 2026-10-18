@@ -1,0 +1,26 @@
+PATO DETECTIVE V6 — ETAPA 1 (parche incremental)
+
+Solo reemplaza app/src/main/java/com/utm/semiologia/ui/estudio/QuizMultijugadorActivity.java
+NO cambia Firestore, reglas, otras pantallas, puntuacion ni recompensas.
+
+Cambios:
+- Plazo de lectura de resultado pasa de 10 a 90 segundos.
+- Umbral de desconexion pasa de 90 a 30 segundos.
+- Latido de presencia pasa de 30 a 10 segundos para evitar falsos ausentes.
+- Confirmaciones de lectura: se cuentan UIDs unicos y solo de participantes activos.
+- Al actualizar el estado de conexion, se recalculan las confirmaciones activas.
+- Al recibir confirmacion de todos los activos, el anfitrion sigue realizando el avance.
+- En el plazo limite se mantiene la transaccion de avance con control de fase y partida.
+
+Instalacion (respaldar primero):
+cd ~/AndroidStudioProjects/PsicoQuiz
+cp app/src/main/java/com/utm/semiologia/ui/estudio/QuizMultijugadorActivity.java /tmp/QuizMultijugadorActivity.pre-v6.java
+unzip -o ~/Descargas/Patotective_V6_Etapa1_Estabilidad.zip -d .
+./gradlew assembleDebug
+
+Atencion:
+- No se ha compilado este parche ni probado en dos dispositivos.
+- El avance desde dispositivos no anfitriones y la transferencia de anfitrion
+  dependen de las reglas desplegadas de Firestore. NO se han cambiado.
+- La limpieza de confirmaciones antiguas la resuelve el filtro por partida/pregunta.
+- No implementa aun las recompensas nuevas ni el rediseno visual, que son etapas posteriores.

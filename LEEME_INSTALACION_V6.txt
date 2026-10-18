@@ -1,0 +1,22 @@
+PATO DETECTIVE V6 — PAQUETE DE INTEGRACIÓN (VERSIÓN PARA VALIDAR)
+
+Incluye solo:
+- app/src/main/java/com/utm/semiologia/ui/estudio/LectorActivity.java
+- app/src/main/java/com/utm/semiologia/ui/estudio/QuizMultijugadorActivity.java
+
+Guía: tres pestañas funcionales Teoría / Tarjetas / Práctica; contenido HTML original movido a Teoría; se mantiene el contenido enriquecido de los 22 temas y los acordeones; flashcard con autoevaluación; práctica con pregunta original y hasta cuatro ejercicios de reconocimiento, con feedback, colores y porcentaje guardado en SharedPreferences; contador de 3 minutos detenido fuera de Teoría. Esta versión NO incluye aún un banco independiente de diez preguntas aleatorias por tema ni todos los rediseños gráficos de lobby/podio.
+
+Multijugador: tiempo de resultado 90 segundos, umbral de actividad 30 segundos, confirmaciones de usuarios activos y visualización de contador/confirmados. No se cambian reglas Firestore. IMPORTANTE: Firestore puede impedir el avance automático por reglas ya publicadas. La detección de desconexión depende de latidos y no garantiza exactamente 30 segundos desde una pérdida de red.
+
+Antes de instalar: haga un respaldo mediante Git (commit o rama) y confirme que el proyecto coincide con el ZIP PsicoQuiz(20261018-040933).zip. Esta entrega se creó sobre esa versión; si ya instaló otros parches locales, compare diferencias antes de reemplazar.
+
+Comandos:
+cd ~/AndroidStudioProjects/PsicoQuiz || exit 1
+git status --short
+git switch -c preparacion-v6   # solo si aún no existe esa rama
+git diff -- app/src/main/java/com/utm/semiologia/ui/estudio/LectorActivity.java app/src/main/java/com/utm/semiologia/ui/estudio/QuizMultijugadorActivity.java
+unzip -o ~/Descargas/PatoDetective_V6_Integracion_Parcial.zip -d .
+./gradlew assembleDebug
+
+NO EJECUTAR comandos sin revisar cambios locales que no quiera sobrescribir.
+NO se ha compilado en este entorno (SDK Android no disponible), NO se han probado dispositivos ni Firebase.

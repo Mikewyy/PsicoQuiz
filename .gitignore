@@ -21,3 +21,8 @@ local.properties
 *.emulator-desactivado-*
 app/src/main.respaldo-*/
 app/src/main.respaldo*/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example

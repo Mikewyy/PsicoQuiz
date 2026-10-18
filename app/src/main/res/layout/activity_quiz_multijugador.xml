@@ -169,7 +169,7 @@
                 app:cardBackgroundColor="@color/mp_surface"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="3dp"
-                app:strokeColor="#E4E0F7"
+                app:strokeColor="@color/mp_outline"
                 app:strokeWidth="1dp">
 
                 <TextView
@@ -180,9 +180,9 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="Cargando caso clínico..."
                     android:textColor="@color/mp_text_primary"
-                    android:textSize="17sp"
+                    android:textSize="19sp"
                     android:textStyle="bold"
-                    android:lineSpacingExtra="5dp" />
+                    android:lineSpacingExtra="7dp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -415,7 +415,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_multiplayer_result"
                 android:orientation="vertical"
-                android:padding="20dp"
+                android:padding="22dp"
                 android:visibility="gone">
 
                 <TextView
@@ -433,8 +433,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textColor="@color/mp_text_primary"
-                    android:textSize="13sp"
-                    android:lineSpacingExtra="3dp" />
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="6dp" />
 
                 <!-- PASO 2: cada jugador confirma que ya leyó la justificación -->
                 <TextView
@@ -445,7 +445,8 @@
                     android:gravity="center"
                     android:text="Esperando confirmación de los jugadores..."
                     android:textColor="@color/mp_text_secondary"
-                    android:textSize="11sp"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="3dp"
                     android:visibility="gone" />
 
                 <com.google.android.material.button.MaterialButton

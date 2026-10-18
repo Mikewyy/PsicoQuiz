@@ -87,6 +87,11 @@ public class LectorActivity extends BaseActivity {
     private long finTemporizadorElapsedMs;
 
     private boolean tiempoCompletado = false;
+    private int pestanaGuia = 0;
+    private LinearLayout panelTeoriaV6, panelTarjetasV6, panelPracticaV6;
+    private MaterialButton tabTeoriaV6, tabTarjetasV6, tabPracticaV6;
+    private boolean actividadVisible = true;
+
 
     private int ultimoProgresoGuardado = -1;
 
@@ -559,7 +564,39 @@ public class LectorActivity extends BaseActivity {
             };
             actualizar.run();
 
-            LinearLayout teoria = actividadDesplegable(destino, 0, R.string.lector_explora,
+            // Navegación de tres pestañas manteniendo la identidad visual existente.
+            LinearLayout tabs = new LinearLayout(this);
+            tabs.setOrientation(LinearLayout.HORIZONTAL);
+            tabs.setPadding(0, dp(12), 0, dp(12));
+            destino.addView(tabs);
+            tabTeoriaV6 = botonGuia("Teoría");
+            tabTarjetasV6 = botonGuia("Tarjetas");
+            tabPracticaV6 = botonGuia("Práctica");
+            for (MaterialButton tab : new MaterialButton[]{tabTeoriaV6, tabTarjetasV6, tabPracticaV6}) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, -2, 1f);
+                params.setMargins(dp(2), 0, dp(2), 0);
+                tab.setTextSize(12);
+                tab.setGravity(Gravity.CENTER);
+                tab.setMinHeight(dp(48));
+                tabs.addView(tab, params);
+            }
+            panelTeoriaV6 = new LinearLayout(this);
+            panelTarjetasV6 = new LinearLayout(this);
+            panelPracticaV6 = new LinearLayout(this);
+            for (LinearLayout panel : new LinearLayout[]{panelTeoriaV6, panelTarjetasV6, panelPracticaV6}) {
+                panel.setOrientation(LinearLayout.VERTICAL);
+                destino.addView(panel);
+            }
+            // El contenido HTML original se muestra dentro de Teoría, no fuera de las pestañas.
+            View tarjetaTexto = findViewById(R.id.cardDefinicionLector);
+            if (tarjetaTexto != null && tarjetaTexto.getParent() instanceof ViewGroup) {
+                ((ViewGroup) tarjetaTexto.getParent()).removeView(tarjetaTexto);
+                panelTeoriaV6.addView(tarjetaTexto);
+            }
+            tabTeoriaV6.setOnClickListener(v -> cambiarPestanaGuia(0));
+            tabTarjetasV6.setOnClickListener(v -> cambiarPestanaGuia(1));
+            tabPracticaV6.setOnClickListener(v -> cambiarPestanaGuia(2));
+            LinearLayout teoria = actividadDesplegable(panelTeoriaV6, 0, R.string.lector_explora,
                     R.string.lector_explora_detalle, R.drawable.il_lector_explora);
             TextView introduccion = textoRepaso(tema.optString("ampliacion"),15,false);
             teoria.addView(introduccion);
@@ -570,7 +607,7 @@ public class LectorActivity extends BaseActivity {
                 if(bloque!=null) bloqueDesplegable(teoria,bloque.optString("titulo"),bloque.optString("texto"));
             }
 
-            LinearLayout memoriza = actividadDesplegable(destino, 1, R.string.lector_memoria,
+            LinearLayout memoriza = actividadDesplegable(panelTarjetasV6, 1, R.string.lector_memoria,
                     R.string.lector_memoria_detalle, R.drawable.il_lector_memoria);
             TextView pista=textoRepaso(tema.optString("flashFrente",tema.optString("titulo")),16,true);
             pista.setGravity(Gravity.CENTER);
@@ -592,16 +629,25 @@ public class LectorActivity extends BaseActivity {
                 boolean ver=trasera.getVisibility()!=View.VISIBLE;
                 trasera.setVisibility(ver?View.VISIBLE:View.GONE);
                 voltear.setText(ver ? R.string.lector_ocultar_respuesta : R.string.lector_revelar);
-                if(ver) {prefs.edit().putBoolean(temaKey+"_flash",true).apply();actualizar.run();}
+                if(ver) {
+                    MaterialButton se = botonGuia("Ya lo sé");
+                    MaterialButton no = botonGuia("Necesito repasar");
+                    LinearLayout fila = new LinearLayout(this);
+                    fila.setOrientation(LinearLayout.VERTICAL);
+                    fila.addView(se); fila.addView(no);
+                    memoriza.addView(fila);
+                    se.setOnClickListener(w -> {prefs.edit().putBoolean(temaKey+"_flash",true).apply();actualizar.run(); memoriza.removeView(fila);});
+                    no.setOnClickListener(w -> {prefs.edit().putBoolean(temaKey+"_flash",false).apply();actualizar.run(); memoriza.removeView(fila);});
+                }
             });
 
-            LinearLayout compara = actividadDesplegable(destino, 2, R.string.lector_compara,
+            LinearLayout compara = actividadDesplegable(panelPracticaV6, 2, R.string.lector_compara,
                     R.string.lector_compara_detalle, R.drawable.il_lector_compara);
             TextView comparacion = textoRepaso(tema.optString("comparacion",tema.optString("ampliacion")),15,false);
             comparacion.setTextIsSelectable(true);
             compara.addView(comparacion);
 
-            LinearLayout caso = actividadDesplegable(destino, 3, R.string.lector_caso,
+            LinearLayout caso = actividadDesplegable(panelPracticaV6, 3, R.string.lector_caso,
                     R.string.lector_caso_detalle, R.drawable.il_lector_caso);
             TextView escenario = textoRepaso(tema.optString("caso"), 14, false);
             escenario.setPadding(dp(16),dp(17),dp(16),dp(17));
@@ -622,7 +668,7 @@ public class LectorActivity extends BaseActivity {
                 if(abrir) {prefs.edit().putBoolean(temaKey+"_caso",true).apply();actualizar.run();}
             });
 
-            LinearLayout cuestionario = actividadDesplegable(destino, 4, R.string.lector_quiz,
+            LinearLayout cuestionario = actividadDesplegable(panelPracticaV6, 4, R.string.lector_quiz,
                     R.string.lector_quiz_detalle, R.drawable.il_lector_quiz);
             cuestionario.addView(textoRepaso(tema.optString("pregunta"),15,true));
             espacio(cuestionario,10);
@@ -632,6 +678,9 @@ public class LectorActivity extends BaseActivity {
             TextView comentario=textoRepaso(getString(R.string.lector_quiz_ayuda),13,false);
             comentario.setTextColor(colorGuia(R.color.app_text_secondary));
             int correcta=tema.optInt("correcta",-1);
+            final int[] puntosEvaluacion = {0};
+            final int[] respuestasEvaluacion = {0};
+            final boolean[] respondidoOriginal = {false};
             for(int i=0;i<opciones.length();i++) {
                 final int j=i;
                 MaterialButton boton=botonGuia(getString(R.string.lector_opcion, i+1, opciones.optString(i)));
@@ -659,6 +708,12 @@ public class LectorActivity extends BaseActivity {
                         }
                     }
                     boolean bien=j==correcta;
+                    if (!respondidoOriginal[0]) {
+                        respondidoOriginal[0] = true;
+                        respuestasEvaluacion[0]++;
+                        if (bien) puntosEvaluacion[0]++;
+                        guardarDominioGuia(prefs, temaKey, puntosEvaluacion[0], respuestasEvaluacion[0]);
+                    }
                     comentario.setText((bien?"¡Correcto!  ":"Respuesta incorrecta.  ")+tema.optString("explicacion"));
                     comentario.setTextColor(colorGuia(bien?R.color.guia_exito_texto:R.color.guia_error_texto));
                     comentario.setBackground(fondoGuia(bien?R.color.guia_exito_fondo:R.color.guia_error_fondo,
@@ -670,8 +725,95 @@ public class LectorActivity extends BaseActivity {
             comentario.setPadding(dp(16),dp(15),dp(16),dp(15));
             comentario.setBackground(fondoGuia(R.color.guia_acordeon_fondo, R.color.app_outline, 15));
             cuestionario.addView(comentario);
+            // Cuatro ejercicios de reconocimiento basados en los encabezados y explicaciones de la lección.
+            // Junto con la pregunta original, completan cinco actividades de evaluación.
+            if (bloques != null && bloques.length() >= 3) {
+                LinearLayout banco = new LinearLayout(this);
+                banco.setOrientation(LinearLayout.VERTICAL);
+                cuestionario.addView(banco);
+                int totalEjercicios = Math.min(4, bloques.length());
+                final int[] aciertos = {0};
+                final boolean[] respondidos = new boolean[totalEjercicios];
+                for (int e = 0; e < totalEjercicios; e++) {
+                    JSONObject b = bloques.optJSONObject(e);
+                    if (b == null) continue;
+                    final int preguntaIndice = e;
+                    final String tituloCorrecto = b.optString("titulo", "Concepto");
+                    String frase = b.optString("texto", "");
+                    if (frase.length() > 170) frase = frase.substring(0, 170).trim() + "…";
+                    espacio(banco, 16);
+                    banco.addView(textoRepaso("Pregunta " + (e + 2) + " de 5 · ¿A qué apartado corresponde esta explicación?\n" + frase, 14, true));
+                    java.util.ArrayList<String> etiquetas = new java.util.ArrayList<>();
+                    etiquetas.add(tituloCorrecto);
+                    for (int d = 1; d < bloques.length() && etiquetas.size() < 3; d++) {
+                        JSONObject distractor = bloques.optJSONObject((e + d) % bloques.length());
+                        if (distractor != null && !etiquetas.contains(distractor.optString("titulo")))
+                            etiquetas.add(distractor.optString("titulo"));
+                    }
+                    java.util.Collections.rotate(etiquetas, e % 3);
+                    TextView respuesta = textoRepaso("Selecciona una opción para comprobar tu respuesta.", 13, false);
+                    for (String etiqueta : etiquetas) {
+                        MaterialButton opcion = botonGuia(etiqueta);
+                        banco.addView(opcion);
+                        opcion.setOnClickListener(v -> {
+                            if (respondidos[preguntaIndice]) return;
+                            respondidos[preguntaIndice] = true;
+                            boolean acertada = tituloCorrecto.equals(etiqueta);
+                            if (acertada) { aciertos[0]++; puntosEvaluacion[0]++; }
+                            respuestasEvaluacion[0]++;
+                            guardarDominioGuia(prefs, temaKey, puntosEvaluacion[0], respuestasEvaluacion[0]);
+                            opcion.setBackgroundTintList(ColorStateList.valueOf(colorGuia(acertada ? R.color.guia_exito_fondo : R.color.guia_error_fondo)));
+                            opcion.setTextColor(colorGuia(acertada ? R.color.guia_exito_texto : R.color.guia_error_texto));
+                            respuesta.setText((acertada ? "¡Correcto! " : "Incorrecto. ") + "El apartado correcto es «" + tituloCorrecto + "». " + b.optString("texto"));
+                            if (todosRespondidos(respondidos)) {
+                                // La primera pregunta se conserva como práctica formativa adicional;
+                                // las cuatro nuevas aportan ejercicios variados de identificación.
+                                prefs.edit().putInt(temaKey + "_repaso_aciertos", aciertos[0]).apply();
+                            }
+                        });
+                    }
+                    banco.addView(respuesta);
+                }
+            }
+            cambiarPestanaGuia(0);
         } catch(Exception e) {
             android.util.Log.e("GuiaInteractiva", "No se pudo mostrar el centro de aprendizaje",e);
+        }
+    }
+
+    private void guardarDominioGuia(android.content.SharedPreferences prefs, String temaKey, int aciertos, int respondidas) {
+        if (respondidas < 5) return;
+        int porcentaje = Math.round(100f * aciertos / 5f);
+        int mejor = prefs.getInt(temaKey + "_mejor_porcentaje", 0);
+        prefs.edit().putInt(temaKey + "_mejor_porcentaje", Math.max(mejor, porcentaje))
+                .putBoolean(temaKey + "_dominado", Math.max(mejor, porcentaje) >= 80).apply();
+        Toast.makeText(this, "Evaluación: " + porcentaje + "% · "
+                + (porcentaje >= 80 ? "Tema dominado" : "Sigue practicando"), Toast.LENGTH_LONG).show();
+    }
+
+    private boolean todosRespondidos(boolean[] marcas) {
+        for (boolean marcada : marcas) if (!marcada) return false;
+        return true;
+    }
+
+    private void cambiarPestanaGuia(int nueva) {
+        pestanaGuia = nueva;
+        if (panelTeoriaV6 == null) return;
+        panelTeoriaV6.setVisibility(nueva == 0 ? View.VISIBLE : View.GONE);
+        panelTarjetasV6.setVisibility(nueva == 1 ? View.VISIBLE : View.GONE);
+        panelPracticaV6.setVisibility(nueva == 2 ? View.VISIBLE : View.GONE);
+        MaterialButton[] botones = {tabTeoriaV6, tabTarjetasV6, tabPracticaV6};
+        for (int i = 0; i < botones.length; i++) {
+            boolean activo = i == nueva;
+            botones[i].setBackgroundTintList(ColorStateList.valueOf(colorGuia(activo ? R.color.primary : R.color.app_surface_alt)));
+            botones[i].setTextColor(colorGuia(activo ? R.color.on_primary : R.color.app_text_primary));
+        }
+        if (nueva != 0 && countDownTimer != null) {
+            tiempoRestanteMs = Math.max(0L, finTemporizadorElapsedMs - SystemClock.elapsedRealtime());
+            cancelarTemporizador();
+        } else if (nueva == 0 && seccion != null && !seccion.isCompletada() && !tiempoCompletado
+                && countDownTimer == null && tiempoRestanteMs > 0) {
+            iniciarTemporizador();
         }
     }
 
@@ -705,7 +847,7 @@ public class LectorActivity extends BaseActivity {
                 tiempoRestanteMs
         );
 
-        iniciarTemporizador();
+        if (pestanaGuia == 0) iniciarTemporizador();
     }
 
 
@@ -1244,7 +1386,7 @@ public class LectorActivity extends BaseActivity {
 
         super.onResume();
 
-        if (seccion != null && !seccion.isCompletada() && !tiempoCompletado) {
+        if (seccion != null && !seccion.isCompletada() && !tiempoCompletado && pestanaGuia == 0) {
             if (tiempoRestanteMs > 0 && countDownTimer == null) {
                 iniciarTemporizador();
             } else if (tiempoRestanteMs <= 0) {

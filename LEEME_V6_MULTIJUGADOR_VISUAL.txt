@@ -1,0 +1,8 @@
+PATO DETECTIVE V6 - REDISEÑO VISUAL MULTIJUGADOR
+
+Incluye: lobby de tarjetas 2 columnas con avatar/corona/estado; lectura y pregunta con tipografía y contraste mejorados en los dos modos.
+Se preservan por completo las reglas de Firebase, puntuaciones, recompensas, flujo de reconexión y lógica de avance. NO implementa todavía las recompensas de comida ni animaciones del podio.
+
+Instalación desde raíz del proyecto: unzip -o archivo.zip -d .
+Antes crea respaldo o commit. Luego ./gradlew assembleDebug.
+Los nuevos recursos usan colores existentes de values y values-night.

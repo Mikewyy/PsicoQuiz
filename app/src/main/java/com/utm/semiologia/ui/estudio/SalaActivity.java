@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.graphics.Typeface;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +65,7 @@ public class SalaActivity extends BaseActivity {
     private TextView tvCantidadParticipantes;
     private TextView tvEstadoSala;
 
-    private LinearLayout contenedorParticipantes;
+    private GridLayout contenedorParticipantes;
 
     private MaterialButton btnCopiarCodigo;
     private MaterialButton btnIniciarSesion;
@@ -475,163 +478,69 @@ public class SalaActivity extends BaseActivity {
                         );
     }
 
-    private void agregarParticipante(
-            DocumentSnapshot documento
-    ) {
-
-        String nombre =
-                documento.getString(
-                        "nombre"
-                );
-
-        Boolean anfitrion =
-                documento.getBoolean(
-                        "anfitrion"
-                );
-
-        if (
-                nombre == null ||
-                        nombre.trim().isEmpty()
-        ) {
-            nombre =
-                    "Participante";
-        }
-
+    /** Tarjeta compacta adaptable: dos columnas sin tocar la sincronización de la sala. */
+    private void agregarParticipante(DocumentSnapshot documento) {
+        String nombre = documento.getString("nombre");
+        if (nombre == null || nombre.trim().isEmpty()) nombre = "Participante";
         boolean esAnfitrion = documento.getId().equals(anfitrionUid);
+        String estadoConexion = documento.getString("estadoConexion");
+        Long ultimoLatido = documento.getLong("ultimoLatido");
+        boolean reconectando = "desconectado".equals(estadoConexion)
+                || (ultimoLatido != null && System.currentTimeMillis() - ultimoLatido > 30_000L);
 
-        LinearLayout fila =
-                new LinearLayout(
-                        this
-                );
+        int anchoDisponible = getResources().getDisplayMetrics().widthPixels - dp(36) - dp(12);
+        int anchoTarjeta = Math.max(dp(132), anchoDisponible / 2 - dp(8));
+        LinearLayout tarjeta = new LinearLayout(this);
+        tarjeta.setOrientation(LinearLayout.VERTICAL);
+        tarjeta.setPadding(dp(13), dp(14), dp(13), dp(14));
+        tarjeta.setBackgroundResource(R.drawable.bg_mp_v6_player_card);
+        tarjeta.setElevation(dp(2));
+        GridLayout.LayoutParams parametros = new GridLayout.LayoutParams();
+        parametros.width = anchoTarjeta;
+        parametros.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        parametros.setMargins(dp(3), dp(3), dp(5), dp(8));
+        tarjeta.setLayoutParams(parametros);
 
-        fila.setOrientation(
-                LinearLayout.HORIZONTAL
-        );
+        LinearLayout cabecera = new LinearLayout(this);
+        cabecera.setOrientation(LinearLayout.HORIZONTAL);
+        cabecera.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        ImageView avatar = new ImageView(this);
+        avatar.setImageResource(R.drawable.ic_mp_v6_person);
+        avatar.setImageTintList(android.content.res.ColorStateList.valueOf(
+                ContextCompat.getColor(this, R.color.mp_accent)));
+        avatar.setPadding(dp(11), dp(11), dp(11), dp(11));
+        avatar.setBackgroundResource(R.drawable.bg_mp_v6_avatar);
+        cabecera.addView(avatar, new LinearLayout.LayoutParams(dp(46), dp(46)));
+        if (esAnfitrion) {
+            ImageView corona = new ImageView(this);
+            corona.setImageResource(R.drawable.ic_mp_v6_crown);
+            LinearLayout.LayoutParams pCor = new LinearLayout.LayoutParams(dp(22), dp(22));
+            pCor.leftMargin = dp(8);
+            cabecera.addView(corona, pCor);
+        }
+        tarjeta.addView(cabecera);
 
-        fila.setGravity(
-                android.view.Gravity.CENTER_VERTICAL
-        );
+        TextView nombreView = new TextView(this);
+        nombreView.setText(nombre);
+        nombreView.setTextSize(14);
+        nombreView.setTypeface(null, Typeface.BOLD);
+        nombreView.setMaxLines(1);
+        nombreView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        nombreView.setTextColor(ContextCompat.getColor(this, R.color.mp_text_primary));
+        LinearLayout.LayoutParams pNom = new LinearLayout.LayoutParams(-1, -2);
+        pNom.topMargin = dp(10);
+        tarjeta.addView(nombreView, pNom);
 
-        int padding =
-                dp(14);
-
-        fila.setPadding(
-                padding,
-                padding,
-                padding,
-                padding
-        );
-
-        LinearLayout.LayoutParams paramsFila =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-
-        paramsFila.setMargins(
-                0,
-                0,
-                0,
-                dp(8)
-        );
-
-        fila.setLayoutParams(
-                paramsFila
-        );
-
-        fila.setBackgroundResource(
-                R.drawable.bg_multiplayer_participant
-        );
-
-        TextView icono =
-                new TextView(
-                        this
-                );
-
-        icono.setText(
-                esAnfitrion
-                        ? "★"
-                        : "●"
-        );
-
-        icono.setTextSize(
-                18
-        );
-
-        icono.setTextColor(
-                ContextCompat.getColor(this, R.color.mp_accent)
-        );
-
-        TextView nombreView =
-                new TextView(
-                        this
-                );
-
-        LinearLayout.LayoutParams paramsNombre =
-                new LinearLayout.LayoutParams(
-                        0,
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        1f
-                );
-
-        nombreView.setLayoutParams(
-                paramsNombre
-        );
-
-        nombreView.setPadding(
-                dp(12),
-                0,
-                0,
-                0
-        );
-
-        nombreView.setText(
-                nombre
-        );
-
-        nombreView.setTextColor(
-                ContextCompat.getColor(this, R.color.mp_text_primary)
-        );
-
-        nombreView.setTextSize(
-                15
-        );
-
-        TextView estado =
-                new TextView(
-                        this
-                );
-
-        estado.setText(
-                esAnfitrion
-                        ? "Anfitrión"
-                        : "Conectado"
-        );
-
-        estado.setTextColor(
-                ContextCompat.getColor(this, esAnfitrion ? R.color.mp_accent : R.color.mp_text_secondary)
-        );
-
-        estado.setTextSize(
-                12
-        );
-
-        fila.addView(
-                icono
-        );
-
-        fila.addView(
-                nombreView
-        );
-
-        fila.addView(
-                estado
-        );
-
-        contenedorParticipantes
-                .addView(
-                        fila
-                );
+        TextView estado = new TextView(this);
+        estado.setText(esAnfitrion ? "Anfitrión" : reconectando ? "Reconectando…" : "Conectado");
+        estado.setTextSize(12);
+        estado.setSingleLine(true);
+        estado.setTextColor(ContextCompat.getColor(this,
+                reconectando ? R.color.mp_text_muted : esAnfitrion ? R.color.mp_accent : R.color.mp_success));
+        LinearLayout.LayoutParams pEst = new LinearLayout.LayoutParams(-1, -2);
+        pEst.topMargin = dp(4);
+        tarjeta.addView(estado, pEst);
+        contenedorParticipantes.addView(tarjeta);
     }
 
     private void mostrarConfigPartida(

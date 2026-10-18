@@ -214,12 +214,13 @@
 
             <!-- PARTICIPANTES -->
 
-            <LinearLayout
+            <GridLayout
                 android:id="@+id/contenedorParticipantes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:orientation="vertical" />
+                android:columnCount="2"
+                android:alignmentMode="alignMargins" />
 
 
             <!-- INFORMACIÓN -->
