@@ -171,8 +171,8 @@
     "flashFrente": "¿Qué debes recordar de «Percepción, imaginación y sensaciones»?",
     "flashReverso": "La sensación registra estímulos y la percepción les otorga significado. La imaginación evoca o construye representaciones mentales; no equivale por sí misma a una alteración perceptiva.",
     "comparacion": "Confundir una sombra con una persona es una ilusión, porque existe un estímulo. Escuchar una voz sin fuente sonora externa sería un ejemplo de experiencia alucinatoria. No son equivalentes ni establecen un diagnóstico por sí solas.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Confundir una sombra con una persona es una ilusión, porque existe un estímulo. Escuchar una voz sin fuente sonora externa sería un ejemplo de experiencia alucinatoria. No son equivalentes ni establecen un diagnóstico por sí solas."
+    "caso": "Al entrar en una habitación poco iluminada, una estudiante ve un abrigo colgado y por unos segundos cree que es una persona. Al acercarse, reconoce el objeto. ¿Qué alteración perceptiva ilustra esta situación?",
+    "casoRespuesta": "Se trata de una ilusión: la percepción se interpreta de manera equivocada, pero existe un estímulo externo real (el abrigo). Se diferencia de una alucinación, en la que no hay un estímulo correspondiente."
   },
   "Psicopatología del pensamiento": {
     "titulo": "Curso y contenido",
@@ -206,8 +206,8 @@
     "flashFrente": "¿Qué debes recordar de «Psicopatología del pensamiento»?",
     "flashReverso": "El pensamiento se examina por su curso, forma y contenido. Se observa cómo se conectan las ideas, su velocidad, continuidad y pertinencia.",
     "comparacion": "Bloqueo = interrupción; perseveración = repetición; fuga de ideas = cambios rápidos de asociación. Una idea extraña por sí sola no basta para identificar una idea delirante.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Bloqueo = interrupción; perseveración = repetición; fuga de ideas = cambios rápidos de asociación. Una idea extraña por sí sola no basta para identificar una idea delirante."
+    "caso": "Durante una entrevista, un paciente comienza a explicar cómo llegó al hospital, pero de pronto se queda en silencio, pierde el hilo de lo que decía y, tras unos segundos, no logra continuar la idea. ¿Qué alteración del curso del pensamiento debe explorarse?",
+    "casoRespuesta": "El ejemplo es compatible con un bloqueo del pensamiento: una interrupción súbita del curso de las ideas. Debe distinguirse de la perseveración, en la que una idea se repite, y de la fuga de ideas, en la que las asociaciones cambian rápidamente."
   },
   "Psicopatología del lenguaje": {
     "titulo": "Forma, producción y comprensión",
@@ -241,8 +241,8 @@
     "flashFrente": "¿Qué debes recordar de «Psicopatología del lenguaje»?",
     "flashReverso": "La exploración del lenguaje incluye producción, ritmo, fluidez, articulación, comprensión y coherencia. Es importante distinguir alteraciones lingüísticas de alteraciones del pensamiento.",
     "comparacion": "Repetir automáticamente la última frase del interlocutor orienta hacia ecolalia; hablar muy rápido no significa necesariamente que exista fuga de ideas.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Repetir automáticamente la última frase del interlocutor orienta hacia ecolalia; hablar muy rápido no significa necesariamente que exista fuga de ideas."
+    "caso": "Al conversar, una persona responde repitiendo automáticamente las últimas palabras que acaba de escuchar, en lugar de elaborar una respuesta propia. ¿Qué alteración del lenguaje describe mejor la conducta?",
+    "casoRespuesta": "El caso describe ecolalia, que consiste en repetir palabras o frases pronunciadas por otra persona. La repetición debe valorarse dentro del contexto clínico y junto con otras manifestaciones."
   },
   "Psicopatología de la afectividad": {
     "titulo": "Tono, intensidad y congruencia",
@@ -276,8 +276,8 @@
     "flashFrente": "¿Qué debes recordar de «Psicopatología de la afectividad»?",
     "flashReverso": "La afectividad comprende emociones, sentimientos, estado de ánimo y su expresión. Se valora intensidad, duración, estabilidad y adecuación al contexto.",
     "comparacion": "La tristeza transitoria no equivale por sí sola a un síndrome depresivo. La elevación pasajera del ánimo tampoco basta para identificar un síndrome maníaco.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: La tristeza transitoria no equivale por sí sola a un síndrome depresivo. La elevación pasajera del ánimo tampoco basta para identificar un síndrome maníaco."
+    "caso": "En una entrevista, una persona pasa en pocos minutos de reír intensamente a llorar y luego vuelve a reír, con cambios emocionales rápidos ante estímulos pequeños. ¿Qué manifestación afectiva conviene identificar?",
+    "casoRespuesta": "Puede tratarse de labilidad afectiva: variaciones rápidas e inestables de la expresión emocional. No debe confundirse con la ambivalencia, que implica coexistencia de sentimientos opuestos hacia una misma persona u objeto."
   },
   "Psicopatología de la psicomotricidad": {
     "titulo": "Cantidad y calidad del movimiento",
@@ -311,8 +311,8 @@
     "flashFrente": "¿Qué debes recordar de «Psicopatología de la psicomotricidad»?",
     "flashReverso": "La psicomotricidad integra movimiento, iniciativa, postura y expresión emocional. Su evaluación observa cantidad de actividad, coordinación, finalidad y respuestas a indicaciones.",
     "comparacion": "Una persona que repite sin finalidad el mismo movimiento muestra una conducta distinta de quien simplemente camina mucho por inquietud.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Una persona que repite sin finalidad el mismo movimiento muestra una conducta distinta de quien simplemente camina mucho por inquietud."
+    "caso": "Durante la observación, una persona balancea repetidamente el tronco hacia delante y hacia atrás, con un patrón muy similar, incluso cuando nadie interactúa con ella. ¿Qué fenómeno psicomotor se debe considerar?",
+    "casoRespuesta": "El ejemplo puede corresponder a una estereotipia motora: movimiento repetitivo, relativamente uniforme y sin una finalidad evidente en ese momento. Se diferencia de la inquietud motora, que suele expresarse como actividad aumentada y menos uniforme."
   },
   "Alteraciones de la voluntad y conducta": {
     "titulo": "Iniciativa y ejecución",
@@ -346,8 +346,8 @@
     "flashFrente": "¿Qué debes recordar de «Alteraciones de la voluntad y conducta»?",
     "flashReverso": "La voluntad se relaciona con iniciativa, decisión y persistencia de conductas dirigidas a metas. Se valora la capacidad para comenzar y mantener actividades cotidianas.",
     "comparacion": "No comenzar actividades pese a conocer su importancia puede reflejar dificultades de iniciativa; no significa automáticamente falta de interés voluntaria.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: No comenzar actividades pese a conocer su importancia puede reflejar dificultades de iniciativa; no significa automáticamente falta de interés voluntaria."
+    "caso": "Una persona comenta que desea retomar sus actividades y comprende que son importantes, pero tiene grandes dificultades para iniciar tareas sencillas y necesita que otros la impulsen constantemente. ¿Qué alteración de la voluntad debe explorarse?",
+    "casoRespuesta": "La situación orienta a una disminución marcada de la iniciativa, que puede describirse como abulia. La valoración debe considerar duración, intensidad, contexto y repercusión funcional; no equivale simplemente a pereza."
   },
   "Alteraciones de las funciones fisiológicas": {
     "titulo": "Exploración integrada",
@@ -381,8 +381,8 @@
     "flashFrente": "¿Qué debes recordar de «Alteraciones de las funciones fisiológicas»?",
     "flashReverso": "Las funciones fisiológicas incluyen necesidades básicas y ritmos corporales cuya alteración puede acompañar distintos estados psicopatológicos.",
     "comparacion": "Una reducción del sueño junto con cambios del ánimo se interpreta junto con otros signos; el insomnio aislado no define por sí solo un síndrome.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Una reducción del sueño junto con cambios del ánimo se interpreta junto con otros signos; el insomnio aislado no define por sí solo un síndrome."
+    "caso": "En una consulta, una persona refiere que desde hace varias semanas duerme pocas horas, ha perdido el apetito y presenta cambios en su energía. ¿Qué debe hacer el evaluador para explorar estas funciones de forma adecuada?",
+    "casoRespuesta": "Debe explorar cada cambio en sueño, apetito y energía, su inicio, duración, intensidad y repercusión en la vida diaria, además de su relación con otras manifestaciones. Ningún síntoma fisiológico aislado permite establecer por sí solo un síndrome."
   },
   "Psicopatología del sueño": {
     "titulo": "Cantidad, inicio y continuidad",
@@ -416,8 +416,8 @@
     "flashFrente": "¿Qué debes recordar de «Psicopatología del sueño»?",
     "flashReverso": "El sueño es un proceso fisiológico cíclico; para estudiarlo se exploran duración, inicio, mantenimiento, horarios y descanso percibido.",
     "comparacion": "Conciliar = quedarse dormido; mantener = seguir dormido; despertar temprano = despertar antes de lo deseado sin poder retomar el sueño.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Conciliar = quedarse dormido; mantener = seguir dormido; despertar temprano = despertar antes de lo deseado sin poder retomar el sueño."
+    "caso": "Una persona refiere que tarda más de una hora en quedarse dormida, se despierta varias veces durante la noche y al día siguiente siente cansancio y dificultad para concentrarse. ¿Qué alteración del sueño se debe investigar?",
+    "casoRespuesta": "El cuadro sugiere síntomas de insomnio, que pueden afectar la conciliación y el mantenimiento del sueño y producir repercusiones durante el día. Es necesario conocer su frecuencia, duración y posibles causas antes de establecer una conclusión clínica."
   },
   "Alteraciones del apetito y la ingesta": {
     "titulo": "Cambios en hambre y alimentación",
@@ -451,8 +451,8 @@
     "flashFrente": "¿Qué debes recordar de «Alteraciones del apetito y la ingesta»?",
     "flashReverso": "Apetito es el deseo de comer; ingesta es el acto y patrón de alimentación. Pueden variar juntos o por separado.",
     "comparacion": "Disminución del apetito no siempre implica imposibilidad de comer; aumento del apetito no confirma por sí solo un trastorno alimentario.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Disminución del apetito no siempre implica imposibilidad de comer; aumento del apetito no confirma por sí solo un trastorno alimentario."
+    "caso": "Una estudiante comenta que durante las últimas semanas siente mucho menos deseo de comer que antes y suele dejar gran parte de sus alimentos, aunque no refiere dificultad para masticar o tragar. ¿Qué cambio del apetito describe?",
+    "casoRespuesta": "El caso describe hiporexia, es decir, disminución del apetito. Debe diferenciarse de la dificultad física para ingerir alimentos y explorarse junto con cambios de peso, estado general, hábitos y contexto."
   },
   "Psicopatología de la sexualidad": {
     "titulo": "Exploración sin juicios",
@@ -486,8 +486,8 @@
     "flashFrente": "¿Qué debes recordar de «Psicopatología de la sexualidad»?",
     "flashReverso": "Se consideran cambios persistentes del deseo, excitación, respuesta y conductas sexuales, siempre con respeto a la autonomía y al contexto personal.",
     "comparacion": "La diversidad individual de preferencias o comportamientos consensuados no constituye en sí misma una alteración psicopatológica.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: La diversidad individual de preferencias o comportamientos consensuados no constituye en sí misma una alteración psicopatológica."
+    "caso": "Durante una entrevista sobre salud sexual, el profesional explica que hará preguntas sobre deseo, respuesta sexual y posibles molestias, garantiza privacidad y solicita consentimiento antes de continuar. ¿Qué principio de exploración está aplicando?",
+    "casoRespuesta": "Está aplicando una exploración respetuosa basada en privacidad y consentimiento. Las variaciones individuales de deseo o comportamiento consensuado no deben considerarse patológicas por sí mismas; se valora el malestar y la interferencia funcional."
   },
   "Alteraciones de las funciones de relación": {
     "titulo": "Interacción y adaptación",
@@ -521,8 +521,8 @@
     "flashFrente": "¿Qué debes recordar de «Alteraciones de las funciones de relación»?",
     "flashReverso": "Las funciones de relación permiten vincularse con el entorno y con otras personas, comprender interacciones y responder socialmente.",
     "comparacion": "Evitar el contacto social puede acompañar estados ansiosos, depresivos o psicóticos, pero no permite identificar una causa única.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Evitar el contacto social puede acompañar estados ansiosos, depresivos o psicóticos, pero no permite identificar una causa única."
+    "caso": "Una persona que antes participaba con frecuencia en reuniones y conversaciones ahora evita el contacto, responde poco y ha dejado de realizar actividades con sus amistades. ¿Qué aspectos deberían explorarse para comprender este cambio?",
+    "casoRespuesta": "Conviene explorar comunicación, contacto social, iniciativa, adaptación y cambios respecto al funcionamiento habitual. El aislamiento puede aparecer en distintos estados clínicos y no permite atribuir una causa única sin una evaluación más amplia."
   },
   "Síndromes cerebrales orgánicos agudos": {
     "titulo": "Inicio brusco y compromiso de vigilia",
@@ -626,8 +626,8 @@
     "flashFrente": "¿Qué debes recordar de «Síndrome esquizofrénico»?",
     "flashReverso": "Se caracteriza por desorganización relevante de funciones psíquicas y alteraciones en la relación entre pensamiento, afectividad y conducta.",
     "comparacion": "Una alucinación aislada no define un síndrome esquizofrénico; se considera el conjunto de manifestaciones y su evolución.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Una alucinación aislada no define un síndrome esquizofrénico; se considera el conjunto de manifestaciones y su evolución."
+    "caso": "Durante varias semanas, una persona presenta un discurso difícil de seguir, con asociaciones poco conectadas; además, refiere escuchar voces que otras personas no perciben y muestra cambios en su comportamiento habitual. ¿Qué síndrome del temario merece explorarse?",
+    "casoRespuesta": "El conjunto de manifestaciones hace necesario explorar un posible síndrome esquizofrénico, considerando organización del pensamiento, experiencias perceptivas, afectividad, conducta, evolución e impacto funcional. Ningún síntoma aislado confirma un diagnóstico."
   },
   "Síndrome delirante": {
     "titulo": "Convicción y contenido",
@@ -661,8 +661,8 @@
     "flashFrente": "¿Qué debes recordar de «Síndrome delirante»?",
     "flashReverso": "Predominan las ideas delirantes, con repercusión variable en la forma de interpretar el entorno y relacionarse.",
     "comparacion": "Se describen vivencias de influencia externa sobre el pensamiento, experiencias de robo del pensamiento, despersonalización o pseudoalucinaciones. La descripción de estas experiencias debe ser cuidadosa y no suponerse en una persona sin exploración clínica.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Se describen vivencias de influencia externa sobre el pensamiento, experiencias de robo del pensamiento, despersonalización o pseudoalucinaciones. La descripción de estas experiencias debe ser cuidadosa y no suponerse en una persona sin exploración clínica."
+    "caso": "Una persona sostiene con absoluta convicción que sus vecinos instalaron un dispositivo para transmitirle mensajes secretos. Mantiene esa creencia pese a que no encuentra pruebas que la respalden y organiza sus actividades en función de ella. ¿Qué fenómeno central debe investigarse?",
+    "casoRespuesta": "La situación describe una posible idea delirante, es decir, una creencia sostenida con gran convicción que no se modifica fácilmente ante evidencias contrarias y debe valorarse en su contexto cultural y clínico. El síndrome delirante requiere explorar el conjunto y la organización de estas ideas."
   },
   "Síndromes afectivos": {
     "titulo": "Tono emocional y actividad",
@@ -766,7 +766,7 @@
     "flashFrente": "¿Qué debes recordar de «Síndrome hipocondríaco»?",
     "flashReverso": "Preocupación intensa y persistente por la salud, vigilancia reiterada de sensaciones corporales y temor a padecer enfermedades graves.",
     "comparacion": "Interpretar sensaciones corporales menores como signos inequívocos de una enfermedad grave, pese a evaluaciones tranquilizadoras, puede orientar a este patrón de preocupación.",
-    "caso": "Situación de estudio: identifica el concepto principal al comparar sus manifestaciones con las alteraciones descritas en este tema.",
-    "casoRespuesta": "Clave para el análisis: Interpretar sensaciones corporales menores como signos inequívocos de una enfermedad grave, pese a evaluaciones tranquilizadoras, puede orientar a este patrón de preocupación."
+    "caso": "Una persona consulta repetidamente por temor a padecer una enfermedad grave. Interpreta sensaciones corporales habituales como señales de peligro, continúa preocupada incluso después de recibir explicaciones médicas y dedica gran parte del día a revisar su cuerpo. ¿Qué patrón del temario debe explorarse?",
+    "casoRespuesta": "El caso orienta a una preocupación persistente por la salud, característica del síndrome hipocondríaco descrito en el temario. Se debe valorar la intensidad de la preocupación, el sufrimiento, las conductas de comprobación y la interferencia en la vida cotidiana, sin asumir un diagnóstico solo por esta viñeta."
   }
 }
